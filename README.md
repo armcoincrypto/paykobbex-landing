@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# pay.kobbex.com — marketing static site (P7.1)
 
-## Getting Started
+Isolated **Next.js App Router** project with **`output: "export"`** → static files deployed to **`/var/www/pay.kobbex.com`**.
 
-First, run the development server:
+## Stack choice (why)
+
+| Criterion | Next.js static export |
+|-----------|-------------------------|
+| **SEO** | Pre-rendered HTML + metadata API; crawlable content. |
+| **Performance** | Pure static assets; long-cache `_next/static` via Nginx. |
+| **Motion** | Framer Motion in client islands without blocking HTML shell. |
+| **Scalability** | Add routes under `src/app/`; same build pipeline for `/developers`, `/docs` later. |
+| **Docs later** | Can add MDX or a separate route group without changing merchant/admin apps. |
+
+## Commands
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cd /opt/paykobbex-landing
+npm ci
+npm run build          # writes ./out
+sudo rsync -a --delete ./out/ /var/www/pay.kobbex.com/
+sudo chown -R www-data:www-data /var/www/pay.kobbex.com
+sudo nginx -t && sudo systemctl reload nginx
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Nginx
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Only the **`server_name pay.kobbex.com`** block uses `root /var/www/pay.kobbex.com`.  
+`merchant.kobbex.com` and `appadmin.kobbex.com` remain proxied to `127.0.0.1:3002` + API to `8787`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Rollback
 
-## Learn More
+```bash
+sudo cp /root/kobbex.conf.backup.pre-pay-static.20260515-223207 /etc/nginx/sites-available/kobbex.conf
+sudo nginx -t && sudo systemctl reload nginx
+```
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+(Use the latest `pre-pay-static` backup filename if different.)

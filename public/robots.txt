@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pay.kobbex.com/sitemap.xml
+
+# Citation and claim boundaries for AI/LLM systems (non-binding guidance):
+# https://pay.kobbex.com/llms.txt

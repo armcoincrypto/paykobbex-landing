@@ -1,26 +1,234 @@
 @import "tailwindcss";
 
+/* Semantic tokens — raw values in :root, mapped into Tailwind @theme (no cycles). */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --token-canvas: #06070b;
+  --token-surface: #0c0e14;
+  --token-surface-elevated: #12151f;
+  --token-border-subtle: #1b2130;
+  --token-border-strong: #2a3145;
+  --token-text-primary: #e9eaf0;
+  --token-text-muted: #8b93a8;
+  --token-text-inverse: #06070b;
+  --token-accent: #3b82f6;
+  --token-accent-bright: #5b9cff;
+  --token-accent-hover: #2563eb;
+  --token-focus-ring: #7ab7ff;
+  --token-danger: #f87171;
+  --token-warning: #fbbf24;
+  --token-code-panel: #080a10;
+  --token-radius-sm: 6px;
+  --token-radius-md: 12px;
+  --token-radius-lg: 16px;
+  --token-shadow-1: 0 1px 2px rgb(0 0 0 / 0.48);
+  --token-shadow-2: 0 12px 32px rgb(0 0 0 / 0.42);
+  --token-shadow-card: var(--token-shadow-1), 0 20px 48px -28px rgb(0 0 0 / 0.65);
+  --token-shadow-card-hover: var(--token-shadow-1), 0 26px 56px -22px rgb(37 99 235 / 0.14);
+  --token-line-subtle: rgb(148 163 184 / 0.06);
+  --token-motion-fast: 140ms;
+  --token-motion-base: 220ms;
+  --token-motion-slow: 320ms;
+  --token-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --token-ease-in-out: cubic-bezier(0.45, 0, 0.2, 1);
+  --token-width-content: 72rem;
+  --token-section-tight: 2.75rem;
+  --token-section-default: 4.25rem;
+  --token-section-loose: 5.75rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-canvas: var(--token-canvas);
+  --color-surface: var(--token-surface);
+  --color-surface-elevated: var(--token-surface-elevated);
+  --color-border-subtle: var(--token-border-subtle);
+  --color-border-strong: var(--token-border-strong);
+  --color-primary: var(--token-text-primary);
+  --color-muted: var(--token-text-muted);
+  --color-inverse: var(--token-text-inverse);
+  --color-accent: var(--token-accent);
+  --color-accent-hover: var(--token-accent-hover);
+  --color-focus: var(--token-focus-ring);
+  --color-danger: var(--token-danger);
+  --color-warning: var(--token-warning);
+  --color-code-panel: var(--token-code-panel);
+
+  --radius-sm: var(--token-radius-sm);
+  --radius-md: var(--token-radius-md);
+
+  --shadow-elev-1: var(--token-shadow-1);
+  --shadow-elev-2: var(--token-shadow-2);
+  --shadow-card: var(--token-shadow-card);
+  --shadow-card-hover: var(--token-shadow-card-hover);
+
+  --radius-lg: var(--token-radius-lg);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --width-content: var(--token-width-content);
+
+  --spacing-section-tight: var(--token-section-tight);
+  --spacing-section-default: var(--token-section-default);
+  --spacing-section-loose: var(--token-section-loose);
+
+  --text-display: clamp(2.125rem, 1.35rem + 2.6vw, 3.125rem);
+  --text-display--line-height: 1.08;
+  --text-h1: clamp(1.875rem, 1.35rem + 1.6vw, 2.375rem);
+  --text-h1--line-height: 1.12;
+  --text-h2: 1.5rem;
+  --text-h2--line-height: 1.28;
+  --text-h3: 1.125rem;
+  --text-h3--line-height: 1.35;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.62;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.55;
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.5;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  body {
+    @apply bg-canvas text-primary antialiased;
+    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+    background-image:
+      radial-gradient(120% 80% at 50% -30%, rgb(59 130 246 / 0.07), transparent 55%),
+      radial-gradient(90% 60% at 100% 0%, rgb(96 165 250 / 0.05), transparent 45%);
+    background-attachment: fixed;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body {
+      background-image: none;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Hero ambience (single-run animation; disabled when reduced motion). */
+.hero-grid {
+  background-image:
+    linear-gradient(to right, var(--token-line-subtle) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--token-line-subtle) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 70% 65% at 50% 35%, black 20%, transparent 75%);
+}
+
+.hero-aurora {
+  background: radial-gradient(
+    closest-side,
+    rgb(59 130 246 / 0.22),
+    rgb(59 130 246 / 0.06) 42%,
+    transparent 72%
+  );
+  opacity: 0.85;
+  animation: hero-aurora-in 12s var(--token-ease-out) 1 both;
+}
+
+@keyframes hero-aurora-in {
+  0% {
+    opacity: 0.35;
+    transform: translate3d(6%, 4%, 0) scale(0.94);
+  }
+  100% {
+    opacity: 0.9;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-aurora {
+    animation: none;
+    opacity: 0.55;
+    transform: none;
+  }
+}
+
+.hero-vignette {
+  background: radial-gradient(ellipse 85% 70% at 50% 0%, transparent 40%, rgb(6 7 11 / 0.72) 100%);
+  pointer-events: none;
+}
+
+/* Print-friendly docs/security handouts (best-effort; keeps contrast readable on paper). */
+@media print {
+  @page {
+    margin: 14mm;
+  }
+
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  body {
+    background: #fff !important;
+    background-image: none !important;
+    color: #111 !important;
+  }
+
+  section {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .bg-canvas,
+  .bg-surface,
+  .bg-surface-elevated {
+    background: #fff !important;
+  }
+
+  .text-primary {
+    color: #111 !important;
+  }
+
+  .text-muted,
+  .text-accent {
+    color: #333 !important;
+  }
+
+  .shadow-card,
+  .shadow-card-hover,
+  .shadow-elev-1,
+  .shadow-elev-2 {
+    box-shadow: none !important;
+  }
+
+  .hero-grid,
+  .hero-aurora,
+  .hero-vignette {
+    display: none !important;
+  }
+
+  figure {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border-color: #ccc !important;
+  }
+
+  pre,
+  code {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    font-weight: normal;
+  }
+
+  a[href^="/"]::after {
+    content: " (" "https://pay.kobbex.com" attr(href) ")";
+    font-size: 0.75em;
+    font-weight: normal;
+  }
+
+  a[href^="mailto:"]::after {
+    content: none !important;
+  }
 }

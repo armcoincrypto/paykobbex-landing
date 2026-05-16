@@ -1,103 +1,375 @@
-import Image from "next/image";
+import type { Metadata } from "next";
+import { HeroBackdrop } from "@/components/landing/HeroBackdrop";
+import { ArchitectureDiagram } from "@/components/diagrams/ArchitectureDiagram";
+import { Card } from "@/components/primitives/Card";
+import { Container } from "@/components/primitives/Container";
+import { CTAGroup } from "@/components/primitives/CTAGroup";
+import { Link } from "@/components/primitives/link";
+import { Section } from "@/components/primitives/Section";
+import { JsonLd } from "@/components/seo/JsonLd";
+import {
+  ForTechnicalTeamsSection,
+  IntegrationExpectationsSection,
+  OperationalPrinciplesSection,
+  SecurityReviewFriendlySection,
+  WhyTeamsChooseSection,
+} from "@/components/trust";
+import { OG_IMAGES, OG_IMAGE, SITE_URL } from "@/lib/site";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "B2B crypto payment infrastructure",
+  description:
+    "Kobbopay: operational principles for B2B crypto payments—explicit lifecycles, signed webhooks, merchant approval, selected rails, and server-side integrations. No fake certifications on this marketing site.",
+  alternates: { canonical: `${SITE_URL}/` },
+  openGraph: {
+    title: "Kobbopay — B2B crypto payment infrastructure",
+    description:
+      "Operational principles for B2B crypto payments: explicit lifecycles, signed webhooks, merchant approval, selected rails, and server-side integrations—honest public positioning.",
+    url: `${SITE_URL}/`,
+    type: "website",
+    images: [...OG_IMAGES],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kobbopay — B2B crypto payment infrastructure",
+    description:
+      "Explicit lifecycles, signed webhooks, merchant approval, and selected rails—integration-first positioning without marketing certifications on this site.",
+    images: [OG_IMAGE.url],
+  },
+};
+
+const trustChips = [
+  "Merchant approval required",
+  "Selected rails (where enabled)",
+  "Signed webhook lifecycle",
+  "Explicit payment states",
+  "No license or audit claims on this site",
+];
+
+const faqItems: Array<{ q: string; a: string }> = [
+  {
+    q: "Is merchant access instant?",
+    a: "No. Merchant access is subject to approval and environment configuration. This is intentional risk management, not a broken signup flow.",
+  },
+  {
+    q: "Do you support every chain and token?",
+    a: "No. Kobbopay operates on selected crypto rails and must be enabled for your environment. We do not publish open-ended multi-asset inventory or coverage claims on this marketing site.",
+  },
+  {
+    q: "Are payouts fully automated?",
+    a: "Merchants initiate withdrawal requests. Execution is subject to operational controls and configuration. Do not assume universal instant on-chain settlement.",
+  },
+  {
+    q: "Where should API keys live?",
+    a: "Only on your servers. Never in browsers, mobile apps, public repos, or support tickets.",
+  },
+];
+
+const orgJson = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Kobbopay",
+  url: SITE_URL,
+  description:
+    "B2B crypto payment infrastructure with explicit operational principles: signed webhooks, explicit lifecycles, merchant approval, selected rails, and server-side integrations—without marketing certifications on this site.",
+  logo: {
+    "@type": "ImageObject",
+    url: `${SITE_URL}/og.png`,
+  },
+};
+
+const faqJson = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.a,
+    },
+  })),
+};
+
+const appJson = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Kobbopay",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  description:
+    "Kobbopay software for merchants: explicit lifecycles, signed webhooks, merchant approval, selected rails, and operational clarity—honest public positioning without fake certifications.",
+  url: SITE_URL,
+  image: `${SITE_URL}/og.png`,
+};
+
+export default function HomePage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <>
+      <JsonLd id="ld-json-org" data={orgJson} />
+      <JsonLd id="ld-json-faq" data={faqJson} />
+      <JsonLd id="ld-json-app" data={appJson} />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+      <Section
+        id="hero"
+        tone="default"
+        className="relative overflow-hidden pb-14 pt-12 sm:pb-[var(--token-section-tight)] sm:pt-20"
+      >
+        <HeroBackdrop />
+        <Container className="relative z-10">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+            B2B crypto payments
+          </p>
+          <h1 className="mt-4 max-w-[22ch] text-balance text-display font-semibold tracking-tight text-primary sm:max-w-3xl">
+            API-first crypto payment infrastructure for serious merchants
+          </h1>
+          <p className="mt-5 max-w-3xl text-body text-muted">
+            Kobbopay is API-first B2B crypto payment infrastructure with signed webhooks, explicit
+            payment lifecycles, and a merchant portal for operations — after merchant approval, on
+            selected rails where enabled.
+          </p>
+          <CTAGroup className="mt-9">
+            <Link
+              href="/contact#merchant-intake"
+              variant="button-primary"
+              className="no-underline"
+              conv="request_access_click"
+            >
+              Request access
+            </Link>
+            <Link href="/docs" variant="button-secondary" className="no-underline">
+              Integration docs
+            </Link>
+          </CTAGroup>
+          <p className="mt-5 text-sm text-muted">
+            Merchant portal:{" "}
+            <Link href="https://merchant.kobbex.com/" conv="merchant_login_click">
+              merchant.kobbex.com
+            </Link>{" "}
+            ·{" "}
+            <Link href="/login" conv="merchant_login_click">
+              Merchant login
+            </Link>
+          </p>
+        </Container>
+      </Section>
+
+      <Section tone="muted" className="py-10 sm:py-14">
+        <Container>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+            Trust boundaries
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2 sm:gap-2.5">
+            {trustChips.map((label) => (
+              <span
+                key={label}
+                className="rounded-full border border-border-subtle/90 bg-surface-elevated/90 px-3.5 py-1.5 text-xs font-medium text-muted shadow-elev-1 ring-1 ring-inset ring-white/[0.04] backdrop-blur-sm"
+              >
+                {label}
+              </span>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      <OperationalPrinciplesSection />
+
+      <Section id="how-it-works" tone="default">
+        <Container>
+          <h2 id="home-heading-how-it-works" className="text-h2 font-semibold text-primary">
+            How it works
+          </h2>
+          <ArchitectureDiagram
+            variant="compact"
+            className="mt-6"
+            diagramLabelledBy="home-heading-how-it-works"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          <ol className="mt-6 list-decimal space-y-3 pl-5 text-sm text-muted sm:text-body">
+            <li>
+              <strong className="text-primary">Create a payment</strong> from your backend using a
+              server-side API key.
+            </li>
+            <li>
+              <strong className="text-primary">Your customer pays on-chain</strong> to the payment
+              path returned by the API, on a rail that is enabled for your environment.
+            </li>
+            <li>
+              <strong className="text-primary">Track lifecycle states</strong> with explicit
+              semantics (for example: <strong className="text-primary">Pending</strong>,{" "}
+              <strong className="text-primary">Paid</strong>, and{" "}
+              <strong className="text-primary">Confirmed</strong>, plus{" "}
+              <strong className="text-primary">Expired</strong> as a terminal branch), aligned to your
+              reconciliation rules.
+            </li>
+            <li>
+              <strong className="text-primary">Automate with signed webhooks</strong> and verify
+              signatures using the raw request body.
+            </li>
+            <li>
+              <strong className="text-primary">Operate in the merchant portal</strong> for day-to-day
+              visibility and configuration appropriate to your deployment.
+            </li>
+          </ol>
+          <p className="mt-6 text-sm text-muted">
+            Details: <Link href="/features">Features</Link> ·{" "}
+            <Link href="/docs">Docs</Link>
+            {" · "}
+            <Link href="/guides">Guides</Link>
+            {" · "}
+            <Link href="/glossary">Glossary</Link>
+          </p>
+        </Container>
+      </Section>
+
+      <IntegrationExpectationsSection />
+
+      <Section id="api-payments" tone="muted">
+        <Container>
+          <h2 className="text-h2 font-semibold text-primary">API payments</h2>
+          <p className="mt-3 max-w-3xl text-sm text-muted sm:text-body">
+            Integrations are server-to-server. API keys must remain on your infrastructure and rotate
+            on your policy — Kobbopay is not a substitute for your own secret management and code
+            review practices.
+          </p>
+        </Container>
+      </Section>
+
+      <Section id="webhooks" tone="default">
+        <Container>
+          <h2 className="text-h2 font-semibold text-primary">Signed webhooks</h2>
+          <p className="mt-3 max-w-3xl text-sm text-muted sm:text-body">
+            Webhooks carry payment lifecycle events your systems can act on. Treat verification as
+            part of your threat model: validate signatures, use raw body bytes, and build idempotent
+            handlers for retries.
+          </p>
+          <p className="mt-4 text-sm">
+            <Link href="/docs">Read the integration docs</Link>
+          </p>
+        </Container>
+      </Section>
+
+      <Section id="merchant-portal" tone="muted">
+        <Container>
+          <h2 className="text-h2 font-semibold text-primary">Merchant portal</h2>
+          <p className="mt-3 max-w-3xl text-sm text-muted sm:text-body">
+            The merchant portal is where teams manage operational work: payments visibility, keys
+            and webhook configuration, and other controls exposed for your deployment — after access
+            is approved.
+          </p>
+          <p className="mt-4 text-sm">
+            <Link href="https://merchant.kobbex.com/" conv="merchant_login_click">
+              Open merchant.kobbex.com
+            </Link>
+          </p>
+        </Container>
+      </Section>
+
+      <Section id="balances" tone="default">
+        <Container>
+          <h2 className="text-h2 font-semibold text-primary">Balances and reconciliation</h2>
+          <p className="mt-3 max-w-3xl text-sm text-muted sm:text-body">
+            Balances are described in ledger-oriented terms tied to confirmation semantics. Your
+            finance team should map statuses to internal accounting rules — we do not publish a
+            public fee percentage on this marketing site unless commercially approved for your
+            segment.
+          </p>
+        </Container>
+      </Section>
+
+      <Section id="withdrawals" tone="muted">
+        <Container>
+          <h2 className="text-h2 font-semibold text-primary">Withdrawal requests</h2>
+          <p className="mt-3 max-w-3xl text-sm text-muted sm:text-body">
+            Merchants initiate withdrawal requests. Processing is subject to operational controls and
+            configuration. This is presented as risk management and operational clarity — not as
+            hidden friction.
+          </p>
+        </Container>
+      </Section>
+
+      <Section id="rails" tone="default">
+        <Container>
+          <h2 className="text-h2 font-semibold text-primary">Selected crypto rails</h2>
+          <p className="mt-3 max-w-3xl text-sm text-muted sm:text-body">
+            Enabled networks and assets depend on your environment and operational setup. We avoid
+            speculative multi-asset inventory claims or unverified global coverage statements on
+            this site.
+          </p>
+        </Container>
+      </Section>
+
+      <Section id="security-practices" tone="muted">
+        <Container>
+          <h2 className="text-h2 font-semibold text-primary">Security practices</h2>
+          <p className="mt-3 max-w-3xl text-sm text-muted sm:text-body">
+            Kobbopay emphasizes practical controls: 2FA for sensitive merchant actions where
+            enabled, signed webhooks, encrypted API key material at rest, and operational boundaries
+            aligned to how funds move. We do not claim “bank-grade” security or unverified audits on
+            this site.
+          </p>
+          <p className="mt-4 text-sm">
+            <Link href="/security">Read the security page</Link>
+          </p>
+        </Container>
+      </Section>
+
+      <SecurityReviewFriendlySection />
+
+      <Section id="use-cases" tone="default">
+        <Container>
+          <h2 className="text-h2 font-semibold text-primary">Use cases</h2>
+          <p className="mt-3 max-w-3xl text-sm text-muted sm:text-body">
+            Common patterns include invoicing, wallet top-ups, SaaS billing, and marketplace flows —
+            where permitted by law and your agreements. Your compliance posture remains your
+            responsibility.
+          </p>
+          <p className="mt-4 text-sm">
+            <Link href="/use-cases">Explore use cases</Link>
+          </p>
+        </Container>
+      </Section>
+
+      <WhyTeamsChooseSection />
+
+      <ForTechnicalTeamsSection />
+
+      <Section id="faq" tone="muted">
+        <Container>
+          <h2 className="text-h2 font-semibold text-primary">FAQ</h2>
+          <div className="mt-6 space-y-4">
+            {faqItems.map((item) => (
+              <Card key={item.q} interactive>
+                <h3 className="text-h3 font-semibold text-primary">{item.q}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{item.a}</p>
+              </Card>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      <Section id="contact" tone="default" className="pb-[var(--token-section-loose)]">
+        <Container>
+          <h2 className="text-h2 font-semibold text-primary">Request access</h2>
+          <p className="mt-3 max-w-2xl text-sm text-muted sm:text-body">
+            Tell us what you are building. Legitimate teams never need your seed phrase, private
+            keys, API keys, webhook secrets, wallet access credentials, or remote access to your
+            wallets — and neither do we.
+          </p>
+          <CTAGroup className="mt-6">
+            <Link
+              href="/contact#merchant-intake"
+              variant="button-primary"
+              className="no-underline"
+              conv="request_access_click"
+            >
+              Request access
+            </Link>
+            <Link href="/pricing" variant="button-secondary" className="no-underline">
+              Pricing
+            </Link>
+          </CTAGroup>
+        </Container>
+      </Section>
+    </>
   );
 }
