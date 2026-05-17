@@ -62,9 +62,20 @@ export function InfrastructureOperationsSection() {
               label="Lifecycle lane"
               sublabel="State transitions (conceptual)"
               labelledBy={headingId}
-              className="ops-instrument-surface"
+              className="ops-instrument-surface ops-telemetry-surface"
             >
               <LifecycleLaneInstrument className="mb-2" />
+              <div className="ops-telemetry-footer" aria-hidden="true">
+                <span className="ops-telemetry-chip ops-telemetry-chip--signal">
+                  <span className="ops-telemetry-led ops-telemetry-led--signal" />
+                  SERVER-SIDE
+                </span>
+                <span className="ops-telemetry-chip ops-telemetry-chip--verified">
+                  <span className="ops-telemetry-led ops-telemetry-led--verified" />
+                  IDEMPOTENT
+                </span>
+                <span className="ops-telemetry-meta">State semantics · conceptual</span>
+              </div>
               <ul className="mt-4 list-disc space-y-1.5 pl-4 text-xs leading-relaxed text-muted">
                 <li>
                   <strong className="text-primary">Pending</strong> — created / awaiting detection.
@@ -86,7 +97,7 @@ export function InfrastructureOperationsSection() {
             <VerificationFramePanel
               label="Confirmation depth"
               sublabel="Settlement visibility"
-              className="ops-instrument-surface"
+              className="ops-instrument-surface ops-telemetry-surface"
             >
               <ConfirmationDepthStack />
               <p className="mt-10 text-xs leading-relaxed text-muted">
@@ -101,7 +112,10 @@ export function InfrastructureOperationsSection() {
           </article>
 
           <article className="proof-bento-review">
-            <MerchantReviewPipeline labelledBy={headingId} className="ops-instrument-surface" />
+            <MerchantReviewPipeline
+              labelledBy={headingId}
+              className="ops-instrument-surface ops-telemetry-surface"
+            />
           </article>
         </div>
 

@@ -6,6 +6,12 @@ import { cn } from "@/lib/cn";
 
 const primary: StatePillLabel[] = ["Pending", "Paid", "Confirmed"];
 
+const nodeTelemetry = [
+  { tag: "POLICY", tone: "policy" as const },
+  { tag: "SIGNAL", tone: "signal" as const },
+  { tag: "VERIFIED", tone: "verified" as const },
+];
+
 /**
  * Horizontal lifecycle lane — SVG operational rails with calm signal motion.
  * Conceptual states only; not live merchant data.
@@ -15,12 +21,15 @@ export function LifecycleLaneInstrument({
   compact = false,
   animate = true,
   interactive,
+  showTelemetry = true,
 }: {
   className?: string;
   compact?: boolean;
   animate?: boolean;
   /** Hover/focus hot states; defaults to animate. Set false for decorative hero rails. */
   interactive?: boolean;
+  /** Mono telemetry bar above lane (conceptual labels only). */
+  showTelemetry?: boolean;
 }) {
   const [hovered, setHovered] = useState<number | null>(null);
   const isInteractive = interactive ?? animate;
@@ -34,6 +43,21 @@ export function LifecycleLaneInstrument({
       )}
       aria-hidden="true"
     >
+      {showTelemetry ? (
+        <div className="ops-telemetry-bar">
+          <span className="ops-telemetry-meta">Explicit state lane · conceptual</span>
+          <span className="ops-telemetry-chip-row">
+            <span className="ops-telemetry-chip ops-telemetry-chip--policy">
+              <span className="ops-telemetry-led ops-telemetry-led--policy" />
+              POLICY
+            </span>
+            <span className="ops-telemetry-chip ops-telemetry-chip--verified">
+              <span className="ops-telemetry-led ops-telemetry-led--verified" />
+              VERIFIED
+            </span>
+          </span>
+        </div>
+      ) : null}
       <svg
         className="lifecycle-lane-rail-svg"
         viewBox="0 0 100 20"
@@ -89,6 +113,20 @@ export function LifecycleLaneInstrument({
                 )}
               />
               <StatePill label={label} className={compact ? "scale-[0.92]" : undefined} />
+              <span
+                className={cn(
+                  "ops-telemetry-node-tag ops-telemetry-chip",
+                  `ops-telemetry-chip--${nodeTelemetry[i].tone}`,
+                )}
+              >
+                <span
+                  className={cn(
+                    "ops-telemetry-led",
+                    `ops-telemetry-led--${nodeTelemetry[i].tone}`,
+                  )}
+                />
+                {nodeTelemetry[i].tag}
+              </span>
             </li>
           );
         })}
@@ -96,6 +134,10 @@ export function LifecycleLaneInstrument({
       <div className="lifecycle-lane-branch flex flex-wrap items-center gap-1.5">
         <span>Branch:</span>
         <StatePill label="Expired" className="inline-flex scale-[0.88]" />
+        <span className="ops-telemetry-chip ops-telemetry-chip--policy">
+          <span className="ops-telemetry-led ops-telemetry-led--policy" />
+          POLICY
+        </span>
       </div>
     </div>
   );
