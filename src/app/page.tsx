@@ -7,19 +7,8 @@ import { CTAGroup } from "@/components/primitives/CTAGroup";
 import { Link } from "@/components/primitives/link";
 import { Section } from "@/components/primitives/Section";
 import { JsonLd } from "@/components/seo/JsonLd";
-import {
-  HeroOperationalInstrument,
-  HowTeamsOperateSection,
-  InfrastructureOperationsSection,
-} from "@/components/proof";
+import { HeroOperationalInstrument, InfrastructureOperationsSection } from "@/components/proof";
 import { OperationalRealismEntry } from "@/components/realism";
-import {
-  ForTechnicalTeamsSection,
-  IntegrationExpectationsSection,
-  OperationalPrinciplesSection,
-  SecurityReviewFriendlySection,
-  WhyTeamsChooseSection,
-} from "@/components/trust";
 import { OG_IMAGES, OG_IMAGE, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -165,7 +154,7 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      <Section tone="muted" className="py-10 sm:py-14">
+      <Section tone="muted" className="py-8 sm:py-10">
         <Container>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
             Trust boundaries
@@ -184,8 +173,6 @@ export default function HomePage() {
       </Section>
 
       <InfrastructureOperationsSection />
-
-      <OperationalPrinciplesSection />
 
       <Section id="how-it-works" tone="default">
         <Container>
@@ -224,8 +211,7 @@ export default function HomePage() {
             </li>
           </ol>
           <p className="mt-6 text-sm text-muted">
-            Details: <Link href="/features">Features</Link> ·{" "}
-            <Link href="/docs">Docs</Link>
+            Details: <Link href="/features">Features</Link> · <Link href="/docs">Docs</Link>
             {" · "}
             <Link href="/guides">Guides</Link>
             {" · "}
@@ -234,48 +220,76 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      <HowTeamsOperateSection />
-
       <OperationalRealismEntry />
 
-      <IntegrationExpectationsSection />
-
-      <Section id="security-practices" tone="default">
-        <Container>
-          <h2 className="text-h2 font-semibold text-primary">Security practices</h2>
-          <p className="mt-3 max-w-3xl text-sm text-muted sm:text-body">
-            Kobbopay emphasizes practical controls: 2FA for sensitive merchant actions where
-            enabled, signed webhooks, encrypted API key material at rest, and operational boundaries
-            aligned to how funds move. We do not claim “bank-grade” security or unverified audits on
-            this site.
+      <Section id="integration-and-security" tone="default" className="proof-section">
+        <Container className="max-w-3xl">
+          <h2 className="text-h2 font-semibold text-primary">
+            Integration expectations &amp; security
+          </h2>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted sm:text-body">
+            Serious integrations assume server-side secrets, verifiable webhooks, and honest
+            operational boundaries. For authoritative behavior, your merchant agreement and
+            environment configuration remain the source of truth.
           </p>
-          <p className="mt-4 text-sm">
-            <Link href="/security">Read the security page</Link>
+          <div className="mt-8 grid gap-8 sm:grid-cols-2 sm:gap-10">
+            <div>
+              <h3 className="text-h3 font-semibold text-primary">Before production traffic</h3>
+              <ul className="mt-4 list-disc space-y-2.5 pl-5 text-sm leading-relaxed text-muted">
+                <li>
+                  <strong className="text-primary">Server-to-server only:</strong> API keys on your
+                  backend; checkout calls your API—not browser-held payment secrets.
+                </li>
+                <li>
+                  <strong className="text-primary">Webhook verification:</strong> verify signatures on
+                  raw POST bodies, then apply idempotent updates; treat retries as normal.
+                </li>
+                <li>
+                  <strong className="text-primary">Reconciliation ownership:</strong> map lifecycle
+                  states to orders and accounting; marketing copy is conceptual, not your enum spec.
+                </li>
+                <li>
+                  <strong className="text-primary">Merchant-owned secrets:</strong> you control
+                  rotation, storage, and blast radius—Kobbopay does not replace your vault or IR
+                  program.
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-h3 font-semibold text-primary">Security boundaries</h3>
+              <ul className="mt-4 list-disc space-y-2.5 pl-5 text-sm leading-relaxed text-muted">
+                <li>
+                  <strong className="text-primary">Practical controls:</strong> signed webhooks, 2FA
+                  for sensitive merchant actions where enabled, and encrypted API key material at
+                  rest.
+                </li>
+                <li>
+                  <strong className="text-primary">Operational controls:</strong> merchant approval,
+                  selected rails, and withdrawal requests subject to configuration—not universal
+                  instant settlement.
+                </li>
+                <li>
+                  <strong className="text-primary">No overclaiming:</strong> no SOC 2, ISO 27001,
+                  “bank-grade,” “audited,” or “guaranteed settlement” claims on this marketing site.
+                </li>
+              </ul>
+            </div>
+          </div>
+          <p className="mt-8 text-sm text-muted">
+            <Link href="/docs">Integration docs</Link>
+            {" · "}
+            <Link href="/docs#webhook-verification">Webhook verification</Link>
+            {" · "}
+            <Link href="/security">Security practices</Link>
+            {" · "}
+            <Link href="/developers">Developers</Link>
+            {" · "}
+            <Link href="/use-cases">Use cases</Link>
           </p>
         </Container>
       </Section>
 
-      <SecurityReviewFriendlySection />
-
-      <Section id="use-cases" tone="default">
-        <Container>
-          <h2 className="text-h2 font-semibold text-primary">Use cases</h2>
-          <p className="mt-3 max-w-3xl text-sm text-muted sm:text-body">
-            Common patterns include invoicing, wallet top-ups, SaaS billing, and marketplace flows —
-            where permitted by law and your agreements. Your compliance posture remains your
-            responsibility.
-          </p>
-          <p className="mt-4 text-sm">
-            <Link href="/use-cases">Explore use cases</Link>
-          </p>
-        </Container>
-      </Section>
-
-      <WhyTeamsChooseSection />
-
-      <ForTechnicalTeamsSection />
-
-      <Section id="faq" tone="muted">
+      <Section id="faq" tone="default">
         <Container>
           <h2 className="text-h2 font-semibold text-primary">FAQ</h2>
           <div className="mt-6 space-y-4">
@@ -289,7 +303,7 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      <Section id="contact" tone="default" className="pb-[var(--token-section-loose)]">
+      <Section id="contact" tone="muted" className="pb-[var(--token-section-loose)]">
         <Container>
           <h2 className="text-h2 font-semibold text-primary">Request access</h2>
           <p className="mt-3 max-w-2xl text-sm text-muted sm:text-body">
