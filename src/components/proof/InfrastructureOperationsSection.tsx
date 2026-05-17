@@ -8,15 +8,8 @@ import { ReconciliationInspectZone } from "@/components/proof/ReconciliationInsp
 import { LifecycleLaneInstrument } from "@/components/proof/LifecycleLaneInstrument";
 import { MerchantReviewPipeline } from "@/components/proof/MerchantReviewPipeline";
 import { VerificationFramePanel } from "@/components/proof/VerificationFramePanel";
-import { InfrastructureStoryRail } from "@/components/proof/InfrastructureStoryRail";
-import { OpsCredibilityContext } from "@/components/proof/OpsCredibilityContext";
 import { OpsEcosystemGuidance } from "@/components/proof/OpsEcosystemGuidance";
 import { OpsEnvironmentProgression } from "@/components/proof/OpsEnvironmentProgression";
-import { OpsGovernancePrinciples } from "@/components/proof/OpsGovernancePrinciples";
-import { OpsJourneyGuidance } from "@/components/proof/OpsJourneyGuidance";
-import { OpsOrchestrationPrinciples } from "@/components/proof/OpsOrchestrationPrinciples";
-import { OpsReadinessRail } from "@/components/proof/OpsReadinessRail";
-import { OpsWorkflowCoordination } from "@/components/proof/OpsWorkflowCoordination";
 import { WebhookPropagationStrip } from "@/components/proof/WebhookPropagationStrip";
 
 const operations: Array<{ title: string; body: string; zone?: "reconcile" }> = [
@@ -71,20 +64,11 @@ export function InfrastructureOperationsSection() {
           Kobbopay is designed as visible infrastructure: explicit lifecycles, signed webhooks,
           merchant review gates, and operational boundaries you can map to your own controls. The
           visuals below are conceptual instrumentation — not live dashboards, metrics, or client
-          logos. Governance below is procedural and conceptual — not live monitoring or
-          certifications. Orchestration below describes ongoing workflows — not live
-          systems or activity feeds.
+          logos.
         </p>
 
-        <OpsOrchestrationPrinciples className="mt-6" />
-        <OpsEnvironmentProgression className="mt-5" />
-        <OpsWorkflowCoordination className="mt-5" />
-        <OpsGovernancePrinciples className="mt-6" />
-        <OpsCredibilityContext className="mt-4" />
+        <OpsEnvironmentProgression className="mt-6" />
         <OpsEcosystemGuidance className="mt-4" />
-        <InfrastructureStoryRail className="mt-8" />
-        <OpsReadinessRail className="mt-6" />
-        <OpsJourneyGuidance className="mt-6" />
 
         <div className="mt-12 proof-bento">
           <article className="proof-bento-lifecycle ops-route--settlement ops-journey-emphasis--finance ops-governance-surface ops-ecosystem-surface">
