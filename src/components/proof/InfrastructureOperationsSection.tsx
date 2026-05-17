@@ -7,7 +7,9 @@ import { ConfirmationDepthStack } from "@/components/proof/ConfirmationDepthStac
 import { LifecycleLaneInstrument } from "@/components/proof/LifecycleLaneInstrument";
 import { MerchantReviewPipeline } from "@/components/proof/MerchantReviewPipeline";
 import { VerificationFramePanel } from "@/components/proof/VerificationFramePanel";
-const operations: Array<{ title: string; body: string }> = [
+import { WebhookPropagationStrip } from "@/components/proof/WebhookPropagationStrip";
+
+const operations: Array<{ title: string; body: string; zone?: "reconcile" }> = [
   {
     title: "Lifecycle visibility",
     body: "Payments move through explicit states so engineering, finance, and support share vocabulary. Detected on-chain activity is not collapsed into “final” without your reconciliation rules.",
@@ -23,10 +25,12 @@ const operations: Array<{ title: string; body: string }> = [
   {
     title: "Confirmation semantics",
     body: "Paid and Confirmed mean different things. Map them to internal accounting and treasury controls—exact thresholds depend on enabled rails and your policy.",
+    zone: "reconcile",
   },
   {
     title: "Reconciliation flow",
     body: "Finance teams align ledger entries to lifecycle states and webhook events. This site does not publish fee percentages or settlement SLAs unless commercially approved for your segment.",
+    zone: "reconcile",
   },
   {
     title: "Withdrawal controls",
@@ -41,7 +45,11 @@ export function InfrastructureOperationsSection() {
   const headingId = "home-heading-infrastructure-operates";
 
   return (
-    <Section id="how-infrastructure-operates" tone="default" className="proof-section home-ops-follow">
+    <Section
+      id="how-infrastructure-operates"
+      tone="default"
+      className="proof-section home-ops-follow home-ops-deep"
+    >
       <Container>
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
           Operational systems
@@ -62,7 +70,7 @@ export function InfrastructureOperationsSection() {
               label="Lifecycle lane"
               sublabel="State transitions (conceptual)"
               labelledBy={headingId}
-              className="ops-instrument-surface ops-telemetry-surface ops-console-surface"
+              className="ops-instrument-surface ops-telemetry-surface ops-console-surface ops-console-deep"
             >
               <div className="ops-console-module ops-console-module--lane">
                 <header className="ops-console-module__header">
@@ -72,20 +80,20 @@ export function InfrastructureOperationsSection() {
                 <LifecycleLaneInstrument className="mb-0" />
               </div>
               <div className="ops-console-module__annotation">
-              <ul className="list-disc space-y-1.5 pl-4 text-xs leading-relaxed text-muted">
-                <li>
-                  <strong className="text-primary">Pending</strong> — created / awaiting detection.
-                </li>
-                <li>
-                  <strong className="text-primary">Paid</strong> — detected, not final for your books.
-                </li>
-                <li>
-                  <strong className="text-primary">Confirmed</strong> — policy + rail semantics met.
-                </li>
-                <li>
-                  <strong className="text-primary">Expired</strong> — terminal branch for the attempt.
-                </li>
-              </ul>
+                <ul className="list-disc space-y-1.5 pl-4 text-xs leading-relaxed text-muted">
+                  <li>
+                    <strong className="text-primary">Pending</strong> — created / awaiting detection.
+                  </li>
+                  <li>
+                    <strong className="text-primary">Paid</strong> — detected, not final for your books.
+                  </li>
+                  <li>
+                    <strong className="text-primary">Confirmed</strong> — policy + rail semantics met.
+                  </li>
+                  <li>
+                    <strong className="text-primary">Expired</strong> — terminal branch for the attempt.
+                  </li>
+                </ul>
               </div>
             </VerificationFramePanel>
           </article>
@@ -94,39 +102,89 @@ export function InfrastructureOperationsSection() {
             <VerificationFramePanel
               label="Confirmation depth"
               sublabel="Settlement visibility"
-              className="ops-instrument-surface ops-telemetry-surface"
+              className="ops-instrument-surface ops-telemetry-surface ops-console-surface ops-console-deep"
             >
-              <ConfirmationDepthStack />
-              <p className="mt-10 text-xs leading-relaxed text-muted">
+              <div className="ops-control-plane">
+                <header className="ops-console-module__header">
+                  <span className="ops-console-module__title">Settlement depth</span>
+                  <span className="ops-console-routing">POLICY · OWNERSHIP</span>
+                </header>
+                <div className="ops-control-plane__zone">
+                  <div className="ops-control-plane__ownership">
+                    <span className="ops-telemetry-chip ops-telemetry-chip--policy">
+                      <span className="ops-telemetry-led ops-telemetry-led--policy" />
+                      POLICY
+                    </span>
+                    <span className="ops-telemetry-chip ops-telemetry-chip--signal">
+                      <span className="ops-telemetry-led ops-telemetry-led--signal" />
+                      STATE
+                    </span>
+                    <span className="ops-telemetry-chip ops-telemetry-chip--verified">
+                      <span className="ops-telemetry-led ops-telemetry-led--verified" />
+                      VERIFIED
+                    </span>
+                  </div>
+                  <div className="ops-console-module__execution ops-console-module__execution--primary">
+                    <div className="ops-console-well">
+                      <ConfirmationDepthStack />
+                    </div>
+                  </div>
+                </div>
+                <footer className="ops-console-module__meta">
+                  <span className="ops-console-meta-tag">RAIL</span>
+                  <span className="ops-console-meta-tag">RECONCILE</span>
+                  <span>State ownership · conceptual</span>
+                </footer>
+              </div>
+              <p className="mt-6 text-xs leading-relaxed text-muted">
                 Depth reflects policy: what is detected, what is provisional, and what is final for
                 your books — not a single “paid” boolean.
               </p>
             </VerificationFramePanel>
           </aside>
 
-          <article className="proof-bento-webhook min-w-0 space-y-4">
-            <WebhookFlowDiagram variant="compact" diagramLabelledBy={headingId} />
+          <article className="proof-bento-webhook min-w-0">
+            <VerificationFramePanel
+              label="Webhook verification"
+              sublabel="Signed pipeline (conceptual)"
+              labelledBy={headingId}
+              className="ops-instrument-surface ops-telemetry-surface ops-console-surface ops-console-deep"
+            >
+              <div className="ops-console-module ops-console-module--pipeline">
+                <header className="ops-console-module__header">
+                  <span className="ops-console-module__title">Processing channel</span>
+                  <span className="ops-console-routing">INGRESS · VERIFY · EGRESS</span>
+                </header>
+                <WebhookPropagationStrip channelLayout />
+              </div>
+              <div className="ops-console-module__annotation mt-4">
+                <WebhookFlowDiagram variant="compact" diagramLabelledBy={headingId} settle={false} />
+              </div>
+            </VerificationFramePanel>
           </article>
 
           <article className="proof-bento-review">
             <MerchantReviewPipeline
               labelledBy={headingId}
-              className="ops-instrument-surface ops-telemetry-surface"
+              className="ops-instrument-surface ops-telemetry-surface ops-console-surface ops-console-deep"
             />
           </article>
         </div>
 
         <div className="proof-ops-split mt-14">
-          <div className="proof-editorial-rail space-y-6">
+          <div className="proof-editorial-rail ops-console-split-rail space-y-4">
             {operations.map((op, i) => (
-              <div key={op.title}>
+              <div key={op.title} data-ops-zone={op.zone}>
                 <p className="proof-workflow-index">{String(i + 1).padStart(2, "0")}</p>
+                {op.zone === "reconcile" ? (
+                  <span className="ops-console-routing">RECONCILE · POLICY</span>
+                ) : null}
                 <h3 className="mt-1 text-h3 font-semibold text-primary">{op.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{op.body}</p>
               </div>
             ))}
           </div>
-          <div className="min-w-0">
+          <div className="min-w-0 ops-console-plate">
             <VerificationBoundaryDiagram className="[&_h2]:text-h3 [&_h2]:mt-0" />
             <p className="mt-6 text-sm text-muted">
               Selected rails: networks and assets are enabled per merchant configuration.{" "}

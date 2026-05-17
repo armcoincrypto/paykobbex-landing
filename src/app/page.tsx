@@ -108,7 +108,7 @@ export default function HomePage() {
       <Section
         id="hero"
         tone="default"
-        className="home-hero home-hero--dominant relative overflow-hidden pb-12 pt-12 sm:pb-14 sm:pt-[5.25rem]"
+        className="home-hero home-hero--dominant home-section-bridge-out relative overflow-hidden pb-12 pt-12 sm:pb-14 sm:pt-[5.25rem]"
       >
         <HeroBackdrop />
         <Container className="relative z-10">
@@ -182,7 +182,7 @@ export default function HomePage() {
 
       <InfrastructureOperationsSection />
 
-      <Section id="how-it-works" tone="default">
+      <Section id="how-it-works" tone="default" className="home-section-after-ops">
         <Container>
           <h2 id="home-heading-how-it-works" className="text-h2 font-semibold text-primary">
             How it works
@@ -228,7 +228,7 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      <OperationalRealismEntry />
+      <OperationalRealismEntry className="home-section-bridge" />
 
       <Section
         id="integration-and-security"
@@ -326,19 +326,24 @@ export default function HomePage() {
             keys, API keys, webhook secrets, wallet access credentials, or remote access to your
             wallets — and neither do we.
           </p>
-          <CTAGroup className="mt-6">
-            <Link
-              href="/contact#merchant-intake"
-              variant="button-primary"
-              className="no-underline"
-              conv="request_access_click"
-            >
-              Request access
-            </Link>
-            <Link href="/pricing" variant="button-secondary" className="no-underline">
-              Pricing
-            </Link>
-          </CTAGroup>
+          <div className="ops-console-cta-strip mt-6">
+            <span className="ops-console-routing" aria-hidden="true">
+              GATE · REVIEW · ACCESS
+            </span>
+            <CTAGroup>
+              <Link
+                href="/contact#merchant-intake"
+                variant="button-primary"
+                className="no-underline"
+                conv="request_access_click"
+              >
+                Request access
+              </Link>
+              <Link href="/pricing" variant="button-secondary" className="no-underline">
+                Pricing
+              </Link>
+            </CTAGroup>
+          </div>
         </Container>
       </Section>
     </>

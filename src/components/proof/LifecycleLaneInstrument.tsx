@@ -148,7 +148,7 @@ export function LifecycleLaneInstrument({
             </div>
           </div>
           <div className="ops-console-module__execution ops-console-module__execution--primary">
-            {execution}
+            <div className="ops-console-well">{execution}</div>
           </div>
           <footer className="ops-console-module__meta">
             <span className="ops-console-meta-tag">STATE</span>

@@ -22,7 +22,7 @@ export function HeroOperationalInstrument({ className }: { className?: string })
       <VerificationFramePanel
         label="Operational sequence"
         sublabel="Conceptual instrumentation — not live data"
-        className="ops-instrument-surface hero-instrument-surface hero-instrument-console ops-telemetry-surface ops-console-surface"
+        className="ops-instrument-surface hero-instrument-surface hero-instrument-console ops-telemetry-surface ops-console-surface ops-console-deep"
       >
         <p className="sr-only">
           Conceptual diagram: payment lifecycle states Pending, Paid, and Confirmed with an Expired
@@ -46,7 +46,9 @@ export function HeroOperationalInstrument({ className }: { className?: string })
               </span>
             </div>
             <div className="ops-console-module__execution ops-console-module__execution--primary">
-              <LifecycleLaneInstrument compact animate interactive={false} showTelemetry={false} />
+              <div className="ops-console-well">
+                <LifecycleLaneInstrument compact animate interactive={false} showTelemetry={false} />
+              </div>
             </div>
             <footer className="ops-console-module__meta">
               <span className="ops-console-meta-tag">GATE</span>
@@ -71,7 +73,9 @@ export function HeroOperationalInstrument({ className }: { className?: string })
               </span>
             </div>
             <div className="ops-console-module__execution ops-console-module__execution--primary">
-              <WebhookPropagationStrip animate interactive={false} showTelemetry={false} />
+              <div className="ops-console-well ops-console-well--pipeline">
+                <WebhookPropagationStrip animate interactive={false} showTelemetry={false} />
+              </div>
             </div>
             <footer className="ops-console-module__meta">
               <span className="ops-console-meta-tag">SERVER-SIDE</span>
@@ -95,7 +99,8 @@ export function HeroOperationalInstrument({ className }: { className?: string })
                 POLICY
               </span>
             </div>
-            <div className="ops-console-module__execution">
+            <div className="ops-console-module__execution ops-console-module__execution--primary">
+              <div className="ops-console-well">
               <ol className="flex flex-wrap gap-2.5 list-none p-0 m-0">
                 {reviewCheckpoints.map((step, i) => (
                   <li
@@ -115,6 +120,7 @@ export function HeroOperationalInstrument({ className }: { className?: string })
                   </li>
                 ))}
               </ol>
+              </div>
             </div>
             <footer className="ops-console-module__meta">
               <span className="ops-console-meta-tag">GATE</span>
