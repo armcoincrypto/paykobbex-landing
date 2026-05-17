@@ -20,6 +20,14 @@ function ConnectorSvg({ segmentIndex }: { segmentIndex: number }) {
       focusable="false"
     >
       <line
+        className="webhook-ribbon-rail-depth"
+        x1="0"
+        y1="4"
+        x2="48"
+        y2="4"
+        vectorEffect="non-scaling-stroke"
+      />
+      <line
         className="webhook-ribbon-rail-base"
         x1="0"
         y1="4"

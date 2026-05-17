@@ -39,6 +39,11 @@ export function LifecycleLaneInstrument({
         focusable="false"
       >
         <path
+          className="lifecycle-lane-rail-depth"
+          d="M 6 7 H 94"
+          vectorEffect="non-scaling-stroke"
+        />
+        <path
           className="lifecycle-lane-rail-base"
           d="M 6 7 H 94"
           vectorEffect="non-scaling-stroke"
