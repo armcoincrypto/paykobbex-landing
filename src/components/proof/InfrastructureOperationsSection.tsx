@@ -49,7 +49,7 @@ export function InfrastructureOperationsSection() {
         <h2 id={headingId} className="mt-3 max-w-[28ch] text-h2 font-semibold text-primary">
           How infrastructure actually operates
         </h2>
-        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted sm:text-body">
+        <p className="mt-4 max-w-[40rem] text-sm leading-relaxed text-muted sm:text-body">
           Kobbopay is designed as visible infrastructure: explicit lifecycles, signed webhooks,
           merchant review gates, and operational boundaries you can map to your own controls. The
           visuals below are conceptual instrumentation — not live dashboards, metrics, or client
@@ -62,6 +62,7 @@ export function InfrastructureOperationsSection() {
               label="Lifecycle lane"
               sublabel="State transitions (conceptual)"
               labelledBy={headingId}
+              className="ops-instrument-surface"
             >
               <LifecycleLaneInstrument className="mb-2" />
               <ul className="mt-4 list-disc space-y-1.5 pl-4 text-xs leading-relaxed text-muted">
@@ -82,7 +83,11 @@ export function InfrastructureOperationsSection() {
           </article>
 
           <aside className="proof-bento-confirm flex flex-col gap-4">
-            <VerificationFramePanel label="Confirmation depth" sublabel="Settlement visibility">
+            <VerificationFramePanel
+              label="Confirmation depth"
+              sublabel="Settlement visibility"
+              className="ops-instrument-surface"
+            >
               <ConfirmationDepthStack />
               <p className="mt-10 text-xs leading-relaxed text-muted">
                 Depth reflects policy: what is detected, what is provisional, and what is final for
@@ -91,16 +96,16 @@ export function InfrastructureOperationsSection() {
             </VerificationFramePanel>
           </aside>
 
-          <article className="proof-bento-webhook space-y-4">
+          <article className="proof-bento-webhook min-w-0 space-y-4">
             <WebhookFlowDiagram variant="compact" diagramLabelledBy={headingId} />
           </article>
 
           <article className="proof-bento-review">
-            <MerchantReviewPipeline labelledBy={headingId} />
+            <MerchantReviewPipeline labelledBy={headingId} className="ops-instrument-surface" />
           </article>
         </div>
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12 lg:items-start">
+        <div className="proof-ops-split mt-14">
           <div className="proof-editorial-rail space-y-6">
             {operations.map((op, i) => (
               <div key={op.title}>

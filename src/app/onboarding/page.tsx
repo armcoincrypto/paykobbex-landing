@@ -113,7 +113,7 @@ export default function OnboardingPage() {
 
       <Section tone="default" className="ops-page pt-10 sm:pt-16">
         <Container className="max-w-content">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(260px,320px)] lg:items-start">
+          <div className="ops-page-instrument-grid">
             <OperationalPageHeader
               eyebrow="Merchants"
               title="Merchant onboarding — what to expect"
@@ -142,7 +142,11 @@ export default function OnboardingPage() {
                 Structured inquiry: <Link href="/contact#merchant-intake">contact page</Link>.
               </p>
             </OperationalPageHeader>
-            <VerificationFramePanel label="Review pipeline" sublabel="Conceptual" className="lg:sticky lg:top-24">
+            <VerificationFramePanel
+              label="Review pipeline"
+              sublabel="Conceptual"
+              className="ops-instrument-surface"
+            >
               <ReviewPipelineInstrument />
             </VerificationFramePanel>
           </div>

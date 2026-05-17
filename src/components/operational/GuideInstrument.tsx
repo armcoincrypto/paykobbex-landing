@@ -46,7 +46,7 @@ export function GuideInstrument({
     <VerificationFramePanel
       label={meta.label}
       sublabel={meta.sublabel}
-      className={cn("ops-guide-instrument", className)}
+      className={cn("ops-guide-instrument ops-instrument-surface", className)}
       labelledBy={labelledBy}
     >
       <p className="sr-only">

@@ -56,7 +56,7 @@ export default function GuidesHubPage() {
             {GUIDE_ENTRIES.map((g, i) => (
               <li
                 key={g.slug}
-                className="grid gap-6 border-t border-border-subtle/80 py-10 first:border-t-0 first:pt-0 lg:grid-cols-[minmax(0,1fr)_minmax(240px,300px)] lg:items-start"
+                className="ops-guides-hub-row"
               >
                 <article>
                   <p className="proof-workflow-index">{String(i + 1).padStart(2, "0")}</p>
@@ -65,7 +65,7 @@ export default function GuidesHubPage() {
                       {g.shortTitle}
                     </Link>
                   </h2>
-                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">{g.description}</p>
+                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">{g.description}</p>
                   <p className="mt-4 text-sm font-medium">
                     <Link href={guidePath(g.slug)}>Read guide →</Link>
                   </p>

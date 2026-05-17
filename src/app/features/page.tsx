@@ -98,16 +98,20 @@ export default function FeaturesPage() {
 
       <Section tone="muted" className="pb-[var(--token-section-loose)]">
         <Container className="max-w-content">
-          <div className="space-y-0">
+          <div className="ops-feature-pillars">
             {pillars.map((p) => (
               <article key={p.index} className="ops-feature-pillar">
                 <div>
                   <p className="proof-workflow-index">{p.index}</p>
                   <h2 className="mt-2 text-h2 font-semibold text-primary">{p.title}</h2>
-                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">{p.body}</p>
+                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">{p.body}</p>
                 </div>
                 {p.instrument ? (
-                  <VerificationFramePanel label="Instrument" sublabel="Conceptual" className="min-w-0">
+                  <VerificationFramePanel
+                    label="Instrument"
+                    sublabel="Conceptual"
+                    className="ops-instrument-surface min-w-0"
+                  >
                     <div aria-hidden="true">{p.instrument}</div>
                   </VerificationFramePanel>
                 ) : null}

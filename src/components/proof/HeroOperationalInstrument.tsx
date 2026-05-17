@@ -22,6 +22,7 @@ export function HeroOperationalInstrument({ className }: { className?: string })
       <VerificationFramePanel
         label="Operational sequence"
         sublabel="Conceptual instrumentation — not live data"
+        className="ops-instrument-surface"
       >
         <p className="sr-only">
           Conceptual diagram: payment lifecycle states Pending, Paid, and Confirmed with an Expired
