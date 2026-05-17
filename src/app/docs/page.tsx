@@ -12,6 +12,7 @@ import {
   OperationalDocNav,
   OperationalPageHeader,
   OperationalProseSection,
+  WebhookVerificationExplorer,
 } from "@/components/operational";
 import { EnvironmentRolloutNote, OperationalGovernancePanel, ProductionRealityNote } from "@/components/realism";
 import { VerificationFramePanel } from "@/components/proof/VerificationFramePanel";
@@ -291,9 +292,12 @@ export default function DocsPage() {
             constant-time check after enforcing equal buffer lengths. Parse JSON only after
             verification succeeds.
           </p>
-                <CodeInstrumentPanel label="Node.js sketch (pattern only)">
-                  <CodePanel title="" code={webhookHandlerExample} />
-                </CodeInstrumentPanel>
+                <WebhookVerificationExplorer />
+                <div className="mt-6">
+                  <CodeInstrumentPanel label="Node.js sketch (pattern only)">
+                    <CodePanel title="" code={webhookHandlerExample} />
+                  </CodeInstrumentPanel>
+                </div>
                 <p className="text-sm text-muted">
                   <Link href="/security">Security practices</Link> ·{" "}
                   <Link href="/guides/webhook-verification">Webhook verification guide</Link>
