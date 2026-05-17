@@ -9,6 +9,8 @@ import { LifecycleLaneInstrument } from "@/components/proof/LifecycleLaneInstrum
 import { MerchantReviewPipeline } from "@/components/proof/MerchantReviewPipeline";
 import { VerificationFramePanel } from "@/components/proof/VerificationFramePanel";
 import { InfrastructureStoryRail } from "@/components/proof/InfrastructureStoryRail";
+import { OpsJourneyGuidance } from "@/components/proof/OpsJourneyGuidance";
+import { OpsReadinessRail } from "@/components/proof/OpsReadinessRail";
 import { WebhookPropagationStrip } from "@/components/proof/WebhookPropagationStrip";
 
 const operations: Array<{ title: string; body: string; zone?: "reconcile" }> = [
@@ -50,7 +52,7 @@ export function InfrastructureOperationsSection() {
     <Section
       id="how-infrastructure-operates"
       tone="default"
-      className="proof-section home-ops-follow home-ops-deep home-ops-story"
+      className="proof-section home-ops-follow home-ops-deep home-ops-story home-ops-journey"
     >
       <Container>
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
@@ -67,9 +69,11 @@ export function InfrastructureOperationsSection() {
         </p>
 
         <InfrastructureStoryRail className="mt-8" />
+        <OpsReadinessRail className="mt-6" />
+        <OpsJourneyGuidance className="mt-6" />
 
         <div className="mt-12 proof-bento">
-          <article className="proof-bento-lifecycle ops-route--settlement">
+          <article className="proof-bento-lifecycle ops-route--settlement ops-journey-emphasis--finance">
             <VerificationFramePanel
               label="Lifecycle lane"
               sublabel="State transitions (conceptual)"
@@ -102,7 +106,7 @@ export function InfrastructureOperationsSection() {
             </VerificationFramePanel>
           </article>
 
-          <aside className="proof-bento-confirm ops-route--reconcile flex flex-col gap-4">
+          <aside className="proof-bento-confirm ops-route--reconcile ops-journey-emphasis--finance flex flex-col gap-4">
             <VerificationFramePanel
               label="Confirmation depth"
               sublabel="Settlement visibility"
@@ -153,7 +157,7 @@ export function InfrastructureOperationsSection() {
             </VerificationFramePanel>
           </aside>
 
-          <article className="proof-bento-webhook ops-route--verify min-w-0">
+          <article className="proof-bento-webhook ops-route--verify ops-journey-emphasis--engineering min-w-0">
             <VerificationFramePanel
               label="Webhook verification"
               sublabel="Signed pipeline (conceptual)"
@@ -173,7 +177,7 @@ export function InfrastructureOperationsSection() {
             </VerificationFramePanel>
           </article>
 
-          <article className="proof-bento-review ops-route--ingress">
+          <article className="proof-bento-review ops-route--ingress ops-journey-emphasis--operations">
             <MerchantReviewPipeline
               labelledBy={headingId}
               className="ops-instrument-surface ops-telemetry-surface ops-console-surface ops-console-deep"

@@ -1,26 +1,34 @@
-import type { OpsInspectNode } from "@/lib/ops-inspection";
+import type { OpsInspectNode, OpsJourneyLens } from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
 
 /**
- * Progressive operational narrative — purpose, trust, cause/effect, consequence.
- * Decorative when aria-hidden on parent; complements visible stage labels.
+ * Progressive operational narrative — purpose, trust, persona, readiness, cause/effect.
  */
 export function OpsNarrativeReveal({
   node,
   active,
   downstreamNote,
   showTrustStatic = false,
+  activeLens,
 }: {
   node: OpsInspectNode;
   active: boolean;
-  /** Shown on downstream targets when another stage is focused. */
   downstreamNote?: string;
-  /** Always show trust boundary line (mobile / verify surfaces). */
   showTrustStatic?: boolean;
+  /** Plane journey lens for narrative weighting (P29). */
+  activeLens?: OpsJourneyLens | null;
 }) {
+  const lensMatch = !activeLens || activeLens === node.journeyLens;
+
   return (
     <div
-      className={cn("ops-narrative", active && "ops-narrative--active")}
+      className={cn(
+        "ops-narrative",
+        active && "ops-narrative--active",
+        active && lensMatch ? "ops-narrative--lens-match" : undefined,
+        active && activeLens && !lensMatch ? "ops-narrative--lens-muted" : undefined,
+        `ops-narrative--${node.journeyLens}`,
+      )}
       aria-hidden="true"
     >
       <p
@@ -39,6 +47,26 @@ export function OpsNarrativeReveal({
           )}
         >
           {node.trustBoundary}
+        </p>
+      ) : null}
+      {node.personaEcho ? (
+        <p
+          className={cn(
+            "ops-narrative-persona",
+            active && lensMatch && "ops-narrative-persona--visible",
+          )}
+        >
+          {node.personaEcho}
+        </p>
+      ) : null}
+      {node.readiness ? (
+        <p
+          className={cn(
+            "ops-narrative-readiness",
+            (active || showTrustStatic) && lensMatch && "ops-narrative-readiness--visible",
+          )}
+        >
+          {node.readiness}
         </p>
       ) : null}
       {active && node.causeEffect ? (

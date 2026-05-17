@@ -7,20 +7,26 @@ import {
   useInfrastructureInspect,
 } from "@/components/landing/InfrastructureInspectContext";
 import { OpsStoryBeacon } from "@/components/landing/OpsStoryBeacon";
+import { resolveJourneyLens } from "@/lib/ops-inspection";
 
 function HomeInfrastructurePlaneInner({ children }: { children: ReactNode }) {
   const { inspect } = useInfrastructureInspect();
+  const journeyLens = inspect?.focus
+    ? inspect.lens ?? resolveJourneyLens(inspect.focus, inspect.linkGate)
+    : undefined;
 
   return (
     <div
       className={cn(
-        "home-infrastructure-plane ops-topology-surface",
+        "home-infrastructure-plane home-infrastructure-plane--journey ops-topology-surface",
         inspect?.focus && `inspect-focus-${inspect.focus}`,
+        journeyLens && `inspect-journey-${journeyLens}`,
         ...(inspect?.downstream.map((route) => `inspect-downstream-${route}`) ?? []),
         inspect?.linkGate && "inspect-link-gate",
       )}
       data-inspect-focus={inspect?.focus}
       data-inspect-downstream={inspect?.downstream.join(" ") || undefined}
+      data-journey-lens={journeyLens}
     >
       <div className="home-topology-layer" aria-hidden="true">
         <div className="home-topology-fog" />

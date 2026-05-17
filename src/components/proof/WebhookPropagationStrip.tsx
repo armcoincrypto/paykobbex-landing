@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
 import { OpsNarrativeReveal } from "@/components/proof/OpsNarrativeReveal";
-import { webhookInspectNodes } from "@/lib/ops-inspection";
+import { inspectStateFromNode, webhookInspectNodes } from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
 
 const steps = webhookInspectNodes;
@@ -54,12 +54,14 @@ function WebhookRibbonSteps({
   isInteractive,
   hovered,
   applyInspect,
+  activeLens,
 }: {
   slice: readonly (typeof steps)[number][];
   segmentOffset: number;
   isInteractive: boolean;
   hovered: number | null;
   applyInspect: (index: number | null) => void;
+  activeLens: import("@/lib/ops-inspection").OpsJourneyLens | null;
 }) {
   return (
     <>
@@ -129,6 +131,7 @@ function WebhookRibbonSteps({
                   active={isHot}
                   downstreamNote={downstreamNote}
                   showTrustStatic={node.focus === "verify"}
+                  activeLens={activeLens}
                 />
               </>
             ) : null}
@@ -154,7 +157,8 @@ export function WebhookPropagationStrip({
   channelLayout?: boolean;
 }) {
   const [hovered, setHovered] = useState<number | null>(null);
-  const { setInspect, clearInspect } = useInfrastructureInspect();
+  const { inspect, setInspect, clearInspect } = useInfrastructureInspect();
+  const activeLens = inspect?.lens ?? null;
   const isInteractive = interactive ?? animate;
   const useChannels = channelLayout && showTelemetry;
 
@@ -165,10 +169,7 @@ export function WebhookPropagationStrip({
       return;
     }
     const node = steps[index];
-    setInspect({
-      focus: node.focus,
-      downstream: node.downstream,
-    });
+    setInspect(inspectStateFromNode(node));
   };
 
   const flatRibbon = (
@@ -179,6 +180,7 @@ export function WebhookPropagationStrip({
         isInteractive={isInteractive}
         hovered={hovered}
         applyInspect={applyInspect}
+        activeLens={activeLens}
       />
     </div>
   );
@@ -194,6 +196,7 @@ export function WebhookPropagationStrip({
             isInteractive={isInteractive}
             hovered={hovered}
             applyInspect={applyInspect}
+            activeLens={activeLens}
           />
         </div>
       </div>
@@ -207,6 +210,7 @@ export function WebhookPropagationStrip({
             isInteractive={isInteractive}
             hovered={hovered}
             applyInspect={applyInspect}
+            activeLens={activeLens}
           />
         </div>
       </div>

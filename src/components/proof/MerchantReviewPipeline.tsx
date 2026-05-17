@@ -5,7 +5,7 @@ import { FlowArrow } from "@/components/diagrams/FlowArrow";
 import { FlowStep } from "@/components/diagrams/FlowStep";
 import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
 import { OpsNarrativeReveal } from "@/components/proof/OpsNarrativeReveal";
-import { reviewInspectNodes } from "@/lib/ops-inspection";
+import { inspectStateFromNode, reviewInspectNodes } from "@/lib/ops-inspection";
 import { VerificationFramePanel } from "@/components/proof/VerificationFramePanel";
 import { cn } from "@/lib/cn";
 
@@ -27,7 +27,8 @@ export function MerchantReviewPipeline({
   labelledBy?: string;
 }) {
   const [hovered, setHovered] = useState<number | null>(null);
-  const { setInspect, clearInspect } = useInfrastructureInspect();
+  const { inspect, setInspect, clearInspect } = useInfrastructureInspect();
+  const activeLens = inspect?.lens ?? null;
 
   const applyInspect = (index: number | null) => {
     setHovered(index);
@@ -36,11 +37,7 @@ export function MerchantReviewPipeline({
       return;
     }
     const node = reviewInspectNodes[index];
-    setInspect({
-      focus: node.focus,
-      downstream: node.downstream,
-      linkGate: node.linkGate,
-    });
+    setInspect(inspectStateFromNode(node));
   };
 
   return (
@@ -122,6 +119,7 @@ export function MerchantReviewPipeline({
                         node={stage}
                         active={isHot}
                         downstreamNote={downstreamNote}
+                        activeLens={activeLens}
                       />
                     </div>
                     {i < reviewInspectNodes.length - 1 ? (

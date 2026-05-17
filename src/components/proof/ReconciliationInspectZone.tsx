@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
 import { OpsNarrativeReveal } from "@/components/proof/OpsNarrativeReveal";
-import { reconcileInspect } from "@/lib/ops-inspection";
+import { inspectStateFromNode, reconcileInspect } from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
 import type { ReactNode } from "react";
 
@@ -16,15 +16,13 @@ export function ReconciliationInspectZone({
   className?: string;
 }) {
   const [active, setActive] = useState(false);
-  const { setInspect, clearInspect } = useInfrastructureInspect();
+  const { inspect, setInspect, clearInspect } = useInfrastructureInspect();
+  const activeLens = inspect?.lens ?? null;
   const node = reconcileInspect;
 
   const engage = () => {
     setActive(true);
-    setInspect({
-      focus: node.focus,
-      downstream: node.downstream,
-    });
+    setInspect(inspectStateFromNode(node));
   };
 
   const release = () => {
@@ -35,7 +33,7 @@ export function ReconciliationInspectZone({
   return (
     <div
       className={cn(
-        "ops-control-plane__zone ops-route--reconcile ops-inspect-zone",
+        "ops-control-plane__zone ops-route--reconcile ops-inspect-zone ops-journey-emphasis--finance",
         active && "ops-inspect-zone--active",
         className,
       )}
@@ -49,6 +47,9 @@ export function ReconciliationInspectZone({
       <p className="ops-narrative-purpose ops-narrative-purpose--module" aria-hidden="true">
         {node.purpose}
       </p>
+      <p className="ops-narrative-readiness ops-narrative-readiness--module" aria-hidden="true">
+        {node.readiness}
+      </p>
       <p className="ops-inspect-hint ops-inspect-hint--static" aria-hidden="true">
         {node.hint}
       </p>
@@ -57,7 +58,12 @@ export function ReconciliationInspectZone({
         <span className="text-muted"> · </span>
         <span>{node.affects}</span>
       </p>
-      <OpsNarrativeReveal node={node} active={active} showTrustStatic />
+      <OpsNarrativeReveal
+        node={node}
+        active={active}
+        showTrustStatic
+        activeLens={activeLens}
+      />
       {children}
     </div>
   );

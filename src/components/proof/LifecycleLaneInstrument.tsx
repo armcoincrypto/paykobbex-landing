@@ -4,7 +4,7 @@ import { useState } from "react";
 import { StatePill, type StatePillLabel } from "@/components/diagrams/StatePill";
 import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
 import { OpsNarrativeReveal } from "@/components/proof/OpsNarrativeReveal";
-import { lifecycleInspectNodes } from "@/lib/ops-inspection";
+import { inspectStateFromNode, lifecycleInspectNodes } from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
 
 const primary: StatePillLabel[] = ["Pending", "Paid", "Confirmed"];
@@ -27,7 +27,8 @@ export function LifecycleLaneInstrument({
   showTelemetry?: boolean;
 }) {
   const [hovered, setHovered] = useState<number | null>(null);
-  const { setInspect, clearInspect } = useInfrastructureInspect();
+  const { inspect, setInspect, clearInspect } = useInfrastructureInspect();
+  const activeLens = inspect?.lens ?? null;
   const isInteractive = interactive ?? animate;
 
   const applyInspect = (index: number | null) => {
@@ -37,10 +38,7 @@ export function LifecycleLaneInstrument({
       return;
     }
     const node = lifecycleInspectNodes[index];
-    setInspect({
-      focus: node.focus,
-      downstream: node.downstream,
-    });
+    setInspect(inspectStateFromNode(node));
   };
 
   const execution = (
@@ -138,6 +136,7 @@ export function LifecycleLaneInstrument({
                     node={node}
                     active={isHot}
                     downstreamNote={downstreamNote}
+                    activeLens={activeLens}
                   />
                 </>
               ) : null}
