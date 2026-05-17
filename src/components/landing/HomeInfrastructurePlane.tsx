@@ -6,6 +6,7 @@ import {
   InfrastructureInspectProvider,
   useInfrastructureInspect,
 } from "@/components/landing/InfrastructureInspectContext";
+import { OpsStoryBeacon } from "@/components/landing/OpsStoryBeacon";
 
 function HomeInfrastructurePlaneInner({ children }: { children: ReactNode }) {
   const { inspect } = useInfrastructureInspect();
@@ -30,21 +31,22 @@ function HomeInfrastructurePlaneInner({ children }: { children: ReactNode }) {
             className={cn(
               "ops-route-anchor ops-route--ingress",
               inspect?.focus === "ingress" && "ops-route-anchor--inspect-active",
-              inspect?.downstream.includes("ingress") && "ops-route-anchor--inspect-downstream",
+              inspect?.downstream?.includes("ingress") &&
+                "ops-route-anchor--inspect-downstream",
             )}
           />
           <span
             className={cn(
               "ops-route-anchor ops-route--verify",
               inspect?.focus === "verify" && "ops-route-anchor--inspect-active",
-              inspect?.downstream.includes("verify") && "ops-route-anchor--inspect-downstream",
+              inspect?.downstream?.includes("verify") && "ops-route-anchor--inspect-downstream",
             )}
           />
           <span
             className={cn(
               "ops-route-anchor ops-route--settlement",
               inspect?.focus === "settlement" && "ops-route-anchor--inspect-active",
-              inspect?.downstream.includes("settlement") &&
+              inspect?.downstream?.includes("settlement") &&
                 "ops-route-anchor--inspect-downstream",
             )}
           />
@@ -52,7 +54,7 @@ function HomeInfrastructurePlaneInner({ children }: { children: ReactNode }) {
             className={cn(
               "ops-route-anchor ops-route--reconcile",
               inspect?.focus === "reconcile" && "ops-route-anchor--inspect-active",
-              inspect?.downstream.includes("reconcile") &&
+              inspect?.downstream?.includes("reconcile") &&
                 "ops-route-anchor--inspect-downstream",
             )}
           />
@@ -60,10 +62,11 @@ function HomeInfrastructurePlaneInner({ children }: { children: ReactNode }) {
             className={cn(
               "ops-route-anchor ops-route--egress",
               inspect?.focus === "egress" && "ops-route-anchor--inspect-active",
-              inspect?.downstream.includes("egress") && "ops-route-anchor--inspect-downstream",
+              inspect?.downstream?.includes("egress") && "ops-route-anchor--inspect-downstream",
             )}
           />
         </div>
+        <OpsStoryBeacon />
       </div>
       <div className="home-infrastructure-plane__content">{children}</div>
     </div>

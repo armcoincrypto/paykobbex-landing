@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FlowArrow } from "@/components/diagrams/FlowArrow";
 import { FlowStep } from "@/components/diagrams/FlowStep";
 import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
+import { OpsNarrativeReveal } from "@/components/proof/OpsNarrativeReveal";
 import { reviewInspectNodes } from "@/lib/ops-inspection";
 import { VerificationFramePanel } from "@/components/proof/VerificationFramePanel";
 import { cn } from "@/lib/cn";
@@ -46,7 +47,10 @@ export function MerchantReviewPipeline({
     <VerificationFramePanel
       label="Merchant review"
       sublabel="Request pipeline (conceptual)"
-      className={cn(className)}
+      className={cn(
+        className,
+        hovered !== null && "merchant-review-pipeline--narrative-active",
+      )}
       labelledBy={labelledBy}
     >
       <div className="ops-console-module ops-console-module--review ops-route--ingress">
@@ -58,8 +62,11 @@ export function MerchantReviewPipeline({
           <div className="ops-density-strip" aria-hidden="true">
             <span className="ops-density-line ops-density-line--policy">GATE · ACCESS</span>
           </div>
+          <p className="ops-narrative-purpose ops-narrative-purpose--module" aria-hidden="true">
+            {reviewInspectNodes[3].purpose}
+          </p>
           <p className="ops-inspect-hint ops-inspect-hint--static" aria-hidden="true">
-            Approval gates environment access
+            {reviewInspectNodes[3].hint}
           </p>
           <span className="ops-telemetry-chip ops-telemetry-chip--policy">
             <span className="ops-telemetry-led ops-telemetry-led--policy" />
@@ -79,12 +86,21 @@ export function MerchantReviewPipeline({
             >
               {reviewInspectNodes.map((stage, i) => {
                 const isHot = hovered === i;
+                const isDownstream =
+                  hovered !== null &&
+                  i > hovered &&
+                  reviewInspectNodes[hovered].downstream.includes(stage.focus);
+                const downstreamNote =
+                  isDownstream && hovered !== null
+                    ? reviewInspectNodes[hovered].causeEffect
+                    : undefined;
                 return (
                   <div key={stage.tag} className="flex items-center gap-2">
                     <div
                       className={cn(
                         "ops-console-plate ops-review-stage flex flex-col items-center gap-1 px-2 py-1.5 text-center",
                         isHot && "ops-review-stage--hot",
+                        isDownstream && "ops-review-stage--downstream",
                       )}
                       data-ops-route="review"
                       onMouseEnter={() => applyInspect(i)}
@@ -102,6 +118,11 @@ export function MerchantReviewPipeline({
                         <span> · </span>
                         <span>{stage.affects}</span>
                       </span>
+                      <OpsNarrativeReveal
+                        node={stage}
+                        active={isHot}
+                        downstreamNote={downstreamNote}
+                      />
                     </div>
                     {i < reviewInspectNodes.length - 1 ? (
                       <FlowArrow direction="right" className="hidden sm:block" />

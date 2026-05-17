@@ -110,7 +110,7 @@ export default function HomePage() {
       <Section
         id="hero"
         tone="default"
-        className="home-hero home-hero--dominant home-section-bridge-out relative overflow-hidden pb-12 pt-12 sm:pb-14 sm:pt-[5.25rem]"
+        className="home-hero home-hero--dominant home-section-bridge-out home-ops-story-start relative overflow-hidden pb-12 pt-12 sm:pb-14 sm:pt-[5.25rem]"
       >
         <HeroBackdrop />
         <Container className="relative z-10">

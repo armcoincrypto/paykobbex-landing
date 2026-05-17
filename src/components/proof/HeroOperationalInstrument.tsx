@@ -4,6 +4,11 @@ import { DiagramReveal } from "@/components/diagrams/DiagramReveal";
 import { LifecycleLaneInstrument } from "@/components/proof/LifecycleLaneInstrument";
 import { VerificationFramePanel } from "@/components/proof/VerificationFramePanel";
 import { WebhookPropagationStrip } from "@/components/proof/WebhookPropagationStrip";
+import {
+  lifecycleInspectNodes,
+  reviewInspectNodes,
+  webhookInspectNodes,
+} from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
 
 const reviewCheckpoints = [
@@ -30,12 +35,15 @@ export function HeroOperationalInstrument({ className }: { className?: string })
           merchant review checkpoints from intake through approval.
         </p>
         <div aria-hidden="true" className="ops-console-stack">
-          <section className="ops-console-module">
+          <section className="ops-console-module ops-route--settlement">
             <header className="ops-console-module__header">
               <span className="ops-console-module__title">Lifecycle lane</span>
               <span className="ops-console-routing">STATE · RAIL</span>
             </header>
             <div className="ops-console-module__telemetry">
+              <div className="ops-density-strip" aria-hidden="true">
+                <span className="ops-density-line">STATE · POLICY GATED</span>
+              </div>
               <span className="ops-telemetry-chip ops-telemetry-chip--policy">
                 <span className="ops-telemetry-led ops-telemetry-led--policy" />
                 POLICY
@@ -46,7 +54,7 @@ export function HeroOperationalInstrument({ className }: { className?: string })
               </span>
             </div>
             <div className="ops-console-module__execution ops-console-module__execution--primary">
-              <div className="ops-console-well">
+              <div className="ops-console-well ops-envelope">
                 <LifecycleLaneInstrument compact animate interactive={false} showTelemetry={false} />
               </div>
             </div>
@@ -55,9 +63,12 @@ export function HeroOperationalInstrument({ className }: { className?: string })
               <span className="ops-console-meta-tag">STATE</span>
               <span>Explicit transitions · conceptual</span>
             </footer>
+            <p className="ops-narrative-static" aria-hidden="true">
+              {lifecycleInspectNodes[0].purpose}
+            </p>
           </section>
 
-          <section className="ops-console-module">
+          <section className="ops-console-module ops-route--verify">
             <header className="ops-console-module__header">
               <span className="ops-console-module__title">Webhook flow</span>
               <span className="ops-console-routing">PIPELINE · SIGNED</span>
@@ -82,9 +93,12 @@ export function HeroOperationalInstrument({ className }: { className?: string })
               <span className="ops-console-meta-tag">IDEMPOTENT</span>
               <span>Verification boundary · conceptual</span>
             </footer>
+            <p className="ops-narrative-static" aria-hidden="true">
+              {webhookInspectNodes[2].purpose}
+            </p>
           </section>
 
-          <section className="ops-console-module">
+          <section className="ops-console-module ops-route--ingress">
             <header className="ops-console-module__header">
               <span className="ops-console-module__title">Merchant review</span>
               <span className="ops-console-routing">REVIEW · GATE</span>
@@ -127,6 +141,9 @@ export function HeroOperationalInstrument({ className }: { className?: string })
               <span className="ops-console-meta-tag">REVIEW</span>
               <span>Controlled approval flow · conceptual</span>
             </footer>
+            <p className="ops-narrative-static" aria-hidden="true">
+              {reviewInspectNodes[3].purpose}
+            </p>
           </section>
         </div>
       </VerificationFramePanel>

@@ -14,6 +14,7 @@ export type OpsInspectState = {
   linkGate?: boolean;
 } | null;
 
+/** Operational narrative for a single inspectable stage (conceptual only). */
 export type OpsInspectNode = {
   focus: OpsInspectRoute;
   downstream: OpsInspectRoute[];
@@ -21,6 +22,16 @@ export type OpsInspectNode = {
   hint: string;
   ownership: string;
   affects: string;
+  /** Why this stage exists in the workflow. */
+  purpose: string;
+  /** What changes downstream when this stage completes. */
+  consequence: string;
+  /** Cause → effect link shown on focus (procedural). */
+  causeEffect: string;
+  /** Trust / verification boundary semantics (optional). */
+  trustBoundary?: string;
+  /** Risk this stage is designed to prevent (optional). */
+  riskPrevented?: string;
   linkGate?: boolean;
 };
 
@@ -32,6 +43,11 @@ export const lifecycleInspectNodes: OpsInspectNode[] = [
     hint: "Created — awaiting on-chain detection",
     ownership: "Policy-controlled",
     affects: "Detection path · rail-scoped",
+    purpose: "Detection exists before settlement confidence.",
+    consequence: "Downstream stages assume an explicit open attempt — not implicit completion.",
+    causeEffect: "Engineering watches detection — finance does not recognize revenue yet.",
+    trustBoundary: "Settlement semantics differ from detection semantics.",
+    riskPrevented: "Premature revenue recognition from chain activity alone.",
   },
   {
     focus: "settlement",
@@ -40,6 +56,11 @@ export const lifecycleInspectNodes: OpsInspectNode[] = [
     hint: "Detected state is not finality",
     ownership: "Merchant-owned books",
     affects: "Downstream · reconciliation semantics",
+    purpose: "Observed funds are not necessarily recognized revenue.",
+    consequence: "Reconciliation ownership activates — confirmation rules apply next.",
+    causeEffect: "Finance and engineering view this state differently by design.",
+    trustBoundary: "Operational ownership changes after detection — not after API create.",
+    riskPrevented: "Treating chain visibility as final settlement.",
   },
   {
     focus: "reconcile",
@@ -48,6 +69,11 @@ export const lifecycleInspectNodes: OpsInspectNode[] = [
     hint: "Finance owns recognition rules",
     ownership: "Finance / treasury policy",
     affects: "Finality · policy + rail thresholds",
+    purpose: "Recognition rules depend on rail policy and confirmation semantics.",
+    consequence: "Books may treat this as final only when your policy thresholds are met.",
+    causeEffect: "Treasury controls align to rail-enabled thresholds — not a single paid flag.",
+    trustBoundary: "Reconciliation boundaries sit outside the payment API surface.",
+    riskPrevented: "Collapsing policy, rail, and ledger semantics into one boolean.",
   },
 ];
 
@@ -59,6 +85,11 @@ export const webhookInspectNodes: OpsInspectNode[] = [
     hint: "Merchant backend → signed event",
     ownership: "Server-side emit",
     affects: "Lifecycle transition signal",
+    purpose: "Lifecycle transitions surface as signed events to your stack.",
+    consequence: "Your consumer must treat delivery as untrusted until verified.",
+    causeEffect: "Merchant backend receives the signal — verification is still required.",
+    trustBoundary: "Ingress is signed — not implicitly trusted.",
+    riskPrevented: "Acting on unverified callback payloads.",
   },
   {
     focus: "ingress",
@@ -67,6 +98,11 @@ export const webhookInspectNodes: OpsInspectNode[] = [
     hint: "HTTPS POST · signature over raw bytes",
     ownership: "Merchant-owned endpoint",
     affects: "Downstream · verification boundary",
+    purpose: "Signed POST preserves integrity over the raw request body.",
+    consequence: "Verification boundary must run before parse or state mutation.",
+    causeEffect: "Signature is checked on bytes — not on a re-serialized JSON view.",
+    trustBoundary: "Raw-body verification prevents signature drift.",
+    riskPrevented: "Signature mismatch from parsed-body verification.",
   },
   {
     focus: "verify",
@@ -75,6 +111,11 @@ export const webhookInspectNodes: OpsInspectNode[] = [
     hint: "Raw body checked before parse",
     ownership: "Server-side verification",
     affects: "Downstream · idempotent apply",
+    purpose: "Verification occurs before state mutation.",
+    consequence: "Apply may proceed only after the trust boundary passes.",
+    causeEffect: "Apply depends on verification — retries stay safe downstream.",
+    trustBoundary: "Server-side ownership — never client-trusted secrets.",
+    riskPrevented: "State updates from forged or replayed callbacks.",
   },
   {
     focus: "egress",
@@ -83,6 +124,11 @@ export const webhookInspectNodes: OpsInspectNode[] = [
     hint: "Idempotent apply · retries expected",
     ownership: "Merchant-owned consumer",
     affects: "Internal ledger / order state",
+    purpose: "Idempotent apply absorbs duplicate deliveries without double effects.",
+    consequence: "Internal systems converge — external retries are normal.",
+    causeEffect: "Downstream ledger updates assume at-least-once delivery.",
+    trustBoundary: "Consumer owns idempotency keys and deduplication policy.",
+    riskPrevented: "Double-spend in internal order state from retries.",
   },
 ];
 
@@ -94,6 +140,11 @@ export const reviewInspectNodes: OpsInspectNode[] = [
     hint: "Use case and rails intent captured",
     ownership: "Merchant-owned application",
     affects: "Qualification queue",
+    purpose: "Intake establishes rails intent before technical enablement.",
+    consequence: "Unsupported combinations should fail early — not in production.",
+    causeEffect: "Policy review precedes environment configuration.",
+    trustBoundary: "Merchant-owned application data — operations assesses fit.",
+    riskPrevented: "Production paths enabled without fit review.",
   },
   {
     focus: "review",
@@ -102,6 +153,10 @@ export const reviewInspectNodes: OpsInspectNode[] = [
     hint: "Risk and fit assessed procedurally",
     ownership: "Operations review",
     affects: "Technical outline gate",
+    purpose: "Risk and fit are assessed before integration depth increases.",
+    consequence: "Technical outline proceeds only after qualification.",
+    causeEffect: "Review gate blocks premature production assumptions.",
+    riskPrevented: "High-risk integrations entering live traffic unchecked.",
   },
   {
     focus: "review",
@@ -110,6 +165,11 @@ export const reviewInspectNodes: OpsInspectNode[] = [
     hint: "Integration outline before production",
     ownership: "Merchant engineering",
     affects: "Webhook + API readiness",
+    purpose: "Integration outline aligns webhook and API expectations.",
+    consequence: "Verification and lifecycle semantics are agreed before go-live.",
+    causeEffect: "Engineering maps server-side verification before enablement.",
+    trustBoundary: "Server-side secrets remain off client surfaces.",
+    riskPrevented: "Live traffic before webhook verification is understood.",
   },
   {
     focus: "review",
@@ -118,6 +178,11 @@ export const reviewInspectNodes: OpsInspectNode[] = [
     hint: "Approval gates environment access",
     ownership: "Policy-controlled",
     affects: "Request access · production keys",
+    purpose: "Environment access is gated before production enablement.",
+    consequence: "Portal, rails, and endpoints unlock after approval — not at signup.",
+    causeEffect: "Request access follows review — production keys are not self-serve.",
+    trustBoundary: "Policy gating controls operational enablement.",
+    riskPrevented: "Anonymous production credentials on day one.",
     linkGate: true,
   },
 ];
@@ -129,4 +194,34 @@ export const reconcileInspect: OpsInspectNode = {
   hint: "Finance owns recognition rules",
   ownership: "Finance / treasury policy",
   affects: "Paid vs confirmed · not one boolean",
+  purpose: "Settlement depth separates detection, provisional, and final semantics.",
+  consequence: "Finance and engineering share vocabulary — not one “paid” flag.",
+  causeEffect: "Operational ownership shifts when confirmation thresholds are met.",
+  trustBoundary: "Reconciliation boundaries differ from API lifecycle labels.",
+  riskPrevented: "Accounting drift from ambiguous finality.",
 };
+
+/** Plane-level narrative when a route group is in focus (conceptual). */
+export const narrativeBeacons: Record<OpsInspectRoute, string> = {
+  ingress: "Signed events enter your stack — trust boundaries apply before mutation.",
+  verify: "Verification occurs before state mutation on merchant systems.",
+  settlement: "Detection and settlement confidence are intentionally separate stages.",
+  reconcile: "Finance owns recognition — operational labels are not your ledger.",
+  egress: "Idempotent apply closes the loop — retries remain expected.",
+  review: "Operational gating precedes environment and production enablement.",
+};
+
+/** Homepage operational story sequence (procedural flow). */
+export const opsStorySequence = [
+  { step: "01", label: "API-created payments", route: "settlement" as const },
+  { step: "02", label: "Detection semantics", route: "settlement" as const },
+  { step: "03", label: "Verification boundary", route: "verify" as const },
+  { step: "04", label: "Settlement logic", route: "settlement" as const },
+  { step: "05", label: "Reconciliation ownership", route: "reconcile" as const },
+  { step: "06", label: "Operational gating", route: "review" as const },
+  { step: "07", label: "Controlled enablement", route: "ingress" as const },
+] as const;
+
+export function getNarrativeBeacon(route: OpsInspectRoute): string {
+  return narrativeBeacons[route];
+}

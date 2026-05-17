@@ -8,6 +8,7 @@ import { ReconciliationInspectZone } from "@/components/proof/ReconciliationInsp
 import { LifecycleLaneInstrument } from "@/components/proof/LifecycleLaneInstrument";
 import { MerchantReviewPipeline } from "@/components/proof/MerchantReviewPipeline";
 import { VerificationFramePanel } from "@/components/proof/VerificationFramePanel";
+import { InfrastructureStoryRail } from "@/components/proof/InfrastructureStoryRail";
 import { WebhookPropagationStrip } from "@/components/proof/WebhookPropagationStrip";
 
 const operations: Array<{ title: string; body: string; zone?: "reconcile" }> = [
@@ -49,7 +50,7 @@ export function InfrastructureOperationsSection() {
     <Section
       id="how-infrastructure-operates"
       tone="default"
-      className="proof-section home-ops-follow home-ops-deep"
+      className="proof-section home-ops-follow home-ops-deep home-ops-story"
     >
       <Container>
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
@@ -64,6 +65,8 @@ export function InfrastructureOperationsSection() {
           visuals below are conceptual instrumentation — not live dashboards, metrics, or client
           logos.
         </p>
+
+        <InfrastructureStoryRail className="mt-8" />
 
         <div className="mt-12 proof-bento">
           <article className="proof-bento-lifecycle ops-route--settlement">

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
+import { OpsNarrativeReveal } from "@/components/proof/OpsNarrativeReveal";
 import { webhookInspectNodes } from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
 
@@ -71,6 +72,8 @@ function WebhookRibbonSteps({
           hovered !== null &&
           globalIndex > hovered &&
           steps[hovered].downstream.includes(node.focus);
+        const downstreamNote =
+          isDownstream && hovered !== null ? steps[hovered].causeEffect : undefined;
         return (
           <div
             key={step.tag}
@@ -121,6 +124,12 @@ function WebhookRibbonSteps({
                   <span> · </span>
                   <span>{node.affects}</span>
                 </span>
+                <OpsNarrativeReveal
+                  node={node}
+                  active={isHot}
+                  downstreamNote={downstreamNote}
+                  showTrustStatic={node.focus === "verify"}
+                />
               </>
             ) : null}
           </div>
@@ -223,6 +232,7 @@ export function WebhookPropagationStrip({
         showTelemetry && "webhook-ribbon-wrap--structured",
         useChannels && "webhook-ribbon-wrap--channeled",
         hovered !== null && "webhook-ribbon-wrap--route-active",
+        hovered !== null && "webhook-ribbon-wrap--narrative-active",
         className,
       )}
       aria-hidden="true"
@@ -234,8 +244,14 @@ export function WebhookPropagationStrip({
               <span className="ops-density-line">VERIFY · RAW BODY · SIGNED</span>
               <span className="ops-density-line">QUEUE · RETRY SAFE</span>
             </div>
+            <p className="ops-narrative-purpose ops-narrative-purpose--module" aria-hidden="true">
+              {webhookInspectNodes[2].purpose}
+            </p>
+            <p className="ops-narrative-trust ops-narrative-trust--module" aria-hidden="true">
+              {webhookInspectNodes[2].trustBoundary}
+            </p>
             <p className="ops-inspect-hint ops-inspect-hint--static" aria-hidden="true">
-              Raw body checked before parse
+              {webhookInspectNodes[2].hint}
             </p>
             <div className="ops-telemetry-bar">
               <span className="ops-telemetry-meta">Signed pipeline · conceptual</span>

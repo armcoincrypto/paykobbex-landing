@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { StatePill, type StatePillLabel } from "@/components/diagrams/StatePill";
 import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
+import { OpsNarrativeReveal } from "@/components/proof/OpsNarrativeReveal";
 import { lifecycleInspectNodes } from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
 
@@ -81,6 +82,10 @@ export function LifecycleLaneInstrument({
             isInteractive &&
             hovered !== null &&
             ((hovered === 0 && i === 1) || (hovered === 1 && i === 2));
+          const downstreamNote =
+            isDownstream && hovered !== null
+              ? lifecycleInspectNodes[hovered].causeEffect
+              : undefined;
           return (
             <li
               key={label}
@@ -129,6 +134,11 @@ export function LifecycleLaneInstrument({
                     <span> · </span>
                     <span>{node.affects}</span>
                   </span>
+                  <OpsNarrativeReveal
+                    node={node}
+                    active={isHot}
+                    downstreamNote={downstreamNote}
+                  />
                 </>
               ) : null}
             </li>
@@ -153,6 +163,7 @@ export function LifecycleLaneInstrument({
         animate && "lifecycle-lane--animated",
         showTelemetry && "lifecycle-lane--structured",
         hovered !== null && "lifecycle-lane--route-active",
+        hovered !== null && "lifecycle-lane--narrative-active",
         className,
       )}
       aria-hidden="true"
@@ -164,8 +175,11 @@ export function LifecycleLaneInstrument({
               <span className="ops-density-line">STATE · POLICY GATED</span>
               <span className="ops-density-line">RAIL · SCOPED</span>
             </div>
+            <p className="ops-narrative-purpose ops-narrative-purpose--module" aria-hidden="true">
+              {lifecycleInspectNodes[1].purpose}
+            </p>
             <p className="ops-inspect-hint ops-inspect-hint--static" aria-hidden="true">
-              Detected state is not finality
+              {lifecycleInspectNodes[1].hint}
             </p>
             <div className="ops-telemetry-bar">
               <span className="ops-telemetry-meta">Explicit state lane · conceptual</span>
