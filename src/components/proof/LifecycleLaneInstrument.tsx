@@ -1,18 +1,13 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
 import { StatePill, type StatePillLabel } from "@/components/diagrams/StatePill";
 import { cn } from "@/lib/cn";
 
 const primary: StatePillLabel[] = ["Pending", "Paid", "Confirmed"];
 
-const accentMarkerGlow = {
-  rest: "0 0 0 3px rgb(var(--token-accent-rgb) / 0.06)",
-  pulse: "0 0 8px rgb(var(--token-accent-rgb) / 0.2)",
-} as const;
-
 /**
- * Horizontal lifecycle lane — signature instrument strip.
+ * Horizontal lifecycle lane — SVG operational rails with calm signal motion.
  * Conceptual states only; not live merchant data.
  */
 export function LifecycleLaneInstrument({
@@ -24,47 +19,71 @@ export function LifecycleLaneInstrument({
   compact?: boolean;
   animate?: boolean;
 }) {
-  const reduce = useReducedMotion();
-  const shouldAnimate = animate && !reduce;
+  const [hovered, setHovered] = useState<number | null>(null);
+  const interactive = animate;
 
   return (
-    <div className={cn("lifecycle-lane", className)} aria-hidden="true">
-      <div className="lifecycle-lane-track" />
+    <div
+      className={cn(
+        "lifecycle-lane",
+        interactive && "lifecycle-lane--animated",
+        className,
+      )}
+      aria-hidden="true"
+    >
+      <svg
+        className="lifecycle-lane-rail-svg"
+        viewBox="0 0 100 20"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path
+          className="lifecycle-lane-rail-base"
+          d="M 6 7 H 94"
+          vectorEffect="non-scaling-stroke"
+        />
+        <path
+          className="lifecycle-lane-rail-pulse"
+          d="M 6 7 H 94"
+          vectorEffect="non-scaling-stroke"
+        />
+        <path
+          className="lifecycle-lane-rail-branch"
+          d="M 50 7 V 16"
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
+
       <ol className="lifecycle-lane-nodes list-none p-0 m-0">
-        {primary.map((label, i) => (
-          <li key={label} className="lifecycle-lane-node">
-            <motion.span
+        {primary.map((label, i) => {
+          const isHot = interactive && hovered === i;
+          return (
+            <li
+              key={label}
               className={cn(
-                "lifecycle-lane-marker",
-                shouldAnimate && i === 0 && "is-active",
+                "lifecycle-lane-node",
+                interactive && "lifecycle-lane-node--interactive",
+                isHot && "lifecycle-lane-node--hot",
               )}
-              initial={false}
-              animate={
-                shouldAnimate
-                  ? {
-                      boxShadow: [
-                        accentMarkerGlow.rest,
-                        accentMarkerGlow.pulse,
-                        accentMarkerGlow.rest,
-                      ],
-                    }
-                  : undefined
-              }
-              transition={
-                shouldAnimate
-                  ? {
-                      duration: 3,
-                      delay: i * 1.1,
-                      repeat: Infinity,
-                      repeatDelay: 4.5,
-                      ease: [0.4, 0, 0.2, 1],
-                    }
-                  : undefined
-              }
-            />
-            <StatePill label={label} className={compact ? "scale-[0.92]" : undefined} />
-          </li>
-        ))}
+              onMouseEnter={interactive ? () => setHovered(i) : undefined}
+              onMouseLeave={interactive ? () => setHovered(null) : undefined}
+              onFocus={interactive ? () => setHovered(i) : undefined}
+              onBlur={interactive ? () => setHovered(null) : undefined}
+              {...(interactive
+                ? { tabIndex: 0, role: "presentation" as const }
+                : {})}
+            >
+              <span
+                className={cn(
+                  "lifecycle-lane-marker",
+                  isHot && "lifecycle-lane-marker--hot",
+                )}
+              />
+              <StatePill label={label} className={compact ? "scale-[0.92]" : undefined} />
+            </li>
+          );
+        })}
       </ol>
       <div className="lifecycle-lane-branch flex flex-wrap items-center gap-1.5">
         <span>Branch:</span>
