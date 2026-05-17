@@ -10,17 +10,16 @@ export const buttonBase = cn(
 );
 
 export const buttonPrimary = cn(
-  "relative overflow-hidden border border-[rgb(147_197_253/0.18)]",
-  "bg-gradient-to-b from-[#4a8af4] via-accent to-[#1d4ed8] text-inverse",
-  "shadow-[inset_0_1px_0_0_rgb(255_255_255/0.14),0_8px_22px_-10px_rgb(37_99_235/0.38)]",
-  "hover:from-[#528ef5] hover:via-[#3b82f6] hover:to-[#1e40af]",
-  "hover:shadow-[inset_0_1px_0_0_rgb(255_255_255/0.16),0_10px_26px_-10px_rgb(37_99_235/0.42)]",
-  "active:translate-y-px motion-safe:active:brightness-[0.97]",
+  "border border-[rgb(var(--token-accent-rgb)/0.32)] bg-accent text-inverse",
+  "shadow-[inset_0_1px_0_rgb(255_255_255/0.14),var(--token-shadow-1)]",
+  "hover:border-[rgb(var(--token-accent-bright-rgb)/0.42)] hover:bg-accent-hover",
+  "hover:shadow-[inset_0_1px_0_rgb(255_255_255/0.16),0_10px_24px_-12px_rgb(var(--token-accent-rgb)/0.28)]",
+  "active:translate-y-px motion-safe:active:brightness-[0.96]",
 );
 
 export const buttonSecondary = cn(
-  "border border-border-subtle bg-surface-elevated text-primary shadow-elev-1",
-  "hover:border-[rgb(148_163_184/0.28)] hover:bg-surface",
+  "border border-[var(--token-glass-border)] bg-[var(--token-glass-bg)] text-primary shadow-card backdrop-blur-md",
+  "hover:border-[rgb(var(--token-accent-rgb)/0.22)] hover:bg-surface-elevated/90",
   "active:translate-y-px motion-safe:active:brightness-[0.98]",
 );
 

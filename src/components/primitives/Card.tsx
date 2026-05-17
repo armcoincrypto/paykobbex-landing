@@ -14,10 +14,11 @@ export function Card({
   return (
     <div
       className={cn(
-        "rounded-lg border border-border-subtle/80 bg-surface-elevated p-6 sm:p-7 shadow-card",
-        "transition-[box-shadow,border-color] duration-[var(--token-motion-base)] ease-[var(--token-ease-out)] motion-reduce:transition-none",
+        "rounded-lg border border-[var(--token-glass-border)] bg-[var(--token-glass-bg)] p-6 shadow-card backdrop-blur-md sm:p-7",
+        "ring-1 ring-inset ring-[var(--token-glass-highlight)]",
+        "transition-[box-shadow,border-color,background-color] duration-[var(--token-motion-base)] ease-[var(--token-ease-out)] motion-reduce:transition-none",
         interactive &&
-          "motion-safe:hover:border-[rgb(148_163_184/0.22)] motion-safe:hover:shadow-card-hover",
+          "motion-safe:hover:border-[rgb(var(--token-accent-rgb)/0.2)] motion-safe:hover:bg-surface-elevated/85 motion-safe:hover:shadow-card-hover",
         className,
       )}
     >

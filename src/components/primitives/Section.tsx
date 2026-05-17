@@ -26,7 +26,7 @@ export function Section({
     <section
       id={id}
       className={cn(
-        "py-12 sm:py-[var(--token-section-default)] lg:py-[var(--token-section-loose)]",
+        "py-[var(--token-section-tight)] sm:py-[var(--token-section-default)] lg:py-[var(--token-section-loose)]",
         tones[tone],
         className,
       )}

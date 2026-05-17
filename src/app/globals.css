@@ -2,27 +2,37 @@
 
 /* Semantic tokens — raw values in :root, mapped into Tailwind @theme (no cycles). */
 :root {
-  --token-canvas: #06070b;
-  --token-surface: #0c0e14;
-  --token-surface-elevated: #12151f;
-  --token-border-subtle: #1b2130;
-  --token-border-strong: #2a3145;
-  --token-text-primary: #e9eaf0;
-  --token-text-muted: #8b93a8;
-  --token-text-inverse: #06070b;
-  --token-accent: #3b82f6;
-  --token-accent-bright: #5b9cff;
-  --token-accent-hover: #2563eb;
-  --token-focus-ring: #7ab7ff;
+  --token-canvas: #04070d;
+  --token-surface: #080d16;
+  --token-surface-elevated: #0d1420;
+  --token-border-subtle: #182232;
+  --token-border-strong: #263347;
+  --token-text-primary: #e8ecf4;
+  --token-text-muted: #8b95a8;
+  --token-text-inverse: #041018;
+  --token-accent: #22d3ee;
+  --token-accent-bright: #5eead4;
+  --token-accent-hover: #06b6d4;
+  --token-accent-rgb: 34 211 238;
+  --token-accent-bright-rgb: 94 234 212;
+  --token-focus-ring: #67e8f9;
   --token-danger: #f87171;
   --token-warning: #fbbf24;
-  --token-code-panel: #080a10;
+  --token-warning-fg: #fde68a;
+  --token-warning-muted: #422006;
+  --token-success: #34d399;
+  --token-success-fg: #a7f3d0;
+  --token-success-muted: #064e3b;
+  --token-glass-bg: rgb(13 20 32 / 0.72);
+  --token-glass-border: rgb(148 163 184 / 0.12);
+  --token-glass-highlight: rgb(255 255 255 / 0.04);
+  --token-code-panel: #060a12;
   --token-radius-sm: 6px;
   --token-radius-md: 12px;
   --token-radius-lg: 16px;
-  --token-shadow-1: 0 1px 2px rgb(0 0 0 / 0.48);
-  --token-shadow-2: 0 12px 32px rgb(0 0 0 / 0.42);
-  --token-line-subtle: rgb(148 163 184 / 0.06);
+  --token-shadow-1: 0 1px 2px rgb(0 0 0 / 0.5);
+  --token-shadow-2: 0 12px 32px rgb(0 0 0 / 0.44);
+  --token-line-subtle: rgb(94 234 212 / 0.05);
   --token-motion-hover: 120ms;
   --token-motion-press: 100ms;
   --token-motion-fast: 140ms;
@@ -30,12 +40,16 @@
   --token-motion-slow: 280ms;
   --token-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --token-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-  --token-shadow-card: var(--token-shadow-1), 0 16px 40px -30px rgb(0 0 0 / 0.58);
-  --token-shadow-card-hover: var(--token-shadow-1), 0 20px 44px -26px rgb(37 99 235 / 0.12);
+  --token-shadow-card:
+    var(--token-shadow-1), 0 16px 40px -30px rgb(0 0 0 / 0.58),
+    inset 0 1px 0 var(--token-glass-highlight);
+  --token-shadow-card-hover:
+    var(--token-shadow-1), 0 20px 44px -26px rgb(var(--token-accent-rgb) / 0.1),
+    inset 0 1px 0 rgb(255 255 255 / 0.06);
   --token-width-content: 72rem;
-  --token-section-tight: 2.75rem;
-  --token-section-default: 4.25rem;
-  --token-section-loose: 5.75rem;
+  --token-section-tight: 3rem;
+  --token-section-default: 4.5rem;
+  --token-section-loose: 6rem;
 }
 
 @theme inline {
@@ -52,6 +66,7 @@
   --color-focus: var(--token-focus-ring);
   --color-danger: var(--token-danger);
   --color-warning: var(--token-warning);
+  --color-success: var(--token-success);
   --color-code-panel: var(--token-code-panel);
 
   --radius-sm: var(--token-radius-sm);
@@ -91,6 +106,7 @@
 
 @layer base {
   html {
+    color-scheme: dark;
     scroll-behavior: smooth;
   }
   @media (prefers-reduced-motion: reduce) {
@@ -103,8 +119,8 @@
     font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
     text-rendering: optimizeLegibility;
     background-image:
-      radial-gradient(120% 80% at 50% -30%, rgb(59 130 246 / 0.07), transparent 55%),
-      radial-gradient(90% 60% at 100% 0%, rgb(96 165 250 / 0.05), transparent 45%);
+      radial-gradient(120% 80% at 50% -30%, rgb(var(--token-accent-rgb) / 0.06), transparent 55%),
+      radial-gradient(90% 60% at 100% 0%, rgb(var(--token-accent-bright-rgb) / 0.04), transparent 45%);
     background-attachment: fixed;
   }
   @media (prefers-reduced-motion: reduce) {
@@ -134,8 +150,8 @@
 .hero-aurora {
   background: radial-gradient(
     closest-side,
-    rgb(59 130 246 / 0.22),
-    rgb(59 130 246 / 0.06) 42%,
+    rgb(var(--token-accent-rgb) / 0.18),
+    rgb(var(--token-accent-rgb) / 0.05) 42%,
     transparent 72%
   );
   opacity: 0.85;
@@ -169,13 +185,19 @@
 /* —— P11: Verification Frame + Lifecycle Lanes —— */
 .vf-frame {
   position: relative;
-  border: 1px solid rgb(38 44 60 / 0.9);
+  border: 1px solid var(--token-glass-border);
   border-radius: var(--token-radius-lg);
   background:
-    linear-gradient(165deg, rgb(16 19 28 / 0.94) 0%, rgb(11 13 19 / 0.99) 52%, rgb(8 10 16 / 1) 100%);
+    linear-gradient(
+      165deg,
+      rgb(12 18 30 / 0.88) 0%,
+      var(--token-glass-bg) 52%,
+      rgb(6 10 18 / 0.96) 100%
+    );
+  backdrop-filter: blur(12px);
   box-shadow:
     var(--token-shadow-1),
-    inset 0 1px 0 rgb(255 255 255 / 0.035),
+    inset 0 1px 0 var(--token-glass-highlight),
     0 18px 40px -34px rgb(0 0 0 / 0.5);
 }
 
@@ -203,7 +225,7 @@
   position: absolute;
   width: 7px;
   height: 7px;
-  border-color: rgb(91 156 255 / 0.45);
+  border-color: rgb(var(--token-accent-bright-rgb) / 0.42);
   pointer-events: none;
 }
 
@@ -250,9 +272,9 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgb(59 130 246 / 0.35) 12%,
-    rgb(59 130 246 / 0.55) 50%,
-    rgb(59 130 246 / 0.35) 88%,
+    rgb(var(--token-accent-rgb) / 0.32) 12%,
+    rgb(var(--token-accent-rgb) / 0.5) 50%,
+    rgb(var(--token-accent-rgb) / 0.32) 88%,
     transparent
   );
 }
@@ -278,15 +300,15 @@
   width: 7px;
   height: 7px;
   border-radius: 9999px;
-  border: 1px solid rgb(59 130 246 / 0.5);
+  border: 1px solid rgb(var(--token-accent-rgb) / 0.45);
   background: rgb(12 14 20);
-  box-shadow: 0 0 0 3px rgb(59 130 246 / 0.08);
+  box-shadow: 0 0 0 3px rgb(var(--token-accent-rgb) / 0.08);
 }
 
 .lifecycle-lane-marker.is-active {
-  border-color: rgb(91 156 255 / 0.75);
-  background: rgb(59 130 246 / 0.28);
-  box-shadow: 0 0 8px rgb(59 130 246 / 0.22);
+  border-color: rgb(var(--token-accent-bright-rgb) / 0.72);
+  background: rgb(var(--token-accent-rgb) / 0.24);
+  box-shadow: 0 0 8px rgb(var(--token-accent-rgb) / 0.2);
 }
 
 .lifecycle-lane-branch {
@@ -326,7 +348,11 @@
   right: -45%;
   top: 0.35rem;
   height: 1px;
-  background: linear-gradient(90deg, rgb(59 130 246 / 0.15), rgb(59 130 246 / 0.55));
+  background: linear-gradient(
+    90deg,
+    rgb(var(--token-accent-rgb) / 0.14),
+    rgb(var(--token-accent-rgb) / 0.5)
+  );
   overflow: hidden;
 }
 
@@ -335,7 +361,7 @@
   position: absolute;
   inset: 0;
   width: 28%;
-  background: linear-gradient(90deg, transparent, rgb(91 156 255 / 0.85), transparent);
+  background: linear-gradient(90deg, transparent, rgb(var(--token-accent-bright-rgb) / 0.8), transparent);
   transform: translateX(-120%);
   animation: webhook-propagation 6.2s var(--token-ease-in-out) infinite;
 }
@@ -405,7 +431,7 @@
 }
 
 .confirmation-depth-layer.is-emphasized {
-  border-color: rgb(91 156 255 / 0.35);
+  border-color: rgb(var(--token-accent-bright-rgb) / 0.32);
 }
 
 .proof-bento {
@@ -632,7 +658,7 @@
 }
 
 .proof-editorial-rail {
-  border-left: 1px solid rgb(59 130 246 / 0.22);
+  border-left: 1px solid rgb(var(--token-accent-rgb) / 0.2);
   padding-left: 1rem;
 }
 
@@ -641,7 +667,7 @@
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 0.65rem;
   letter-spacing: 0.12em;
-  color: rgb(91 156 255 / 0.75);
+  color: rgb(var(--token-accent-bright-rgb) / 0.72);
 }
 
 @media (prefers-reduced-motion: reduce) {
