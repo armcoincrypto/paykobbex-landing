@@ -134,7 +134,8 @@ export default function DocsPage() {
                 <Link href="/contact#merchant-intake" conv="request_access_click">
                   merchant approval
                 </Link>
-                .
+                . Before production access, review{" "}
+                <Link href="/onboarding">onboarding expectations</Link>.
               </>
             }
           />
@@ -160,9 +161,10 @@ export default function DocsPage() {
             details come from the materials issued for your approved environment.
           </p>
                 <p className="text-sm text-muted">
-                  Short operational guides: <Link href="/guides">/guides</Link> (lifecycle, webhooks,
-                  reconciliation, keys, onboarding). Walkthroughs:{" "}
-                  <Link href="/operations">/operations</Link>.
+                  Before production access, review{" "}
+                  <Link href="/onboarding">onboarding expectations</Link>. Short operational guides:{" "}
+                  <Link href="/guides">/guides</Link> (lifecycle, webhooks, reconciliation, keys,
+                  onboarding). Walkthroughs: <Link href="/operations">/operations</Link>.
                 </p>
                 <ProductionRealityNote compact />
               </OperationalProseSection>

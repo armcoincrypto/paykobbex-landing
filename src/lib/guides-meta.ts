@@ -15,6 +15,13 @@ export const GUIDE_ENTRIES: Array<{
   description: string;
 }> = [
   {
+    slug: "merchant-onboarding",
+    title: "Merchant onboarding expectations for Kobbopay",
+    shortTitle: "Merchant onboarding",
+    description:
+      "What approval gating is for, how rails get enabled, and what a serious integration discussion covers—without promising timelines you cannot keep publicly.",
+  },
+  {
     slug: "payment-lifecycle",
     title: "Payment lifecycle for B2B crypto integrations",
     shortTitle: "Payment lifecycle",
@@ -41,13 +48,6 @@ export const GUIDE_ENTRIES: Array<{
     shortTitle: "Server-side API keys",
     description:
       "Where secrets belong, what “server-to-server” implies for checkout UX, and common anti-patterns that create preventable incidents.",
-  },
-  {
-    slug: "merchant-onboarding",
-    title: "Merchant onboarding expectations for Kobbopay",
-    shortTitle: "Merchant onboarding",
-    description:
-      "What approval gating is for, how rails get enabled, and what a serious integration discussion covers—without promising timelines you cannot keep publicly.",
   },
 ];
 

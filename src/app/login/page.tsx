@@ -18,7 +18,7 @@ export default function LoginRedirectPage() {
         <OperationalPageHeader
           eyebrow="Merchants"
           title="Merchant portal"
-          lead="Redirecting you to the merchant portal. If nothing happens, use the link below."
+          lead="Redirecting approved merchant accounts to the merchant portal. If nothing happens, use the link below. New merchants should request access from this marketing site—not sign in here."
         >
           <p className="mt-2">
             <Link href={MERCHANT_PORTAL_URL} className="text-sm font-medium">

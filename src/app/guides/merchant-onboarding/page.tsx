@@ -34,6 +34,9 @@ export default function GuideMerchantOnboardingPage() {
             It is the path from first contact to an approved merchant environment where rails are
             enabled intentionally and integration materials match what you will run in production.
           </p>
+          <p className="mt-3 text-sm font-medium">
+            <Link href="/onboarding">Full onboarding expectations →</Link>
+          </p>
         </GuideSection>
 
         <GuideSection id="why-onboarding-matters" title="Why does onboarding matter operationally?" index="02">

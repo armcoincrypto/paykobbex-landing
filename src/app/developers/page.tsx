@@ -71,10 +71,17 @@ export default function DevelopersPage() {
             <Link href="/docs" variant="button-primary" className="no-underline">
               Read integration docs
             </Link>
-            <Link href="/contact#merchant-intake" variant="button-secondary" className="no-underline" conv="request_access_click">
-              Request access
+            <Link href="/onboarding" variant="button-secondary" className="no-underline">
+              Onboarding expectations
             </Link>
           </CTAGroup>
+          <p className="mt-4 text-sm text-muted">
+            Environment-specific materials after review:{" "}
+            <Link href="/contact#merchant-intake" conv="request_access_click">
+              Request access
+            </Link>
+            .
+          </p>
         </Container>
       </Section>
 

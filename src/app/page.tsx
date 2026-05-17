@@ -138,8 +138,14 @@ export default function HomePage() {
                   Integration docs
                 </Link>
               </CTAGroup>
+              <p className="mt-4 text-sm font-medium">
+                <Link href="/onboarding">Onboarding expectations →</Link>
+              </p>
+              <p className="mt-3 text-sm text-muted">
+                Review onboarding expectations before requesting access.
+              </p>
               <p className="mt-5 text-sm text-muted">
-                Merchant portal:{" "}
+                Merchant portal for approved merchants:{" "}
                 <Link href="https://merchant.kobbex.com/" conv="merchant_login_click">
                   merchant.kobbex.com
                 </Link>{" "}
@@ -301,6 +307,9 @@ export default function HomePage() {
               </Card>
             ))}
           </div>
+          <p className="mt-6 text-sm font-medium">
+            <Link href="/onboarding">Merchant onboarding FAQ and approval flow →</Link>
+          </p>
         </Container>
       </Section>
 

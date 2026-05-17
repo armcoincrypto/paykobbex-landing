@@ -7,6 +7,10 @@ export function GuideRelatedLinks() {
       <h2 className="sr-only">Related on this site</h2>
       <ul className="space-y-2 text-sm text-muted">
         <li>
+          <Link href="/onboarding">Merchant onboarding expectations</Link> (approval flow, environments,
+          support boundaries)
+        </li>
+        <li>
           <Link href="/docs">Integration docs</Link> (overview, diagrams, glossary excerpt)
         </li>
         <li>
