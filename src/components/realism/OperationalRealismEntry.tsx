@@ -6,7 +6,7 @@ import { VerificationFramePanel } from "@/components/proof/VerificationFramePane
 /** Compact homepage bridge to /operations — no duplicate walkthrough content. */
 export function OperationalRealismEntry() {
   return (
-    <Section id="operational-realism" tone="muted" className="py-12 sm:py-16">
+    <Section id="operational-realism" tone="muted" className="py-10 sm:py-14">
       <Container className="max-w-content">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(260px,320px)] lg:items-center">
           <div>
@@ -14,7 +14,7 @@ export function OperationalRealismEntry() {
             <h2 className="mt-3 text-h2 font-semibold text-primary">
               How operations actually work
             </h2>
-            <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">
+            <p className="mt-3 max-w-xl text-sm leading-[1.65] text-muted sm:text-body">
               Illustrative walkthroughs for lifecycles, webhook retries, reconciliation, review, and
               anonymized merchant workflows — practical and constrained, not marketing stories.
             </p>

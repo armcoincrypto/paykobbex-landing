@@ -108,24 +108,24 @@ export default function HomePage() {
       <Section
         id="hero"
         tone="default"
-        className="relative overflow-hidden pb-12 pt-11 sm:pb-[var(--token-section-tight)] sm:pt-20"
+        className="relative overflow-hidden pb-14 pt-12 sm:pb-[var(--token-section-default)] sm:pt-[5.25rem]"
       >
         <HeroBackdrop />
         <Container className="relative z-10">
-          <div className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-8 xl:gap-10">
+          <div className="grid gap-8 sm:gap-10 lg:grid-cols-12 lg:items-end lg:gap-8 xl:gap-10">
             <div className="lg:col-span-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">
                 B2B crypto payments
               </p>
-              <h1 className="mt-4 max-w-[22ch] text-balance text-display font-semibold tracking-tight text-primary sm:max-w-none">
+              <h1 className="mt-5 max-w-[22ch] text-balance text-display font-semibold tracking-[-0.025em] text-primary sm:max-w-none">
                 API-first crypto payment infrastructure for serious merchants
               </h1>
-              <p className="mt-5 max-w-xl text-body text-muted lg:max-w-md xl:max-w-lg">
+              <p className="mt-5 max-w-xl text-body leading-[1.65] text-muted sm:mt-6 lg:max-w-md xl:max-w-lg">
                 Kobbopay is API-first B2B crypto payment infrastructure with signed webhooks,
                 explicit payment lifecycles, and a merchant portal for operations — after merchant
                 approval, on selected rails where enabled.
               </p>
-              <CTAGroup className="mt-9">
+              <CTAGroup className="mt-8 sm:mt-9">
                 <Link
                   href="/contact#merchant-intake"
                   variant="button-primary"
@@ -154,17 +154,14 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      <Section tone="muted" className="py-8 sm:py-10">
+      <Section tone="muted" className="py-9 sm:py-11">
         <Container>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
             Trust boundaries
           </p>
-          <div className="mt-4 flex flex-wrap gap-2 sm:gap-2.5">
+          <div className="mt-5 flex flex-wrap gap-2 sm:gap-2.5" role="list">
             {trustChips.map((label) => (
-              <span
-                key={label}
-                className="rounded-full border border-border-subtle/90 bg-surface-elevated/90 px-3.5 py-1.5 text-xs font-medium text-muted shadow-elev-1 ring-1 ring-inset ring-white/[0.04] backdrop-blur-sm"
-              >
+              <span key={label} className="trust-chip" role="listitem">
                 {label}
               </span>
             ))}
@@ -222,7 +219,11 @@ export default function HomePage() {
 
       <OperationalRealismEntry />
 
-      <Section id="integration-and-security" tone="default" className="proof-section">
+      <Section
+        id="integration-and-security"
+        tone="default"
+        className="proof-section home-integration-band"
+      >
         <Container className="max-w-3xl">
           <h2 className="text-h2 font-semibold text-primary">
             Integration expectations &amp; security
@@ -232,8 +233,8 @@ export default function HomePage() {
             operational boundaries. For authoritative behavior, your merchant agreement and
             environment configuration remain the source of truth.
           </p>
-          <div className="mt-8 grid gap-8 sm:grid-cols-2 sm:gap-10">
-            <div>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 sm:gap-6">
+            <div className="home-integration-column">
               <h3 className="text-h3 font-semibold text-primary">Before production traffic</h3>
               <ul className="mt-4 list-disc space-y-2.5 pl-5 text-sm leading-relaxed text-muted">
                 <li>
@@ -255,7 +256,7 @@ export default function HomePage() {
                 </li>
               </ul>
             </div>
-            <div>
+            <div className="home-integration-column">
               <h3 className="text-h3 font-semibold text-primary">Security boundaries</h3>
               <ul className="mt-4 list-disc space-y-2.5 pl-5 text-sm leading-relaxed text-muted">
                 <li>
@@ -292,9 +293,9 @@ export default function HomePage() {
       <Section id="faq" tone="default">
         <Container>
           <h2 className="text-h2 font-semibold text-primary">FAQ</h2>
-          <div className="mt-6 space-y-4">
+          <div className="mt-7 space-y-3.5 sm:space-y-4">
             {faqItems.map((item) => (
-              <Card key={item.q} interactive>
+              <Card key={item.q} interactive className="faq-card">
                 <h3 className="text-h3 font-semibold text-primary">{item.q}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{item.a}</p>
               </Card>
