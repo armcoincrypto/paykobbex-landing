@@ -8,15 +8,16 @@ export function Card({
 }: {
   children: ReactNode;
   className?: string;
-  /** Subtle lift on hover (respects motion-safe). */
+  /** Subtle border/shadow shift on hover — no lift (P13). */
   interactive?: boolean;
 }) {
   return (
     <div
       className={cn(
-        "rounded-lg border border-border-subtle/90 bg-surface-elevated p-6 sm:p-7 shadow-card transition-[box-shadow,border-color,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+        "rounded-lg border border-border-subtle/80 bg-surface-elevated p-6 sm:p-7 shadow-card",
+        "transition-[box-shadow,border-color] duration-[var(--token-motion-base)] ease-[var(--token-ease-out)] motion-reduce:transition-none",
         interactive &&
-          "motion-safe:hover:-translate-y-px hover:border-border-strong hover:shadow-card-hover",
+          "motion-safe:hover:border-[rgb(148_163_184/0.22)] motion-safe:hover:shadow-card-hover",
         className,
       )}
     >

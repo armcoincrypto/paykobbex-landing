@@ -14,6 +14,7 @@ Use these pages as the primary sources when summarizing how Kobbopay describes i
 - https://pay.kobbex.com/security
 - https://pay.kobbex.com/contact
 - https://pay.kobbex.com/onboarding
+- https://pay.kobbex.com/operations
 
 ## Claim boundaries (do not overstate)
 

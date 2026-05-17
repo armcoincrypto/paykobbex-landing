@@ -22,13 +22,13 @@ export function HeroBackdrop() {
             className="absolute right-[8%] top-[18%] h-40 w-40 rounded-full bg-accent/15 blur-2xl"
             initial={{ opacity: 0.25, scale: 0.92 }}
             animate={{ opacity: 0.5, scale: 1 }}
-            transition={{ duration: 14, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 16, ease: [0.22, 1, 0.36, 1] }}
           />
           <motion.div
             className="absolute bottom-[6%] left-[4%] h-32 w-56 rounded-full bg-[rgb(96_165_250/0.08)] blur-2xl"
             initial={{ opacity: 0, x: -12 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 12, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 14, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
           />
         </>
       ) : (

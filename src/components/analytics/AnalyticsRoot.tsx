@@ -15,7 +15,7 @@ import { trackConversionFromDataset } from "@/lib/analytics-track";
 /**
  * Optional third-party scripts + delegated click capture for `data-conv` on links.
  * Custom goals: `request_access_click`, `merchant_login_click`, `contact_click` (see `conversion-events.ts`).
- * Route-level `docs_view`, `guides_view`, and `contact_click` (page) are emitted from `RouteIntentBeacon`.
+ * Route-level `docs_view`, `guides_view`, `operations_view`, `onboarding_view`, and `contact_click` (page) are emitted from `RouteIntentBeacon`.
  * Scripts render only when `NEXT_PUBLIC_ANALYTICS_PROVIDER` and required tokens are set at build time.
  */
 export function AnalyticsRoot() {

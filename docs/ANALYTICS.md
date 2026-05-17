@@ -24,23 +24,29 @@ Copy from **`.env.example`** for local experiments. To ship **without** analytic
 
 Use **either** Plausible **or** Umami, not both (`AnalyticsRoot` loads one script path).
 
-## Five Plausible goals (custom events)
+## Plausible goals (custom events)
 
 Register these **exact names** as goals in the Plausible dashboard (site: `pay.kobbex.com`):
 
 1. `request_access_click`
 2. `docs_view`
 3. `guides_view`
-4. `contact_click`
-5. `merchant_login_click`
+4. `operations_view` *(P15 — evidence collection)*
+5. `onboarding_view` *(P15 — evidence collection)*
+6. `contact_click`
+7. `merchant_login_click`
 
 | Goal | When it fires |
 | --- | --- |
 | `request_access_click` | User clicks a **Request access** CTA (`data-conv` on `Link`). |
 | `docs_view` | User lands on `/docs` (once per browser tab session, `RouteIntentBeacon` + `sessionStorage`). |
 | `guides_view` | User lands on `/guides` or a guide subpath (same de-dupe). |
+| `operations_view` | User lands on `/operations` (same de-dupe). |
+| `onboarding_view` | User lands on `/onboarding` (same de-dupe). |
 | `contact_click` | User lands on `/contact` **or** clicks a mailto / email action with `data-conv`. |
 | `merchant_login_click` | User clicks merchant portal / login (`data-conv`). |
+
+Evidence review process: `docs/EVIDENCE_GUIDED_REFINEMENT.md`. Weekly export: `npm run evidence:weekly` (`docs/EVIDENCE_PIPELINE.md`).
 
 Implementation: `src/lib/conversion-events.ts`, `src/components/analytics/AnalyticsRoot.tsx` (click delegation), `src/components/analytics/RouteIntentBeacon.tsx` (route intents), `src/lib/analytics-track.ts`.
 
@@ -49,8 +55,8 @@ Implementation: `src/lib/conversion-events.ts`, `src/components/analytics/Analyt
 1. **Build** with production env (`npm run build` uses `.env.production`).
 2. **Deploy** the `out/` directory to the static host.
 3. In the browser, open **https://pay.kobbex.com/contact#merchant-intake** with devtools → Network: confirm a single request to **`plausible.io/js/script.js`** (or your self-hosted script URL).
-4. In Plausible → **Realtime**, trigger: navigate to `/docs`, `/guides`, `/contact`, click **Request access** and a merchant login link.
-5. Under **Goals** (or Events, depending on Plausible UI), confirm the five names increment after a few minutes.
+4. In Plausible → **Realtime**, trigger: navigate to `/docs`, `/guides`, `/operations`, `/onboarding`, `/contact`, click **Request access** and a merchant login link.
+5. Under **Goals** (or Events, depending on Plausible UI), confirm all seven names increment after a few minutes.
 
 **HTML sanity check (single script):** there must be **only one** `<script>` tag pointing at the Plausible script URL in each page HTML. `AnalyticsRoot` is mounted once in `src/app/layout.tsx`.
 

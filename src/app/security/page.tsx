@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
-import { VerificationBoundaryDiagram } from "@/components/diagrams/VerificationBoundaryDiagram";
-import { SecurityReviewFriendlySection } from "@/components/trust/SecurityReviewFriendlySection";
-import { Card } from "@/components/primitives/Card";
 import { Container } from "@/components/primitives/Container";
 import { Link } from "@/components/primitives/link";
 import { Section } from "@/components/primitives/Section";
-import { SITE_URL, OG_IMAGES, OG_IMAGE } from "@/lib/site";
+import { OperationalPageHeader } from "@/components/operational/OperationalPageHeader";
+import { SecurityBoundaryInstrument } from "@/components/operational/SecurityBoundaryInstrument";
+import { ConstraintDiscipline, OperationalGovernancePanel } from "@/components/realism";
+import { SECURITY_INCIDENT_CLASSES } from "@/lib/operational-realism";
+import { SecurityReviewFriendlySection } from "@/components/trust/SecurityReviewFriendlySection";
+import { VerificationFramePanel } from "@/components/proof/VerificationFramePanel";
+import { OG_IMAGE, OG_IMAGES, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Security",
@@ -29,79 +32,98 @@ export const metadata: Metadata = {
 
 export default function SecurityPage() {
   return (
-    <>
-      <Section tone="default" className="pt-10 sm:pt-16">
-        <Container>
-          <h1 className="text-display font-semibold tracking-tight text-primary">Security</h1>
-          <p className="mt-4 max-w-3xl text-body text-muted">
-            Kobbopay is infrastructure for moving value with software controls. This page describes
-            high-level practices and boundaries — not a substitute for your own security program,
-            vendor review, or legal advice.
-          </p>
+    <div className="ops-security">
+      <Section tone="default" className="ops-page pt-10 sm:pt-16">
+        <Container className="max-w-content">
+          <OperationalPageHeader
+            eyebrow="Security"
+            title="Operational security boundaries"
+            lead={
+              <>
+                Kobbopay is payment infrastructure with procedural controls: verification before
+                mutation, scoped environments, and explicit ownership between engineering and finance.
+                This page describes practices and boundaries — not a substitute for your security
+                program, vendor review, or legal advice.
+              </>
+            }
+          />
         </Container>
       </Section>
 
-      <Section tone="muted">
-        <Container className="space-y-8">
-          <Card>
+      <Section tone="muted" className="pb-[var(--token-section-loose)]">
+        <Container className="max-w-3xl space-y-8">
+          <VerificationFramePanel label="Trust boundary" sublabel="Non-negotiable">
             <h2 className="text-h2 font-semibold text-primary">Never share secrets with anyone</h2>
             <p className="mt-3 text-sm leading-relaxed text-muted">
               Kobbopay and legitimate vendors will never ask for your seed phrase, private keys, raw
               API secrets in email or chat, or remote control of your wallets. If someone does, it is
               a scam — stop and contact your security team.
             </p>
-          </Card>
+          </VerificationFramePanel>
 
-          <Card>
-            <VerificationBoundaryDiagram />
-          </Card>
+          <VerificationFramePanel label="Verification sequencing" sublabel="Webhook boundary">
+            <h2 className="sr-only">Webhook verification boundary</h2>
+            <SecurityBoundaryInstrument />
+            <p className="mt-4 text-sm leading-relaxed text-muted">
+              The signature proves integrity and authenticity of the webhook body to{" "}
+              <strong className="text-primary">your verifier</strong>. Parse JSON only after verification
+              succeeds; reject forgeries with{" "}
+              <code className="font-mono text-xs text-primary">401</code> without echoing secrets in logs.
+            </p>
+          </VerificationFramePanel>
 
-          <Card>
-            <h2 className="text-h2 font-semibold text-primary">What we emphasize</h2>
-            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-muted">
+          <VerificationFramePanel label="Incident classification" sublabel="Route by signal">
+            <ul className="space-y-3">
+              {SECURITY_INCIDENT_CLASSES.map((item) => (
+                <li key={item.title} className="text-sm leading-relaxed text-muted">
+                  <strong className="text-primary">{item.title}</strong>
+                  <span className="font-mono text-[10px] text-accent/80"> · {item.owner}</span>
+                  <p className="mt-1">{item.body}</p>
+                </li>
+              ))}
+            </ul>
+          </VerificationFramePanel>
+
+          <OperationalGovernancePanel className="mt-8" limit={4} />
+
+          <VerificationFramePanel label="Operational checkpoints" sublabel="What we emphasize">
+            <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted">
               <li>
                 <strong className="text-primary">2FA for sensitive merchant actions</strong> where
-                enabled in your deployment (for example, actions that can move or commit funds).
+                enabled in your deployment.
               </li>
               <li>
-                <strong className="text-primary">Signed webhooks</strong> so your servers can
-                authenticate lifecycle events before updating internal systems.
+                <strong className="text-primary">Signed webhooks</strong> before internal state mutation.
               </li>
               <li>
-                <strong className="text-primary">API key material handled as secrets</strong>{" "}
-                (stored encrypted at rest in the product architecture; integrated only from your
-                backend).
+                <strong className="text-primary">API key material as secrets</strong> — server-side only,
+                encrypted at rest in product architecture.
               </li>
               <li>
-                <strong className="text-primary">Operational controls</strong> aligned to risk:
-                merchant approval, selected rails, and operator-mediated steps where your model
-                requires them.
+                <strong className="text-primary">Operational controls</strong>: merchant approval, selected
+                rails, operator-mediated steps where your model requires them.
               </li>
             </ul>
-          </Card>
+          </VerificationFramePanel>
 
-          <Card>
-            <h2 className="text-h2 font-semibold text-primary">What Kobbopay does not claim</h2>
-            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-muted">
+          <VerificationFramePanel label="Honest boundaries" sublabel="What we do not claim">
+            <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted">
               <li>We do not claim a specific license, regulator status, or audit outcome on this site.</li>
               <li>We do not claim “bank-grade” security as a marketing label.</li>
               <li>We do not promise universal instant payouts or guaranteed finality across all chains.</li>
               <li>We do not publish open-ended multi-asset inventory claims on this marketing site.</li>
             </ul>
-          </Card>
+          </VerificationFramePanel>
+
+          <ConstraintDiscipline className="mt-8" />
 
           <SecurityReviewFriendlySection variant="compact" />
 
           <p className="text-sm text-muted">
-            Webhook verification overview:{" "}
-            <Link href="/docs#webhook-verification">
-              /docs#webhook-verification
-            </Link>
-            . Developers:{" "}
-            <Link href="/developers">
-              Integration principles
-            </Link>
-            . Contact:{" "}
+            Webhook overview: <Link href="/docs#webhook-verification">/docs#webhook-verification</Link>
+            {" · "}
+            <Link href="/guides/webhook-verification">Webhook verification guide</Link>
+            {" · "}
             <Link href="/contact#merchant-intake" conv="request_access_click">
               Request access
             </Link>
@@ -109,6 +131,6 @@ export default function SecurityPage() {
           </p>
         </Container>
       </Section>
-    </>
+    </div>
   );
 }

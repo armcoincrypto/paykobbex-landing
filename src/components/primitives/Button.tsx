@@ -1,15 +1,15 @@
 "use client";
 
-import { motion, useReducedMotion, type HTMLMotionProps } from "framer-motion";
-import type { ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { buttonClass } from "@/components/primitives/button-styles";
 import { cn } from "@/lib/cn";
 
-export type ButtonProps = Omit<HTMLMotionProps<"button">, "children"> & {
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "primary" | "secondary" | "ghost";
   children: ReactNode;
 };
 
+/** CSS-driven interaction — no Framer hover scale (P13 precision). */
 export function Button({
   variant = "primary",
   className,
@@ -17,27 +17,9 @@ export function Button({
   type = "button",
   ...props
 }: ButtonProps) {
-  const reduce = useReducedMotion();
-
   return (
-    <motion.button
-      type={type}
-      className={cn(buttonClass(variant), className)}
-      whileHover={
-        reduce
-          ? undefined
-          : variant === "primary"
-            ? {
-                scale: 1.012,
-                boxShadow: "0 18px 44px -10px rgba(37, 99, 235, 0.38)",
-              }
-            : { scale: 1.006 }
-      }
-      whileTap={reduce ? undefined : { scale: 0.985 }}
-      transition={{ type: "tween", duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
-      {...props}
-    >
+    <button type={type} className={cn(buttonClass(variant), className)} {...props}>
       {children}
-    </motion.button>
+    </button>
   );
 }

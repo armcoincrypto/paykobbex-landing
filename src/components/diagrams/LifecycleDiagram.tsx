@@ -8,23 +8,25 @@ export function LifecycleDiagram({
   variant = "full",
   className,
   diagramLabelledBy,
+  settle = true,
 }: {
   variant?: "full" | "compact";
   className?: string;
   diagramLabelledBy?: string;
+  settle?: boolean;
 }) {
   const compact = variant === "compact";
 
   return (
-    <DiagramReveal className={cn(className)}>
+    <DiagramReveal className={cn(className)} settle={settle}>
       <div className="space-y-4">
         {!compact ? (
           <div>
-            <h3 className="text-h3 font-semibold text-primary">Lifecycle diagram (conceptual)</h3>
+            <h3 className="text-h3 font-semibold text-primary">Lifecycle sequence (conceptual)</h3>
             <p className="mt-2 text-sm leading-relaxed text-muted">
-              Typical progression for a single payment object. Exact transitions depend on your
-              enabled rails and risk configuration—use your approved integration outline as source of
-              truth.
+              Typical progression for a single payment object. Finance and engineering should agree
+              which state gates entitlements and books — exact transitions depend on enabled rails and
+              your approved configuration.
             </p>
           </div>
         ) : (

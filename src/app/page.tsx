@@ -8,6 +8,12 @@ import { Link } from "@/components/primitives/link";
 import { Section } from "@/components/primitives/Section";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
+  HeroOperationalInstrument,
+  HowTeamsOperateSection,
+  InfrastructureOperationsSection,
+} from "@/components/proof";
+import { OperationalRealismEntry } from "@/components/realism";
+import {
   ForTechnicalTeamsSection,
   IntegrationExpectationsSection,
   OperationalPrinciplesSection,
@@ -113,44 +119,49 @@ export default function HomePage() {
       <Section
         id="hero"
         tone="default"
-        className="relative overflow-hidden pb-14 pt-12 sm:pb-[var(--token-section-tight)] sm:pt-20"
+        className="relative overflow-hidden pb-12 pt-11 sm:pb-[var(--token-section-tight)] sm:pt-20"
       >
         <HeroBackdrop />
         <Container className="relative z-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-            B2B crypto payments
-          </p>
-          <h1 className="mt-4 max-w-[22ch] text-balance text-display font-semibold tracking-tight text-primary sm:max-w-3xl">
-            API-first crypto payment infrastructure for serious merchants
-          </h1>
-          <p className="mt-5 max-w-3xl text-body text-muted">
-            Kobbopay is API-first B2B crypto payment infrastructure with signed webhooks, explicit
-            payment lifecycles, and a merchant portal for operations — after merchant approval, on
-            selected rails where enabled.
-          </p>
-          <CTAGroup className="mt-9">
-            <Link
-              href="/contact#merchant-intake"
-              variant="button-primary"
-              className="no-underline"
-              conv="request_access_click"
-            >
-              Request access
-            </Link>
-            <Link href="/docs" variant="button-secondary" className="no-underline">
-              Integration docs
-            </Link>
-          </CTAGroup>
-          <p className="mt-5 text-sm text-muted">
-            Merchant portal:{" "}
-            <Link href="https://merchant.kobbex.com/" conv="merchant_login_click">
-              merchant.kobbex.com
-            </Link>{" "}
-            ·{" "}
-            <Link href="/login" conv="merchant_login_click">
-              Merchant login
-            </Link>
-          </p>
+          <div className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-8 xl:gap-10">
+            <div className="lg:col-span-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+                B2B crypto payments
+              </p>
+              <h1 className="mt-4 max-w-[22ch] text-balance text-display font-semibold tracking-tight text-primary sm:max-w-none">
+                API-first crypto payment infrastructure for serious merchants
+              </h1>
+              <p className="mt-5 max-w-xl text-body text-muted lg:max-w-md xl:max-w-lg">
+                Kobbopay is API-first B2B crypto payment infrastructure with signed webhooks,
+                explicit payment lifecycles, and a merchant portal for operations — after merchant
+                approval, on selected rails where enabled.
+              </p>
+              <CTAGroup className="mt-9">
+                <Link
+                  href="/contact#merchant-intake"
+                  variant="button-primary"
+                  className="no-underline"
+                  conv="request_access_click"
+                >
+                  Request access
+                </Link>
+                <Link href="/docs" variant="button-secondary" className="no-underline">
+                  Integration docs
+                </Link>
+              </CTAGroup>
+              <p className="mt-5 text-sm text-muted">
+                Merchant portal:{" "}
+                <Link href="https://merchant.kobbex.com/" conv="merchant_login_click">
+                  merchant.kobbex.com
+                </Link>{" "}
+                ·{" "}
+                <Link href="/login" conv="merchant_login_click">
+                  Merchant login
+                </Link>
+              </p>
+            </div>
+            <HeroOperationalInstrument className="lg:col-span-7" />
+          </div>
         </Container>
       </Section>
 
@@ -171,6 +182,8 @@ export default function HomePage() {
           </div>
         </Container>
       </Section>
+
+      <InfrastructureOperationsSection />
 
       <OperationalPrinciplesSection />
 
@@ -221,84 +234,13 @@ export default function HomePage() {
         </Container>
       </Section>
 
+      <HowTeamsOperateSection />
+
+      <OperationalRealismEntry />
+
       <IntegrationExpectationsSection />
 
-      <Section id="api-payments" tone="muted">
-        <Container>
-          <h2 className="text-h2 font-semibold text-primary">API payments</h2>
-          <p className="mt-3 max-w-3xl text-sm text-muted sm:text-body">
-            Integrations are server-to-server. API keys must remain on your infrastructure and rotate
-            on your policy — Kobbopay is not a substitute for your own secret management and code
-            review practices.
-          </p>
-        </Container>
-      </Section>
-
-      <Section id="webhooks" tone="default">
-        <Container>
-          <h2 className="text-h2 font-semibold text-primary">Signed webhooks</h2>
-          <p className="mt-3 max-w-3xl text-sm text-muted sm:text-body">
-            Webhooks carry payment lifecycle events your systems can act on. Treat verification as
-            part of your threat model: validate signatures, use raw body bytes, and build idempotent
-            handlers for retries.
-          </p>
-          <p className="mt-4 text-sm">
-            <Link href="/docs">Read the integration docs</Link>
-          </p>
-        </Container>
-      </Section>
-
-      <Section id="merchant-portal" tone="muted">
-        <Container>
-          <h2 className="text-h2 font-semibold text-primary">Merchant portal</h2>
-          <p className="mt-3 max-w-3xl text-sm text-muted sm:text-body">
-            The merchant portal is where teams manage operational work: payments visibility, keys
-            and webhook configuration, and other controls exposed for your deployment — after access
-            is approved.
-          </p>
-          <p className="mt-4 text-sm">
-            <Link href="https://merchant.kobbex.com/" conv="merchant_login_click">
-              Open merchant.kobbex.com
-            </Link>
-          </p>
-        </Container>
-      </Section>
-
-      <Section id="balances" tone="default">
-        <Container>
-          <h2 className="text-h2 font-semibold text-primary">Balances and reconciliation</h2>
-          <p className="mt-3 max-w-3xl text-sm text-muted sm:text-body">
-            Balances are described in ledger-oriented terms tied to confirmation semantics. Your
-            finance team should map statuses to internal accounting rules — we do not publish a
-            public fee percentage on this marketing site unless commercially approved for your
-            segment.
-          </p>
-        </Container>
-      </Section>
-
-      <Section id="withdrawals" tone="muted">
-        <Container>
-          <h2 className="text-h2 font-semibold text-primary">Withdrawal requests</h2>
-          <p className="mt-3 max-w-3xl text-sm text-muted sm:text-body">
-            Merchants initiate withdrawal requests. Processing is subject to operational controls and
-            configuration. This is presented as risk management and operational clarity — not as
-            hidden friction.
-          </p>
-        </Container>
-      </Section>
-
-      <Section id="rails" tone="default">
-        <Container>
-          <h2 className="text-h2 font-semibold text-primary">Selected crypto rails</h2>
-          <p className="mt-3 max-w-3xl text-sm text-muted sm:text-body">
-            Enabled networks and assets depend on your environment and operational setup. We avoid
-            speculative multi-asset inventory claims or unverified global coverage statements on
-            this site.
-          </p>
-        </Container>
-      </Section>
-
-      <Section id="security-practices" tone="muted">
+      <Section id="security-practices" tone="default">
         <Container>
           <h2 className="text-h2 font-semibold text-primary">Security practices</h2>
           <p className="mt-3 max-w-3xl text-sm text-muted sm:text-body">

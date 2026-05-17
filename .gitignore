@@ -35,6 +35,14 @@ yarn-error.log*
 !.env.example
 !.env.production
 
+# Generated weekly evidence reports (business metrics; may be stored internally)
+docs/reports/plausible-weekly-*.json
+docs/reports/gsc-weekly-*.json
+docs/reports/weekly-evidence-*.json
+docs/reports/plausible-summary-*.md
+docs/reports/gsc-summary-*.md
+docs/reports/weekly-evidence-*.md
+
 # vercel
 .vercel
 

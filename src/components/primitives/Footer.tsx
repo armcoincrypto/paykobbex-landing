@@ -19,6 +19,7 @@ const buildLinks: Array<{ href: string; label: string; conv?: ConversionEventNam
   { href: "/guides", label: "Guides" },
   { href: "/glossary", label: "Glossary" },
   { href: "/developers", label: "Developers" },
+  { href: "/operations", label: "Operations" },
   { href: "/onboarding", label: "Onboarding" },
   { href: "/contact#merchant-intake", label: "Request access", conv: "request_access_click" },
 ];
@@ -30,8 +31,9 @@ export function Footer() {
         <div className="lg:col-span-1">
           <p className="text-sm font-semibold text-primary">Kobbopay</p>
           <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted">
-            API-first B2B crypto payment infrastructure. Merchant access requires approval; rails are
-            enabled per environment where available.
+            API-first B2B crypto payment infrastructure. Access is reviewed; rails and environments are
+            scoped per merchant configuration. Operational procedures — not marketing SLAs — govern
+            production enablement.
           </p>
         </div>
         <div>

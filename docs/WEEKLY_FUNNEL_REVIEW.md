@@ -2,6 +2,8 @@
 
 A **30–45 minute** recurring checklist for whoever owns growth + ops on the marketing site. Goal: spot drift in intent, broken flows, and unanswered merchants.
 
+**P15:** Categorize findings and pick at most one ship decision using `docs/EVIDENCE_GUIDED_REFINEMENT.md` (confusion log + prioritization score).
+
 ## 1. Plausible traffic
 
 - [ ] Open Plausible for **pay.kobbex.com** (or your self-hosted dashboard).
@@ -16,9 +18,12 @@ In Plausible → **Goals** (or custom events view), review counts for:
 - `docs_view`
 - `guides_view`
 - `contact_click`
+- `operations_view`
+- `onboarding_view`
 - `merchant_login_click`
 
 - [ ] Note the ratio **request_access_click** → **contact_click** (page + mailto clicks are both `contact_click` in our model — interpret with context from `docs/ANALYTICS.md`).
+- [ ] Compare **onboarding_view** vs **operations_view** vs **docs_view** / **guides_view** for path clarity.
 - [ ] Flag if **docs_view** or **guides_view** drops while **request_access_click** rises (possible confused users).
 
 ## 3. Contact emails (inbox)

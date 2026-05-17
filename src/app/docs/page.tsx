@@ -2,14 +2,20 @@ import type { Metadata } from "next";
 import { ArchitectureDiagram } from "@/components/diagrams/ArchitectureDiagram";
 import { LifecycleDiagram } from "@/components/diagrams/LifecycleDiagram";
 import { WebhookFlowDiagram } from "@/components/diagrams/WebhookFlowDiagram";
-import { Card } from "@/components/primitives/Card";
 import { CodePanel } from "@/components/primitives/CodePanel";
 import { Container } from "@/components/primitives/Container";
 import { CTAGroup } from "@/components/primitives/CTAGroup";
 import { Link } from "@/components/primitives/link";
 import { Section } from "@/components/primitives/Section";
+import {
+  CodeInstrumentPanel,
+  OperationalDocNav,
+  OperationalPageHeader,
+  OperationalProseSection,
+} from "@/components/operational";
+import { EnvironmentRolloutNote, OperationalGovernancePanel, ProductionRealityNote } from "@/components/realism";
+import { VerificationFramePanel } from "@/components/proof/VerificationFramePanel";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { GLOSSARY_TERMS } from "@/lib/glossary-terms";
 import { OG_IMAGE, OG_IMAGES, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -104,6 +110,7 @@ const toc = [
   { href: "/docs#glossary", label: "Glossary" },
   { href: "/glossary", label: "Canonical glossary (/glossary)" },
   { href: "/guides", label: "Operational guides (/guides)" },
+  { href: "/operations", label: "Operational walkthroughs (/operations)" },
 ];
 
 export default function DocsPage() {
@@ -111,51 +118,33 @@ export default function DocsPage() {
     <>
       <JsonLd id="ld-json-docs-breadcrumb" data={breadcrumbJson} />
 
-      <Section tone="default" className="pt-10 sm:pt-16">
-        <Container className="max-w-3xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-            Technical overview
-          </p>
-          <h1 className="mt-3 text-display font-semibold tracking-tight text-primary">
-            Integration docs
-          </h1>
-          <p className="mt-5 text-body leading-relaxed text-muted">
-            This page is an <strong className="text-primary">integration overview</strong> for CTOs
-            and engineers evaluating Kobbopay. It is{" "}
-            <strong className="text-primary">not</strong> a final API reference, not legal/commercial
-            terms, and not a commitment of availability for any specific asset, network, or
-            settlement timeline. Canonical product behavior is defined by your merchant agreement
-            and environment configuration after{" "}
-            <Link href="/contact#merchant-intake" conv="request_access_click">
-              merchant approval
-            </Link>
-            .
-          </p>
-        </Container>
-      </Section>
-
-      <Section tone="muted" className="py-10 sm:py-12">
+      <Section tone="default" className="ops-page pt-10 sm:pt-16 pb-[var(--token-section-loose)]">
         <Container className="max-w-content">
-          <Card className="mx-auto max-w-3xl">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-muted">On this page</h2>
-            <nav aria-label="Documentation sections" className="mt-4">
-              <ul className="columns-1 gap-x-10 text-sm sm:columns-2">
-                {toc.map((item) => (
-                  <li key={item.href} className="break-inside-avoid py-1">
-                    <Link href={item.href} className="text-muted no-underline hover:text-primary" muted>
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </Card>
-        </Container>
-      </Section>
+          <OperationalPageHeader
+            eyebrow="Technical documentation"
+            title="Integration docs"
+            lead={
+              <>
+                This page is an <strong className="text-primary">integration overview</strong> for CTOs
+                and engineers evaluating Kobbopay. It is{" "}
+                <strong className="text-primary">not</strong> a final API reference, not legal/commercial
+                terms, and not a commitment of availability for any specific asset, network, or
+                settlement timeline. Canonical product behavior is defined by your merchant agreement
+                and environment configuration after{" "}
+                <Link href="/contact#merchant-intake" conv="request_access_click">
+                  merchant approval
+                </Link>
+                .
+              </>
+            }
+          />
 
-      <Section id="overview" tone="default">
-        <Container className="max-w-3xl space-y-6">
-          <h2 className="text-h2 font-semibold text-primary">Overview</h2>
+          <div className="ops-doc-layout mt-12">
+            <aside className="ops-doc-sidebar">
+              <OperationalDocNav items={toc} />
+            </aside>
+            <main className="ops-doc-main">
+              <OperationalProseSection id="overview" title="Overview">
           <p className="text-sm leading-relaxed text-muted sm:text-body">
             Kobbopay is <strong className="text-primary">API-first</strong>: your backend creates
             payments, reads authoritative status from the API, and subscribes to{" "}
@@ -170,18 +159,18 @@ export default function DocsPage() {
             as a neutral placeholder host. Your integration hostnames, paths, headers, and signing
             details come from the materials issued for your approved environment.
           </p>
-          <p className="text-sm text-muted">
-            Short operational guides: <Link href="/guides">/guides</Link> (lifecycle, webhooks,
-            reconciliation, keys, onboarding).
-          </p>
-        </Container>
-      </Section>
+                <p className="text-sm text-muted">
+                  Short operational guides: <Link href="/guides">/guides</Link> (lifecycle, webhooks,
+                  reconciliation, keys, onboarding). Walkthroughs:{" "}
+                  <Link href="/operations">/operations</Link>.
+                </p>
+                <ProductionRealityNote compact />
+              </OperationalProseSection>
 
-      <Section id="concepts" tone="muted">
-        <Container className="max-w-3xl space-y-6">
-          <h2 id="docs-heading-concepts" className="text-h2 font-semibold text-primary">
-            Concepts
-          </h2>
+              <OperationalProseSection id="concepts" title="Concepts" tone="muted">
+                <h2 id="docs-heading-concepts" className="sr-only">
+                  Concepts
+                </h2>
           <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted sm:text-body">
             <li>
               <strong className="text-primary">Server-to-server only:</strong> API keys must live on
@@ -203,18 +192,31 @@ export default function DocsPage() {
               webhooks/keys where exposed, and initiate withdrawal requests according to your
               controls.
             </li>
+            <li>
+              <strong className="text-primary">Environments:</strong> non-production and production
+              differ by credentials, endpoints, and rails — configuration drift is an operational
+              risk to review periodically.
+            </li>
+            <li>
+              <strong className="text-primary">Failure handling:</strong> retries, signature failures,
+              and reconciliation exceptions are normal operational signals — design monitoring and
+              exception queues accordingly.
+            </li>
           </ul>
-          <div id="architecture" className="mt-10 space-y-4 scroll-mt-24">
-            <ArchitectureDiagram variant="full" diagramLabelledBy="docs-heading-concepts" />
-          </div>
-        </Container>
-      </Section>
+                <EnvironmentRolloutNote className="mt-8" />
+                <div id="architecture" className="mt-8 scroll-mt-24">
+                  <ArchitectureDiagram
+                    variant="full"
+                    diagramLabelledBy="docs-heading-concepts"
+                    settle={false}
+                  />
+                </div>
+              </OperationalProseSection>
 
-      <Section id="payment-lifecycle" tone="default">
-        <Container className="max-w-3xl space-y-6">
-          <h2 id="docs-heading-payment-lifecycle" className="text-h2 font-semibold text-primary">
-            Payment lifecycle
-          </h2>
+              <OperationalProseSection id="payment-lifecycle" title="Payment lifecycle">
+                <h2 id="docs-heading-payment-lifecycle" className="sr-only">
+                  Payment lifecycle
+                </h2>
           <p className="text-sm leading-relaxed text-muted sm:text-body">
             A payment typically moves through a small set of states such as{" "}
             <strong className="text-primary">Pending</strong> →{" "}
@@ -228,40 +230,38 @@ export default function DocsPage() {
             Webhooks emit lifecycle transitions your systems consume to update orders, entitlements,
             and accounting—after you verify authenticity and process idempotently.
           </p>
-          <LifecycleDiagram variant="full" diagramLabelledBy="docs-heading-payment-lifecycle" />
-        </Container>
-      </Section>
+                <LifecycleDiagram
+                  variant="full"
+                  diagramLabelledBy="docs-heading-payment-lifecycle"
+                  settle={false}
+                />
+              </OperationalProseSection>
 
-      <Section id="create-payment" tone="muted">
-        <Container className="max-w-3xl space-y-6">
-          <h2 className="text-h2 font-semibold text-primary">Create payment</h2>
-          <p className="text-sm leading-relaxed text-muted sm:text-body">
-            Creation is always initiated from your backend using a secret API key. The response
-            should include a stable <code className="font-mono text-xs text-primary">payment_id</code>{" "}
-            and payer-facing instructions appropriate to the enabled rail.
-          </p>
-          <CodePanel title="Illustrative request (placeholders only)" code={createPaymentExample} />
-        </Container>
-      </Section>
+              <OperationalProseSection id="create-payment" title="Create payment" tone="muted">
+                <p className="text-sm leading-relaxed text-muted sm:text-body">
+                  Creation is always initiated from your backend using a secret API key.
+                </p>
+                <CodeInstrumentPanel label="Illustrative request (placeholders only)">
+                  <CodePanel title="" code={createPaymentExample} />
+                </CodeInstrumentPanel>
+              </OperationalProseSection>
 
-      <Section id="read-status" tone="default">
-        <Container className="max-w-3xl space-y-6">
-          <h2 className="text-h2 font-semibold text-primary">Read payment status</h2>
+              <OperationalProseSection id="read-status" title="Read payment status">
           <p className="text-sm leading-relaxed text-muted sm:text-body">
             Your services poll or refresh status server-side. A separate{" "}
             <strong className="text-primary">public payment status</strong> surface (tokenized URL or
             similar) may exist for payer UX without exposing merchant secrets—availability depends on
             your deployment configuration.
           </p>
-          <CodePanel title="Illustrative GET (placeholders only)" code={readPaymentExample} />
-        </Container>
-      </Section>
+                <CodeInstrumentPanel label="Illustrative GET (placeholders only)">
+                  <CodePanel title="" code={readPaymentExample} />
+                </CodeInstrumentPanel>
+              </OperationalProseSection>
 
-      <Section id="webhooks" tone="muted">
-        <Container className="max-w-3xl space-y-6">
-          <h2 id="docs-heading-webhooks" className="text-h2 font-semibold text-primary">
-            Webhooks
-          </h2>
+              <OperationalProseSection id="webhooks" title="Webhooks" tone="muted">
+                <h2 id="docs-heading-webhooks" className="sr-only">
+                  Webhooks
+                </h2>
           <p className="text-sm leading-relaxed text-muted sm:text-body">
             Register an HTTPS endpoint you control (for example{" "}
             <code className="font-mono text-xs text-primary">
@@ -275,34 +275,30 @@ export default function DocsPage() {
             Respond with <code className="font-mono text-xs text-primary">2xx</code> only after you
             have durably recorded the event (or queued safe work). Non-2xx responses invite retries.
           </p>
-          <WebhookFlowDiagram variant="full" diagramLabelledBy="docs-heading-webhooks" />
-        </Container>
-      </Section>
+                <WebhookFlowDiagram
+                  variant="full"
+                  diagramLabelledBy="docs-heading-webhooks"
+                  settle={false}
+                />
+              </OperationalProseSection>
 
-      <Section id="webhook-verification" tone="default">
-        <Container className="max-w-3xl space-y-6">
-          <h2 className="text-h2 font-semibold text-primary">Webhook verification</h2>
+              <OperationalProseSection id="webhook-verification" title="Webhook verification">
           <p className="text-sm leading-relaxed text-muted sm:text-body">
             Compute the expected signature from <code className="font-mono text-xs text-primary">YOUR_WEBHOOK_SECRET</code>{" "}
             and the <strong className="text-primary">raw request body</strong>, then compare using a
             constant-time check after enforcing equal buffer lengths. Parse JSON only after
             verification succeeds.
           </p>
-          <CodePanel title="Node.js sketch (pattern only)" code={webhookHandlerExample} />
-          <p className="text-sm text-muted">
-            Security context: <Link href="/security">Security practices</Link> · deeper webhook notes
-            below in{" "}
-            <Link href="/docs#security-notes" muted>
-              Security notes
-            </Link>
-            .
-          </p>
-        </Container>
-      </Section>
+                <CodeInstrumentPanel label="Node.js sketch (pattern only)">
+                  <CodePanel title="" code={webhookHandlerExample} />
+                </CodeInstrumentPanel>
+                <p className="text-sm text-muted">
+                  <Link href="/security">Security practices</Link> ·{" "}
+                  <Link href="/guides/webhook-verification">Webhook verification guide</Link>
+                </p>
+              </OperationalProseSection>
 
-      <Section id="retry-idempotency" tone="muted">
-        <Container className="max-w-3xl space-y-6">
-          <h2 className="text-h2 font-semibold text-primary">Retry and idempotency</h2>
+              <OperationalProseSection id="retry-idempotency" title="Retry and idempotency" tone="muted">
           <p className="text-sm leading-relaxed text-muted sm:text-body">
             Webhook delivery may retry on transient failures. Make consumers{" "}
             <strong className="text-primary">idempotent</strong> by deduplicating on a stable event
@@ -316,12 +312,10 @@ export default function DocsPage() {
             prefer create operations that accept an idempotency key if your integration kit exposes
             one.
           </p>
-        </Container>
-      </Section>
+              </OperationalProseSection>
 
-      <Section id="security-notes" tone="default">
-        <Container className="max-w-3xl space-y-6">
-          <h2 className="text-h2 font-semibold text-primary">Security notes</h2>
+              <OperationalProseSection id="security-notes" title="Security notes">
+                <OperationalGovernancePanel className="mb-8" limit={3} />
           <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted sm:text-body">
             <li>Never expose API keys in frontend code, demos, or screenshots.</li>
             <li>
@@ -335,12 +329,9 @@ export default function DocsPage() {
               high-risk deployments.
             </li>
           </ul>
-        </Container>
-      </Section>
+              </OperationalProseSection>
 
-      <Section id="not-public-yet" tone="muted">
-        <Container className="max-w-3xl space-y-6">
-          <h2 className="text-h2 font-semibold text-primary">What is not public yet</h2>
+              <OperationalProseSection id="not-public-yet" title="What is not public yet" tone="muted">
           <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted sm:text-body">
             <li>OpenAPI / JSON Schema bundles pinned to production versions.</li>
             <li>Authenticated reference for every error code and pagination edge case.</li>
@@ -354,47 +345,36 @@ export default function DocsPage() {
             </Link>
             .
           </p>
-        </Container>
-      </Section>
+              </OperationalProseSection>
 
-      <Section id="glossary" tone="default" className="pb-[var(--token-section-loose)]">
-        <Container className="max-w-3xl space-y-8">
-          <h2 className="text-h2 font-semibold text-primary">Glossary</h2>
-          <p className="text-sm text-muted sm:text-body">
-            Short definitions for quick alignment and AI-friendly citation. Wording is descriptive,
-            not a contractual enumeration of states. Stable anchors also live on{" "}
-            <Link href="/glossary">/glossary</Link>.
-          </p>
-          <dl className="grid gap-6 sm:grid-cols-2">
-            {GLOSSARY_TERMS.map((row) => (
-              <div
-                key={row.id}
-                id={row.id}
-                className="scroll-mt-28 rounded-lg border border-border-subtle/90 bg-surface-elevated/60 p-5 shadow-card"
-              >
-                <dt className="text-sm font-semibold text-primary">{row.term}</dt>
-                <dd className="mt-2 text-sm leading-relaxed text-muted">{row.def}</dd>
-              </div>
-            ))}
-          </dl>
+              <OperationalProseSection id="glossary" title="Glossary">
+                <p className="text-sm text-muted sm:text-body">
+                  Short definitions for quick alignment. Canonical anchors:{" "}
+                  <Link href="/glossary">/glossary</Link>.
+                </p>
+                <p className="mt-4 text-sm">
+                  <Link href="/glossary">View full glossary →</Link>
+                </p>
 
-          <Card className="border-accent/20 bg-surface-elevated/80 ring-1 ring-inset ring-accent/10">
-            <h3 className="text-h3 font-semibold text-primary">Trust boundaries (read this twice)</h3>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted">
-              <li>These docs are an integration overview, not legal or commercial terms.</li>
-              <li>Asset and network availability depend on merchant configuration and merchant approval.</li>
-              <li>No guarantee of instant settlement, universal finality, or global asset support.</li>
-            </ul>
-          </Card>
+                <VerificationFramePanel label="Trust boundaries" sublabel="Read this twice" className="mt-8">
+                  <ul className="list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted">
+                    <li>These docs are an integration overview, not legal or commercial terms.</li>
+                    <li>Asset and network availability depend on merchant configuration and approval.</li>
+                    <li>No guarantee of instant settlement, universal finality, or global asset support.</li>
+                  </ul>
+                </VerificationFramePanel>
 
-          <CTAGroup>
-            <Link href="/contact#merchant-intake" variant="button-primary" className="no-underline" conv="request_access_click">
-              Request access
-            </Link>
-            <Link href="/developers" variant="button-secondary" className="no-underline">
-              Developer hub
-            </Link>
-          </CTAGroup>
+                <CTAGroup className="mt-8">
+                  <Link href="/contact#merchant-intake" variant="button-primary" className="no-underline" conv="request_access_click">
+                    Request access
+                  </Link>
+                  <Link href="/developers" variant="button-secondary" className="no-underline">
+                    Developer hub
+                  </Link>
+                </CTAGroup>
+              </OperationalProseSection>
+            </main>
+          </div>
         </Container>
       </Section>
     </>

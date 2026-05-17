@@ -8,15 +8,17 @@ export function WebhookFlowDiagram({
   variant = "full",
   className,
   diagramLabelledBy,
+  settle = true,
 }: {
   variant?: "full" | "compact";
   className?: string;
   diagramLabelledBy?: string;
+  settle?: boolean;
 }) {
   const compact = variant === "compact";
 
   return (
-    <DiagramReveal className={cn(className)}>
+    <DiagramReveal className={cn(className)} settle={settle}>
       <div className="space-y-4">
         {!compact ? (
           <div>
@@ -45,23 +47,23 @@ export function WebhookFlowDiagram({
             )}
           >
             <FlowStep
-              title="Kobbopay event"
-              subtitle={compact ? "Lifecycle change" : "Lifecycle transition in product"}
+              title="Lifecycle event"
+              subtitle={compact ? "Product transition" : "Authoritative state change"}
             />
             <FlowArrow direction={compact ? "down" : "right"} />
             <FlowStep
               title="Signed POST"
-              subtitle={compact ? "HTTPS + body" : "HTTPS with signature over raw JSON body"}
+              subtitle={compact ? "HTTPS · raw body" : "HTTPS · signature over raw bytes"}
             />
             <FlowArrow direction={compact ? "down" : "right"} />
             <FlowStep
-              title="Verify signature"
-              subtitle={compact ? "Server only" : "Merchant backend (never the browser)"}
+              title="Verify"
+              subtitle={compact ? "Server-side" : "Checkpoint · merchant engineering"}
             />
             <FlowArrow direction={compact ? "down" : "right"} />
             <FlowStep
-              title="Update systems"
-              subtitle={compact ? "Idempotent" : "Orders / ledger hooks (idempotent writes)"}
+              title="Persist"
+              subtitle={compact ? "Idempotent write" : "Checkpoint · durable consumer"}
             />
           </div>
         </DiagramFrame>

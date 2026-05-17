@@ -665,3 +665,138 @@ Complete **all** before any IA/content ship decision:
 | --- | --- | --- |
 | 2026-05-16 | **no public change** | Instrumentation QA pass; governance rule added |
 | 2026-05-16 | **owner actions** | Register goals + Realtime test + paste W1/W2 Plausible/GSC |
+
+---
+
+## P20 — Evidence-only correction sprint
+
+**Sprint rule:** Corrections and discoverability fixes **only** where primary evidence (Plausible, GSC, inbox) supports them. **Server logs are not primary evidence.** **No change is the default and a valid outcome.**
+
+**Sprint outcome:** **No public-site change.** Documentation-only review; primary data still absent in-repo.
+
+---
+
+### Part 1 — Primary data review (required sources)
+
+> **Status:** Plausible, GSC, and inbox exports were **not available** in the sprint environment. Tables below are structured for owner paste — do not ship refinements from empty cells.
+
+#### Plausible (7-day window — paste from dashboard)
+
+| Signal | Value | Notes |
+| --- | --- | --- |
+| Top pages (1–5) | _pending_ | |
+| Low-traffic strategic pages | _pending_ | e.g. `/operations`, `/glossary` |
+| `docs_view` | _pending_ | |
+| `guides_view` | _pending_ | |
+| `operations_view` | _pending_ | |
+| `onboarding_view` | _pending_ | |
+| `request_access_click` | _pending_ | |
+| `contact_click` | _pending_ | |
+| `merchant_login_click` | _pending_ | |
+| `operations_view` ÷ `docs_view` | _pending_ | Navbar rule input |
+| Funnel: docs/guides → contact | _pending_ | Qualitative pattern only |
+
+#### Google Search Console (7–28 day window)
+
+| Signal | Value | Notes |
+| --- | --- | --- |
+| Impressions / clicks / CTR | _pending_ | |
+| High-impression, low-CTR URL | _pending_ | Need 50+ impr. before title/meta |
+| Top queries (1–3) | _pending_ | |
+| Terminology mismatch vs site copy | _pending_ | |
+| `/glossary` indexed + impressions | _pending_ | |
+
+#### Qualitative (inbox / onboarding)
+
+| Signal | Value | Notes |
+| --- | --- | --- |
+| Merchant inquiries (count) | _pending_ | |
+| Repeat confusion (`LIFE`, `WH`, `ONB`, …) | **none logged** | |
+| Onboarding objections (repeat) | **none logged** | |
+| Clarification requests | **none logged** | |
+
+#### Derived review (cannot complete without primary data)
+
+| Question | Answer (P20) |
+| --- | --- |
+| Top entry paths to docs/guides | _unknown_ |
+| Overlooked pages (traffic ≪ peers) | _unknown_ — **do not infer from server logs** |
+| Onboarding drop-off pattern | _unknown_ |
+| Operational misunderstanding frequency | **no validated repeats** |
+
+---
+
+### Part 2 — Evidence validation (confusion zones)
+
+| Zone | Repeated evidence? | Measurable friction? | P20 verdict |
+| --- | --- | --- | --- |
+| Paid vs Confirmed (`LIFE`) | No inbox | GSC pending | **Reject** ship |
+| Retries / duplicates (`WH`) | No | — | **Reject** |
+| Merchant review (`ONB`) | No | Plausible pending | **Reject** (P15/P16 links remain) |
+| Selected rails (`RAIL`) | No | — | **Reject** |
+| Onboarding timeline | No objections | — | **Reject** |
+| Reconciliation (`REC`) | No | — | **Reject** |
+| Operations discoverability | Plausible pending | Proxy **not used** | **Reject** nav |
+| Glossary discoverability | GSC pending | — | **Reject** |
+| Low CTR guide | GSC pending | — | **Reject** title/meta |
+
+**Ship threshold not met** for any zone.
+
+---
+
+### Part 3–6 — Refinement decisions (all candidates)
+
+| Candidate | Evidence source | Reason | Expected outcome | P20 |
+| --- | --- | --- | --- | --- |
+| Operations in primary nav | Plausible ratio, 2 weeks | **Missing** | Easier ops discovery | **Reject** |
+| Guide title/meta (GSC) | 50+ impr., low CTR | **Missing** | Better query match | **Reject** |
+| Payment-lifecycle → operations anchor | Inbox `LIFE` ×2 | **Missing** | Clearer finality | **Reject** |
+| Onboarding paragraph | Repeated objections | **Missing** | Fewer timeline myths | **Reject** |
+| Glossary clarification | GSC query mismatch | **Missing** | Term alignment | **Reject** |
+| Extra cross-links | Taste / proxy | **Not primary** | — | **Reject** |
+| CTA wording | Funnel proof | **Missing** | — | **Reject** |
+| Homepage / redesign / motion | — | **Out of scope** | — | **Reject** |
+
+**Shipped:** **none** (public site unchanged after P19).
+
+---
+
+### Part 7 — Governance enforcement (P20)
+
+1. **No change is a valid, preferred outcome** when primary exports are empty.
+2. **Reject** redesign, SEO, and conversion pressure without pasted Plausible + GSC + qualitative logs.
+3. **Server-log ratios do not authorize** navbar, copy, or SEO changes (P16 §7, P18 hard rule).
+4. **One refinement maximum** per sprint when evidence exists; zero refinements when it does not.
+5. **P19 institutional copy stands** — do not add maturity layers without new confusion evidence.
+
+---
+
+### P20 refinement decision log
+
+| Week of | Decision | Evidence summary | Shipped |
+| --- | --- | --- | --- |
+| 2026-05-16 | **no change** | Plausible/GSC/inbox not in-repo; no repeated confusion; navbar rule inputs missing | — |
+
+---
+
+### Next evidence checkpoint (P21+)
+
+**Before any public correction:**
+
+1. Paste **Plausible** table (§ P20 Part 1) for the active 7-day window.
+2. Paste **GSC** table; flag one low-CTR URL only if ≥50 impressions.
+3. Log **inbox** themes or explicit “none this week.”
+4. Recompute **`operations_view` ÷ `docs_view`** — navbar only if **two consecutive Plausible weeks** both &lt; 0.33.
+5. Pick **at most one** allowed refinement type (Part 3 P20 brief) with evidence source + expected outcome documented here.
+
+**P21 may start** when steps 1–3 are complete. Step 4 required only for nav IA.
+
+---
+
+## Measurement automation (P21)
+
+Weekly exports: **`npm run evidence:weekly`** → `docs/reports/` (see **`docs/EVIDENCE_PIPELINE.md`**).
+
+- Plausible + GSC summaries are generated when credentials exist in **`.env.local`**.
+- Reports are **read-only**; they do not change the public site.
+- Paste summary tables here for refinement decisions, or link internal copies.

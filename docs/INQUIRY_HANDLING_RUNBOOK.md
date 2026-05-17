@@ -85,3 +85,7 @@ Minimum tracking in a spreadsheet or shared doc:
 - Outcome  
 
 Sync with **Plausible** goals weekly (`docs/WEEKLY_FUNNEL_REVIEW.md`) to see top-of-funnel vs replies.
+
+## 8. Qualitative evidence (P15)
+
+When a thread reveals a **repeatable misunderstanding** (lifecycle, webhooks, approval, rails), log it in the **Confusion log** in `docs/EVIDENCE_GUIDED_REFINEMENT.md` with category code (`LIFE`, `WH`, `ONB`, etc.). Do not change public copy from a single email — wait for prioritization rules in that doc.

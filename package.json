@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "check:claims": "node scripts/check-content-claims.mjs",
+    "evidence:weekly": "node scripts/evidence/weekly-evidence.mjs",
     "verify": "npm run lint && npm run check:claims && npm run build"
   },
   "dependencies": {

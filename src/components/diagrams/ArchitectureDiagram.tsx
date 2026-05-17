@@ -8,16 +8,18 @@ export function ArchitectureDiagram({
   variant = "full",
   className,
   diagramLabelledBy,
+  settle = true,
 }: {
   variant?: "full" | "compact";
   className?: string;
   /** Visible heading id (e.g. section `h2`) for diagram `aria-labelledby`. */
   diagramLabelledBy?: string;
+  settle?: boolean;
 }) {
   const compact = variant === "compact";
 
   return (
-    <DiagramReveal className={cn(className)}>
+    <DiagramReveal className={cn(className)} settle={settle}>
       <div className="space-y-4">
         {!compact ? (
           <div>

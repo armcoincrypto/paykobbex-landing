@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Card } from "@/components/primitives/Card";
 import { Container } from "@/components/primitives/Container";
 import { Link } from "@/components/primitives/link";
 import { Section } from "@/components/primitives/Section";
-import { GUIDE_ENTRIES, guidePath } from "@/lib/guides-meta";
+import { GuideInstrument } from "@/components/operational/GuideInstrument";
+import { OperationalPageHeader } from "@/components/operational/OperationalPageHeader";
+import { GUIDE_ENTRIES, guidePath, type GuideSlug } from "@/lib/guides-meta";
 import { OG_IMAGE, OG_IMAGES, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -30,47 +31,49 @@ export const metadata: Metadata = {
 export default function GuidesHubPage() {
   return (
     <>
-      <Section tone="default" className="pt-10 sm:pt-16">
-        <Container className="max-w-3xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">Guides</p>
-          <h1 className="mt-3 text-display font-semibold tracking-tight text-primary">
-            Operational education for integrations
-          </h1>
-          <p className="mt-4 text-body leading-relaxed text-muted">
-            These pages are intentionally short: answer-first explanations you can quote in design
-            docs, security reviews, and onboarding playbooks. They are{" "}
-            <strong className="text-primary">not</strong> a substitute for your merchant agreement,
-            environment-specific signing contracts, or legal advice.
-          </p>
-          <p className="mt-4 text-sm text-muted">
-            Canonical definitions: <Link href="/glossary">Glossary</Link>. Technical overview:{" "}
-            <Link href="/docs">
-              /docs
-            </Link>
-            .
-          </p>
-        </Container>
-      </Section>
-
-      <Section tone="muted" className="pb-[var(--token-section-loose)]">
+      <Section tone="default" className="ops-page pt-10 sm:pt-16 pb-[var(--token-section-loose)]">
         <Container className="max-w-content">
-          <div className="grid gap-4 md:grid-cols-2">
-            {GUIDE_ENTRIES.map((g) => (
-              <Card key={g.slug} interactive>
-                <h2 className="text-h3 font-semibold text-primary">
-                  <Link href={guidePath(g.slug)} className="text-primary no-underline hover:text-accent">
-                    {g.shortTitle}
-                  </Link>
-                </h2>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{g.description}</p>
-                <p className="mt-4 text-sm">
-                  <Link href={guidePath(g.slug)} className="font-medium">
-                    Read guide →
-                  </Link>
-                </p>
-              </Card>
+          <OperationalPageHeader
+            eyebrow="Guides"
+            title="Operational education for integrations"
+            lead={
+              <>
+                These pages are intentionally short: answer-first explanations you can quote in design
+                docs, security reviews, and onboarding playbooks. They are{" "}
+                <strong className="text-primary">not</strong> a substitute for your merchant agreement,
+                environment-specific signing contracts, or legal advice.
+              </>
+            }
+          >
+            <p className="text-sm text-muted">
+              Canonical definitions: <Link href="/glossary">Glossary</Link>. Technical overview:{" "}
+              <Link href="/docs">/docs</Link>. Illustrative walkthroughs:{" "}
+              <Link href="/operations">/operations</Link>.
+            </p>
+          </OperationalPageHeader>
+
+          <ul className="mt-14 space-y-0">
+            {GUIDE_ENTRIES.map((g, i) => (
+              <li
+                key={g.slug}
+                className="grid gap-6 border-t border-border-subtle/80 py-10 first:border-t-0 first:pt-0 lg:grid-cols-[minmax(0,1fr)_minmax(240px,300px)] lg:items-start"
+              >
+                <article>
+                  <p className="proof-workflow-index">{String(i + 1).padStart(2, "0")}</p>
+                  <h2 className="mt-2 text-h2 font-semibold text-primary">
+                    <Link href={guidePath(g.slug)} className="text-primary no-underline hover:text-accent">
+                      {g.shortTitle}
+                    </Link>
+                  </h2>
+                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">{g.description}</p>
+                  <p className="mt-4 text-sm font-medium">
+                    <Link href={guidePath(g.slug)}>Read guide →</Link>
+                  </p>
+                </article>
+                <GuideInstrument slug={g.slug as GuideSlug} className="guides-hub-instrument lg:mt-6" />
+              </li>
             ))}
-          </div>
+          </ul>
         </Container>
       </Section>
     </>

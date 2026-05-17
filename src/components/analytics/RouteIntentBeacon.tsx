@@ -23,6 +23,8 @@ function fireRouteEventOncePerSession(pathname: string, event: ConversionEventNa
 
 function routeEventForPath(pathname: string): ConversionEventName | null {
   if (pathname === "/contact") return "contact_click";
+  if (pathname === "/operations") return "operations_view";
+  if (pathname === "/onboarding") return "onboarding_view";
   if (pathname.startsWith("/guides")) return "guides_view";
   if (pathname.startsWith("/docs")) return "docs_view";
   return null;

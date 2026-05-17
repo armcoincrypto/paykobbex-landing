@@ -34,7 +34,8 @@ Use this before announcing a merchant as “integration-complete” or expanding
 
 ## Analytics visibility
 
-- [ ] **Privacy-safe analytics** configured (`docs/ANALYTICS.md`) for funnel visibility: `request_access_click`, `docs_view`, `guides_view`, `contact_click`, `merchant_login_click`.
+- [ ] **Privacy-safe analytics** configured (`docs/ANALYTICS.md`) for funnel visibility: `request_access_click`, `docs_view`, `guides_view`, `operations_view`, `onboarding_view`, `contact_click`, `merchant_login_click`.
+- [ ] **Evidence review** cadence active (`docs/EVIDENCE_GUIDED_REFINEMENT.md`).
 - [ ] Team knows these events are **intent signals**, not revenue attribution.
 
 ## Uptime expectations

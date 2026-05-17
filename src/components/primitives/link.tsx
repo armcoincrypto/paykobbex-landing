@@ -5,7 +5,7 @@ import { buttonClass } from "@/components/primitives/button-styles";
 import type { ConversionEventName } from "@/lib/conversion-events";
 
 const textBase =
-  "underline underline-offset-4 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-canvas rounded-sm";
+  "underline decoration-[rgb(148_163_184/0.35)] underline-offset-[0.2em] transition-[color,text-decoration-color] duration-[var(--token-motion-hover)] ease-[var(--token-ease-out)] hover:text-accent hover:decoration-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-canvas rounded-sm motion-reduce:transition-none";
 
 export type AppLinkProps = ComponentProps<typeof NextLink> & {
   muted?: boolean;

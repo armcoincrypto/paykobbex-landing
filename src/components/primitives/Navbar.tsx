@@ -26,7 +26,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border-subtle/80 bg-canvas/80 shadow-[0_1px_0_0_rgb(255_255_255/0.04)] backdrop-blur-xl supports-[backdrop-filter]:bg-canvas/70 print:hidden">
+    <header className="sticky top-0 z-50 border-b border-border-subtle/70 bg-canvas/85 shadow-[0_1px_0_0_rgb(255_255_255/0.03)] backdrop-blur-md supports-[backdrop-filter]:bg-canvas/75 print:hidden">
       <Container className="flex h-14 items-center justify-between gap-4 sm:h-16">
         <Link
           href="/"
@@ -40,7 +40,7 @@ export function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm no-underline"
+              className="text-sm no-underline decoration-transparent hover:decoration-transparent"
               muted
               {...(item.conv ? { conv: item.conv } : {})}
             >
@@ -88,12 +88,12 @@ export function Navbar() {
           open ? "block" : "hidden",
         )}
       >
-        <Container className="flex flex-col gap-3 py-4">
+        <Container className="flex flex-col gap-1 py-3">
           {nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm"
+              className="min-h-11 rounded-md px-2 py-2.5 text-sm no-underline decoration-transparent hover:bg-surface-elevated/60 hover:decoration-transparent"
               muted
               {...(item.conv ? { conv: item.conv } : {})}
               onClick={() => setOpen(false)}

@@ -1,6 +1,6 @@
 # SEO & growth review (pay.kobbex.com)
 
-First monitoring cycle after launch: **Search Console** (discovery + queries) + **Plausible** (on-site intent). Pair with `docs/WEEKLY_FUNNEL_REVIEW.md` (inbox + funnel ops) and `docs/ANALYTICS.md` (event implementation).
+First monitoring cycle after launch: **Search Console** (discovery + queries) + **Plausible** (on-site intent). Pair with `docs/WEEKLY_FUNNEL_REVIEW.md` (inbox + funnel ops), `docs/EVIDENCE_GUIDED_REFINEMENT.md` (P15 prioritization), and `docs/ANALYTICS.md` (event implementation).
 
 **Cadence:** weekly, **30–45 minutes**, same day each week (e.g. Monday).
 
@@ -8,7 +8,7 @@ First monitoring cycle after launch: **Search Console** (discovery + queries) + 
 
 ## One-time setup (do once)
 
-### 1. Plausible — create five custom-event goals
+### 1. Plausible — create custom-event goals (seven)
 
 Site: **pay.kobbex.com** (dashboard property must match `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`).
 
@@ -20,9 +20,11 @@ In Plausible → **Settings** → **Goals** → **Add goal** → choose **Custom
 | `docs_view` | Custom event | Land on `/docs` (once per tab session) |
 | `guides_view` | Custom event | Land on `/guides` or guide subpages |
 | `contact_click` | Custom event | Land on `/contact` or mailto/email with `data-conv` |
+| `operations_view` | Custom event | Land on `/operations` |
+| `onboarding_view` | Custom event | Land on `/onboarding` |
 | `merchant_login_click` | Custom event | Merchant portal / login links |
 
-**Verify after setup:** open **Realtime**, then in another tab: visit `/docs`, `/guides`, `/contact`, click **Request access**, click a merchant login link. Goals should increment within a few minutes.
+**Verify after setup:** open **Realtime**, then in another tab: visit `/docs`, `/guides`, `/operations`, `/onboarding`, `/contact`, click **Request access**, click a merchant login link. Goals should increment within a few minutes.
 
 Implementation reference: `docs/ANALYTICS.md`, `src/lib/conversion-events.ts`.
 
@@ -66,8 +68,11 @@ Work through in order. Export a short bullet summary for the team (Slack/doc).
   - `guides_view`
   - `contact_click`
   - `request_access_click`
+  - `operations_view`
+  - `onboarding_view`
   - `merchant_login_click`
 - [ ] **Funnel sanity:** `request_access_click` and `contact_click` should not diverge wildly without explanation (see `docs/ANALYTICS.md` for double-counting on `/contact`).
+- [ ] **P15:** Log top confusion category in `docs/EVIDENCE_GUIDED_REFINEMENT.md` decision log.
 - [ ] Spot-check script on `/` and `/contact` (Network → `plausible.io/js/script.js`).
 
 ### C. Cross-channel (optional, 5 min)
@@ -91,7 +96,7 @@ GSC: impressions ___ | clicks ___ | CTR ___% | avg position ___
 GSC indexed pages (approx): ___
 Top 3 queries: 1) ___ 2) ___ 3) ___
 Plausible UV: ___ | pageviews: ___
-Goals: request_access ___ | contact ___ | docs_view ___ | guides_view ___ | merchant_login ___
+Goals: request_access ___ | contact ___ | docs ___ | guides ___ | operations ___ | onboarding ___ | merchant_login ___
 Decision: [ no change | title/meta | new guide | new section | other ]
 ```
 
@@ -172,3 +177,6 @@ Stay the course when:
 | Week of | GSC clicks | GSC impr. | Indexed (note) | request_access | contact_click | docs_view | Decision |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 2026-05-16 | _baseline_ | _baseline_ | homepage + sitemap | _setup goals_ | | | Initial monitoring cycle |
+| 2026-05-16 | _pending paste_ | _pending paste_ | see P16 baseline | _pending_ | _pending_ | _pending_ | P16: guides→ops cross-link; nav deferred |
+| 2026-05-23 | _pending paste_ | _pending paste_ | see P17 | _pending_ | _pending_ | _pending_ | P17: **no change** — Plausible/GSC not in repo |
+| 2026-05-16 | _pending paste_ | _pending paste_ | see P20 | _pending_ | _pending_ | _pending_ | P20: **no change** — primary data required |
