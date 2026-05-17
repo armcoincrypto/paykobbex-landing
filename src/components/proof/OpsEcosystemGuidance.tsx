@@ -1,7 +1,11 @@
 "use client";
 
 import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
-import { getEcosystemContext, resolveJourneyLens } from "@/lib/ops-inspection";
+import {
+  getEcosystemContext,
+  getEcosystemPropagationReveal,
+  resolveJourneyLens,
+} from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
 
 /**
@@ -21,6 +25,10 @@ export function OpsEcosystemGuidance({ className }: { className?: string }) {
   }
 
   const eco = getEcosystemContext(inspect.focus);
+  const propagationReveal = getEcosystemPropagationReveal(
+    inspect.focus,
+    inspect.downstream,
+  );
   const lens =
     inspect.lens ?? resolveJourneyLens(inspect.focus, inspect.linkGate);
 
@@ -30,6 +38,9 @@ export function OpsEcosystemGuidance({ className }: { className?: string }) {
       aria-label="Surrounding operational systems"
     >
       <p className="ops-ecosystem-guidance__continuity">{eco.continuity}</p>
+      {propagationReveal ? (
+        <p className="ops-ecosystem-guidance__propagation">{propagationReveal}</p>
+      ) : null}
       <p className="ops-ecosystem-guidance__coordination" aria-hidden="true">
         {eco.coordination}
       </p>

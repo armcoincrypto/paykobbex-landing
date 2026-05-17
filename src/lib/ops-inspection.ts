@@ -681,13 +681,27 @@ const propagationRevealByRoute: Record<string, string> = {
     "Reviewed enablement narrows ambiguity before payment activity expands.",
 };
 
+/** Shared resolver — source-facing propagation by focus and downstream routes (P32C/P32D). */
+export function resolvePropagationReveal(
+  focus: OpsInspectRoute,
+  downstream: readonly OpsInspectRoute[],
+): string | undefined {
+  if (!downstream.length) return undefined;
+  const target = downstream.find((route) => route !== focus) ?? downstream[0];
+  return propagationRevealByRoute[`${focus}→${target}`];
+}
+
 /** Calm source-facing line — what this step changes elsewhere (P32C). */
 export function getInspectPropagationReveal(node: OpsInspectNode): string | undefined {
-  if (!node.downstream.length) return undefined;
-  const target =
-    node.downstream.find((route) => route !== node.focus) ?? node.downstream[0];
-  const routeKey = `${node.focus}→${target}`;
-  return propagationRevealByRoute[routeKey];
+  return resolvePropagationReveal(node.focus, node.downstream);
+}
+
+/** Plane-level ecosystem propagation — what this route changes elsewhere (P32D). */
+export function getEcosystemPropagationReveal(
+  focus: OpsInspectRoute,
+  downstream: readonly OpsInspectRoute[],
+): string | undefined {
+  return resolvePropagationReveal(focus, downstream);
 }
 
 /** Short target-facing consequence for an adjacent downstream inspect step. */

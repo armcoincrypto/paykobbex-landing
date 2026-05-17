@@ -1992,8 +1992,8 @@
 }
 
 .home-infrastructure-plane[data-inspect-focus] .ops-route-anchor--inspect-downstream:not(.ops-route-anchor--inspect-active) {
-  opacity: 0.58;
-  filter: brightness(1.06) saturate(0.94);
+  opacity: 0.6;
+  filter: brightness(1.07) saturate(0.95);
 }
 
 .inspect-link-gate .ops-gate-cta {
@@ -2126,7 +2126,8 @@
 .ops-narrative-propagation {
   font-size: 0.58rem;
   font-style: italic;
-  color: rgb(var(--token-muted-rgb) / 0.48);
+  letter-spacing: 0.014em;
+  color: rgb(var(--token-muted-rgb) / 0.5);
 }
 
 .ops-narrative-downstream {
@@ -2866,8 +2867,11 @@
 .ops-ecosystem-guidance {
   max-width: 40rem;
   padding: 0.45rem 0.6rem;
-  border-left: 2px solid rgb(var(--token-accent-rgb) / 0.15);
-  background: rgb(6 12 20 / 0.3);
+  border-left: 2px solid rgb(var(--token-accent-rgb) / 0.18);
+  background: rgb(6 12 20 / 0.34);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.04),
+    inset 0 -8px 20px -16px rgb(0 0 0 / 0.35);
 }
 
 .ops-ecosystem-guidance__continuity {
@@ -2875,6 +2879,15 @@
   font-size: 0.65rem;
   line-height: 1.4;
   color: rgb(var(--token-primary-rgb) / 0.75);
+}
+
+.ops-ecosystem-guidance__propagation {
+  margin: 0.18rem 0 0;
+  font-size: 0.58rem;
+  line-height: 1.35;
+  font-style: italic;
+  letter-spacing: 0.014em;
+  color: rgb(var(--token-muted-rgb) / 0.5);
 }
 
 .ops-ecosystem-guidance__coordination,
@@ -2974,6 +2987,11 @@
 
 .ops-ecosystem-surface {
   position: relative;
+  isolation: isolate;
+}
+
+.home-infrastructure-plane[data-inspect-focus] .ops-ecosystem-surface {
+  box-shadow: inset 0 0 0 1px rgb(var(--token-muted-rgb) / 0.06);
 }
 
 .home-infrastructure-plane[data-inspect-focus] .ops-ecosystem-surface::after {
@@ -2984,8 +3002,8 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgb(var(--token-accent-rgb) / 0.12) 30%,
-    rgb(var(--token-accent-rgb) / 0.12) 70%,
+    rgb(var(--token-accent-rgb) / 0.14) 30%,
+    rgb(var(--token-accent-rgb) / 0.14) 70%,
     transparent
   );
   pointer-events: none;
@@ -3012,7 +3030,49 @@
   .proof-bento-review.ops-ecosystem-surface::after,
 .home-infrastructure-plane[data-inspect-focus].inspect-downstream-review:not([data-inspect-focus="review"])
   .proof-bento-review.ops-ecosystem-surface::after {
-  opacity: 0.42;
+  opacity: 0.46;
+}
+
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-settlement:not([data-inspect-focus="settlement"])
+  .proof-bento-lifecycle.ops-ecosystem-surface,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-reconcile:not([data-inspect-focus="reconcile"])
+  .proof-bento-confirm.ops-ecosystem-surface,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-verify:not([data-inspect-focus="verify"])
+  .proof-bento-webhook.ops-ecosystem-surface,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-ingress:not([data-inspect-focus="ingress"])
+  .proof-bento-review.ops-ecosystem-surface,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-review:not([data-inspect-focus="review"])
+  .proof-bento-review.ops-ecosystem-surface {
+  box-shadow:
+    inset 0 0 0 1px rgb(var(--token-muted-rgb) / 0.05),
+    inset 0 0 28px -22px rgb(var(--token-accent-rgb) / 0.05);
+}
+
+/* ── P32E: Quiet production gravity atmosphere ── */
+
+.home-ops-ecosystem {
+  position: relative;
+}
+
+.home-ops-ecosystem::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 72% 42% at 50% 0%,
+    rgb(var(--token-accent-rgb) / 0.04),
+    transparent 70%
+  );
+}
+
+.home-infrastructure-plane[data-inspect-focus] .home-ops-ecosystem {
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.025);
+}
+
+.home-infrastructure-plane[data-inspect-focus] .ops-ecosystem-guidance {
+  border-left-color: rgb(var(--token-accent-rgb) / 0.22);
+  background: rgb(6 12 20 / 0.38);
 }
 
 .ops-story-beacon__ecosystem {
@@ -3039,6 +3099,10 @@
 @media (prefers-reduced-motion: reduce) {
   .home-infrastructure-plane[data-inspect-focus] .ops-ecosystem-surface::after {
     transition: none;
+  }
+
+  .home-ops-ecosystem::before {
+    opacity: 0.85;
   }
 }
 
