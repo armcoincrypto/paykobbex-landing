@@ -14,19 +14,22 @@ export function LifecycleLaneInstrument({
   className,
   compact = false,
   animate = true,
+  interactive,
 }: {
   className?: string;
   compact?: boolean;
   animate?: boolean;
+  /** Hover/focus hot states; defaults to animate. Set false for decorative hero rails. */
+  interactive?: boolean;
 }) {
   const [hovered, setHovered] = useState<number | null>(null);
-  const interactive = animate;
+  const isInteractive = interactive ?? animate;
 
   return (
     <div
       className={cn(
         "lifecycle-lane",
-        interactive && "lifecycle-lane--animated",
+        animate && "lifecycle-lane--animated",
         className,
       )}
       aria-hidden="true"
@@ -62,20 +65,20 @@ export function LifecycleLaneInstrument({
 
       <ol className="lifecycle-lane-nodes list-none p-0 m-0">
         {primary.map((label, i) => {
-          const isHot = interactive && hovered === i;
+          const isHot = isInteractive && hovered === i;
           return (
             <li
               key={label}
               className={cn(
                 "lifecycle-lane-node",
-                interactive && "lifecycle-lane-node--interactive",
+                isInteractive && "lifecycle-lane-node--interactive",
                 isHot && "lifecycle-lane-node--hot",
               )}
-              onMouseEnter={interactive ? () => setHovered(i) : undefined}
-              onMouseLeave={interactive ? () => setHovered(null) : undefined}
-              onFocus={interactive ? () => setHovered(i) : undefined}
-              onBlur={interactive ? () => setHovered(null) : undefined}
-              {...(interactive
+              onMouseEnter={isInteractive ? () => setHovered(i) : undefined}
+              onMouseLeave={isInteractive ? () => setHovered(null) : undefined}
+              onFocus={isInteractive ? () => setHovered(i) : undefined}
+              onBlur={isInteractive ? () => setHovered(null) : undefined}
+              {...(isInteractive
                 ? { tabIndex: 0, role: "presentation" as const }
                 : {})}
             >

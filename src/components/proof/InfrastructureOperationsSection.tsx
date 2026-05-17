@@ -41,7 +41,7 @@ export function InfrastructureOperationsSection() {
   const headingId = "home-heading-infrastructure-operates";
 
   return (
-    <Section id="how-infrastructure-operates" tone="default" className="proof-section">
+    <Section id="how-infrastructure-operates" tone="default" className="proof-section home-ops-follow">
       <Container>
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
           Operational systems

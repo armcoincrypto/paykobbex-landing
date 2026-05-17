@@ -22,7 +22,7 @@ export function HeroOperationalInstrument({ className }: { className?: string })
       <VerificationFramePanel
         label="Operational sequence"
         sublabel="Conceptual instrumentation — not live data"
-        className="ops-instrument-surface hero-instrument-surface"
+        className="ops-instrument-surface hero-instrument-surface hero-instrument-console"
       >
         <p className="sr-only">
           Conceptual diagram: payment lifecycle states Pending, Paid, and Confirmed with an Expired
@@ -31,28 +31,30 @@ export function HeroOperationalInstrument({ className }: { className?: string })
         </p>
         <div aria-hidden="true" className="space-y-0">
           <div className="hero-instrument-block">
-            <p className="mb-2.5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+            <p className="home-hero-op-label mb-3 font-mono text-[10px] uppercase tracking-[0.16em]">
               Lifecycle lane
             </p>
-            <LifecycleLaneInstrument compact animate={false} />
+            <LifecycleLaneInstrument compact animate interactive={false} />
           </div>
-          <div className="hero-instrument-block border-t border-border-subtle/80 pt-4">
-            <p className="mb-2.5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+          <div className="hero-instrument-block border-t border-border-subtle/80 pt-5">
+            <p className="home-hero-op-label mb-3 font-mono text-[10px] uppercase tracking-[0.16em]">
               Webhook flow
             </p>
-            <WebhookPropagationStrip animate={false} />
+            <WebhookPropagationStrip animate interactive={false} />
           </div>
-          <div className="hero-instrument-block border-t border-border-subtle/80 pt-4">
-            <p className="mb-2.5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+          <div className="hero-instrument-block border-t border-border-subtle/80 pt-5">
+            <p className="home-hero-op-label mb-3 font-mono text-[10px] uppercase tracking-[0.16em]">
               Merchant review
             </p>
-            <ol className="flex flex-wrap gap-2 list-none p-0 m-0">
+            <ol className="flex flex-wrap gap-2.5 list-none p-0 m-0">
               {reviewCheckpoints.map((step, i) => (
                 <li
                   key={step}
-                  className="flex items-center gap-2 rounded-md border border-border-subtle/90 bg-canvas/60 px-2 py-1 text-[10px] font-medium text-primary"
+                  className="flex items-center gap-2 rounded-md border border-[rgb(var(--token-accent-rgb)/0.22)] bg-[rgb(8_14_22/0.85)] px-2.5 py-1.5 text-[10px] font-medium text-primary shadow-[0_0_12px_rgb(var(--token-accent-rgb)/0.08)]"
                 >
-                  <span className="font-mono text-[9px] text-accent/80">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="font-mono text-[9px] text-accent/90">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                   {step}
                 </li>
               ))}

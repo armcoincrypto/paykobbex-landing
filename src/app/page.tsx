@@ -108,19 +108,20 @@ export default function HomePage() {
       <Section
         id="hero"
         tone="default"
-        className="home-hero relative overflow-hidden pb-12 pt-12 sm:pb-14 sm:pt-[5.25rem]"
+        className="home-hero home-hero--dominant relative overflow-hidden pb-12 pt-12 sm:pb-14 sm:pt-[5.25rem]"
       >
         <HeroBackdrop />
         <Container className="relative z-10">
           <div className="home-hero-grid">
             <div className="home-hero-copy">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">
+              <p className="home-hero-eyebrow text-xs font-semibold uppercase tracking-[0.24em]">
                 B2B crypto payments
               </p>
-              <h1 className="mt-4 text-balance text-display font-semibold text-primary sm:mt-5">
-                API-first crypto payment infrastructure for serious merchants
+              <h1 className="home-hero-title mt-4 text-balance text-display font-semibold text-primary sm:mt-5">
+                <span className="home-hero-title-accent">API-first</span> crypto payment{" "}
+                <span className="home-hero-title-accent">infrastructure</span> for serious merchants
               </h1>
-              <p className="home-hero-lead mt-4 text-body text-muted sm:mt-5">
+              <p className="home-hero-lead mt-4 text-body sm:mt-5">
                 Kobbopay is API-first B2B crypto payment infrastructure with signed webhooks,
                 explicit payment lifecycles, and a merchant portal for operations — after merchant
                 approval, on selected rails where enabled.
