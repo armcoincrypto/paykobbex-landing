@@ -653,6 +653,43 @@ const downstreamGravityByStage: Record<string, string> = {
     "Operational authority expands only after reviewed verification.",
 };
 
+/** Source-facing propagation line for the active inspected step (P32C). */
+const propagationRevealByRoute: Record<string, string> = {
+  "settlement→settlement":
+    "Detection semantics shape how settlement confidence may progress.",
+  "settlement→reconcile":
+    "Settlement interpretation becomes the basis for reconciliation review.",
+  "reconcile→reconcile":
+    "Recognition discipline carries into treasury interpretation downstream.",
+  "reconcile→settlement":
+    "Lifecycle labels inform settlement depth — finality stays finance-owned.",
+  "ingress→ingress":
+    "Signed receipt proceeds — operational interpretation binds to verify next.",
+  "ingress→verify":
+    "Scoped access keeps verification boundaries predictable.",
+  "verify→verify":
+    "Verification discipline carries into every downstream state change.",
+  "verify→egress":
+    "Replay-safe verification keeps outbound effects consistent.",
+  "egress→egress":
+    "Idempotent apply keeps downstream operational surfaces aligned.",
+  "review→review":
+    "Each review stage bounds what enablement may assume downstream.",
+  "review→verify":
+    "Scoped access keeps verification boundaries predictable.",
+  "review→ingress":
+    "Reviewed enablement narrows ambiguity before payment activity expands.",
+};
+
+/** Calm source-facing line — what this step changes elsewhere (P32C). */
+export function getInspectPropagationReveal(node: OpsInspectNode): string | undefined {
+  if (!node.downstream.length) return undefined;
+  const target =
+    node.downstream.find((route) => route !== node.focus) ?? node.downstream[0];
+  const routeKey = `${node.focus}→${target}`;
+  return propagationRevealByRoute[routeKey];
+}
+
 /** Short target-facing consequence for an adjacent downstream inspect step. */
 export function getDownstreamConsequence(
   source: OpsInspectNode,

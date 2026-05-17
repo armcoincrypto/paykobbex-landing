@@ -2073,7 +2073,7 @@
 .webhook-ribbon-step--downstream .ops-narrative,
 .ops-review-stage--downstream .ops-narrative,
 .ops-inspect-zone--active .ops-narrative {
-  max-height: 8rem;
+  max-height: 9.5rem;
   opacity: 1;
 }
 
@@ -2082,6 +2082,7 @@
 .ops-narrative-cause,
 .ops-narrative-risk,
 .ops-narrative-consequence,
+.ops-narrative-propagation,
 .ops-narrative-downstream {
   margin: 0;
   font-size: 0.625rem;
@@ -2120,6 +2121,12 @@
 
 .ops-narrative-consequence {
   color: rgb(var(--token-muted-rgb) / 0.62);
+}
+
+.ops-narrative-propagation {
+  font-size: 0.58rem;
+  font-style: italic;
+  color: rgb(var(--token-muted-rgb) / 0.48);
 }
 
 .ops-narrative-downstream {
