@@ -3,6 +3,8 @@
 import { useEffect } from "react";
 import { Container } from "@/components/primitives/Container";
 import { Link } from "@/components/primitives/link";
+import { Section } from "@/components/primitives/Section";
+import { OperationalPageHeader } from "@/components/operational/OperationalPageHeader";
 import { MERCHANT_PORTAL_URL } from "@/lib/site";
 
 export default function LoginRedirectPage() {
@@ -11,18 +13,20 @@ export default function LoginRedirectPage() {
   }, []);
 
   return (
-    <main className="bg-canvas py-[var(--token-section-loose)]">
+    <Section tone="default" className="ops-page pt-10 sm:pt-16 pb-[var(--token-section-loose)]">
       <Container className="max-w-lg">
-        <h1 className="text-h1 font-semibold text-primary">Merchant portal</h1>
-        <p className="mt-3 text-sm text-muted">
-          Redirecting you to the merchant portal. If nothing happens, use the link below.
-        </p>
-        <p className="mt-6">
-          <Link href={MERCHANT_PORTAL_URL} className="text-sm font-medium">
-            Continue to {MERCHANT_PORTAL_URL.replace(/^https:\/\//, "")}
-          </Link>
-        </p>
+        <OperationalPageHeader
+          eyebrow="Merchants"
+          title="Merchant portal"
+          lead="Redirecting you to the merchant portal. If nothing happens, use the link below."
+        >
+          <p className="mt-2">
+            <Link href={MERCHANT_PORTAL_URL} className="text-sm font-medium">
+              Continue to {MERCHANT_PORTAL_URL.replace(/^https:\/\//, "")}
+            </Link>
+          </p>
+        </OperationalPageHeader>
       </Container>
-    </main>
+    </Section>
   );
 }
