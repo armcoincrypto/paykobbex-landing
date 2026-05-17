@@ -2469,6 +2469,166 @@
   }
 }
 
+/* ── P30: Production infrastructure credibility ── */
+
+.home-infrastructure-plane--credibility .home-topology-mesh {
+  opacity: 0.26;
+}
+
+.home-infrastructure-plane--credibility .home-topology-fog {
+  opacity: 0.82;
+}
+
+.home-infrastructure-plane--credibility .home-topology-horizon {
+  box-shadow: 0 0 32px -12px rgb(var(--token-accent-rgb) / 0.12);
+}
+
+.ops-governance-principles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgb(var(--token-accent-rgb) / 0.08);
+}
+
+.ops-governance-chip {
+  display: inline-block;
+  padding: 0.22rem 0.5rem;
+  font-size: 0.58rem;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: rgb(var(--token-muted-rgb) / 0.58);
+  background: rgb(6 12 20 / 0.5);
+  border: 1px solid rgb(var(--token-muted-rgb) / 0.12);
+  border-radius: 0.2rem;
+}
+
+.ops-credibility-static {
+  margin: 0;
+  max-width: 40rem;
+  font-size: 0.65rem;
+  line-height: 1.45;
+  color: rgb(var(--token-muted-rgb) / 0.55);
+}
+
+.ops-credibility-context {
+  max-width: 40rem;
+  padding: 0.5rem 0.65rem;
+  border-left: 2px solid rgb(var(--token-muted-rgb) / 0.2);
+  background: rgb(6 12 20 / 0.35);
+}
+
+.ops-credibility-context__governance {
+  margin: 0;
+  font-size: 0.65rem;
+  line-height: 1.4;
+  font-weight: 500;
+  color: rgb(var(--token-primary-rgb) / 0.78);
+}
+
+.ops-credibility-context__isolation,
+.ops-credibility-context__accountability {
+  margin: 0.2rem 0 0;
+  font-size: 0.6rem;
+  line-height: 1.35;
+  color: rgb(var(--token-muted-rgb) / 0.52);
+}
+
+.ops-credibility-context__accountability {
+  font-style: italic;
+}
+
+.ops-governance-surface {
+  box-shadow: inset 0 0 0 1px rgb(var(--token-muted-rgb) / 0.08);
+}
+
+.home-infrastructure-plane[data-inspect-focus] .ops-governance-surface {
+  transition: box-shadow 0.22s ease;
+}
+
+.home-infrastructure-plane[data-inspect-focus="verify"] .proof-bento-webhook.ops-governance-surface,
+.home-infrastructure-plane[data-inspect-focus="reconcile"] .proof-bento-confirm.ops-governance-surface,
+.home-infrastructure-plane[data-inspect-focus="review"] .proof-bento-review.ops-governance-surface {
+  box-shadow:
+    inset 0 0 0 1px rgb(var(--token-accent-rgb) / 0.12),
+    inset 3px 0 0 rgb(var(--token-muted-rgb) / 0.25);
+}
+
+.ops-narrative-governance,
+.ops-narrative-isolation,
+.ops-narrative-accountability {
+  margin: 0;
+  font-size: 0.56rem;
+  line-height: 1.35;
+}
+
+.ops-narrative-governance {
+  color: rgb(var(--token-primary-rgb) / 0.6);
+  font-weight: 500;
+}
+
+.ops-narrative-isolation {
+  color: rgb(var(--token-muted-rgb) / 0.48);
+}
+
+.ops-narrative-accountability {
+  color: rgb(var(--token-muted-rgb) / 0.45);
+  font-style: italic;
+  padding-bottom: 0.1rem;
+  border-bottom: 1px solid rgb(var(--token-muted-rgb) / 0.08);
+}
+
+.ops-readiness-rail__governance {
+  display: block;
+  font-size: 0.52rem;
+  line-height: 1.3;
+  color: rgb(var(--token-muted-rgb) / 0.38);
+}
+
+.home-infrastructure-plane[data-journey-lens] .ops-readiness-rail__item[data-journey-lens] .ops-readiness-rail__governance {
+  color: rgb(var(--token-muted-rgb) / 0.48);
+}
+
+.ops-journey-accountability {
+  margin: 0.15rem 0 0;
+  font-size: 0.58rem;
+  line-height: 1.35;
+  font-style: italic;
+  color: rgb(var(--token-muted-rgb) / 0.48);
+}
+
+.ops-accountability-static {
+  margin: 0.2rem 0 0;
+  font-size: 0.58rem;
+  line-height: 1.35;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgb(var(--ops-route-reconcile) / 0.5);
+}
+
+.ops-story-beacon__credibility {
+  flex-basis: 100%;
+  font-size: 0.58rem;
+  line-height: 1.35;
+  color: rgb(var(--token-muted-rgb) / 0.5);
+}
+
+@media (max-width: 639px) {
+  .ops-governance-chip {
+    font-size: 0.55rem;
+  }
+
+  .ops-credibility-context {
+    padding: 0.45rem 0.55rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-infrastructure-plane[data-inspect-focus] .ops-governance-surface {
+    transition: none;
+  }
+}
+
 .vf-frame-corner-tl {
   top: -1px;
   left: -1px;

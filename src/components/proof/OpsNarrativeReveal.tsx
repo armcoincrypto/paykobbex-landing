@@ -1,8 +1,9 @@
 import type { OpsInspectNode, OpsJourneyLens } from "@/lib/ops-inspection";
+import { getCredibilityForNode } from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
 
 /**
- * Progressive operational narrative — purpose, trust, persona, readiness, cause/effect.
+ * Progressive operational narrative — purpose, trust, persona, readiness, credibility, cause/effect.
  */
 export function OpsNarrativeReveal({
   node,
@@ -15,10 +16,10 @@ export function OpsNarrativeReveal({
   active: boolean;
   downstreamNote?: string;
   showTrustStatic?: boolean;
-  /** Plane journey lens for narrative weighting (P29). */
   activeLens?: OpsJourneyLens | null;
 }) {
   const lensMatch = !activeLens || activeLens === node.journeyLens;
+  const credibility = getCredibilityForNode(node);
 
   return (
     <div
@@ -68,6 +69,13 @@ export function OpsNarrativeReveal({
         >
           {node.readiness}
         </p>
+      ) : null}
+      {active && lensMatch ? (
+        <>
+          <p className="ops-narrative-governance">{credibility.governance}</p>
+          <p className="ops-narrative-isolation">{credibility.isolation}</p>
+          <p className="ops-narrative-accountability">{credibility.accountability}</p>
+        </>
       ) : null}
       {active && node.causeEffect ? (
         <p className="ops-narrative-cause">{node.causeEffect}</p>

@@ -43,7 +43,20 @@ export type OpsInspectNode = {
   personaEcho?: string;
   /** Readiness semantics for mature integrations (P29). */
   readiness?: string;
+  /** Governance / policy ownership (P30, optional override). */
+  governance?: string;
+  /** Failure isolation framing (P30, optional override). */
+  isolation?: string;
+  /** Procedural accountability (P30, optional override). */
+  accountability?: string;
   linkGate?: boolean;
+};
+
+/** Production credibility semantics per route (P30). */
+export type OpsCredibilityContext = {
+  governance: string;
+  isolation: string;
+  accountability: string;
 };
 
 export const lifecycleInspectNodes: OpsInspectNode[] = [
@@ -145,6 +158,9 @@ export const webhookInspectNodes: OpsInspectNode[] = [
     journeyLens: "engineering",
     personaEcho: "Engineering verifies signatures before mutation.",
     readiness: "Verification precedes parse, apply, and internal state updates.",
+    governance: "Verification authority stays server-side.",
+    isolation: "State mutation isolated until signature trust passes.",
+    accountability: "Engineering signs off on trust before apply.",
   },
   {
     focus: "egress",
@@ -246,6 +262,9 @@ export const reconcileInspect: OpsInspectNode = {
   journeyLens: "finance",
   personaEcho: "Finance owns confirmation semantics and ledger alignment.",
   readiness: "Recognition workflows depend on reconciliation policy.",
+  governance: "Finance owns recognition authority.",
+  isolation: "Ledger finality isolated from API lifecycle labels.",
+  accountability: "Treasury policy governs operational signoff on recognition.",
 };
 
 export const narrativeBeacons: Record<OpsInspectRoute, string> = {
@@ -326,7 +345,7 @@ export const opsStorySequence = [
   { step: "07", label: "Controlled enablement", route: "ingress" as const },
 ] as const;
 
-/** Guided operational maturity journey (P29E). */
+/** Guided operational maturity journey (P29E + P30 governance). */
 export const opsMaturityJourney = [
   {
     step: "01",
@@ -334,6 +353,7 @@ export const opsMaturityJourney = [
     route: "settlement" as const,
     lens: "engineering" as const,
     readiness: "Explicit lifecycles before recognition.",
+    governance: "Operational labels remain bounded — not implicit finality.",
   },
   {
     step: "02",
@@ -341,6 +361,7 @@ export const opsMaturityJourney = [
     route: "verify" as const,
     lens: "engineering" as const,
     readiness: "Verify before parse or apply.",
+    governance: "Verification precedes mutation — scoped engineering authority.",
   },
   {
     step: "03",
@@ -348,6 +369,7 @@ export const opsMaturityJourney = [
     route: "egress" as const,
     lens: "engineering" as const,
     readiness: "Webhook consumers should remain replay-safe.",
+    governance: "Retries stay contained — consumer owns deduplication.",
   },
   {
     step: "04",
@@ -355,6 +377,7 @@ export const opsMaturityJourney = [
     route: "settlement" as const,
     lens: "finance" as const,
     readiness: "Settlement semantics vary by rail.",
+    governance: "Settlement uncertainty stays explicit — policy-scoped.",
   },
   {
     step: "05",
@@ -362,6 +385,7 @@ export const opsMaturityJourney = [
     route: "reconcile" as const,
     lens: "finance" as const,
     readiness: "Recognition workflows depend on reconciliation policy.",
+    governance: "Finance owns recognition authority — labels are not the ledger.",
   },
   {
     step: "06",
@@ -369,6 +393,7 @@ export const opsMaturityJourney = [
     route: "review" as const,
     lens: "operations" as const,
     readiness: "Production enablement follows operational review.",
+    governance: "Enablement governance — review before production paths.",
   },
   {
     step: "07",
@@ -376,8 +401,62 @@ export const opsMaturityJourney = [
     route: "ingress" as const,
     lens: "operations" as const,
     readiness: "Scoped environments and procedural keys.",
+    governance: "Environment isolation — rollout stays intentionally bounded.",
   },
 ] as const;
+
+/** Static governance principles (conceptual — not certifications). */
+export const opsGovernancePrinciples = [
+  "Policy ownership — scoped operational authority.",
+  "Failures stay bounded — surfaces do not cascade unchecked.",
+  "Verification precedes state mutation.",
+  "Finance owns recognition — engineering owns verification.",
+  "Production enablement follows operational review.",
+] as const;
+
+/** Route-level production credibility (P30). */
+export const credibilityContextByRoute: Record<OpsInspectRoute, OpsCredibilityContext> = {
+  ingress: {
+    governance: "Ingress trust is bounded — delivery is not authority.",
+    isolation: "Signed events stay isolated until verified on your stack.",
+    accountability: "Engineering owns endpoint verification before mutation.",
+  },
+  verify: {
+    governance: "Verification authority stays server-side.",
+    isolation: "Parse and apply remain behind the verify boundary.",
+    accountability: "Engineering signs off on trust before state changes.",
+  },
+  egress: {
+    governance: "Consumer policy governs idempotency and replay handling.",
+    isolation: "Duplicate delivery contained by deduplication — not ignored.",
+    accountability: "Engineering owns replay-safe consumer semantics.",
+  },
+  settlement: {
+    governance: "Settlement semantics are policy-scoped per rail.",
+    isolation: "Detection, provisional, and final states stay separated.",
+    accountability: "Finance and engineering share labels — distinct ownership.",
+  },
+  reconcile: {
+    governance: "Recognition rules sit under treasury policy.",
+    isolation: "Reconciliation scope stays outside API convenience fields.",
+    accountability: "Finance owns finality — operational signoff on recognition.",
+  },
+  review: {
+    governance: "Operational review authority gates enablement.",
+    isolation: "Environments stay partitioned until fit is confirmed.",
+    accountability: "Operations owns enablement scope — not self-serve production.",
+  },
+};
+
+/** Plane-level credibility beacon on inspect (P30). */
+export const credibilityBeacons: Record<OpsInspectRoute, string> = {
+  ingress: "Bounded trust at ingress — procedural accountability before mutation.",
+  verify: "Verification discipline — failures isolated before state change.",
+  egress: "Replay containment — procedural resilience without alarm theater.",
+  settlement: "Settlement governance — uncertainty explicit, not collapsed.",
+  reconcile: "Reconciliation authority — finance ownership stays legible.",
+  review: "Enablement governance — production paths remain intentionally controlled.",
+};
 
 export const journeyLensLabels: Record<OpsJourneyLens, string> = {
   engineering: "Engineering · APIs & verification",
@@ -416,4 +495,22 @@ export function getJourneyContext(route: OpsInspectRoute) {
 
 export function getJourneyGuidance(route: OpsInspectRoute) {
   return journeyGuidanceByRoute[route];
+}
+
+export function getCredibilityContext(route: OpsInspectRoute): OpsCredibilityContext {
+  return credibilityContextByRoute[route];
+}
+
+export function getCredibilityBeacon(route: OpsInspectRoute): string {
+  return credibilityBeacons[route];
+}
+
+/** Merged credibility for a stage — node overrides route defaults. */
+export function getCredibilityForNode(node: OpsInspectNode): OpsCredibilityContext {
+  const base = credibilityContextByRoute[node.focus];
+  return {
+    governance: node.governance ?? base.governance,
+    isolation: node.isolation ?? base.isolation,
+    accountability: node.accountability ?? base.accountability,
+  };
 }

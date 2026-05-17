@@ -9,6 +9,8 @@ import { LifecycleLaneInstrument } from "@/components/proof/LifecycleLaneInstrum
 import { MerchantReviewPipeline } from "@/components/proof/MerchantReviewPipeline";
 import { VerificationFramePanel } from "@/components/proof/VerificationFramePanel";
 import { InfrastructureStoryRail } from "@/components/proof/InfrastructureStoryRail";
+import { OpsCredibilityContext } from "@/components/proof/OpsCredibilityContext";
+import { OpsGovernancePrinciples } from "@/components/proof/OpsGovernancePrinciples";
 import { OpsJourneyGuidance } from "@/components/proof/OpsJourneyGuidance";
 import { OpsReadinessRail } from "@/components/proof/OpsReadinessRail";
 import { WebhookPropagationStrip } from "@/components/proof/WebhookPropagationStrip";
@@ -52,7 +54,7 @@ export function InfrastructureOperationsSection() {
     <Section
       id="how-infrastructure-operates"
       tone="default"
-      className="proof-section home-ops-follow home-ops-deep home-ops-story home-ops-journey"
+      className="proof-section home-ops-follow home-ops-deep home-ops-story home-ops-journey home-ops-credibility"
     >
       <Container>
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
@@ -65,15 +67,18 @@ export function InfrastructureOperationsSection() {
           Kobbopay is designed as visible infrastructure: explicit lifecycles, signed webhooks,
           merchant review gates, and operational boundaries you can map to your own controls. The
           visuals below are conceptual instrumentation — not live dashboards, metrics, or client
-          logos.
+          logos. Governance below is procedural and conceptual — not live monitoring or
+          certifications.
         </p>
 
+        <OpsGovernancePrinciples className="mt-6" />
+        <OpsCredibilityContext className="mt-4" />
         <InfrastructureStoryRail className="mt-8" />
         <OpsReadinessRail className="mt-6" />
         <OpsJourneyGuidance className="mt-6" />
 
         <div className="mt-12 proof-bento">
-          <article className="proof-bento-lifecycle ops-route--settlement ops-journey-emphasis--finance">
+          <article className="proof-bento-lifecycle ops-route--settlement ops-journey-emphasis--finance ops-governance-surface">
             <VerificationFramePanel
               label="Lifecycle lane"
               sublabel="State transitions (conceptual)"
@@ -106,7 +111,7 @@ export function InfrastructureOperationsSection() {
             </VerificationFramePanel>
           </article>
 
-          <aside className="proof-bento-confirm ops-route--reconcile ops-journey-emphasis--finance flex flex-col gap-4">
+          <aside className="proof-bento-confirm ops-route--reconcile ops-journey-emphasis--finance ops-governance-surface flex flex-col gap-4">
             <VerificationFramePanel
               label="Confirmation depth"
               sublabel="Settlement visibility"
@@ -157,7 +162,7 @@ export function InfrastructureOperationsSection() {
             </VerificationFramePanel>
           </aside>
 
-          <article className="proof-bento-webhook ops-route--verify ops-journey-emphasis--engineering min-w-0">
+          <article className="proof-bento-webhook ops-route--verify ops-journey-emphasis--engineering ops-governance-surface min-w-0">
             <VerificationFramePanel
               label="Webhook verification"
               sublabel="Signed pipeline (conceptual)"
@@ -177,7 +182,7 @@ export function InfrastructureOperationsSection() {
             </VerificationFramePanel>
           </article>
 
-          <article className="proof-bento-review ops-route--ingress ops-journey-emphasis--operations">
+          <article className="proof-bento-review ops-route--ingress ops-journey-emphasis--operations ops-governance-surface">
             <MerchantReviewPipeline
               labelledBy={headingId}
               className="ops-instrument-surface ops-telemetry-surface ops-console-surface ops-console-deep"

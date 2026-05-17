@@ -50,6 +50,9 @@ export function ReconciliationInspectZone({
       <p className="ops-narrative-readiness ops-narrative-readiness--module" aria-hidden="true">
         {node.readiness}
       </p>
+      <p className="ops-accountability-static" aria-hidden="true">
+        Finance owns recognition · engineering owns verification
+      </p>
       <p className="ops-inspect-hint ops-inspect-hint--static" aria-hidden="true">
         {node.hint}
       </p>

@@ -2,7 +2,7 @@ import { opsMaturityJourney } from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
 
 /**
- * Guided operational maturity journey — procedural readiness, not certifications.
+ * Guided operational maturity journey — procedural readiness and governance.
  */
 export function OpsReadinessRail({ className }: { className?: string }) {
   return (
@@ -30,6 +30,9 @@ export function OpsReadinessRail({ className }: { className?: string }) {
               <span className="ops-readiness-rail__label">{item.label}</span>
               <span className="ops-readiness-rail__readiness" aria-hidden="true">
                 {item.readiness}
+              </span>
+              <span className="ops-readiness-rail__governance" aria-hidden="true">
+                {item.governance}
               </span>
             </span>
           </li>

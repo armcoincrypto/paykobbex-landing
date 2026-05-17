@@ -18,7 +18,7 @@ function HomeInfrastructurePlaneInner({ children }: { children: ReactNode }) {
   return (
     <div
       className={cn(
-        "home-infrastructure-plane home-infrastructure-plane--journey ops-topology-surface",
+        "home-infrastructure-plane home-infrastructure-plane--journey home-infrastructure-plane--credibility ops-topology-surface",
         inspect?.focus && `inspect-focus-${inspect.focus}`,
         journeyLens && `inspect-journey-${journeyLens}`,
         ...(inspect?.downstream.map((route) => `inspect-downstream-${route}`) ?? []),

@@ -35,10 +35,10 @@ export const metadata: Metadata = {
 };
 
 const trustChips = [
+  "Verification precedes state mutation",
+  "Failures bounded — replay contained",
+  "Finance owns recognition semantics",
   "Merchant approval required",
-  "Selected rails (where enabled)",
-  "Signed webhook lifecycle",
-  "Explicit payment states",
   "No license or audit claims on this site",
 ];
 
@@ -169,7 +169,7 @@ export default function HomePage() {
           </div>
           <div className="home-hero-trust">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-              Trust boundaries
+              Production governance
             </p>
             <div className="home-hero-trust-chips mt-4" role="list">
               {trustChips.map((label) => (

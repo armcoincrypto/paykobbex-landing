@@ -3,6 +3,7 @@
 import { Link } from "@/components/primitives/link";
 import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
 import {
+  getCredibilityContext,
   getJourneyContext,
   getJourneyGuidance,
   journeyLensLabels,
@@ -55,6 +56,9 @@ export function OpsJourneyGuidance({ className }: { className?: string }) {
                 </p>
                 <p className="ops-journey-readiness" aria-hidden="true">
                   {getJourneyContext(route).readiness}
+                </p>
+                <p className="ops-journey-accountability" aria-hidden="true">
+                  {getCredibilityContext(route).accountability}
                 </p>
                 <ul className="ops-journey-links list-none p-0 m-0">
                   {getJourneyGuidance(route).map((item) => (
