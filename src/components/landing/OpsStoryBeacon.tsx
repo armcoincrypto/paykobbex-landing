@@ -3,6 +3,7 @@
 import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
 import {
   getCredibilityBeacon,
+  getEcosystemBeacon,
   getJourneyContext,
   getNarrativeBeacon,
   journeyLensLabels,
@@ -26,6 +27,7 @@ export function OpsStoryBeacon() {
       <span className="ops-story-beacon__route">{inspect.focus}</span>
       <span className="ops-story-beacon__lens">{journeyLensLabels[lens]}</span>
       <span className="ops-story-beacon__text">{getNarrativeBeacon(inspect.focus)}</span>
+      <span className="ops-story-beacon__ecosystem">{getEcosystemBeacon(inspect.focus)}</span>
       <span className="ops-story-beacon__credibility">{getCredibilityBeacon(inspect.focus)}</span>
       <span className="ops-story-beacon__persona">{context.personaEcho}</span>
       <span className="ops-story-beacon__readiness">{context.readiness}</span>

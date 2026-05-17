@@ -1884,35 +1884,102 @@
 .home-infrastructure-plane[data-inspect-focus] .proof-bento-lifecycle,
 .home-infrastructure-plane[data-inspect-focus] .proof-bento-webhook,
 .home-infrastructure-plane[data-inspect-focus] .proof-bento-review,
-.home-infrastructure-plane[data-inspect-focus] .ops-console-module {
+.home-infrastructure-plane[data-inspect-focus] .proof-bento-confirm,
+.home-infrastructure-plane[data-inspect-focus] .ops-console-module,
+.home-infrastructure-plane[data-inspect-focus] .ops-governance-surface {
   transition:
     opacity var(--token-motion-base) var(--token-ease-out),
-    filter var(--token-motion-base) var(--token-ease-out);
+    filter var(--token-motion-base) var(--token-ease-out),
+    box-shadow var(--token-motion-base) var(--token-ease-out);
 }
 
 .home-infrastructure-plane[data-inspect-focus] .proof-bento-lifecycle,
 .home-infrastructure-plane[data-inspect-focus] .proof-bento-webhook,
 .home-infrastructure-plane[data-inspect-focus] .proof-bento-review,
+.home-infrastructure-plane[data-inspect-focus] .proof-bento-confirm,
 .home-infrastructure-plane[data-inspect-focus] .ops-console-module:not(
     .ops-route--settlement,
     .ops-route--verify,
     .ops-route--reconcile,
-    .ops-route--ingress
+    .ops-route--ingress,
+    .ops-route--egress
   ) {
   opacity: 0.78;
   filter: saturate(0.88);
 }
 
+/* Inspected route — full restore */
 .home-infrastructure-plane[data-inspect-focus="settlement"] .proof-bento-lifecycle,
 .home-infrastructure-plane[data-inspect-focus="settlement"] .ops-route--settlement,
-.home-infrastructure-plane.inspect-downstream-reconcile .proof-bento-confirm,
-.home-infrastructure-plane.inspect-downstream-reconcile .ops-route--reconcile,
 .home-infrastructure-plane[data-inspect-focus="reconcile"] .proof-bento-confirm,
+.home-infrastructure-plane[data-inspect-focus="reconcile"] .ops-route--reconcile,
 .home-infrastructure-plane[data-inspect-focus="verify"] .proof-bento-webhook,
+.home-infrastructure-plane[data-inspect-focus="verify"] .ops-route--verify,
+.home-infrastructure-plane[data-inspect-focus="egress"] .proof-bento-webhook,
+.home-infrastructure-plane[data-inspect-focus="egress"] .ops-route--egress,
 .home-infrastructure-plane[data-inspect-focus="review"] .proof-bento-review,
-.home-infrastructure-plane[data-inspect-focus="ingress"] .proof-bento-review {
+.home-infrastructure-plane[data-inspect-focus="ingress"] .proof-bento-review,
+.home-infrastructure-plane[data-inspect-focus="ingress"] .ops-route--ingress {
   opacity: 1;
   filter: none;
+}
+
+/* P32B — downstream routes: partial restore (connected, below focus weight) */
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-settlement:not([data-inspect-focus="settlement"])
+  .proof-bento-lifecycle,
+.home-infrastructure-plane[data-inspect-focus][data-inspect-downstream~="settlement"]:not([data-inspect-focus="settlement"])
+  .ops-route--settlement {
+  opacity: 0.91;
+  filter: saturate(0.94);
+}
+
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-reconcile:not([data-inspect-focus="reconcile"])
+  .proof-bento-confirm,
+.home-infrastructure-plane[data-inspect-focus][data-inspect-downstream~="reconcile"]:not([data-inspect-focus="reconcile"])
+  .ops-route--reconcile {
+  opacity: 0.91;
+  filter: saturate(0.94);
+}
+
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-verify:not([data-inspect-focus="verify"])
+  .proof-bento-webhook,
+.home-infrastructure-plane[data-inspect-focus][data-inspect-downstream~="verify"]:not([data-inspect-focus="verify"])
+  .ops-route--verify {
+  opacity: 0.91;
+  filter: saturate(0.94);
+}
+
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-ingress:not([data-inspect-focus="ingress"])
+  .proof-bento-review,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-review:not([data-inspect-focus="review"])
+  .proof-bento-review,
+.home-infrastructure-plane[data-inspect-focus][data-inspect-downstream~="ingress"]:not([data-inspect-focus="ingress"])
+  .ops-route--ingress {
+  opacity: 0.91;
+  filter: saturate(0.94);
+}
+
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-egress:not([data-inspect-focus="egress"])
+  .ops-route--egress,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-egress:not([data-inspect-focus="verify"])
+  .ops-console-channel--egress {
+  opacity: 0.94;
+  filter: saturate(0.96);
+}
+
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-settlement:not([data-inspect-focus="settlement"])
+  .proof-bento-lifecycle.ops-governance-surface,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-reconcile:not([data-inspect-focus="reconcile"])
+  .proof-bento-confirm.ops-governance-surface,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-verify:not([data-inspect-focus="verify"])
+  .proof-bento-webhook.ops-governance-surface,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-ingress:not([data-inspect-focus="ingress"])
+  .proof-bento-review.ops-governance-surface,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-review:not([data-inspect-focus="review"])
+  .proof-bento-review.ops-governance-surface {
+  box-shadow:
+    inset 0 0 0 1px rgb(var(--token-muted-rgb) / 0.07),
+    inset 2px 0 0 rgb(var(--token-accent-rgb) / 0.08);
 }
 
 .ops-route-anchor--inspect-active {
@@ -1922,6 +1989,11 @@
 
 .ops-route-anchor--inspect-downstream {
   opacity: 0.48;
+}
+
+.home-infrastructure-plane[data-inspect-focus] .ops-route-anchor--inspect-downstream:not(.ops-route-anchor--inspect-active) {
+  opacity: 0.58;
+  filter: brightness(1.06) saturate(0.94);
 }
 
 .inspect-link-gate .ops-gate-cta {
@@ -1970,9 +2042,14 @@
   .home-infrastructure-plane[data-inspect-focus] .proof-bento-lifecycle,
   .home-infrastructure-plane[data-inspect-focus] .proof-bento-webhook,
   .home-infrastructure-plane[data-inspect-focus] .proof-bento-review,
+  .home-infrastructure-plane[data-inspect-focus] .proof-bento-confirm,
   .home-infrastructure-plane[data-inspect-focus] .ops-console-module {
     opacity: 1;
     filter: none;
+    transition: none;
+  }
+
+  .home-infrastructure-plane[data-inspect-focus] .ops-governance-surface {
     transition: none;
   }
 }
@@ -2151,6 +2228,42 @@
   text-decoration: underline;
   text-underline-offset: 2px;
   text-decoration-color: rgb(var(--token-accent-rgb) / 0.35);
+}
+
+/* P32B — story rail downstream propagation */
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-settlement:not([data-inspect-focus="settlement"])
+  .ops-story-rail__item--settlement,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-verify:not([data-inspect-focus="verify"])
+  .ops-story-rail__item--verify,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-reconcile:not([data-inspect-focus="reconcile"])
+  .ops-story-rail__item--reconcile,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-ingress:not([data-inspect-focus="ingress"])
+  .ops-story-rail__item--ingress,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-review:not([data-inspect-focus="review"])
+  .ops-story-rail__item--review,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-egress:not([data-inspect-focus="egress"])
+  .ops-story-rail__item--ingress {
+  color: rgb(var(--token-primary-rgb) / 0.68);
+}
+
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-settlement:not([data-inspect-focus="settlement"])
+  .ops-story-rail__item--settlement
+  .ops-story-rail__label,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-verify:not([data-inspect-focus="verify"])
+  .ops-story-rail__item--verify
+  .ops-story-rail__label,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-reconcile:not([data-inspect-focus="reconcile"])
+  .ops-story-rail__item--reconcile
+  .ops-story-rail__label,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-ingress:not([data-inspect-focus="ingress"])
+  .ops-story-rail__item--ingress
+  .ops-story-rail__label,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-review:not([data-inspect-focus="review"])
+  .ops-story-rail__item--review
+  .ops-story-rail__label {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgb(var(--token-accent-rgb) / 0.18);
 }
 
 .home-ops-story-start::after {
@@ -2625,6 +2738,299 @@
 
 @media (prefers-reduced-motion: reduce) {
   .home-infrastructure-plane[data-inspect-focus] .ops-governance-surface {
+    transition: none;
+  }
+}
+
+/* ── P31: Operational ecosystem depth ── */
+
+.home-infrastructure-plane--ecosystem .home-topology-mesh {
+  opacity: 0.24;
+}
+
+.ops-orchestration-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.5rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid rgb(var(--token-accent-rgb) / 0.06);
+}
+
+.ops-orchestration-chip {
+  display: inline-block;
+  padding: 0.2rem 0.45rem;
+  font-size: 0.57rem;
+  line-height: 1.35;
+  color: rgb(var(--token-muted-rgb) / 0.56);
+  background: rgb(6 12 20 / 0.45);
+  border: 1px solid rgb(var(--token-accent-rgb) / 0.07);
+  border-radius: 0.2rem;
+}
+
+.ops-env-progression__title,
+.ops-workflow-coordination__title {
+  margin: 0 0 0.4rem;
+  font-size: 0.58rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgb(var(--token-muted-rgb) / 0.42);
+}
+
+.ops-env-progression__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.25rem 0;
+}
+
+.ops-env-progression__stage {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 6.5rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.2rem;
+  border: 1px solid rgb(var(--token-muted-rgb) / 0.1);
+  background: rgb(6 12 20 / 0.4);
+  position: relative;
+}
+
+.ops-env-progression__stage--active {
+  border-color: rgb(var(--token-accent-rgb) / 0.18);
+  background: rgb(8 14 22 / 0.65);
+}
+
+.ops-env-progression__connector {
+  position: absolute;
+  left: -0.65rem;
+  top: 50%;
+  width: 0.5rem;
+  height: 1px;
+  background: rgb(var(--token-muted-rgb) / 0.25);
+}
+
+.ops-env-progression__label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: rgb(var(--token-primary-rgb) / 0.72);
+}
+
+.ops-env-progression__semantics {
+  font-size: 0.55rem;
+  line-height: 1.3;
+  color: rgb(var(--token-muted-rgb) / 0.45);
+}
+
+.ops-workflow-coordination__list {
+  display: grid;
+  gap: 0.35rem;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+}
+
+.ops-workflow-coordination__item {
+  padding: 0.35rem 0.5rem;
+  border-left: 2px solid rgb(var(--token-muted-rgb) / 0.15);
+}
+
+.ops-workflow-coordination__teams {
+  display: block;
+  font-size: 0.58rem;
+  font-weight: 600;
+  color: rgb(var(--token-primary-rgb) / 0.65);
+}
+
+.ops-workflow-coordination__cue {
+  display: block;
+  margin-top: 0.1rem;
+  font-size: 0.55rem;
+  line-height: 1.35;
+  color: rgb(var(--token-muted-rgb) / 0.48);
+}
+
+.ops-ecosystem-static {
+  margin: 0;
+  max-width: 40rem;
+  font-size: 0.65rem;
+  line-height: 1.45;
+  color: rgb(var(--token-muted-rgb) / 0.52);
+}
+
+.ops-ecosystem-guidance {
+  max-width: 40rem;
+  padding: 0.45rem 0.6rem;
+  border-left: 2px solid rgb(var(--token-accent-rgb) / 0.15);
+  background: rgb(6 12 20 / 0.3);
+}
+
+.ops-ecosystem-guidance__continuity {
+  margin: 0;
+  font-size: 0.65rem;
+  line-height: 1.4;
+  color: rgb(var(--token-primary-rgb) / 0.75);
+}
+
+.ops-ecosystem-guidance__coordination,
+.ops-ecosystem-guidance__environment {
+  margin: 0.2rem 0 0;
+  font-size: 0.6rem;
+  line-height: 1.35;
+  color: rgb(var(--token-muted-rgb) / 0.5);
+}
+
+.ops-ecosystem-surrounds {
+  margin-top: 0.35rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.5rem;
+}
+
+.ops-ecosystem-surrounds__item,
+.ops-ecosystem-surrounds--compact li {
+  font-size: 0.55rem;
+  line-height: 1.3;
+  color: rgb(var(--token-accent-rgb) / 0.55);
+  padding: 0.12rem 0.35rem;
+  border: 1px solid rgb(var(--token-accent-rgb) / 0.1);
+  border-radius: 0.15rem;
+  list-style: none;
+}
+
+.ops-ecosystem-surrounds--compact {
+  margin-top: 0.25rem;
+  gap: 0.2rem 0.35rem;
+}
+
+.ops-journey-continuity {
+  margin: 0.2rem 0 0;
+  font-size: 0.58rem;
+  line-height: 1.35;
+  color: rgb(var(--token-muted-rgb) / 0.5);
+  font-style: italic;
+}
+
+.ops-narrative-continuity,
+.ops-narrative-coordination {
+  margin: 0;
+  font-size: 0.55rem;
+  line-height: 1.35;
+  color: rgb(var(--token-muted-rgb) / 0.46);
+}
+
+.ops-narrative-continuity {
+  padding-top: 0.12rem;
+  border-top: 1px solid rgb(var(--token-muted-rgb) / 0.08);
+}
+
+.ops-readiness-rail__continuity {
+  display: block;
+  font-size: 0.52rem;
+  line-height: 1.3;
+  color: rgb(var(--token-muted-rgb) / 0.36);
+  margin-top: 0.08rem;
+}
+
+.home-infrastructure-plane[data-inspect-focus] .ops-readiness-rail__item[data-ops-route] .ops-readiness-rail__continuity {
+  color: rgb(var(--token-muted-rgb) / 0.45);
+}
+
+.home-infrastructure-plane[data-inspect-focus="verify"] .ops-readiness-rail__item--verify .ops-readiness-rail__continuity,
+.home-infrastructure-plane[data-inspect-focus="reconcile"] .ops-readiness-rail__item--reconcile .ops-readiness-rail__continuity,
+.home-infrastructure-plane[data-inspect-focus="review"] .ops-readiness-rail__item--review .ops-readiness-rail__continuity,
+.home-infrastructure-plane[data-inspect-focus="settlement"] .ops-readiness-rail__item--settlement .ops-readiness-rail__continuity,
+.home-infrastructure-plane[data-inspect-focus="ingress"] .ops-readiness-rail__item--ingress .ops-readiness-rail__continuity,
+.home-infrastructure-plane[data-inspect-focus="egress"] .ops-readiness-rail__item--egress .ops-readiness-rail__continuity {
+  color: rgb(var(--token-accent-rgb) / 0.5);
+}
+
+/* P32B — readiness rail downstream propagation */
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-settlement:not([data-inspect-focus="settlement"])
+  .ops-readiness-rail__item--settlement
+  .ops-readiness-rail__continuity,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-verify:not([data-inspect-focus="verify"])
+  .ops-readiness-rail__item--verify
+  .ops-readiness-rail__continuity,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-reconcile:not([data-inspect-focus="reconcile"])
+  .ops-readiness-rail__item--reconcile
+  .ops-readiness-rail__continuity,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-ingress:not([data-inspect-focus="ingress"])
+  .ops-readiness-rail__item--ingress
+  .ops-readiness-rail__continuity,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-review:not([data-inspect-focus="review"])
+  .ops-readiness-rail__item--review
+  .ops-readiness-rail__continuity,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-egress:not([data-inspect-focus="egress"])
+  .ops-readiness-rail__item--egress
+  .ops-readiness-rail__continuity {
+  color: rgb(var(--token-accent-rgb) / 0.38);
+}
+
+.ops-ecosystem-surface {
+  position: relative;
+}
+
+.home-infrastructure-plane[data-inspect-focus] .ops-ecosystem-surface::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(var(--token-accent-rgb) / 0.12) 30%,
+    rgb(var(--token-accent-rgb) / 0.12) 70%,
+    transparent
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.home-infrastructure-plane[data-inspect-focus="verify"] .proof-bento-webhook.ops-ecosystem-surface::after,
+.home-infrastructure-plane[data-inspect-focus="reconcile"] .proof-bento-confirm.ops-ecosystem-surface::after,
+.home-infrastructure-plane[data-inspect-focus="review"] .proof-bento-review.ops-ecosystem-surface::after,
+.home-infrastructure-plane[data-inspect-focus="settlement"] .proof-bento-lifecycle.ops-ecosystem-surface::after,
+.home-infrastructure-plane[data-inspect-focus="ingress"] .proof-bento-review.ops-ecosystem-surface::after {
+  opacity: 1;
+}
+
+/* P32B — ecosystem continuity line on downstream surfaces (below focus weight) */
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-settlement:not([data-inspect-focus="settlement"])
+  .proof-bento-lifecycle.ops-ecosystem-surface::after,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-reconcile:not([data-inspect-focus="reconcile"])
+  .proof-bento-confirm.ops-ecosystem-surface::after,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-verify:not([data-inspect-focus="verify"])
+  .proof-bento-webhook.ops-ecosystem-surface::after,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-ingress:not([data-inspect-focus="ingress"])
+  .proof-bento-review.ops-ecosystem-surface::after,
+.home-infrastructure-plane[data-inspect-focus].inspect-downstream-review:not([data-inspect-focus="review"])
+  .proof-bento-review.ops-ecosystem-surface::after {
+  opacity: 0.42;
+}
+
+.ops-story-beacon__ecosystem {
+  flex-basis: 100%;
+  font-size: 0.58rem;
+  line-height: 1.35;
+  color: rgb(var(--token-muted-rgb) / 0.48);
+}
+
+@media (max-width: 639px) {
+  .ops-env-progression__list {
+    flex-direction: column;
+  }
+
+  .ops-env-progression__connector {
+    display: none;
+  }
+
+  .ops-workflow-coordination__list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-infrastructure-plane[data-inspect-focus] .ops-ecosystem-surface::after {
     transition: none;
   }
 }

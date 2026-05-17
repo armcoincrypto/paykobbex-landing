@@ -4,6 +4,7 @@ import { Link } from "@/components/primitives/link";
 import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
 import {
   getCredibilityContext,
+  getEcosystemContext,
   getJourneyContext,
   getJourneyGuidance,
   journeyLensLabels,
@@ -60,6 +61,14 @@ export function OpsJourneyGuidance({ className }: { className?: string }) {
                 <p className="ops-journey-accountability" aria-hidden="true">
                   {getCredibilityContext(route).accountability}
                 </p>
+                <p className="ops-journey-continuity" aria-hidden="true">
+                  {getEcosystemContext(route).continuity}
+                </p>
+                <ul className="ops-ecosystem-surrounds ops-ecosystem-surrounds--compact list-none p-0 m-0" aria-hidden="true">
+                  {getEcosystemContext(route).surrounds.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
                 <ul className="ops-journey-links list-none p-0 m-0">
                   {getJourneyGuidance(route).map((item) => (
                     <li key={item.href}>

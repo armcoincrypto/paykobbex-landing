@@ -1,5 +1,5 @@
 import type { OpsInspectNode, OpsJourneyLens } from "@/lib/ops-inspection";
-import { getCredibilityForNode } from "@/lib/ops-inspection";
+import { getCredibilityForNode, getEcosystemForNode } from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
 
 /**
@@ -20,6 +20,7 @@ export function OpsNarrativeReveal({
 }) {
   const lensMatch = !activeLens || activeLens === node.journeyLens;
   const credibility = getCredibilityForNode(node);
+  const ecosystem = getEcosystemForNode(node);
 
   return (
     <div
@@ -75,6 +76,8 @@ export function OpsNarrativeReveal({
           <p className="ops-narrative-governance">{credibility.governance}</p>
           <p className="ops-narrative-isolation">{credibility.isolation}</p>
           <p className="ops-narrative-accountability">{credibility.accountability}</p>
+          <p className="ops-narrative-continuity">{ecosystem.continuity}</p>
+          <p className="ops-narrative-coordination">{ecosystem.coordination}</p>
         </>
       ) : null}
       {active && node.causeEffect ? (

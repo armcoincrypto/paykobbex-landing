@@ -3,7 +3,11 @@
 import { useState } from "react";
 import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
 import { OpsNarrativeReveal } from "@/components/proof/OpsNarrativeReveal";
-import { inspectStateFromNode, webhookInspectNodes } from "@/lib/ops-inspection";
+import {
+  getDownstreamConsequence,
+  inspectStateFromNode,
+  webhookInspectNodes,
+} from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
 
 const steps = webhookInspectNodes;
@@ -75,7 +79,9 @@ function WebhookRibbonSteps({
           globalIndex > hovered &&
           steps[hovered].downstream.includes(node.focus);
         const downstreamNote =
-          isDownstream && hovered !== null ? steps[hovered].causeEffect : undefined;
+          isDownstream && hovered !== null
+            ? getDownstreamConsequence(steps[hovered], node)
+            : undefined;
         return (
           <div
             key={step.tag}

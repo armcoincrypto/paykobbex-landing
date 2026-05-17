@@ -5,7 +5,11 @@ import { FlowArrow } from "@/components/diagrams/FlowArrow";
 import { FlowStep } from "@/components/diagrams/FlowStep";
 import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
 import { OpsNarrativeReveal } from "@/components/proof/OpsNarrativeReveal";
-import { inspectStateFromNode, reviewInspectNodes } from "@/lib/ops-inspection";
+import {
+  getDownstreamConsequence,
+  inspectStateFromNode,
+  reviewInspectNodes,
+} from "@/lib/ops-inspection";
 import { VerificationFramePanel } from "@/components/proof/VerificationFramePanel";
 import { cn } from "@/lib/cn";
 
@@ -89,7 +93,7 @@ export function MerchantReviewPipeline({
                   reviewInspectNodes[hovered].downstream.includes(stage.focus);
                 const downstreamNote =
                   isDownstream && hovered !== null
-                    ? reviewInspectNodes[hovered].causeEffect
+                    ? getDownstreamConsequence(reviewInspectNodes[hovered], stage)
                     : undefined;
                 return (
                   <div key={stage.tag} className="flex items-center gap-2">

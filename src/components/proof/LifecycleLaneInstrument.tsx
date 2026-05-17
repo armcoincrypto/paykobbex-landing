@@ -4,7 +4,11 @@ import { useState } from "react";
 import { StatePill, type StatePillLabel } from "@/components/diagrams/StatePill";
 import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
 import { OpsNarrativeReveal } from "@/components/proof/OpsNarrativeReveal";
-import { inspectStateFromNode, lifecycleInspectNodes } from "@/lib/ops-inspection";
+import {
+  getDownstreamConsequence,
+  inspectStateFromNode,
+  lifecycleInspectNodes,
+} from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
 
 const primary: StatePillLabel[] = ["Pending", "Paid", "Confirmed"];
@@ -82,7 +86,10 @@ export function LifecycleLaneInstrument({
             ((hovered === 0 && i === 1) || (hovered === 1 && i === 2));
           const downstreamNote =
             isDownstream && hovered !== null
-              ? lifecycleInspectNodes[hovered].causeEffect
+              ? getDownstreamConsequence(
+                  lifecycleInspectNodes[hovered],
+                  lifecycleInspectNodes[i],
+                )
               : undefined;
           return (
             <li
