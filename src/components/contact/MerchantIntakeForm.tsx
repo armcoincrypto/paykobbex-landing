@@ -116,27 +116,17 @@ export function MerchantIntakeForm({ className }: { className?: string }) {
   };
 
   return (
-    <div className={cn("space-y-5", className)}>
+    <div className={cn("space-y-4 sm:space-y-5", className)}>
       <p className="text-sm leading-relaxed text-muted">
-        This form only prepares an email in your browser — we do not store submissions on this
-        site and we never ask for wallet data, API secrets, or private keys here. For timelines and
-        approval context, see{" "}
+        Complete the fields below, then open email or copy the text. We never ask for wallet data,
+        API secrets, or private keys in this form. After you send, review continues per{" "}
         <Link href="/onboarding" className="text-primary">
-          Merchant onboarding
-        </Link>
-        .
+          onboarding expectations
+        </Link>{" "}
+        — not automated provisioning.
       </p>
 
-      <div
-        className="rounded-md border border-border-subtle/90 bg-surface-elevated/50 px-3 py-2 text-xs leading-relaxed text-muted"
-        role="note"
-      >
-        <strong className="text-primary">Security:</strong> never paste private keys, seed
-        phrases, API keys, or webhook signing secrets into email. If someone asks for them in
-        “support,” it is a scam.
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-3.5 sm:grid-cols-2 sm:gap-4">
         <div className="sm:col-span-2">
           <label htmlFor={`${baseId}-company`} className="text-xs font-medium text-primary">
             Company or project name {!website.trim() ? "(required if no website)" : "(optional)"}
@@ -329,8 +319,17 @@ export function MerchantIntakeForm({ className }: { className?: string }) {
 
       <p className="text-xs leading-relaxed text-muted">
         Requires company <span className="lowercase">or</span> website, a short use case, and a
-        reply path. Access stays subject to approval.
+        reply path from a company-controlled mailbox. Access stays subject to approval.
       </p>
+
+      <div
+        className="rounded-md border border-border-subtle/90 bg-surface-elevated/50 px-3 py-2.5 text-xs leading-relaxed text-muted"
+        role="note"
+      >
+        <strong className="text-primary">After you send:</strong> we review fit and operational
+        detail as capacity allows. Incomplete intake may delay follow-up. If approved, environment
+        materials and portal access are issued per your configuration — not via this static site.
+      </div>
 
       <div className="rounded-md border border-border-subtle bg-canvas/80 px-3 py-3 text-sm leading-relaxed text-muted">
         <strong className="text-primary">If your email app does not open</strong> (common on some
