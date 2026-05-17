@@ -163,7 +163,7 @@
     linear-gradient(to right, var(--token-line-subtle) 1px, transparent 1px),
     linear-gradient(to bottom, var(--token-line-subtle) 1px, transparent 1px);
   background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 70% 65% at 50% 35%, black 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse 78% 68% at 58% 38%, black 18%, transparent 76%);
 }
 
 .hero-aurora {
@@ -194,11 +194,231 @@
     opacity: 0.55;
     transform: none;
   }
+
+  .hero-bloom-instrument,
+  .hero-mesh {
+    opacity: 0.4;
+  }
 }
 
 .hero-vignette {
   background: radial-gradient(ellipse 85% 70% at 50% 0%, transparent 40%, rgb(6 7 11 / 0.72) 100%);
   pointer-events: none;
+}
+
+.hero-bloom-instrument {
+  position: absolute;
+  right: -8%;
+  top: 8%;
+  width: min(58vw, 560px);
+  height: min(72vh, 520px);
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgb(var(--token-accent-rgb) / 0.14),
+    rgb(var(--token-accent-rgb) / 0.04) 48%,
+    transparent 72%
+  );
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+.hero-mesh {
+  background-image:
+    linear-gradient(to right, rgb(var(--token-accent-rgb) / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--token-accent-rgb) / 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 65% 55% at 72% 42%, black 10%, transparent 72%);
+  opacity: 0.35;
+}
+
+/* P26.2D — Home hero composition */
+.home-hero {
+  scroll-margin-top: 4rem;
+}
+
+.home-hero-grid {
+  display: grid;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+@media (min-width: 1024px) {
+  .home-hero-grid {
+    grid-template-columns: minmax(0, 4.75fr) minmax(0, 7.25fr);
+    gap: 2rem 2.75rem;
+    align-items: center;
+  }
+}
+
+@media (min-width: 1280px) {
+  .home-hero-grid {
+    grid-template-columns: minmax(0, 4.5fr) minmax(0, 7.5fr);
+    gap: 2.25rem 3.25rem;
+  }
+}
+
+.home-hero-copy {
+  min-width: 0;
+}
+
+.home-hero-copy h1 {
+  max-width: 17.5ch;
+  letter-spacing: -0.032em;
+  line-height: 1.06;
+}
+
+@media (min-width: 640px) {
+  .home-hero-copy h1 {
+    max-width: 19ch;
+  }
+}
+
+.home-hero-lead {
+  max-width: 34ch;
+  line-height: 1.62;
+}
+
+.home-hero-cta {
+  margin-top: 1.75rem;
+}
+
+@media (min-width: 640px) {
+  .home-hero-cta {
+    margin-top: 2rem;
+  }
+}
+
+.home-hero-meta {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.home-hero-instrument {
+  min-width: 0;
+  align-self: stretch;
+}
+
+@media (min-width: 1024px) {
+  .home-hero-instrument {
+    min-height: 17.5rem;
+  }
+}
+
+.hero-instrument-surface.vf-frame {
+  border-color: rgb(var(--token-accent-rgb) / 0.16);
+  box-shadow:
+    var(--token-shadow-1),
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
+    inset 0 0 0 1px rgb(var(--token-accent-rgb) / 0.09),
+    0 0 0 1px var(--token-glass-edge),
+    0 32px 72px -28px rgb(0 0 0 / 0.68),
+    0 0 72px -48px rgb(var(--token-accent-rgb) / 0.14);
+}
+
+.hero-instrument-surface .vf-frame-body {
+  min-height: 10.5rem;
+  padding: 1.35rem 1.15rem 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .hero-instrument-surface .vf-frame-body {
+    min-height: 12rem;
+    padding: 1.5rem 1.3rem 1.65rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-instrument-surface .vf-frame-body {
+    min-height: 13.25rem;
+    padding: 1.65rem 1.4rem 1.75rem;
+  }
+}
+
+.hero-instrument-block {
+  padding-block: 0.15rem;
+}
+
+.hero-instrument-block:first-child {
+  padding-top: 0;
+}
+
+.hero-instrument-surface .hero-instrument-block + .hero-instrument-block {
+  border-top-color: rgb(var(--token-accent-rgb) / 0.12);
+}
+
+@media (max-width: 1023px) {
+  .home-hero-instrument {
+    order: 2;
+  }
+
+  .home-hero-copy {
+    order: 1;
+  }
+
+  .home-hero-grid {
+    gap: 1.75rem;
+  }
+}
+
+.home-hero-trust {
+  margin-top: 2.25rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgb(var(--token-accent-rgb) / 0.1);
+}
+
+@media (min-width: 640px) {
+  .home-hero-trust {
+    margin-top: 2.75rem;
+    padding-top: 1.75rem;
+  }
+}
+
+.home-hero-trust-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .home-hero-trust-chips {
+    gap: 0.625rem;
+  }
+}
+
+/* P26.2D — Ops page above-the-fold band */
+.ops-page-hero-band {
+  position: relative;
+  overflow: hidden;
+}
+
+.ops-page-hero-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgb(var(--token-accent-rgb) / 0.045) 0%, transparent 42%),
+    radial-gradient(70% 55% at 100% 0%, rgb(var(--token-accent-rgb) / 0.07), transparent 58%);
+}
+
+.ops-page-hero-band > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ops-page-header--hero h1 {
+  max-width: 20ch;
+  letter-spacing: -0.028em;
+  line-height: 1.08;
+}
+
+.ops-page-header--hero .ops-page-header-lead {
+  max-width: 40rem;
+  line-height: 1.62;
 }
 
 /* —— P11: Verification Frame + Lifecycle Lanes —— */
@@ -1197,6 +1417,8 @@
   }
 
   .hero-grid,
+  .hero-mesh,
+  .hero-bloom-instrument,
   .hero-aurora,
   .hero-vignette {
     display: none !important;

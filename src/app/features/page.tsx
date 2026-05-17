@@ -80,9 +80,10 @@ const pillars: Array<{
 export default function FeaturesPage() {
   return (
     <>
-      <Section tone="default" className="ops-page pt-10 sm:pt-16">
+      <Section tone="default" className="ops-page ops-page-hero-band pt-10 sm:pt-16">
         <Container className="max-w-content">
           <OperationalPageHeader
+            className="ops-page-header--hero"
             eyebrow="Capabilities"
             title="Operational infrastructure surface"
             lead={

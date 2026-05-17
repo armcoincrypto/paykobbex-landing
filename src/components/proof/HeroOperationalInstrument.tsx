@@ -18,32 +18,32 @@ const reviewCheckpoints = [
  */
 export function HeroOperationalInstrument({ className }: { className?: string }) {
   return (
-    <DiagramReveal className={cn("w-full", className)}>
+    <DiagramReveal className={cn("home-hero-instrument w-full", className)}>
       <VerificationFramePanel
         label="Operational sequence"
         sublabel="Conceptual instrumentation — not live data"
-        className="ops-instrument-surface"
+        className="ops-instrument-surface hero-instrument-surface"
       >
         <p className="sr-only">
           Conceptual diagram: payment lifecycle states Pending, Paid, and Confirmed with an Expired
           branch; webhook path from event through signed POST, verification, and idempotent apply;
           merchant review checkpoints from intake through approval.
         </p>
-        <div aria-hidden="true" className="space-y-5">
-          <div>
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+        <div aria-hidden="true" className="space-y-0">
+          <div className="hero-instrument-block">
+            <p className="mb-2.5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
               Lifecycle lane
             </p>
             <LifecycleLaneInstrument compact animate={false} />
           </div>
-          <div className="border-t border-border-subtle/80 pt-4">
+          <div className="hero-instrument-block border-t border-border-subtle/80 pt-4">
             <p className="mb-2.5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
               Webhook flow
             </p>
             <WebhookPropagationStrip animate={false} />
           </div>
-          <div className="border-t border-border-subtle/80 pt-4">
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+          <div className="hero-instrument-block border-t border-border-subtle/80 pt-4">
+            <p className="mb-2.5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
               Merchant review
             </p>
             <ol className="flex flex-wrap gap-2 list-none p-0 m-0">

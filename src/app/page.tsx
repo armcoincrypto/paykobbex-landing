@@ -108,24 +108,24 @@ export default function HomePage() {
       <Section
         id="hero"
         tone="default"
-        className="relative overflow-hidden pb-14 pt-12 sm:pb-[var(--token-section-default)] sm:pt-[5.25rem]"
+        className="home-hero relative overflow-hidden pb-12 pt-12 sm:pb-14 sm:pt-[5.25rem]"
       >
         <HeroBackdrop />
         <Container className="relative z-10">
-          <div className="grid gap-8 sm:gap-10 lg:grid-cols-12 lg:items-end lg:gap-8 xl:gap-10">
-            <div className="lg:col-span-5">
+          <div className="home-hero-grid">
+            <div className="home-hero-copy">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">
                 B2B crypto payments
               </p>
-              <h1 className="mt-5 max-w-[22ch] text-balance text-display font-semibold tracking-[-0.025em] text-primary sm:max-w-none">
+              <h1 className="mt-4 text-balance text-display font-semibold text-primary sm:mt-5">
                 API-first crypto payment infrastructure for serious merchants
               </h1>
-              <p className="mt-5 max-w-xl text-body leading-[1.65] text-muted sm:mt-6 lg:max-w-md xl:max-w-lg">
+              <p className="home-hero-lead mt-4 text-body text-muted sm:mt-5">
                 Kobbopay is API-first B2B crypto payment infrastructure with signed webhooks,
                 explicit payment lifecycles, and a merchant portal for operations — after merchant
                 approval, on selected rails where enabled.
               </p>
-              <CTAGroup className="mt-8 sm:mt-9">
+              <CTAGroup className="home-hero-cta">
                 <Link
                   href="/contact#merchant-intake"
                   variant="button-primary"
@@ -138,39 +138,38 @@ export default function HomePage() {
                   Integration docs
                 </Link>
               </CTAGroup>
-              <p className="mt-4 text-sm font-medium">
-                <Link href="/onboarding">Onboarding expectations →</Link>
-              </p>
-              <p className="mt-3 text-sm text-muted">
-                Review onboarding expectations before requesting access.
-              </p>
-              <p className="mt-5 text-sm text-muted">
-                Merchant portal for approved merchants:{" "}
-                <Link href="https://merchant.kobbex.com/" conv="merchant_login_click">
-                  merchant.kobbex.com
-                </Link>{" "}
-                ·{" "}
-                <Link href="/login" conv="merchant_login_click">
-                  Merchant login
-                </Link>
-              </p>
+              <div className="home-hero-meta">
+                <p className="text-sm font-medium">
+                  <Link href="/onboarding">Onboarding expectations →</Link>
+                </p>
+                <p className="text-sm text-muted">
+                  Review onboarding expectations before requesting access.
+                </p>
+                <p className="text-sm text-muted">
+                  Merchant portal for approved merchants:{" "}
+                  <Link href="https://merchant.kobbex.com/" conv="merchant_login_click">
+                    merchant.kobbex.com
+                  </Link>{" "}
+                  ·{" "}
+                  <Link href="/login" conv="merchant_login_click">
+                    Merchant login
+                  </Link>
+                </p>
+              </div>
             </div>
-            <HeroOperationalInstrument className="lg:col-span-7" />
+            <HeroOperationalInstrument />
           </div>
-        </Container>
-      </Section>
-
-      <Section tone="muted" className="py-9 sm:py-11">
-        <Container>
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-            Trust boundaries
-          </p>
-          <div className="mt-5 flex flex-wrap gap-2 sm:gap-2.5" role="list">
-            {trustChips.map((label) => (
-              <span key={label} className="trust-chip" role="listitem">
-                {label}
-              </span>
-            ))}
+          <div className="home-hero-trust">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+              Trust boundaries
+            </p>
+            <div className="home-hero-trust-chips mt-4" role="list">
+              {trustChips.map((label) => (
+                <span key={label} className="trust-chip" role="listitem">
+                  {label}
+                </span>
+              ))}
+            </div>
           </div>
         </Container>
       </Section>

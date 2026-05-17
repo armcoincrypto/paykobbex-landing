@@ -31,9 +31,10 @@ export const metadata: Metadata = {
 export default function GuidesHubPage() {
   return (
     <>
-      <Section tone="default" className="ops-page pt-10 sm:pt-16 pb-[var(--token-section-loose)]">
+      <Section tone="default" className="ops-page ops-page-hero-band pt-10 sm:pt-16 pb-[var(--token-section-loose)]">
         <Container className="max-w-content">
           <OperationalPageHeader
+            className="ops-page-header--hero"
             eyebrow="Guides"
             title="Operational education for integrations"
             lead={
