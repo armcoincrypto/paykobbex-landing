@@ -6,6 +6,11 @@ import { cn } from "@/lib/cn";
 
 const primary: StatePillLabel[] = ["Pending", "Paid", "Confirmed"];
 
+const accentMarkerGlow = {
+  rest: "0 0 0 3px rgb(var(--token-accent-rgb) / 0.06)",
+  pulse: "0 0 8px rgb(var(--token-accent-rgb) / 0.2)",
+} as const;
+
 /**
  * Horizontal lifecycle lane — signature instrument strip.
  * Conceptual states only; not live merchant data.
@@ -38,9 +43,9 @@ export function LifecycleLaneInstrument({
                 shouldAnimate
                   ? {
                       boxShadow: [
-                        "0 0 0 3px rgb(59 130 246 / 0.06)",
-                        "0 0 8px rgb(59 130 246 / 0.2)",
-                        "0 0 0 3px rgb(59 130 246 / 0.06)",
+                        accentMarkerGlow.rest,
+                        accentMarkerGlow.pulse,
+                        accentMarkerGlow.rest,
                       ],
                     }
                   : undefined
