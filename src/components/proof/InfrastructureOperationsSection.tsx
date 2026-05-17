@@ -62,21 +62,17 @@ export function InfrastructureOperationsSection() {
               label="Lifecycle lane"
               sublabel="State transitions (conceptual)"
               labelledBy={headingId}
-              className="ops-instrument-surface ops-telemetry-surface"
+              className="ops-instrument-surface ops-telemetry-surface ops-console-surface"
             >
-              <LifecycleLaneInstrument className="mb-2" />
-              <div className="ops-telemetry-footer" aria-hidden="true">
-                <span className="ops-telemetry-chip ops-telemetry-chip--signal">
-                  <span className="ops-telemetry-led ops-telemetry-led--signal" />
-                  SERVER-SIDE
-                </span>
-                <span className="ops-telemetry-chip ops-telemetry-chip--verified">
-                  <span className="ops-telemetry-led ops-telemetry-led--verified" />
-                  IDEMPOTENT
-                </span>
-                <span className="ops-telemetry-meta">State semantics · conceptual</span>
+              <div className="ops-console-module ops-console-module--lane">
+                <header className="ops-console-module__header">
+                  <span className="ops-console-module__title">State rail</span>
+                  <span className="ops-console-routing">STATE · RAIL · FLOW</span>
+                </header>
+                <LifecycleLaneInstrument className="mb-0" />
               </div>
-              <ul className="mt-4 list-disc space-y-1.5 pl-4 text-xs leading-relaxed text-muted">
+              <div className="ops-console-module__annotation">
+              <ul className="list-disc space-y-1.5 pl-4 text-xs leading-relaxed text-muted">
                 <li>
                   <strong className="text-primary">Pending</strong> — created / awaiting detection.
                 </li>
@@ -90,6 +86,7 @@ export function InfrastructureOperationsSection() {
                   <strong className="text-primary">Expired</strong> — terminal branch for the attempt.
                 </li>
               </ul>
+              </div>
             </VerificationFramePanel>
           </article>
 

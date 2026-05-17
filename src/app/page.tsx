@@ -126,19 +126,24 @@ export default function HomePage() {
                 explicit payment lifecycles, and a merchant portal for operations — after merchant
                 approval, on selected rails where enabled.
               </p>
-              <CTAGroup className="home-hero-cta">
-                <Link
-                  href="/contact#merchant-intake"
-                  variant="button-primary"
-                  className="no-underline"
-                  conv="request_access_click"
-                >
-                  Request access
-                </Link>
-                <Link href="/docs" variant="button-secondary" className="no-underline">
-                  Integration docs
-                </Link>
-              </CTAGroup>
+              <div className="ops-console-cta-strip">
+                <span className="ops-console-routing" aria-hidden="true">
+                  GATE · ACCESS
+                </span>
+                <CTAGroup className="home-hero-cta">
+                  <Link
+                    href="/contact#merchant-intake"
+                    variant="button-primary"
+                    className="no-underline"
+                    conv="request_access_click"
+                  >
+                    Request access
+                  </Link>
+                  <Link href="/docs" variant="button-secondary" className="no-underline">
+                    Integration docs
+                  </Link>
+                </CTAGroup>
+              </div>
               <div className="home-hero-meta">
                 <p className="text-sm font-medium">
                   <Link href="/onboarding">Onboarding expectations →</Link>

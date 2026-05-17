@@ -34,30 +34,8 @@ export function LifecycleLaneInstrument({
   const [hovered, setHovered] = useState<number | null>(null);
   const isInteractive = interactive ?? animate;
 
-  return (
-    <div
-      className={cn(
-        "lifecycle-lane",
-        animate && "lifecycle-lane--animated",
-        className,
-      )}
-      aria-hidden="true"
-    >
-      {showTelemetry ? (
-        <div className="ops-telemetry-bar">
-          <span className="ops-telemetry-meta">Explicit state lane · conceptual</span>
-          <span className="ops-telemetry-chip-row">
-            <span className="ops-telemetry-chip ops-telemetry-chip--policy">
-              <span className="ops-telemetry-led ops-telemetry-led--policy" />
-              POLICY
-            </span>
-            <span className="ops-telemetry-chip ops-telemetry-chip--verified">
-              <span className="ops-telemetry-led ops-telemetry-led--verified" />
-              VERIFIED
-            </span>
-          </span>
-        </div>
-      ) : null}
+  const execution = (
+    <>
       <svg
         className="lifecycle-lane-rail-svg"
         viewBox="0 0 100 20"
@@ -139,6 +117,49 @@ export function LifecycleLaneInstrument({
           POLICY
         </span>
       </div>
+    </>
+  );
+
+  return (
+    <div
+      className={cn(
+        "lifecycle-lane",
+        animate && "lifecycle-lane--animated",
+        showTelemetry && "lifecycle-lane--structured",
+        className,
+      )}
+      aria-hidden="true"
+    >
+      {showTelemetry ? (
+        <>
+          <div className="ops-console-module__telemetry">
+            <div className="ops-telemetry-bar">
+              <span className="ops-telemetry-meta">Explicit state lane · conceptual</span>
+              <span className="ops-telemetry-chip-row">
+                <span className="ops-telemetry-chip ops-telemetry-chip--policy">
+                  <span className="ops-telemetry-led ops-telemetry-led--policy" />
+                  POLICY
+                </span>
+                <span className="ops-telemetry-chip ops-telemetry-chip--verified">
+                  <span className="ops-telemetry-led ops-telemetry-led--verified" />
+                  VERIFIED
+                </span>
+              </span>
+            </div>
+          </div>
+          <div className="ops-console-module__execution ops-console-module__execution--primary">
+            {execution}
+          </div>
+          <footer className="ops-console-module__meta">
+            <span className="ops-console-meta-tag">STATE</span>
+            <span className="ops-console-meta-tag">RAIL</span>
+            <span className="ops-console-meta-tag">GATE</span>
+            <span>Topology · conceptual</span>
+          </footer>
+        </>
+      ) : (
+        execution
+      )}
     </div>
   );
 }

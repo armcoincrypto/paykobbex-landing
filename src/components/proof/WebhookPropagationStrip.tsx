@@ -68,58 +68,77 @@ export function WebhookPropagationStrip({
   const [hovered, setHovered] = useState<number | null>(null);
   const isInteractive = interactive ?? animate;
 
+  const execution = (
+    <div className="webhook-ribbon">
+      {steps.map((step, i) => {
+        const isHot = isInteractive && hovered === i;
+        return (
+          <div
+            key={step.title}
+            className={cn(
+              "webhook-ribbon-step",
+              isInteractive && "webhook-ribbon-step--interactive",
+              isHot && "webhook-ribbon-step--hot",
+            )}
+            onMouseEnter={isInteractive ? () => setHovered(i) : undefined}
+            onMouseLeave={isInteractive ? () => setHovered(null) : undefined}
+            onFocus={isInteractive ? () => setHovered(i) : undefined}
+            onBlur={isInteractive ? () => setHovered(null) : undefined}
+            {...(isInteractive ? { tabIndex: 0 } : {})}
+          >
+            {i < steps.length - 1 ? <ConnectorSvg segmentIndex={i} /> : null}
+            <span className={cn("ops-telemetry-chip", `ops-telemetry-chip--${step.tone}`)}>
+              <span className={cn("ops-telemetry-led", `ops-telemetry-led--${step.tone}`)} />
+              {step.telemetry}
+            </span>
+            <strong>{step.title}</strong>
+            {step.detail}
+          </div>
+        );
+      })}
+    </div>
+  );
+
   return (
     <div
       className={cn(
         "webhook-ribbon-wrap",
         animate && "webhook-ribbon-wrap--animated",
+        showTelemetry && "webhook-ribbon-wrap--structured",
         className,
       )}
       aria-hidden="true"
     >
       {showTelemetry ? (
-        <div className="ops-telemetry-bar">
-          <span className="ops-telemetry-meta">Signed pipeline · conceptual</span>
-          <span className="ops-telemetry-chip-row">
-            <span className="ops-telemetry-chip ops-telemetry-chip--signal">
-              <span className="ops-telemetry-led ops-telemetry-led--signal" />
-              SIGNED
-            </span>
-            <span className="ops-telemetry-chip ops-telemetry-chip--verified">
-              <span className="ops-telemetry-led ops-telemetry-led--verified" />
-              VERIFIED
-            </span>
-          </span>
-        </div>
-      ) : null}
-      <div className="webhook-ribbon">
-        {steps.map((step, i) => {
-          const isHot = isInteractive && hovered === i;
-          return (
-            <div
-              key={step.title}
-              className={cn(
-                "webhook-ribbon-step",
-                isInteractive && "webhook-ribbon-step--interactive",
-                isHot && "webhook-ribbon-step--hot",
-              )}
-              onMouseEnter={isInteractive ? () => setHovered(i) : undefined}
-              onMouseLeave={isInteractive ? () => setHovered(null) : undefined}
-              onFocus={isInteractive ? () => setHovered(i) : undefined}
-              onBlur={isInteractive ? () => setHovered(null) : undefined}
-              {...(isInteractive ? { tabIndex: 0 } : {})}
-            >
-              {i < steps.length - 1 ? <ConnectorSvg segmentIndex={i} /> : null}
-              <span className={cn("ops-telemetry-chip", `ops-telemetry-chip--${step.tone}`)}>
-                <span className={cn("ops-telemetry-led", `ops-telemetry-led--${step.tone}`)} />
-                {step.telemetry}
+        <>
+          <div className="ops-console-module__telemetry">
+            <div className="ops-telemetry-bar">
+              <span className="ops-telemetry-meta">Signed pipeline · conceptual</span>
+              <span className="ops-telemetry-chip-row">
+                <span className="ops-telemetry-chip ops-telemetry-chip--signal">
+                  <span className="ops-telemetry-led ops-telemetry-led--signal" />
+                  SIGNED
+                </span>
+                <span className="ops-telemetry-chip ops-telemetry-chip--verified">
+                  <span className="ops-telemetry-led ops-telemetry-led--verified" />
+                  VERIFIED
+                </span>
               </span>
-              <strong>{step.title}</strong>
-              {step.detail}
             </div>
-          );
-        })}
-      </div>
+          </div>
+          <div className="ops-console-module__execution ops-console-module__execution--primary">
+            {execution}
+          </div>
+          <footer className="ops-console-module__meta">
+            <span className="ops-console-meta-tag">PIPELINE</span>
+            <span className="ops-console-meta-tag">FLOW</span>
+            <span className="ops-console-meta-tag">VERIFIED</span>
+            <span>Propagation path · conceptual</span>
+          </footer>
+        </>
+      ) : (
+        execution
+      )}
     </div>
   );
 }
