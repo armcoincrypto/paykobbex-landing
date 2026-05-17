@@ -49,6 +49,13 @@
   --token-ops-rail-glow: rgb(var(--token-accent-rgb) / 0.22);
   --token-ops-rail-pulse-duration: 2.75s;
   --token-ops-webhook-pulse-duration: 2.5s;
+  /* P26.4 — settlement topology routes */
+  --ops-route-ingress: 34 211 238;
+  --ops-route-verify: 94 234 212;
+  --ops-route-settlement: 45 212 191;
+  --ops-route-reconcile: 180 140 60;
+  --ops-route-egress: 56 189 248;
+  --token-ops-transport-duration: 3.25s;
   /* P26.2C — instrument presence + layout balance */
   --token-ops-instrument-min-h: 7.75rem;
   --token-ops-section-gap: 2.5rem;
@@ -1392,6 +1399,584 @@
   }
 }
 
+/* P26.4 — real infrastructure presence (topology, density, atmosphere, interaction) */
+.home-infrastructure-plane {
+  position: relative;
+  isolation: isolate;
+}
+
+.home-infrastructure-plane__content {
+  position: relative;
+  z-index: 1;
+}
+
+.home-topology-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.home-topology-fog {
+  position: absolute;
+  inset: -8% 0;
+  background:
+    radial-gradient(ellipse 90% 42% at 50% 0%, rgb(var(--ops-route-verify) / 0.07), transparent 62%),
+    radial-gradient(ellipse 70% 50% at 12% 38%, rgb(var(--ops-route-settlement) / 0.05), transparent 58%),
+    radial-gradient(ellipse 55% 40% at 88% 52%, rgb(var(--ops-route-ingress) / 0.04), transparent 55%);
+}
+
+.home-topology-mesh {
+  position: absolute;
+  inset: 0;
+  opacity: 0.42;
+  background-image:
+    linear-gradient(to right, rgb(var(--token-accent-rgb) / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--token-accent-rgb) / 0.03) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(180deg, black 0%, black 55%, transparent 100%);
+}
+
+.home-topology-horizon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(var(--token-accent-rgb) / 0.22) 20%,
+    rgb(var(--token-accent-bright-rgb) / 0.32) 50%,
+    rgb(var(--token-accent-rgb) / 0.22) 80%,
+    transparent
+  );
+  box-shadow: 0 0 48px -8px rgb(var(--token-accent-rgb) / 0.18);
+}
+
+.home-topology-routes {
+  position: absolute;
+  inset: 0;
+  max-width: var(--token-width-content);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+.ops-route-anchor {
+  position: absolute;
+  width: 2px;
+  border-radius: 1px;
+  opacity: 0.35;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgb(var(--token-accent-rgb) / 0.35) 35%,
+    rgb(var(--token-accent-rgb) / 0.35) 65%,
+    transparent
+  );
+}
+
+.ops-route-anchor.ops-route--ingress {
+  left: 8%;
+  top: 6%;
+  height: 38%;
+  background: linear-gradient(180deg, transparent, rgb(var(--ops-route-ingress) / 0.45), transparent);
+}
+
+.ops-route-anchor.ops-route--verify {
+  left: 42%;
+  top: 12%;
+  height: 52%;
+  background: linear-gradient(180deg, transparent, rgb(var(--ops-route-verify) / 0.5), transparent);
+}
+
+.ops-route-anchor.ops-route--settlement {
+  right: 18%;
+  top: 4%;
+  height: 44%;
+  background: linear-gradient(180deg, transparent, rgb(var(--ops-route-settlement) / 0.42), transparent);
+}
+
+.ops-route-anchor.ops-route--reconcile {
+  left: 22%;
+  bottom: 8%;
+  height: 32%;
+  opacity: 0.28;
+  background: linear-gradient(180deg, transparent, rgb(var(--ops-route-reconcile) / 0.38), transparent);
+}
+
+.ops-route-anchor.ops-route--egress {
+  right: 10%;
+  bottom: 6%;
+  height: 36%;
+  background: linear-gradient(180deg, transparent, rgb(var(--ops-route-egress) / 0.4), transparent);
+}
+
+/* Route type surfaces */
+.ops-route--ingress {
+  --ops-route-active: var(--ops-route-ingress);
+}
+
+.ops-route--verify {
+  --ops-route-active: var(--ops-route-verify);
+}
+
+.ops-route--settlement {
+  --ops-route-active: var(--ops-route-settlement);
+}
+
+.ops-route--reconcile {
+  --ops-route-active: var(--ops-route-reconcile);
+}
+
+.ops-route--egress {
+  --ops-route-active: var(--ops-route-egress);
+}
+
+.ops-route--ingress .lifecycle-lane-rail-pulse,
+.ops-route--ingress .webhook-ribbon-rail-pulse {
+  stroke: rgb(var(--ops-route-ingress) / 0.82);
+}
+
+.ops-route--verify .webhook-ribbon-rail-pulse,
+.ops-route--verify .lifecycle-lane-rail-pulse {
+  stroke: rgb(var(--ops-route-verify) / 0.85);
+}
+
+.ops-route--settlement .lifecycle-lane-rail-pulse {
+  stroke: rgb(var(--ops-route-settlement) / 0.88);
+}
+
+.ops-route--reconcile .lifecycle-lane-rail-pulse,
+.ops-route--reconcile .confirmation-depth-layer.is-emphasized {
+  border-color: rgb(var(--ops-route-reconcile) / 0.28);
+}
+
+.ops-route--egress .webhook-ribbon-rail-pulse {
+  stroke: rgb(var(--ops-route-egress) / 0.82);
+}
+
+.ops-route--ingress.ops-console-module,
+.ops-route--verify.ops-console-module,
+.ops-route--settlement.ops-console-module,
+.ops-route--reconcile.ops-console-module,
+.ops-route--egress.ops-console-module {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.04),
+    inset 0 -12px 24px -16px rgb(0 0 0 / 0.4),
+    0 0 36px -28px rgb(var(--ops-route-active, var(--token-accent-rgb)) / 0.14);
+}
+
+.ops-route--verify .ops-console-boundary--verify {
+  box-shadow:
+    inset 0 0 0 1px rgb(var(--ops-route-verify) / 0.12),
+    0 0 32px -18px rgb(var(--ops-route-verify) / 0.2);
+}
+
+.ops-route--verify .ops-console-boundary--verify::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(var(--ops-route-verify) / 0.06) 48%,
+    transparent
+  );
+  border-radius: inherit;
+}
+
+/* Operational density overlay */
+.ops-density-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.45rem;
+  margin-bottom: 0.35rem;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.5rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgb(var(--token-text-muted) / 0.88);
+}
+
+.ops-density-line {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.06rem 0.28rem;
+  border-radius: 2px;
+  border: 1px solid rgb(var(--token-accent-rgb) / 0.08);
+  background: rgb(5 8 14 / 0.55);
+}
+
+.ops-density-line--policy {
+  border-color: rgb(var(--ops-route-reconcile) / 0.22);
+  color: rgb(214 180 120 / 0.92);
+}
+
+.ops-envelope {
+  position: relative;
+  padding-top: 0.15rem;
+}
+
+.ops-envelope::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 0 24px -18px rgb(var(--ops-route-active, var(--token-accent-rgb)) / 0.12);
+}
+
+.ops-ownership {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(var(--token-text-muted) / 0.9);
+}
+
+.ops-ownership::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-radius: 1px;
+  background: rgb(var(--ops-route-active, var(--token-accent-rgb)) / 0.65);
+}
+
+.ops-ownership--merchant::before {
+  background: rgb(var(--ops-route-reconcile) / 0.7);
+}
+
+.ops-ownership--server::before {
+  background: rgb(var(--ops-route-verify) / 0.75);
+}
+
+.ops-ownership--policy::before {
+  background: rgb(var(--ops-route-reconcile) / 0.65);
+}
+
+.ops-ownership--rail::before {
+  background: rgb(var(--ops-route-settlement) / 0.7);
+}
+
+/* Contextual operational reveals (hover / focus) */
+.ops-context-reveal {
+  display: block;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin-top: 0;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.5rem;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgb(var(--token-accent-bright-rgb) / 0.88);
+  transition:
+    opacity var(--token-motion-base) var(--token-ease-out),
+    max-height var(--token-motion-slow) var(--token-ease-out),
+    margin-top var(--token-motion-base) var(--token-ease-out);
+}
+
+.ops-review-stage {
+  outline: none;
+  transition:
+    border-color var(--token-motion-base) var(--token-ease-out),
+    box-shadow var(--token-motion-base) var(--token-ease-out);
+}
+
+.ops-review-stage--hot {
+  border-color: rgb(var(--ops-route-ingress) / 0.35);
+  box-shadow: 0 0 20px -10px rgb(var(--ops-route-ingress) / 0.25);
+}
+
+.lifecycle-lane-node--hot .ops-context-reveal,
+.webhook-ribbon-step--hot .ops-context-reveal,
+.ops-review-stage--hot .ops-context-reveal {
+  max-height: 2.5rem;
+  opacity: 1;
+  margin-top: 0.25rem;
+}
+
+/* Topology hover propagation — route focus isolation */
+.home-infrastructure-plane:has(.lifecycle-lane-node--hot) .ops-route--verify:not(:has(.lifecycle-lane-node--hot)),
+.home-infrastructure-plane:has(.lifecycle-lane-node--hot) .ops-route--ingress:not(:has(.lifecycle-lane-node--hot)),
+.home-infrastructure-plane:has(.webhook-ribbon-step--hot) .ops-route--settlement:not(:has(.webhook-ribbon-step--hot)),
+.home-infrastructure-plane:has(.webhook-ribbon-step--hot) .ops-route--ingress:not(:has(.webhook-ribbon-step--hot)) {
+  opacity: 0.88;
+  filter: saturate(0.85);
+}
+
+.home-infrastructure-plane:has(.lifecycle-lane-node--hot) .ops-route--settlement:has(.lifecycle-lane-node--hot),
+.home-infrastructure-plane:has(.webhook-ribbon-step--hot) .ops-route--verify:has(.webhook-ribbon-step--hot) {
+  opacity: 1;
+  filter: none;
+}
+
+.lifecycle-lane--route-active .lifecycle-lane-rail-pulse,
+.webhook-ribbon-wrap--route-active .webhook-ribbon-rail-pulse {
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 8px rgb(var(--ops-route-active, var(--token-accent-rgb)) / 0.35));
+}
+
+@keyframes ops-transport-flow {
+  0% {
+    stroke-dashoffset: 100;
+    opacity: 0.45;
+  }
+  8% {
+    opacity: 0.95;
+  }
+  92% {
+    opacity: 0.95;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.45;
+  }
+}
+
+@keyframes ops-transport-webhook {
+  0% {
+    stroke-dashoffset: 48;
+    opacity: 0.42;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.42;
+  }
+}
+
+/* Section edge illumination + atmospheric bridges */
+.home-ops-follow {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.05),
+    inset 0 24px 48px -40px rgb(var(--ops-route-settlement) / 0.06),
+    inset 0 -1px 0 rgb(var(--token-accent-rgb) / 0.06);
+}
+
+.home-section-after-ops::before {
+  background: linear-gradient(
+    180deg,
+    rgb(var(--ops-route-settlement) / 0.06),
+    transparent
+  );
+}
+
+.home-section-bridge {
+  box-shadow: inset 0 1px 0 rgb(var(--token-accent-rgb) / 0.08);
+}
+
+.ops-console-module__execution--primary {
+  box-shadow:
+    inset 0 0 0 1px rgb(var(--token-accent-rgb) / 0.08),
+    inset 0 8px 24px -16px rgb(0 0 0 / 0.45),
+    0 0 40px -24px rgb(var(--ops-route-active, var(--token-accent-rgb)) / 0.16);
+}
+
+.hero-infra-fog {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 80% 55% at 70% 35%,
+    rgb(var(--ops-route-verify) / 0.08),
+    transparent 68%
+  );
+}
+
+/* P26.5 — infrastructure interaction intelligence */
+.ops-inspect-hint {
+  display: block;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin-top: 0;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.5rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  line-height: 1.45;
+  text-transform: none;
+  color: rgb(var(--token-text-muted) / 0.92);
+  transition:
+    opacity var(--token-motion-base) var(--token-ease-out),
+    max-height var(--token-motion-slow) var(--token-ease-out);
+}
+
+.ops-inspect-meta {
+  display: block;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.48rem;
+  letter-spacing: 0.05em;
+  color: rgb(var(--token-text-muted) / 0.78);
+  transition: opacity var(--token-motion-base) var(--token-ease-out);
+}
+
+.ops-inspect-hint--static,
+.ops-inspect-meta--static {
+  display: none;
+  max-height: none;
+  opacity: 0.88;
+  margin-bottom: 0.35rem;
+}
+
+.ops-inspect-zone {
+  outline: none;
+  border-radius: var(--token-radius-sm);
+  transition:
+    box-shadow var(--token-motion-base) var(--token-ease-out),
+    border-color var(--token-motion-base) var(--token-ease-out);
+}
+
+.ops-inspect-zone:focus-visible {
+  box-shadow: 0 0 0 2px var(--token-canvas), 0 0 0 4px var(--token-focus-ring);
+}
+
+.ops-inspect-zone:focus-within,
+.ops-inspect-zone:hover {
+  box-shadow: inset 0 0 0 1px rgb(var(--ops-route-reconcile) / 0.14);
+}
+
+.lifecycle-lane-node--hot .ops-inspect-hint,
+.webhook-ribbon-step--hot .ops-inspect-hint,
+.ops-review-stage--hot .ops-inspect-hint {
+  max-height: 2.75rem;
+  opacity: 1;
+  margin-top: 0.2rem;
+}
+
+.lifecycle-lane-node--hot .ops-inspect-meta,
+.webhook-ribbon-step--hot .ops-inspect-meta,
+.ops-review-stage--hot .ops-inspect-meta {
+  max-height: 2rem;
+  opacity: 1;
+  margin-top: 0.15rem;
+}
+
+.lifecycle-lane-node--downstream .lifecycle-lane-marker,
+.webhook-ribbon-step--downstream .webhook-ribbon-rail-base {
+  opacity: 1;
+  border-color: rgb(var(--ops-route-active, var(--token-accent-rgb)) / 0.5);
+}
+
+.webhook-ribbon-step--downstream strong,
+.lifecycle-lane-node--downstream .lifecycle-lane-node > span:nth-child(2) {
+  color: rgb(var(--token-accent-bright-rgb) / 0.82);
+}
+
+/* Cross-surface route inspection */
+.home-infrastructure-plane[data-inspect-focus] .proof-bento-lifecycle,
+.home-infrastructure-plane[data-inspect-focus] .proof-bento-webhook,
+.home-infrastructure-plane[data-inspect-focus] .proof-bento-review,
+.home-infrastructure-plane[data-inspect-focus] .ops-console-module {
+  transition:
+    opacity var(--token-motion-base) var(--token-ease-out),
+    filter var(--token-motion-base) var(--token-ease-out);
+}
+
+.home-infrastructure-plane[data-inspect-focus] .proof-bento-lifecycle,
+.home-infrastructure-plane[data-inspect-focus] .proof-bento-webhook,
+.home-infrastructure-plane[data-inspect-focus] .proof-bento-review,
+.home-infrastructure-plane[data-inspect-focus] .ops-console-module:not(
+    .ops-route--settlement,
+    .ops-route--verify,
+    .ops-route--reconcile,
+    .ops-route--ingress
+  ) {
+  opacity: 0.78;
+  filter: saturate(0.88);
+}
+
+.home-infrastructure-plane[data-inspect-focus="settlement"] .proof-bento-lifecycle,
+.home-infrastructure-plane[data-inspect-focus="settlement"] .ops-route--settlement,
+.home-infrastructure-plane.inspect-downstream-reconcile .proof-bento-confirm,
+.home-infrastructure-plane.inspect-downstream-reconcile .ops-route--reconcile,
+.home-infrastructure-plane[data-inspect-focus="reconcile"] .proof-bento-confirm,
+.home-infrastructure-plane[data-inspect-focus="verify"] .proof-bento-webhook,
+.home-infrastructure-plane[data-inspect-focus="review"] .proof-bento-review,
+.home-infrastructure-plane[data-inspect-focus="ingress"] .proof-bento-review {
+  opacity: 1;
+  filter: none;
+}
+
+.ops-route-anchor--inspect-active {
+  opacity: 0.72;
+  filter: brightness(1.15);
+}
+
+.ops-route-anchor--inspect-downstream {
+  opacity: 0.48;
+}
+
+.inspect-link-gate .ops-gate-cta {
+  border-color: rgb(var(--ops-route-ingress) / 0.32);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.06),
+    0 0 28px -12px rgb(var(--ops-route-ingress) / 0.22);
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .ops-inspect-hint--static,
+  .ops-inspect-meta--static {
+    display: block;
+  }
+
+  .ops-inspect-hint:not(.ops-inspect-hint--static),
+  .ops-inspect-meta:not(.ops-inspect-meta--static) {
+    max-height: 2.5rem;
+    opacity: 0.85;
+    margin-top: 0.15rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lifecycle-lane--animated .lifecycle-lane-rail-pulse,
+  .webhook-ribbon-wrap--animated .webhook-ribbon-rail-pulse {
+    animation: none;
+  }
+
+  .ops-context-reveal,
+  .ops-inspect-hint,
+  .ops-inspect-meta {
+    transition: none;
+  }
+
+  .lifecycle-lane-node--hot .ops-context-reveal,
+  .webhook-ribbon-step--hot .ops-context-reveal,
+  .ops-review-stage--hot .ops-context-reveal,
+  .lifecycle-lane-node--hot .ops-inspect-hint,
+  .webhook-ribbon-step--hot .ops-inspect-hint,
+  .ops-review-stage--hot .ops-inspect-hint {
+    max-height: none;
+    opacity: 1;
+  }
+
+  .home-infrastructure-plane[data-inspect-focus] .proof-bento-lifecycle,
+  .home-infrastructure-plane[data-inspect-focus] .proof-bento-webhook,
+  .home-infrastructure-plane[data-inspect-focus] .proof-bento-review,
+  .home-infrastructure-plane[data-inspect-focus] .ops-console-module {
+    opacity: 1;
+    filter: none;
+    transition: none;
+  }
+}
+
 .vf-frame-corner-tl {
   top: -1px;
   left: -1px;
@@ -1463,7 +2048,7 @@
 }
 
 .lifecycle-lane--animated .lifecycle-lane-rail-pulse {
-  animation: ops-rail-pulse-flow var(--token-ops-rail-pulse-duration) linear infinite;
+  animation: ops-transport-flow var(--token-ops-transport-duration) linear infinite;
 }
 
 .lifecycle-lane-rail-branch {
@@ -1637,8 +2222,7 @@
 }
 
 .webhook-ribbon-wrap--animated .webhook-ribbon-rail-pulse {
-  animation: ops-webhook-rail-flow var(--token-ops-webhook-pulse-duration) var(--token-ease-in-out)
-    infinite;
+  animation: ops-transport-webhook var(--token-ops-transport-duration) linear infinite;
 }
 
 .webhook-ribbon-wrap--animated .webhook-ribbon-rail-pulse--seg-0 {

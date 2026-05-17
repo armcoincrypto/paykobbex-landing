@@ -4,6 +4,7 @@ import { Container } from "@/components/primitives/Container";
 import { Link } from "@/components/primitives/link";
 import { Section } from "@/components/primitives/Section";
 import { ConfirmationDepthStack } from "@/components/proof/ConfirmationDepthStack";
+import { ReconciliationInspectZone } from "@/components/proof/ReconciliationInspectZone";
 import { LifecycleLaneInstrument } from "@/components/proof/LifecycleLaneInstrument";
 import { MerchantReviewPipeline } from "@/components/proof/MerchantReviewPipeline";
 import { VerificationFramePanel } from "@/components/proof/VerificationFramePanel";
@@ -65,7 +66,7 @@ export function InfrastructureOperationsSection() {
         </p>
 
         <div className="mt-12 proof-bento">
-          <article className="proof-bento-lifecycle">
+          <article className="proof-bento-lifecycle ops-route--settlement">
             <VerificationFramePanel
               label="Lifecycle lane"
               sublabel="State transitions (conceptual)"
@@ -98,7 +99,7 @@ export function InfrastructureOperationsSection() {
             </VerificationFramePanel>
           </article>
 
-          <aside className="proof-bento-confirm flex flex-col gap-4">
+          <aside className="proof-bento-confirm ops-route--reconcile flex flex-col gap-4">
             <VerificationFramePanel
               label="Confirmation depth"
               sublabel="Settlement visibility"
@@ -109,7 +110,13 @@ export function InfrastructureOperationsSection() {
                   <span className="ops-console-module__title">Settlement depth</span>
                   <span className="ops-console-routing">POLICY · OWNERSHIP</span>
                 </header>
-                <div className="ops-control-plane__zone">
+                <ReconciliationInspectZone>
+                  <div className="ops-density-strip" aria-hidden="true">
+                    <span className="ops-density-line ops-density-line--policy">
+                      LEDGER · RECONCILE REQUIRED
+                    </span>
+                    <span className="ops-density-line">STATE · POLICY GATED</span>
+                  </div>
                   <div className="ops-control-plane__ownership">
                     <span className="ops-telemetry-chip ops-telemetry-chip--policy">
                       <span className="ops-telemetry-led ops-telemetry-led--policy" />
@@ -125,11 +132,11 @@ export function InfrastructureOperationsSection() {
                     </span>
                   </div>
                   <div className="ops-console-module__execution ops-console-module__execution--primary">
-                    <div className="ops-console-well">
+                    <div className="ops-console-well ops-envelope">
                       <ConfirmationDepthStack />
                     </div>
                   </div>
-                </div>
+                </ReconciliationInspectZone>
                 <footer className="ops-console-module__meta">
                   <span className="ops-console-meta-tag">RAIL</span>
                   <span className="ops-console-meta-tag">RECONCILE</span>
@@ -143,7 +150,7 @@ export function InfrastructureOperationsSection() {
             </VerificationFramePanel>
           </aside>
 
-          <article className="proof-bento-webhook min-w-0">
+          <article className="proof-bento-webhook ops-route--verify min-w-0">
             <VerificationFramePanel
               label="Webhook verification"
               sublabel="Signed pipeline (conceptual)"
@@ -163,7 +170,7 @@ export function InfrastructureOperationsSection() {
             </VerificationFramePanel>
           </article>
 
-          <article className="proof-bento-review">
+          <article className="proof-bento-review ops-route--ingress">
             <MerchantReviewPipeline
               labelledBy={headingId}
               className="ops-instrument-surface ops-telemetry-surface ops-console-surface ops-console-deep"

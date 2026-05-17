@@ -1,14 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
+import { webhookInspectNodes } from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
 
-const steps = [
-  { title: "Event", detail: "Lifecycle transition", telemetry: "SIGNAL", tone: "signal" as const },
-  { title: "POST", detail: "Signed body", telemetry: "SIGNED", tone: "signal" as const },
-  { title: "Verify", detail: "Server-side", telemetry: "SERVER-SIDE", tone: "verified" as const },
-  { title: "Apply", detail: "Idempotent", telemetry: "IDEMPOTENT", tone: "verified" as const },
-] as const;
+const steps = webhookInspectNodes;
 
 function ConnectorSvg({ segmentIndex }: { segmentIndex: number }) {
   return (
@@ -55,31 +52,39 @@ function WebhookRibbonSteps({
   segmentOffset,
   isInteractive,
   hovered,
-  setHovered,
+  applyInspect,
 }: {
   slice: readonly (typeof steps)[number][];
   segmentOffset: number;
   isInteractive: boolean;
   hovered: number | null;
-  setHovered: (i: number | null) => void;
+  applyInspect: (index: number | null) => void;
 }) {
   return (
     <>
       {slice.map((step, i) => {
         const globalIndex = segmentOffset + i;
+        const node = steps[globalIndex];
         const isHot = isInteractive && hovered === globalIndex;
+        const isDownstream =
+          isInteractive &&
+          hovered !== null &&
+          globalIndex > hovered &&
+          steps[hovered].downstream.includes(node.focus);
         return (
           <div
-            key={step.title}
+            key={step.tag}
             className={cn(
               "webhook-ribbon-step",
               isInteractive && "webhook-ribbon-step--interactive",
               isHot && "webhook-ribbon-step--hot",
+              isDownstream && "webhook-ribbon-step--downstream",
             )}
-            onMouseEnter={isInteractive ? () => setHovered(globalIndex) : undefined}
-            onMouseLeave={isInteractive ? () => setHovered(null) : undefined}
-            onFocus={isInteractive ? () => setHovered(globalIndex) : undefined}
-            onBlur={isInteractive ? () => setHovered(null) : undefined}
+            data-ops-route={node.focus}
+            onMouseEnter={isInteractive ? () => applyInspect(globalIndex) : undefined}
+            onMouseLeave={isInteractive ? () => applyInspect(null) : undefined}
+            onFocus={isInteractive ? () => applyInspect(globalIndex) : undefined}
+            onBlur={isInteractive ? () => applyInspect(null) : undefined}
             {...(isInteractive ? { tabIndex: 0 } : {})}
           >
             {i < slice.length - 1 ? (
@@ -87,12 +92,37 @@ function WebhookRibbonSteps({
             ) : globalIndex < steps.length - 1 ? (
               <ConnectorSvg segmentIndex={globalIndex} />
             ) : null}
-            <span className={cn("ops-telemetry-chip", `ops-telemetry-chip--${step.tone}`)}>
-              <span className={cn("ops-telemetry-led", `ops-telemetry-led--${step.tone}`)} />
-              {step.telemetry}
+            <span
+              className={cn(
+                "ops-telemetry-chip",
+                node.focus === "verify" || node.focus === "egress"
+                  ? "ops-telemetry-chip--verified"
+                  : "ops-telemetry-chip--signal",
+              )}
+            >
+              <span
+                className={cn(
+                  "ops-telemetry-led",
+                  node.focus === "verify" || node.focus === "egress"
+                    ? "ops-telemetry-led--verified"
+                    : "ops-telemetry-led--signal",
+                )}
+              />
+              {node.tag.split(" · ")[0]}
             </span>
-            <strong>{step.title}</strong>
-            {step.detail}
+            <strong>{["Event", "POST", "Verify", "Apply"][globalIndex]}</strong>
+            {["Lifecycle transition", "Signed body", "Server-side", "Idempotent"][globalIndex]}
+            {isInteractive ? (
+              <>
+                <span className="ops-context-reveal">{node.tag}</span>
+                <span className="ops-inspect-hint">{node.hint}</span>
+                <span className="ops-inspect-meta" aria-hidden="true">
+                  <span>{node.ownership}</span>
+                  <span> · </span>
+                  <span>{node.affects}</span>
+                </span>
+              </>
+            ) : null}
           </div>
         );
       })}
@@ -109,18 +139,28 @@ export function WebhookPropagationStrip({
   channelLayout = false,
 }: {
   className?: string;
-  /** Calm propagation pulse along connectors (respects reduced motion in CSS). */
   animate?: boolean;
-  /** Hover/focus hot states; defaults to animate. Set false for decorative hero rails. */
   interactive?: boolean;
-  /** Mono telemetry bar above ribbon (conceptual labels only). */
   showTelemetry?: boolean;
-  /** Ingress / verification / egress channel layering for deep console surfaces. */
   channelLayout?: boolean;
 }) {
   const [hovered, setHovered] = useState<number | null>(null);
+  const { setInspect, clearInspect } = useInfrastructureInspect();
   const isInteractive = interactive ?? animate;
   const useChannels = channelLayout && showTelemetry;
+
+  const applyInspect = (index: number | null) => {
+    setHovered(index);
+    if (index === null) {
+      clearInspect();
+      return;
+    }
+    const node = steps[index];
+    setInspect({
+      focus: node.focus,
+      downstream: node.downstream,
+    });
+  };
 
   const flatRibbon = (
     <div className="webhook-ribbon">
@@ -129,14 +169,14 @@ export function WebhookPropagationStrip({
         segmentOffset={0}
         isInteractive={isInteractive}
         hovered={hovered}
-        setHovered={setHovered}
+        applyInspect={applyInspect}
       />
     </div>
   );
 
   const channeledRibbon = (
     <div className="ops-console-well ops-console-well--pipeline">
-      <div className="ops-console-channel ops-console-channel--ingress">
+      <div className="ops-console-channel ops-console-channel--ingress ops-route--ingress">
         <span className="ops-console-channel__label">Ingress</span>
         <div className="webhook-ribbon">
           <WebhookRibbonSteps
@@ -144,12 +184,12 @@ export function WebhookPropagationStrip({
             segmentOffset={0}
             isInteractive={isInteractive}
             hovered={hovered}
-            setHovered={setHovered}
+            applyInspect={applyInspect}
           />
         </div>
       </div>
       <span className="ops-console-boundary__divider">Verify boundary</span>
-      <div className="ops-console-channel ops-console-channel--egress">
+      <div className="ops-console-channel ops-console-channel--egress ops-route--egress">
         <span className="ops-console-channel__label">Egress</span>
         <div className="webhook-ribbon">
           <WebhookRibbonSteps
@@ -157,7 +197,7 @@ export function WebhookPropagationStrip({
             segmentOffset={2}
             isInteractive={isInteractive}
             hovered={hovered}
-            setHovered={setHovered}
+            applyInspect={applyInspect}
           />
         </div>
       </div>
@@ -172,16 +212,17 @@ export function WebhookPropagationStrip({
       {execution}
     </div>
   ) : (
-    <div className="ops-console-well ops-console-well--pipeline">{execution}</div>
+    <div className="ops-console-well ops-console-well--pipeline ops-envelope">{execution}</div>
   );
 
   return (
     <div
       className={cn(
-        "webhook-ribbon-wrap",
+        "webhook-ribbon-wrap ops-route--verify",
         animate && "webhook-ribbon-wrap--animated",
         showTelemetry && "webhook-ribbon-wrap--structured",
         useChannels && "webhook-ribbon-wrap--channeled",
+        hovered !== null && "webhook-ribbon-wrap--route-active",
         className,
       )}
       aria-hidden="true"
@@ -189,6 +230,13 @@ export function WebhookPropagationStrip({
       {showTelemetry ? (
         <>
           <div className="ops-console-module__telemetry">
+            <div className="ops-density-strip" aria-hidden="true">
+              <span className="ops-density-line">VERIFY · RAW BODY · SIGNED</span>
+              <span className="ops-density-line">QUEUE · RETRY SAFE</span>
+            </div>
+            <p className="ops-inspect-hint ops-inspect-hint--static" aria-hidden="true">
+              Raw body checked before parse
+            </p>
             <div className="ops-telemetry-bar">
               <span className="ops-telemetry-meta">Signed pipeline · conceptual</span>
               <span className="ops-telemetry-chip-row">
@@ -202,6 +250,7 @@ export function WebhookPropagationStrip({
                 </span>
               </span>
             </div>
+            <span className="ops-ownership ops-ownership--server">Server-side</span>
           </div>
           <div className="ops-console-module__execution ops-console-module__execution--primary">
             {executionWrapped}

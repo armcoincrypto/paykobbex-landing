@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { HeroBackdrop } from "@/components/landing/HeroBackdrop";
+import { HomeInfrastructurePlane } from "@/components/landing/HomeInfrastructurePlane";
 import { ArchitectureDiagram } from "@/components/diagrams/ArchitectureDiagram";
 import { Card } from "@/components/primitives/Card";
 import { Container } from "@/components/primitives/Container";
@@ -105,6 +106,7 @@ export default function HomePage() {
       <JsonLd id="ld-json-faq" data={faqJson} />
       <JsonLd id="ld-json-app" data={appJson} />
 
+      <HomeInfrastructurePlane>
       <Section
         id="hero"
         tone="default"
@@ -126,7 +128,7 @@ export default function HomePage() {
                 explicit payment lifecycles, and a merchant portal for operations — after merchant
                 approval, on selected rails where enabled.
               </p>
-              <div className="ops-console-cta-strip">
+              <div className="ops-console-cta-strip ops-gate-cta">
                 <span className="ops-console-routing" aria-hidden="true">
                   GATE · ACCESS
                 </span>
@@ -230,6 +232,8 @@ export default function HomePage() {
 
       <OperationalRealismEntry className="home-section-bridge" />
 
+      </HomeInfrastructurePlane>
+
       <Section
         id="integration-and-security"
         tone="default"
@@ -326,7 +330,7 @@ export default function HomePage() {
             keys, API keys, webhook secrets, wallet access credentials, or remote access to your
             wallets — and neither do we.
           </p>
-          <div className="ops-console-cta-strip mt-6">
+          <div className="ops-console-cta-strip ops-gate-cta mt-6">
             <span className="ops-console-routing" aria-hidden="true">
               GATE · REVIEW · ACCESS
             </span>
