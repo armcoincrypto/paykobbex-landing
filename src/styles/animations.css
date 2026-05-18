@@ -1,0 +1,4 @@
+/* P2 — keyframes remain co-located with their domains (zero-diff cascade):
+ *   hero-atmosphere.css  → hero-aurora-in
+ *   diagrams.css         → ops-transport-flow, ops-transport-webhook, ops-rail-pulse-flow, ops-webhook-rail-flow
+ * Intentionally empty — do not import unless keyframes are centralized in a later phase. */

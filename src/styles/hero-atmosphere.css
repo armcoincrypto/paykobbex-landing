@@ -1,0 +1,204 @@
+/* Hero ambience (single-run animation; disabled when reduced motion). */
+.hero-grid {
+  background-image:
+    linear-gradient(to right, var(--token-line-subtle) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--token-line-subtle) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 78% 68% at 58% 38%, black 18%, transparent 76%);
+}
+
+.hero-aurora {
+  background: radial-gradient(
+    closest-side,
+    rgb(var(--token-accent-rgb) / 0.1),
+    rgb(var(--token-accent-rgb) / 0.03) 46%,
+    transparent 72%
+  );
+  opacity: 0.5;
+  animation: hero-aurora-in 12s var(--token-ease-out) 1 both;
+}
+
+@keyframes hero-aurora-in {
+  0% {
+    opacity: 0.35;
+    transform: translate3d(6%, 4%, 0) scale(0.94);
+  }
+  100% {
+    opacity: 0.52;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-aurora {
+    animation: none;
+    opacity: 0.55;
+    transform: none;
+  }
+
+  .hero-bloom-instrument,
+  .hero-bloom-head,
+  .hero-mesh,
+  .hero-scanlines,
+  .hero-navy-wash {
+    opacity: 0.45;
+  }
+
+  .home-hero-instrument .lifecycle-lane--animated .lifecycle-lane-rail-pulse,
+  .home-hero-instrument .webhook-ribbon-wrap--animated .webhook-ribbon-rail-pulse {
+    animation: none;
+    stroke-dashoffset: 28;
+    opacity: 0.75;
+  }
+}
+
+.hero-vignette {
+  background: radial-gradient(ellipse 85% 70% at 50% 0%, transparent 40%, rgb(6 7 11 / 0.72) 100%);
+  pointer-events: none;
+}
+
+.hero-navy-wash {
+  background:
+    radial-gradient(ellipse 90% 70% at 50% -10%, rgb(14 24 38 / 0.55) 0%, transparent 55%),
+    linear-gradient(180deg, rgb(4 8 16) 0%, var(--token-canvas) 100%);
+}
+
+.hero-bloom-instrument {
+  position: absolute;
+  right: -4%;
+  top: 6%;
+  width: min(48vw, 480px);
+  height: min(62vh, 440px);
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgb(var(--token-accent-rgb) / 0.09),
+    rgb(var(--token-accent-rgb) / 0.03) 42%,
+    transparent 70%
+  );
+  opacity: 0.36;
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+.hero-bloom-head {
+  background: radial-gradient(
+    closest-side,
+    rgb(var(--token-accent-rgb) / 0.06),
+    transparent 68%
+  );
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.hero-mesh {
+  background-image:
+    linear-gradient(to right, rgb(var(--token-muted-rgb) / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--token-muted-rgb) / 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 70% 60% at 68% 40%, black 18%, transparent 74%);
+  opacity: 0.22;
+}
+
+.hero-scanlines {
+  background: repeating-linear-gradient(
+    180deg,
+    transparent,
+    transparent 3px,
+    rgb(var(--token-muted-rgb) / 0.04) 3px,
+    rgb(var(--token-muted-rgb) / 0.04) 4px
+  );
+  mask-image: radial-gradient(ellipse 85% 75% at 55% 35%, black 15%, transparent 78%);
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.hero-graphite-veil {
+  background:
+    radial-gradient(ellipse 85% 50% at 50% 18%, rgb(255 255 255 / 0.018), transparent 58%),
+    linear-gradient(180deg, rgb(7 9 14 / 0.35) 0%, transparent 48%);
+  pointer-events: none;
+}
+
+.hero-backdrop-orb {
+  background: rgb(12 16 22 / 0.35);
+  opacity: 0.25;
+}
+
+/* Premium refinement — visible luxury depth (P3.1: perceptible, not neon) */
+.home-hero--refined .hero-grid {
+  opacity: 0.16;
+  mask-image: radial-gradient(ellipse 70% 64% at 40% 38%, black 16%, transparent 76%);
+}
+
+.home-hero--refined .hero-mesh {
+  opacity: 0.1;
+  mask-image: radial-gradient(ellipse 65% 55% at 72% 42%, black 14%, transparent 72%);
+}
+
+.home-hero--refined .hero-scanlines {
+  opacity: 0;
+}
+
+.home-hero--refined .hero-aurora {
+  opacity: 0.24;
+  animation: none;
+}
+
+.home-hero--refined .hero-bloom-head {
+  opacity: 0.22;
+}
+
+.home-hero--refined .hero-bloom-instrument {
+  opacity: 0.28;
+  width: min(46vw, 460px);
+  height: min(58vh, 420px);
+}
+
+.home-hero--refined .hero-backdrop-orb {
+  opacity: 0.14;
+}
+
+.home-hero--refined .hero-backdrop-orb:last-of-type {
+  opacity: 0.06;
+}
+
+.home-hero--refined .hero-graphite-veil {
+  background:
+    radial-gradient(ellipse 75% 52% at 36% 16%, rgb(255 255 255 / 0.028), transparent 58%),
+    linear-gradient(180deg, rgb(7 9 14 / 0.22) 0%, transparent 50%);
+}
+
+.home-hero--refined .hero-vignette {
+  background: radial-gradient(
+    ellipse 90% 74% at 46% 0%,
+    transparent 28%,
+    rgb(6 7 11 / 0.72) 100%
+  );
+}
+
+.home-hero--refined .hero-navy-wash {
+  background:
+    radial-gradient(ellipse 88% 62% at 42% -8%, rgb(18 28 42 / 0.48) 0%, transparent 56%),
+    linear-gradient(180deg, rgb(5 7 12) 0%, var(--token-canvas) 100%);
+}
+
+/* P3.1 — copy-column spotlight (institutional, not crypto glow) */
+.home-hero--premium::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 55% 70% at 22% 38%,
+    rgb(var(--token-accent-rgb) / 0.07),
+    transparent 68%
+  );
+}
+
+.home-hero--premium .home-hero-grid,
+.home-hero--premium .home-hero-trust {
+  position: relative;
+  z-index: 1;
+}

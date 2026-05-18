@@ -1,0 +1,119 @@
+/* —— UI systems symmetry (homepage) —— */
+.ui-control {
+  display: inline-flex;
+  min-height: var(--ui-control-height);
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--ui-radius-control);
+}
+
+.ui-chip {
+  display: inline-flex;
+  min-height: var(--ui-chip-height);
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--ui-chip-pad-x);
+  border-radius: var(--ui-radius-pill);
+  border: 1px solid var(--ui-border);
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.home-hero .home-hero-cta {
+  gap: 0.625rem;
+}
+
+@media (min-width: 640px) {
+  .home-hero .home-hero-cta {
+    gap: 0.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-hero .home-hero-cta {
+    gap: 0.875rem;
+  }
+}
+
+.home-hero .home-hero-cta a[class*="inline-flex"] {
+  min-height: 2.875rem;
+  height: 2.875rem;
+  padding-inline: 1.25rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-radius: var(--ui-radius-control);
+}
+
+@media (min-width: 640px) {
+  .home-hero .home-hero-cta a[class*="inline-flex"] {
+    min-height: 3rem;
+    height: 3rem;
+    padding-inline: 1.375rem;
+  }
+}
+
+/* P1 — footer column rhythm */
+footer .type-eyebrow {
+  margin-bottom: var(--token-stack-md);
+}
+
+footer ul {
+  margin-top: 0;
+}
+
+@media (min-width: 640px) {
+  footer .grid {
+    gap: var(--token-stack-2xl);
+  }
+}
+
+/* Site navbar — editorial hierarchy */
+.site-navbar__nav {
+  gap: 0.35rem 1.35rem;
+  align-items: center;
+}
+
+.site-navbar__link {
+  display: inline-flex;
+  min-height: var(--ui-chip-height);
+  align-items: center;
+  line-height: 1;
+}
+
+@media (min-width: 1280px) {
+  .site-navbar__nav {
+    gap: 0.35rem 1.65rem;
+  }
+}
+
+.site-navbar__link--secondary {
+  color: rgb(var(--token-muted-rgb) / 0.52) !important;
+}
+
+.site-navbar__link--secondary:hover {
+  color: rgb(var(--token-primary-rgb) / 0.72) !important;
+}
+
+.site-navbar__actions {
+  margin-left: 0.35rem;
+  padding-left: 1.15rem;
+  border-left: 1px solid var(--ui-border-subtle);
+  align-items: center;
+}
+
+.site-navbar__cta {
+  min-height: var(--ui-control-height);
+  height: var(--ui-control-height);
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-inline: 1rem;
+  border-radius: var(--ui-radius-control);
+}
+
+@media (min-width: 1024px) {
+  .site-navbar__actions {
+    margin-left: 0.65rem;
+    padding-left: 1.35rem;
+  }
+}

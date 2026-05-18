@@ -111,20 +111,20 @@ export default function HomePage() {
       <Section
         id="hero"
         tone="default"
-        className="home-hero home-hero--dominant home-hero--refined home-section-bridge-out home-ops-story-start relative overflow-hidden pb-11 pt-12 sm:pb-[3.25rem] sm:pt-[5.35rem]"
+        className="home-hero home-hero--dominant home-hero--refined home-hero--premium home-section-bridge-out home-ops-story-start relative overflow-hidden pb-16 pt-16 sm:pb-20 sm:pt-20 lg:pb-24 lg:pt-[6.5rem]"
       >
         <HeroBackdrop />
         <Container className="relative z-10">
           <div className="home-hero-grid">
             <div className="home-hero-copy">
-              <p className="home-hero-eyebrow text-xs font-semibold uppercase tracking-[0.18em]">
+              <p className="home-hero-eyebrow type-eyebrow">
                 B2B crypto payments
               </p>
-              <h1 className="home-hero-title mt-4 text-balance text-display font-semibold text-primary sm:mt-5">
+              <h1 className="home-hero-title type-stack-after-eyebrow text-balance text-display font-semibold text-primary">
                 <span className="home-hero-title-accent">API-first</span> crypto payment{" "}
                 <span className="home-hero-title-accent">infrastructure</span> for serious merchants
               </h1>
-              <p className="home-hero-lead mt-4 sm:mt-5">
+              <p className="home-hero-lead type-stack-after-heading">
                 Kobbopay is API-first B2B crypto payment infrastructure with signed webhooks,
                 explicit payment lifecycles, and a merchant portal for operations — after merchant
                 approval, on selected rails where enabled.
@@ -161,10 +161,10 @@ export default function HomePage() {
             <HeroOperationalInstrumentCompact />
           </div>
           <div className="home-hero-trust">
-            <p className="home-hero-trust-label text-xs font-medium tracking-[0.12em] text-muted">
+            <p className="home-hero-trust-label type-eyebrow type-eyebrow--soft">
               Production governance
             </p>
-            <div className="home-hero-trust-chips mt-3" role="list">
+            <div className="home-hero-trust-chips" role="list">
               {trustChips.map((label) => (
                 <span key={label} className="trust-chip ui-chip" role="listitem">
                   {label}
@@ -179,15 +179,18 @@ export default function HomePage() {
 
       <Section id="how-it-works" tone="default" className="home-section-after-ops">
         <Container>
-          <h2 id="home-heading-how-it-works" className="text-h2 font-semibold text-primary">
+          <h2
+            id="home-heading-how-it-works"
+            className="type-section-heading text-h2 font-semibold text-primary"
+          >
             How it works
           </h2>
           <ArchitectureDiagram
             variant="compact"
-            className="mt-6"
+            className="type-stack-after-heading"
             diagramLabelledBy="home-heading-how-it-works"
           />
-          <ol className="mt-6 list-decimal space-y-3 pl-5 text-sm text-muted sm:text-body">
+          <ol className="type-stack-after-heading list-decimal space-y-3.5 pl-5 text-sm text-muted sm:text-body">
             <li>
               <strong className="text-primary">Create a payment</strong> from your backend using a
               server-side API key.
@@ -233,15 +236,15 @@ export default function HomePage() {
         className="proof-section home-integration-band"
       >
         <Container className="max-w-3xl">
-          <h2 className="text-h2 font-semibold text-primary">
+          <h2 className="type-section-heading text-h2 font-semibold text-primary">
             Integration expectations &amp; security
           </h2>
-          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted sm:text-body">
+          <p className="type-section-lead type-stack-after-heading">
             Serious integrations assume server-side secrets, verifiable webhooks, and honest
             operational boundaries. For authoritative behavior, your merchant agreement and
             environment configuration remain the source of truth.
           </p>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 sm:gap-6">
+          <div className="type-stack-section-block grid gap-6 sm:grid-cols-2 sm:gap-7">
             <div className="home-integration-column">
               <h3 className="text-h3 font-semibold text-primary">Before production traffic</h3>
               <ul className="mt-4 list-disc space-y-2.5 pl-5 text-sm leading-relaxed text-muted">
@@ -284,7 +287,7 @@ export default function HomePage() {
               </ul>
             </div>
           </div>
-          <p className="mt-8 text-sm text-muted">
+          <p className="type-stack-after-lead text-sm text-muted">
             <Link href="/docs">Integration docs</Link>
             {" · "}
             <Link href="/docs#webhook-verification">Webhook verification</Link>
@@ -300,16 +303,16 @@ export default function HomePage() {
 
       <Section id="faq" tone="default">
         <Container>
-          <h2 className="text-h2 font-semibold text-primary">FAQ</h2>
-          <div className="mt-7 space-y-3.5 sm:space-y-4">
+          <h2 className="type-section-heading text-h2 font-semibold text-primary">FAQ</h2>
+          <div className="type-stack-after-heading space-y-4">
             {faqItems.map((item) => (
               <Card key={item.q} interactive className="faq-card">
                 <h3 className="text-h3 font-semibold text-primary">{item.q}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{item.a}</p>
+                <p className="mt-2.5 text-sm leading-relaxed text-muted">{item.a}</p>
               </Card>
             ))}
           </div>
-          <p className="mt-6 text-sm font-medium">
+          <p className="type-stack-after-lead text-sm font-medium">
             <Link href="/onboarding">Merchant onboarding FAQ and approval flow →</Link>
           </p>
         </Container>
@@ -317,13 +320,13 @@ export default function HomePage() {
 
       <Section id="contact" tone="muted" className="pb-[var(--token-section-loose)]">
         <Container>
-          <h2 className="text-h2 font-semibold text-primary">Request access</h2>
-          <p className="mt-3 max-w-2xl text-sm text-muted sm:text-body">
+          <h2 className="type-section-heading text-h2 font-semibold text-primary">Request access</h2>
+          <p className="type-section-lead type-stack-after-heading max-w-2xl">
             Tell us what you are building. Legitimate teams never need your seed phrase, private
             keys, API keys, webhook secrets, wallet access credentials, or remote access to your
             wallets — and neither do we.
           </p>
-          <div className="ops-console-cta-strip ops-gate-cta mt-6">
+          <div className="ops-console-cta-strip ops-gate-cta type-stack-after-lead">
             <span className="ops-console-routing" aria-hidden="true">
               GATE · REVIEW · ACCESS
             </span>

@@ -1,0 +1,167 @@
+/* Semantic tokens — raw values in :root, mapped into Tailwind @theme (no cycles). */
+:root {
+  --token-canvas: #03060c;
+  --token-surface: #070b14;
+  --token-surface-elevated: #0c121d;
+  --token-border-subtle: #1a2538;
+  --token-border-strong: #2a3a52;
+  --token-text-primary: #e8ecf4;
+  --token-text-muted: #8b95a8;
+  --token-text-inverse: #041018;
+  --token-accent: #22d3ee;
+  --token-accent-bright: #5eead4;
+  --token-accent-hover: #06b6d4;
+  --token-accent-rgb: 34 211 238;
+  --token-accent-bright-rgb: 94 234 212;
+  --token-focus-ring: #67e8f9;
+  --token-danger: #f87171;
+  --token-warning: #fbbf24;
+  --token-warning-fg: #fde68a;
+  --token-warning-muted: #422006;
+  --token-success: #34d399;
+  --token-success-fg: #a7f3d0;
+  --token-success-muted: #064e3b;
+  --token-glass-bg: rgb(11 17 28 / 0.78);
+  --token-glass-border: rgb(148 163 184 / 0.14);
+  --token-glass-highlight: rgb(255 255 255 / 0.055);
+  --token-glass-edge: rgb(var(--token-accent-rgb) / 0.08);
+  --token-code-panel: #060a12;
+  --token-radius-sm: 6px;
+  --token-radius-md: 12px;
+  --token-radius-lg: 16px;
+  --token-shadow-1: 0 1px 2px rgb(0 0 0 / 0.5);
+  --token-shadow-2: 0 12px 32px rgb(0 0 0 / 0.44);
+  --token-line-subtle: rgb(94 234 212 / 0.05);
+  --token-motion-hover: 120ms;
+  --token-motion-press: 100ms;
+  --token-motion-fast: 140ms;
+  --token-motion-base: 200ms;
+  --token-motion-slow: 280ms;
+  --token-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --token-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  /* P26.2B — operational rail instrumentation */
+  --token-ops-rail-base: rgb(var(--token-accent-rgb) / 0.4);
+  --token-ops-rail-depth: rgb(var(--token-accent-rgb) / 0.14);
+  --token-ops-rail-branch: rgb(var(--token-accent-rgb) / 0.28);
+  --token-ops-rail-pulse: rgb(var(--token-accent-bright-rgb) / 0.78);
+  --token-ops-rail-glow: rgb(var(--token-accent-rgb) / 0.22);
+  --token-ops-rail-pulse-duration: 2.75s;
+  --token-ops-webhook-pulse-duration: 2.5s;
+  /* P26.4 — settlement topology routes */
+  --ops-route-ingress: 34 211 238;
+  --ops-route-verify: 94 234 212;
+  --ops-route-settlement: 45 212 191;
+  --ops-route-reconcile: 180 140 60;
+  --ops-route-egress: 56 189 248;
+  --token-ops-transport-duration: 3.25s;
+  /* P26.2C — instrument presence + layout balance */
+  --token-ops-instrument-min-h: 7.75rem;
+  --token-ops-section-gap: 2.75rem;
+  --token-shadow-card:
+    var(--token-shadow-1), 0 18px 44px -32px rgb(0 0 0 / 0.62),
+    0 0 0 1px var(--token-glass-edge), inset 0 1px 0 var(--token-glass-highlight);
+  --token-shadow-card-hover:
+    var(--token-shadow-1), 0 22px 48px -28px rgb(var(--token-accent-rgb) / 0.12),
+    0 0 0 1px rgb(var(--token-accent-rgb) / 0.14),
+    inset 0 1px 0 rgb(255 255 255 / 0.07);
+  --token-focus-offset: 2px;
+  --token-width-content: 72rem;
+  --token-muted-rgb: 139 149 168;
+  --token-primary-rgb: 232 236 244;
+  /* P1 — vertical section rhythm */
+  --token-section-tight: 3.25rem;
+  --token-section-default: 5rem;
+  --token-section-loose: 6.5rem;
+  --token-stack-xs: 0.5rem;
+  --token-stack-sm: 0.75rem;
+  --token-stack-md: 1rem;
+  --token-stack-lg: 1.5rem;
+  --token-stack-xl: 2rem;
+  --token-stack-2xl: 2.5rem;
+  --token-stack-3xl: 3rem;
+  /* P1 — typography rhythm */
+  --token-type-eyebrow-size: 0.6875rem;
+  --token-type-eyebrow-tracking: 0.14em;
+  --token-type-eyebrow-weight: 600;
+  --token-type-prose-max: 42rem;
+  --token-type-copy-max: 36ch;
+  --token-type-heading-max: 30ch;
+  /* P3 / P3.1 — hero premiumization */
+  --token-hero-display-size: clamp(2.5rem, 1.7rem + 2.85vw, 3.625rem);
+  --token-hero-display-lh: 1.06;
+  --token-hero-display-tracking: -0.038em;
+  --token-hero-lead-max: 42ch;
+  --token-hero-instrument-max: 27rem;
+  --token-hero-accent-end: 0.58;
+  --token-hero-glass-border: rgb(var(--token-accent-rgb) / 0.22);
+  --token-hero-glass-glow: 0 28px 56px -20px rgb(0 0 0 / 0.65);
+  /* UI systems — control symmetry (homepage) */
+  --ui-control-height: 2.75rem;
+  --ui-chip-height: 1.625rem;
+  --ui-chip-pad-x: 0.625rem;
+  --ui-dot-size: 0.375rem;
+  --ui-marker-size: 0.4375rem;
+  --ui-radius-control: var(--token-radius-sm);
+  --ui-radius-card: var(--token-radius-md);
+  --ui-radius-pill: 9999px;
+  --ui-border: rgb(148 163 184 / 0.12);
+  --ui-border-subtle: rgb(148 163 184 / 0.08);
+  --ui-pad-card: 1.375rem;
+  --ui-stack-gap: 1rem;
+  --ui-label-gap: 0.625rem;
+  --ui-instrument-diagram-min-h: 3.25rem;
+  --ui-instrument-review-min-h: var(--ui-chip-height);
+}
+
+@theme inline {
+  --color-canvas: var(--token-canvas);
+  --color-surface: var(--token-surface);
+  --color-surface-elevated: var(--token-surface-elevated);
+  --color-border-subtle: var(--token-border-subtle);
+  --color-border-strong: var(--token-border-strong);
+  --color-primary: var(--token-text-primary);
+  --color-muted: var(--token-text-muted);
+  --color-inverse: var(--token-text-inverse);
+  --color-accent: var(--token-accent);
+  --color-accent-hover: var(--token-accent-hover);
+  --color-focus: var(--token-focus-ring);
+  --color-danger: var(--token-danger);
+  --color-warning: var(--token-warning);
+  --color-success: var(--token-success);
+  --color-code-panel: var(--token-code-panel);
+
+  --radius-sm: var(--token-radius-sm);
+  --radius-md: var(--token-radius-md);
+
+  --shadow-elev-1: var(--token-shadow-1);
+  --shadow-elev-2: var(--token-shadow-2);
+  --shadow-card: var(--token-shadow-card);
+  --shadow-card-hover: var(--token-shadow-card-hover);
+
+  --radius-lg: var(--token-radius-lg);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --width-content: var(--token-width-content);
+
+  --spacing-section-tight: var(--token-section-tight);
+  --spacing-section-default: var(--token-section-default);
+  --spacing-section-loose: var(--token-section-loose);
+
+  --text-display: clamp(2.25rem, 1.45rem + 2.5vw, 3.25rem);
+  --text-display--line-height: 1.1;
+  --text-h1: clamp(1.9375rem, 1.4rem + 1.5vw, 2.5rem);
+  --text-h1--line-height: 1.14;
+  --text-h2: clamp(1.375rem, 1.2rem + 0.5vw, 1.625rem);
+  --text-h2--line-height: 1.32;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h3: 1.1875rem;
+  --text-h3--line-height: 1.38;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.65;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.58;
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.5;
+}

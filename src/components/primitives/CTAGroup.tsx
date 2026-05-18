@@ -11,7 +11,7 @@ export function CTAGroup({
   return (
     <div
       className={cn(
-        "flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-5",
+        "flex flex-col gap-3.5 sm:flex-row sm:items-center sm:gap-5",
         className,
       )}
     >

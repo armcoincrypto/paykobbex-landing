@@ -37,7 +37,7 @@ export function Footer() {
           </p>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-muted">Product</p>
+          <p className="type-eyebrow">Product</p>
           <ul className="mt-3 space-y-2 text-sm">
             {productLinks.map((item) => (
               <li key={item.href}>
@@ -49,7 +49,7 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-muted">Legal &amp; trust</p>
+          <p className="type-eyebrow">Legal &amp; trust</p>
           <ul className="mt-3 space-y-2 text-sm">
             {legalTrustLinks.map((item) => (
               <li key={item.href}>
@@ -61,7 +61,7 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-muted">Build &amp; merchants</p>
+          <p className="type-eyebrow">Build &amp; merchants</p>
           <ul className="mt-3 space-y-2 text-sm">
             {buildLinks.map((item) => (
               <li key={item.href}>

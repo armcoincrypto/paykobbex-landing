@@ -1,0 +1,89 @@
+/* Print-friendly docs/security handouts (best-effort; keeps contrast readable on paper). */
+@media print {
+  @page {
+    margin: 14mm;
+  }
+
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  body {
+    background: #fff !important;
+    background-image: none !important;
+    color: #111 !important;
+  }
+
+  section {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .bg-canvas,
+  .bg-surface,
+  .bg-surface-elevated {
+    background: #fff !important;
+  }
+
+  .text-primary {
+    color: #111 !important;
+  }
+
+  .text-muted,
+  .text-accent {
+    color: #333 !important;
+  }
+
+  .shadow-card,
+  .shadow-card-hover,
+  .shadow-elev-1,
+  .shadow-elev-2 {
+    box-shadow: none !important;
+  }
+
+  .hero-grid,
+  .hero-mesh,
+  .hero-scanlines,
+  .hero-navy-wash,
+  .hero-bloom-head,
+  .hero-bloom-instrument,
+  .hero-aurora,
+  .hero-vignette {
+    display: none !important;
+  }
+
+  .home-hero-title-accent {
+    color: inherit;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+  }
+
+  figure {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border-color: #ccc !important;
+  }
+
+  pre,
+  code {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    font-weight: normal;
+  }
+
+  a[href^="/"]::after {
+    content: " (" "https://pay.kobbex.com" attr(href) ")";
+    font-size: 0.75em;
+    font-weight: normal;
+  }
+
+  a[href^="mailto:"]::after {
+    content: none !important;
+  }
+}
