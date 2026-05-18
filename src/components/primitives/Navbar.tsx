@@ -65,7 +65,7 @@ export function Navbar() {
           <Link
             href="/contact#merchant-intake"
             variant="button-primary"
-            className="site-navbar__cta hidden px-4 py-2 text-sm no-underline lg:inline-flex"
+            className="site-navbar__cta ui-control hidden text-sm no-underline lg:inline-flex"
             conv="request_access_click"
           >
             Request access

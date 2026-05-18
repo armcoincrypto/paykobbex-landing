@@ -166,7 +166,7 @@ export default function HomePage() {
             </p>
             <div className="home-hero-trust-chips mt-3" role="list">
               {trustChips.map((label) => (
-                <span key={label} className="trust-chip" role="listitem">
+                <span key={label} className="trust-chip ui-chip" role="listitem">
                   {label}
                 </span>
               ))}

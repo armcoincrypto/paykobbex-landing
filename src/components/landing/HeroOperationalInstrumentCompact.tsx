@@ -37,37 +37,47 @@ export function HeroOperationalInstrumentCompact({ className }: { className?: st
           Operational sequence
         </p>
 
-        <div className="home-hero-instrument-compact-block">
-          <p className="home-hero-instrument-compact-label">Lifecycle lane</p>
-          <LifecycleLaneInstrument {...laneProps} />
-        </div>
+        <div className="home-hero-instrument-compact-stack">
+          <div className="home-hero-instrument-compact-block home-hero-instrument-compact-block--lane">
+            <p className="home-hero-instrument-compact-label">Lifecycle lane</p>
+            <div className="home-hero-instrument-compact-block__body">
+              <LifecycleLaneInstrument {...laneProps} />
+            </div>
+          </div>
 
-        <div className="home-hero-instrument-compact-divider" aria-hidden="true" />
+          <hr className="home-hero-instrument-compact-divider" />
 
-        <div className="home-hero-instrument-compact-block">
-          <p className="home-hero-instrument-compact-label">Webhook flow</p>
-          <WebhookPropagationStrip {...laneProps} />
-        </div>
+          <div className="home-hero-instrument-compact-block home-hero-instrument-compact-block--webhook">
+            <p className="home-hero-instrument-compact-label">Webhook flow</p>
+            <div className="home-hero-instrument-compact-block__body">
+              <WebhookPropagationStrip {...laneProps} />
+            </div>
+          </div>
 
-        <div className="home-hero-instrument-compact-divider" aria-hidden="true" />
+          <hr className="home-hero-instrument-compact-divider" />
 
-        <div className="home-hero-instrument-compact-block">
-          <p className="home-hero-instrument-compact-label">Merchant review</p>
-          <ol
-            className="home-hero-instrument-compact-review list-none p-0 m-0"
-            aria-label="Merchant review progression (conceptual)"
-          >
-            {reviewSteps.map((step, index) => (
-              <li key={step} className="home-hero-instrument-compact-review-step">
-                {index > 0 ? (
-                  <span className="home-hero-instrument-compact-review-sep" aria-hidden="true">
-                    →
-                  </span>
-                ) : null}
-                <span className="home-hero-instrument-compact-review-pill">{step}</span>
-              </li>
-            ))}
-          </ol>
+          <div className="home-hero-instrument-compact-block home-hero-instrument-compact-block--review">
+            <p className="home-hero-instrument-compact-label">Merchant review</p>
+            <div className="home-hero-instrument-compact-block__body">
+              <ol
+                className="home-hero-instrument-compact-review list-none p-0 m-0"
+                aria-label="Merchant review progression (conceptual)"
+              >
+                {reviewSteps.map((step, index) => (
+                  <li key={step} className="home-hero-instrument-compact-review-step">
+                    {index > 0 ? (
+                      <span className="home-hero-instrument-compact-review-sep" aria-hidden="true">
+                        →
+                      </span>
+                    ) : null}
+                    <span className="home-hero-instrument-compact-review-pill ui-chip">
+                      {step}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
         </div>
 
         <p className="home-hero-instrument-compact-footer">
