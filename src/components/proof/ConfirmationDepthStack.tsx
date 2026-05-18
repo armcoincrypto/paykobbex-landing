@@ -37,10 +37,8 @@ export function ConfirmationDepthStack({ className }: { className?: string }) {
             ease: [0.22, 1, 0.36, 1],
           }}
         >
-          <p className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-muted">
-            {layer.label}
-          </p>
-          <p className="mt-1 text-xs leading-snug text-muted">{layer.note}</p>
+          <p className="confirmation-depth-layer__label">{layer.label}</p>
+          <p className="confirmation-depth-layer__note">{layer.note}</p>
         </motion.div>
       ))}
     </div>

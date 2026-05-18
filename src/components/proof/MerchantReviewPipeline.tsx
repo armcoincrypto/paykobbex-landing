@@ -26,9 +26,12 @@ const stageTags = ["POLICY", "REVIEW", "GATE", "VERIFIED"] as const;
 export function MerchantReviewPipeline({
   className,
   labelledBy,
+  compact = false,
 }: {
   className?: string;
   labelledBy?: string;
+  /** Homepage proof bento — vf-rail title only, no duplicate telemetry chrome. */
+  compact?: boolean;
 }) {
   const [hovered, setHovered] = useState<number | null>(null);
   const { inspect, setInspect, clearInspect } = useInfrastructureInspect();
@@ -44,6 +47,64 @@ export function MerchantReviewPipeline({
     setInspect(inspectStateFromNode(node));
   };
 
+  const stages = (
+    <div
+      className="flex flex-col items-stretch gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center"
+      aria-hidden="true"
+    >
+      {reviewInspectNodes.map((stage, i) => {
+        const isHot = hovered === i;
+        const isDownstream =
+          hovered !== null &&
+          i > hovered &&
+          reviewInspectNodes[hovered].downstream.includes(stage.focus);
+        const downstreamNote =
+          isDownstream && hovered !== null
+            ? getDownstreamConsequence(reviewInspectNodes[hovered], stage)
+            : undefined;
+        return (
+          <div key={stage.tag} className="flex items-center gap-2">
+            <div
+              className={cn(
+                "ops-console-plate ops-review-stage flex flex-col items-center gap-1 px-2 py-1.5 text-center",
+                isHot && "ops-review-stage--hot",
+                isDownstream && "ops-review-stage--downstream",
+              )}
+              data-ops-route="review"
+              onMouseEnter={() => applyInspect(i)}
+              onMouseLeave={() => applyInspect(null)}
+              onFocus={() => applyInspect(i)}
+              onBlur={() => applyInspect(null)}
+              tabIndex={0}
+            >
+              <span className="ops-console-meta-tag">{stageTags[i]}</span>
+              <FlowStep title={stageTitles[i]} subtitle={stageSubtitles[i]} />
+              <span className="ops-context-reveal">{stage.tag}</span>
+              <span className="ops-inspect-hint">{stage.hint}</span>
+              <span className="ops-inspect-meta" aria-hidden="true">
+                <span>{stage.ownership}</span>
+                <span> · </span>
+                <span>{stage.affects}</span>
+              </span>
+              <OpsNarrativeReveal
+                node={stage}
+                active={isHot}
+                downstreamNote={downstreamNote}
+                activeLens={activeLens}
+              />
+            </div>
+            {i < reviewInspectNodes.length - 1 ? (
+              <FlowArrow direction="right" className="hidden sm:block" />
+            ) : null}
+            {i < reviewInspectNodes.length - 1 ? (
+              <FlowArrow direction="down" className="sm:hidden" />
+            ) : null}
+          </div>
+        );
+      })}
+    </div>
+  );
+
   return (
     <VerificationFramePanel
       label="Merchant review"
@@ -54,97 +115,69 @@ export function MerchantReviewPipeline({
       )}
       labelledBy={labelledBy}
     >
-      <div className="ops-console-module ops-console-module--review ops-route--ingress">
-        <header className="ops-console-module__header">
-          <span className="ops-console-module__title">Review gate</span>
-          <span className="ops-console-routing">GATE · REVIEW · POLICY</span>
-        </header>
-        <div className="ops-console-module__telemetry">
-          <div className="ops-density-strip" aria-hidden="true">
-            <span className="ops-density-line ops-density-line--policy">GATE · ACCESS</span>
-          </div>
-          <p className="ops-narrative-purpose ops-narrative-purpose--module" aria-hidden="true">
-            {reviewInspectNodes[3].purpose}
-          </p>
-          <p className="ops-inspect-hint ops-inspect-hint--static" aria-hidden="true">
-            {reviewInspectNodes[3].hint}
-          </p>
-          <span className="ops-telemetry-chip ops-telemetry-chip--policy">
-            <span className="ops-telemetry-led ops-telemetry-led--policy" />
-            POLICY
-          </span>
-          <span className="ops-telemetry-chip ops-telemetry-chip--verified">
-            <span className="ops-telemetry-led ops-telemetry-led--verified" />
-            REVIEWED
-          </span>
-          <span className="ops-ownership ops-ownership--merchant">Merchant-owned</span>
-        </div>
-        <div className="ops-console-module__execution ops-console-module__execution--primary">
-          <div className="ops-console-well ops-envelope">
-            <div
-              className="flex flex-col items-stretch gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center"
-              aria-hidden="true"
-            >
-              {reviewInspectNodes.map((stage, i) => {
-                const isHot = hovered === i;
-                const isDownstream =
-                  hovered !== null &&
-                  i > hovered &&
-                  reviewInspectNodes[hovered].downstream.includes(stage.focus);
-                const downstreamNote =
-                  isDownstream && hovered !== null
-                    ? getDownstreamConsequence(reviewInspectNodes[hovered], stage)
-                    : undefined;
-                return (
-                  <div key={stage.tag} className="flex items-center gap-2">
-                    <div
-                      className={cn(
-                        "ops-console-plate ops-review-stage flex flex-col items-center gap-1 px-2 py-1.5 text-center",
-                        isHot && "ops-review-stage--hot",
-                        isDownstream && "ops-review-stage--downstream",
-                      )}
-                      data-ops-route="review"
-                      onMouseEnter={() => applyInspect(i)}
-                      onMouseLeave={() => applyInspect(null)}
-                      onFocus={() => applyInspect(i)}
-                      onBlur={() => applyInspect(null)}
-                      tabIndex={0}
-                    >
-                      <span className="ops-console-meta-tag">{stageTags[i]}</span>
-                      <FlowStep title={stageTitles[i]} subtitle={stageSubtitles[i]} />
-                      <span className="ops-context-reveal">{stage.tag}</span>
-                      <span className="ops-inspect-hint">{stage.hint}</span>
-                      <span className="ops-inspect-meta" aria-hidden="true">
-                        <span>{stage.ownership}</span>
-                        <span> · </span>
-                        <span>{stage.affects}</span>
-                      </span>
-                      <OpsNarrativeReveal
-                        node={stage}
-                        active={isHot}
-                        downstreamNote={downstreamNote}
-                        activeLens={activeLens}
-                      />
-                    </div>
-                    {i < reviewInspectNodes.length - 1 ? (
-                      <FlowArrow direction="right" className="hidden sm:block" />
-                    ) : null}
-                    {i < reviewInspectNodes.length - 1 ? (
-                      <FlowArrow direction="down" className="sm:hidden" />
-                    ) : null}
-                  </div>
-                );
-              })}
+      <div
+        className={cn(
+          "ops-route--ingress",
+          compact ? "proof-bento-instrument" : "ops-console-module ops-console-module--review",
+        )}
+      >
+        {!compact ? (
+          <header className="ops-console-module__header">
+            <span className="ops-console-module__title">Review gate</span>
+            <span className="ops-console-routing">GATE · REVIEW · POLICY</span>
+          </header>
+        ) : null}
+        {!compact ? (
+          <div className="ops-console-module__telemetry">
+            <div className="ops-density-strip" aria-hidden="true">
+              <span className="ops-density-line ops-density-line--policy">GATE · ACCESS</span>
             </div>
+            <p className="ops-narrative-purpose ops-narrative-purpose--module" aria-hidden="true">
+              {reviewInspectNodes[3].purpose}
+            </p>
+            <p className="ops-inspect-hint ops-inspect-hint--static" aria-hidden="true">
+              {reviewInspectNodes[3].hint}
+            </p>
+            <span className="ops-telemetry-chip ops-telemetry-chip--policy">
+              <span className="ops-telemetry-led ops-telemetry-led--policy" />
+              POLICY
+            </span>
+            <span className="ops-telemetry-chip ops-telemetry-chip--verified">
+              <span className="ops-telemetry-led ops-telemetry-led--verified" />
+              REVIEWED
+            </span>
+            <span className="ops-ownership ops-ownership--merchant">Merchant-owned</span>
           </div>
+        ) : null}
+        <div
+          className={cn(
+            compact
+              ? "proof-bento-review-stages"
+              : "ops-console-module__execution ops-console-module__execution--primary",
+          )}
+        >
+          {compact ? stages : <div className="ops-console-well ops-envelope">{stages}</div>}
         </div>
-        <footer className="ops-console-module__meta">
-          <span className="ops-console-meta-tag">GATE</span>
-          <span className="ops-console-meta-tag">ACCESS</span>
-          <span>Controlled approval · conceptual</span>
-        </footer>
+        {!compact ? (
+          <footer className="ops-console-module__meta">
+            <span className="ops-console-meta-tag">GATE</span>
+            <span className="ops-console-meta-tag">ACCESS</span>
+            <span>Controlled approval · conceptual</span>
+          </footer>
+        ) : (
+          <footer className="proof-bento-confirm-meta ops-console-module__meta">
+            <span className="ops-console-meta-tag">GATE</span>
+            <span className="ops-console-meta-tag">ACCESS</span>
+            <span>Controlled approval · conceptual</span>
+          </footer>
+        )}
       </div>
-      <p className="mt-4 text-xs leading-relaxed text-muted">
+      <p
+        className={cn(
+          "leading-relaxed text-muted",
+          compact ? "proof-bento-confirm-note mt-5 text-sm" : "mt-4 text-xs",
+        )}
+      >
         Access, rails, and webhook endpoints are configured after approval — not anonymous
         self-serve production keys on day one.
       </p>

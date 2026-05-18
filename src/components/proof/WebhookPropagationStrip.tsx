@@ -155,12 +155,15 @@ export function WebhookPropagationStrip({
   interactive,
   showTelemetry = true,
   channelLayout = false,
+  compact = false,
 }: {
   className?: string;
   animate?: boolean;
   interactive?: boolean;
   showTelemetry?: boolean;
   channelLayout?: boolean;
+  /** Homepage proof bento — flat ribbon without extra well/boundary wrappers. */
+  compact?: boolean;
 }) {
   const [hovered, setHovered] = useState<number | null>(null);
   const { inspect, setInspect, clearInspect } = useInfrastructureInspect();
@@ -230,6 +233,8 @@ export function WebhookPropagationStrip({
       <span className="ops-console-boundary__tag">Signed processing channel</span>
       {execution}
     </div>
+  ) : compact ? (
+    execution
   ) : (
     <div className="ops-console-well ops-console-well--pipeline ops-envelope">{execution}</div>
   );

@@ -78,15 +78,11 @@ export function InfrastructureOperationsSection() {
               labelledBy={headingId}
               className="ops-instrument-surface ops-telemetry-surface ops-console-surface ops-console-deep"
             >
-              <div className="ops-console-module ops-console-module--lane">
-                <header className="ops-console-module__header">
-                  <span className="ops-console-module__title">State rail</span>
-                  <span className="ops-console-routing">STATE · RAIL · FLOW</span>
-                </header>
-                <LifecycleLaneInstrument className="mb-0" />
+              <div className="proof-bento-instrument ops-console-module ops-console-module--lane">
+                <LifecycleLaneInstrument className="mb-0" showTelemetry={false} />
               </div>
-              <div className="ops-console-module__annotation">
-                <ul className="list-disc space-y-1.5 pl-4 text-xs leading-relaxed text-muted">
+              <div className="proof-bento-annotation ops-console-module__annotation">
+                <ul className="list-disc space-y-1.5 pl-4 text-sm leading-relaxed text-muted">
                   <li>
                     <strong className="text-primary">Pending</strong> — created / awaiting detection.
                   </li>
@@ -110,45 +106,15 @@ export function InfrastructureOperationsSection() {
               sublabel="Settlement visibility"
               className="ops-instrument-surface ops-telemetry-surface ops-console-surface ops-console-deep"
             >
-              <div className="ops-control-plane">
-                <header className="ops-console-module__header">
-                  <span className="ops-console-module__title">Settlement depth</span>
-                  <span className="ops-console-routing">POLICY · OWNERSHIP</span>
-                </header>
-                <ReconciliationInspectZone>
-                  <div className="ops-density-strip" aria-hidden="true">
-                    <span className="ops-density-line ops-density-line--policy">
-                      LEDGER · RECONCILE REQUIRED
-                    </span>
-                    <span className="ops-density-line">STATE · POLICY GATED</span>
-                  </div>
-                  <div className="ops-control-plane__ownership">
-                    <span className="ops-telemetry-chip ops-telemetry-chip--policy">
-                      <span className="ops-telemetry-led ops-telemetry-led--policy" />
-                      POLICY
-                    </span>
-                    <span className="ops-telemetry-chip ops-telemetry-chip--signal">
-                      <span className="ops-telemetry-led ops-telemetry-led--signal" />
-                      STATE
-                    </span>
-                    <span className="ops-telemetry-chip ops-telemetry-chip--verified">
-                      <span className="ops-telemetry-led ops-telemetry-led--verified" />
-                      VERIFIED
-                    </span>
-                  </div>
-                  <div className="ops-console-module__execution ops-console-module__execution--primary">
-                    <div className="ops-console-well ops-envelope">
-                      <ConfirmationDepthStack />
-                    </div>
-                  </div>
-                </ReconciliationInspectZone>
-                <footer className="ops-console-module__meta">
-                  <span className="ops-console-meta-tag">RAIL</span>
-                  <span className="ops-console-meta-tag">RECONCILE</span>
-                  <span>State ownership · conceptual</span>
-                </footer>
-              </div>
-              <p className="mt-6 text-xs leading-relaxed text-muted">
+              <ReconciliationInspectZone>
+                <ConfirmationDepthStack />
+              </ReconciliationInspectZone>
+              <footer className="proof-bento-confirm-meta ops-console-module__meta">
+                <span className="ops-console-meta-tag">RAIL</span>
+                <span className="ops-console-meta-tag">RECONCILE</span>
+                <span>State ownership · conceptual</span>
+              </footer>
+              <p className="proof-bento-confirm-note mt-5 text-sm leading-relaxed text-muted">
                 Depth reflects policy: what is detected, what is provisional, and what is final for
                 your books — not a single “paid” boolean.
               </p>
@@ -162,14 +128,10 @@ export function InfrastructureOperationsSection() {
               labelledBy={headingId}
               className="ops-instrument-surface ops-telemetry-surface ops-console-surface ops-console-deep"
             >
-              <div className="ops-console-module ops-console-module--pipeline">
-                <header className="ops-console-module__header">
-                  <span className="ops-console-module__title">Processing channel</span>
-                  <span className="ops-console-routing">INGRESS · VERIFY · EGRESS</span>
-                </header>
-                <WebhookPropagationStrip channelLayout />
+              <div className="proof-bento-instrument">
+                <WebhookPropagationStrip compact showTelemetry={false} />
               </div>
-              <div className="ops-console-module__annotation mt-4">
+              <div className="proof-bento-annotation ops-console-module__annotation mt-4">
                 <WebhookFlowDiagram variant="compact" diagramLabelledBy={headingId} settle={false} />
               </div>
             </VerificationFramePanel>
@@ -178,6 +140,7 @@ export function InfrastructureOperationsSection() {
           <article className="proof-bento-review ops-route--ingress ops-journey-emphasis--operations ops-governance-surface ops-ecosystem-surface">
             <MerchantReviewPipeline
               labelledBy={headingId}
+              compact
               className="ops-instrument-surface ops-telemetry-surface ops-console-surface ops-console-deep"
             />
           </article>

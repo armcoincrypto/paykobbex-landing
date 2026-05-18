@@ -33,7 +33,7 @@ export function ReconciliationInspectZone({
   return (
     <div
       className={cn(
-        "ops-control-plane__zone ops-route--reconcile ops-inspect-zone ops-journey-emphasis--finance",
+        "ops-route--reconcile ops-inspect-zone proof-bento-inspect",
         active && "ops-inspect-zone--active",
         className,
       )}
@@ -44,23 +44,6 @@ export function ReconciliationInspectZone({
       onBlur={release}
       tabIndex={0}
     >
-      <p className="ops-narrative-purpose ops-narrative-purpose--module" aria-hidden="true">
-        {node.purpose}
-      </p>
-      <p className="ops-narrative-readiness ops-narrative-readiness--module" aria-hidden="true">
-        {node.readiness}
-      </p>
-      <p className="ops-accountability-static" aria-hidden="true">
-        Finance owns recognition · engineering owns verification
-      </p>
-      <p className="ops-inspect-hint ops-inspect-hint--static" aria-hidden="true">
-        {node.hint}
-      </p>
-      <p className="ops-inspect-meta ops-inspect-meta--static" aria-hidden="true">
-        <span>{node.ownership}</span>
-        <span className="text-muted"> · </span>
-        <span>{node.affects}</span>
-      </p>
       <OpsNarrativeReveal
         node={node}
         active={active}

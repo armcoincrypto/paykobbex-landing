@@ -716,9 +716,6 @@
   height: 1.4rem;
 }
 
-.ops-instrument-surface .confirmation-depth {
-  min-height: 8.75rem;
-}
 
 .ops-instrument-surface .webhook-ribbon {
   gap: 0.45rem;
@@ -3189,48 +3186,60 @@
 }
 
 .confirmation-depth {
-  position: relative;
-  min-height: 7.5rem;
-  padding-top: 0.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.15rem 0 0.25rem;
 }
 
 .confirmation-depth-layer {
-  position: absolute;
-  left: 0;
-  right: 0;
+  position: relative;
   border-radius: var(--token-radius-md);
   border: 1px solid var(--token-border-subtle);
-  padding: 0.55rem 0.75rem;
+  padding: 0.65rem 0.8rem;
   background: rgb(12 14 20 / 0.92);
   box-shadow: var(--token-shadow-1);
-  transition:
-    transform var(--token-motion-slow) var(--token-ease-out),
-    opacity var(--token-motion-base) var(--token-ease-out);
+  transition: opacity var(--token-motion-base) var(--token-ease-out);
 }
 
 .confirmation-depth-layer:nth-child(1) {
-  top: 0;
-  z-index: 1;
-  opacity: 0.72;
-  transform: translate3d(0, 0, 0) scale(0.98);
+  opacity: 0.88;
 }
 
 .confirmation-depth-layer:nth-child(2) {
-  top: 1.15rem;
-  z-index: 2;
-  opacity: 0.86;
-  transform: translate3d(0.35rem, 0, 0) scale(0.99);
+  margin-left: 0.35rem;
+  opacity: 0.94;
 }
 
 .confirmation-depth-layer:nth-child(3) {
-  top: 2.3rem;
-  z-index: 3;
-  border-color: rgb(52 211 153 / 0.25);
+  margin-left: 0.7rem;
+  border-color: rgb(52 211 153 / 0.22);
   background: linear-gradient(180deg, rgb(16 24 22 / 0.95), rgb(12 14 20 / 0.98));
 }
 
 .confirmation-depth-layer.is-emphasized {
-  border-color: rgb(var(--token-accent-bright-rgb) / 0.32);
+  border-color: rgb(var(--token-accent-bright-rgb) / 0.24);
+}
+
+.confirmation-depth-layer__label {
+  margin: 0;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(var(--token-muted-rgb) / 0.72);
+}
+
+.confirmation-depth-layer__note {
+  margin: 0.35rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: rgb(var(--token-muted-rgb) / 0.82);
+}
+
+.confirmation-depth-layer:nth-child(3) .confirmation-depth-layer__label {
+  color: rgb(var(--token-primary-rgb) / 0.82);
 }
 
 .proof-bento {
@@ -3240,7 +3249,7 @@
 
 @media (min-width: 1024px) {
   .proof-bento {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     grid-template-rows: auto auto;
     gap: 1.35rem 1.5rem;
   }
@@ -3253,7 +3262,7 @@
   .proof-bento-confirm {
     grid-column: 2;
     grid-row: 1 / span 2;
-    align-self: start;
+    align-self: stretch;
   }
 
   .proof-bento-webhook {
@@ -3264,6 +3273,257 @@
   .proof-bento-review {
     grid-column: 1 / -1;
     grid-row: 3;
+  }
+}
+
+/* Proof bento — stabilized instrument surfaces (homepage) */
+.proof-bento .ops-instrument-surface.vf-frame {
+  border-color: rgb(var(--token-accent-rgb) / 0.12);
+  box-shadow:
+    var(--token-shadow-1),
+    inset 0 1px 0 rgb(255 255 255 / 0.05),
+    inset 0 0 0 1px rgb(var(--token-muted-rgb) / 0.08),
+    0 18px 44px -32px rgb(0 0 0 / 0.55);
+}
+
+.proof-bento .ops-telemetry-surface .vf-frame-body::before {
+  display: none;
+}
+
+.proof-bento .ops-console-deep .vf-frame-body {
+  background: linear-gradient(
+    180deg,
+    rgb(10 17 30 / 0.42) 0%,
+    rgb(6 9 16 / 0.28) 100%
+  );
+}
+
+.proof-bento .ops-console-deep .vf-frame-rail {
+  border-bottom-color: rgb(var(--token-accent-rgb) / 0.14);
+}
+
+.proof-bento .vf-frame-rail span:first-child {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgb(var(--token-primary-rgb) / 0.88);
+}
+
+.proof-bento .vf-frame-rail span:last-child {
+  font-size: 0.625rem;
+  color: rgb(var(--token-muted-rgb) / 0.55);
+}
+
+.proof-bento .ops-console-module {
+  margin-left: 0;
+  border-color: rgb(var(--token-muted-rgb) / 0.1);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.03);
+}
+
+.proof-bento .ops-console-module::before {
+  opacity: 0.55;
+}
+
+.proof-bento .ops-console-module__title {
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: rgb(var(--token-primary-rgb) / 0.82);
+}
+
+.proof-bento .ops-console-routing {
+  font-size: 0.5625rem;
+  color: rgb(var(--token-muted-rgb) / 0.45);
+}
+
+.proof-bento .ops-console-module__execution--primary {
+  border: 1px solid rgb(var(--token-muted-rgb) / 0.1);
+  background: rgb(8 14 24 / 0.45);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.03);
+  padding: 0.65rem 0.6rem;
+}
+
+.proof-bento .ops-console-well {
+  border-color: rgb(var(--token-muted-rgb) / 0.1);
+  background: rgb(6 10 18 / 0.55);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.025);
+  padding: 0.6rem 0.55rem;
+}
+
+.proof-bento .ops-console-well::before,
+.proof-bento .ops-console-well::after {
+  display: none;
+}
+
+.proof-bento .ops-envelope::before {
+  display: none;
+}
+
+.proof-bento .proof-bento-inspect {
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.proof-bento .proof-bento-inspect:focus-within,
+.proof-bento .proof-bento-inspect:hover {
+  box-shadow: none;
+}
+
+.proof-bento .proof-bento-inspect .ops-narrative {
+  margin-bottom: 0.35rem;
+}
+
+.proof-bento .proof-bento-confirm-meta {
+  margin-top: 0.85rem;
+  padding-top: 0.55rem;
+  border-top: 1px dashed rgb(var(--token-muted-rgb) / 0.12);
+}
+
+.proof-bento .proof-bento-confirm-note {
+  max-width: 36ch;
+  color: rgb(var(--token-muted-rgb) / 0.72);
+}
+
+.proof-bento .ops-governance-surface {
+  box-shadow: inset 0 0 0 1px rgb(var(--token-muted-rgb) / 0.06);
+}
+
+.proof-bento .ops-route--ingress.ops-console-module,
+.proof-bento .ops-route--verify.ops-console-module,
+.proof-bento .ops-route--settlement.ops-console-module,
+.proof-bento .ops-route--reconcile.ops-console-module,
+.proof-bento .ops-route--egress.ops-console-module {
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.03);
+}
+
+.proof-bento .confirmation-depth {
+  gap: 0.55rem;
+  padding: 0.1rem 0 0.15rem;
+}
+
+.proof-bento .confirmation-depth-layer {
+  border-color: rgb(var(--token-muted-rgb) / 0.12);
+  box-shadow: none;
+}
+
+.proof-bento .confirmation-depth-layer__note {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.proof-bento .ops-instrument-surface .vf-frame-body {
+  min-height: 0;
+  padding: 1.15rem 1rem 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .proof-bento .ops-instrument-surface .vf-frame-body {
+    min-height: 0;
+    padding: 1.25rem 1.1rem 1.35rem;
+  }
+}
+
+.proof-bento-instrument {
+  min-width: 0;
+}
+
+.proof-bento-instrument.ops-console-module {
+  padding: 0.55rem 0.6rem 0.65rem;
+}
+
+.proof-bento-instrument .webhook-ribbon-wrap {
+  padding: 0.15rem 0 0.1rem;
+}
+
+.proof-bento-instrument .lifecycle-lane {
+  padding: 0.35rem 0 0.15rem;
+}
+
+.proof-bento-review-stages {
+  padding: 0.35rem 0 0.2rem;
+}
+
+.proof-bento .proof-bento-annotation {
+  margin-top: 0.85rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed rgb(var(--token-muted-rgb) / 0.1);
+}
+
+.proof-bento .proof-bento-annotation ul {
+  margin: 0;
+}
+
+.proof-bento .webhook-ribbon-step strong {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: rgb(var(--token-primary-rgb) / 0.9);
+}
+
+.proof-bento .webhook-ribbon-step {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: rgb(var(--token-muted-rgb) / 0.72);
+}
+
+.proof-bento .webhook-ribbon-step .ops-telemetry-chip {
+  font-size: 0.5rem;
+  opacity: 0.85;
+}
+
+.proof-bento .lifecycle-lane-node > span:nth-child(2) {
+  font-size: 0.8125rem;
+}
+
+.proof-bento .lifecycle-lane-node .ops-telemetry-chip {
+  font-size: 0.5rem;
+  opacity: 0.8;
+}
+
+.proof-bento .ops-review-stage {
+  border-color: rgb(var(--token-muted-rgb) / 0.12);
+  background: rgb(8 14 24 / 0.45);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.03);
+}
+
+.proof-bento .ops-review-stage--hot {
+  border-color: rgb(var(--ops-route-ingress) / 0.22);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.04),
+    0 0 16px -12px rgb(var(--ops-route-ingress) / 0.12);
+}
+
+.proof-bento .ops-review-stage .ops-console-meta-tag {
+  font-size: 0.5rem;
+  opacity: 0.75;
+}
+
+.proof-bento .lifecycle-lane-rail-pulse,
+.proof-bento .webhook-ribbon-rail-pulse {
+  filter: none;
+  opacity: 0.75;
+}
+
+.proof-bento .lifecycle-lane-marker {
+  box-shadow: 0 0 0 2px rgb(var(--token-accent-rgb) / 0.12);
+}
+
+.proof-bento .lifecycle-lane-node--hot .lifecycle-lane-marker {
+  box-shadow:
+    0 0 0 3px rgb(var(--token-accent-rgb) / 0.16),
+    0 0 8px -2px rgb(var(--token-accent-rgb) / 0.18);
+}
+
+.proof-bento .lifecycle-lane-node--hot > span:last-child {
+  box-shadow: none;
+}
+
+@media (max-width: 1023px) {
+  .proof-bento .proof-bento-review-stages .flex.flex-col {
+    gap: 0.65rem;
   }
 }
 
@@ -3700,9 +3960,6 @@
     position: static;
   }
 
-  .confirmation-depth {
-    min-height: 8.25rem;
-  }
 }
 
 @media (min-width: 640px) and (max-width: 1023px) {
