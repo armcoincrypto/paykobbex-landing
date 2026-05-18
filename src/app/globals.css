@@ -231,18 +231,18 @@
 
 .hero-bloom-instrument {
   position: absolute;
-  right: -6%;
-  top: 4%;
-  width: min(64vw, 640px);
-  height: min(78vh, 580px);
+  right: -4%;
+  top: 6%;
+  width: min(48vw, 480px);
+  height: min(62vh, 440px);
   border-radius: 50%;
   background: radial-gradient(
     closest-side,
-    rgb(var(--token-accent-rgb) / 0.12),
-    rgb(var(--token-accent-rgb) / 0.04) 42%,
+    rgb(var(--token-accent-rgb) / 0.09),
+    rgb(var(--token-accent-rgb) / 0.03) 42%,
     transparent 70%
   );
-  opacity: 0.55;
+  opacity: 0.42;
   filter: blur(6px);
   pointer-events: none;
 }
@@ -313,16 +313,16 @@
 
 @media (min-width: 1024px) {
   .home-hero-grid {
-    grid-template-columns: minmax(0, 3.35fr) minmax(0, 8.65fr);
-    gap: 2.5rem 3rem;
-    align-items: center;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: 2.5rem 2.75rem;
+    align-items: start;
   }
 }
 
 @media (min-width: 1280px) {
   .home-hero-grid {
-    grid-template-columns: minmax(0, 3.15fr) minmax(0, 8.85fr);
-    gap: 2.75rem 3.5rem;
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    gap: 3rem 3.25rem;
   }
 }
 
@@ -339,6 +339,12 @@
 @media (min-width: 640px) {
   .home-hero-copy h1 {
     max-width: 17ch;
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-hero-copy h1 {
+    max-width: 20ch;
   }
 }
 
@@ -369,6 +375,12 @@
   font-size: 1.0625rem;
   line-height: 1.65;
   color: rgb(var(--token-muted-rgb) / 0.78);
+}
+
+@media (min-width: 1024px) {
+  .home-hero-lead {
+    max-width: 36ch;
+  }
 }
 
 .home-hero-op-label {
@@ -412,6 +424,130 @@
   font-size: 0.8125rem;
   line-height: 1.5;
   color: rgb(var(--token-muted-rgb) / 0.58);
+}
+
+/* Homepage hero — infrastructure summary card */
+.home-hero-summary {
+  min-width: 0;
+  align-self: start;
+}
+
+.home-hero-summary-card {
+  max-width: 22rem;
+  margin-inline: auto;
+  padding: 1.35rem 1.25rem 1.4rem;
+  border-radius: var(--token-radius-md, 0.5rem);
+  border: 1px solid rgb(var(--token-muted-rgb) / 0.12);
+  background: linear-gradient(
+    165deg,
+    rgb(12 16 24 / 0.9) 0%,
+    rgb(8 10 16 / 0.82) 100%
+  );
+  box-shadow:
+    var(--token-shadow-1),
+    inset 0 1px 0 rgb(255 255 255 / 0.04);
+}
+
+@media (min-width: 1024px) {
+  .home-hero-summary-card {
+    margin-inline: 0 0 0 auto;
+  }
+}
+
+.home-hero-summary-eyebrow {
+  color: rgb(var(--token-muted-rgb) / 0.62);
+}
+
+.home-hero-summary-signals {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-hero-summary-signal {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.55rem 0;
+}
+
+.home-hero-summary-signal + .home-hero-summary-signal {
+  border-top: 1px solid rgb(var(--token-muted-rgb) / 0.08);
+}
+
+.home-hero-summary-signal-dot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  margin-top: 0.38rem;
+  border-radius: 50%;
+  background: rgb(148 163 184 / 0.42);
+}
+
+.home-hero-summary-signal-body {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.12rem;
+}
+
+.home-hero-summary-signal-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: rgb(var(--token-primary-rgb) / 0.9);
+}
+
+.home-hero-summary-signal-note {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: rgb(var(--token-muted-rgb) / 0.6);
+}
+
+.home-hero-summary-flow {
+  margin-top: 1.15rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(var(--token-muted-rgb) / 0.1);
+}
+
+.home-hero-summary-flow-steps {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.home-hero-summary-flow-step {
+  display: flex;
+  align-items: center;
+}
+
+.home-hero-summary-flow-connector {
+  width: 1.15rem;
+  height: 1px;
+  margin: 0 0.35rem;
+  background: linear-gradient(
+    90deg,
+    rgb(var(--token-muted-rgb) / 0.15),
+    rgb(var(--token-muted-rgb) / 0.38)
+  );
+}
+
+.home-hero-summary-flow-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgb(var(--token-accent-rgb) / 0.32);
+}
+
+.home-hero-summary-flow-label {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgb(var(--token-primary-rgb) / 0.76);
+}
+
+.home-hero-summary-footer {
+  margin-bottom: 0;
 }
 
 .home-hero-instrument {
@@ -555,7 +691,8 @@
 }
 
 @media (max-width: 1023px) {
-  .home-hero-instrument {
+  .home-hero-instrument,
+  .home-hero-summary {
     order: 2;
   }
 
