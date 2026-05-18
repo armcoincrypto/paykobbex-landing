@@ -242,7 +242,7 @@
     rgb(var(--token-accent-rgb) / 0.03) 42%,
     transparent 70%
   );
-  opacity: 0.42;
+  opacity: 0.36;
   filter: blur(6px);
   pointer-events: none;
 }
@@ -550,19 +550,169 @@
   margin-bottom: 0;
 }
 
+/* Homepage hero — compact operational instrument */
+.home-hero-instrument--compact {
+  align-self: start;
+  max-width: 26rem;
+  margin-inline: auto;
+}
+
+.home-hero-instrument-compact-card {
+  padding: 1.25rem 1.15rem 1.3rem;
+  border-radius: var(--token-radius-md, 0.5rem);
+  border: 1px solid rgb(var(--token-muted-rgb) / 0.12);
+  background: linear-gradient(
+    165deg,
+    rgb(12 16 24 / 0.9) 0%,
+    rgb(8 10 16 / 0.84) 100%
+  );
+  box-shadow:
+    var(--token-shadow-1),
+    inset 0 1px 0 rgb(255 255 255 / 0.04);
+}
+
+@media (min-width: 1024px) {
+  .home-hero-instrument--compact {
+    min-height: 0;
+    transform: none;
+    margin-inline: 0 0 0 auto;
+  }
+}
+
+.home-hero-instrument-compact-eyebrow {
+  margin: 0;
+  color: rgb(var(--token-muted-rgb) / 0.62);
+}
+
+.home-hero-instrument-compact-block {
+  margin-top: 1rem;
+}
+
+.home-hero-instrument-compact-block:first-of-type {
+  margin-top: 1.1rem;
+}
+
+.home-hero-instrument-compact-label {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgb(var(--token-muted-rgb) / 0.52);
+}
+
+.home-hero-instrument-compact-divider {
+  margin-top: 0.85rem;
+  height: 1px;
+  background: rgb(var(--token-muted-rgb) / 0.1);
+}
+
+.home-hero-instrument-compact-review {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem 0.15rem;
+}
+
+.home-hero-instrument-compact-review-step {
+  display: flex;
+  align-items: center;
+}
+
+.home-hero-instrument-compact-review-sep {
+  margin: 0 0.2rem;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.625rem;
+  color: rgb(var(--token-muted-rgb) / 0.38);
+}
+
+.home-hero-instrument-compact-review-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid rgb(var(--token-muted-rgb) / 0.14);
+  background: rgb(8 11 18 / 0.55);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: rgb(var(--token-primary-rgb) / 0.78);
+}
+
+.home-hero-instrument-compact-footer {
+  margin: 1rem 0 0;
+  font-size: 0.6875rem;
+  line-height: 1.45;
+  color: rgb(var(--token-muted-rgb) / 0.55);
+}
+
+.home-hero-instrument--compact .lifecycle-lane-rail-svg {
+  height: 1.25rem;
+}
+
+.home-hero-instrument--compact .lifecycle-lane-rail-base {
+  stroke: rgb(148 163 184 / 0.35);
+  stroke-width: 1.05;
+  filter: none;
+}
+
+.home-hero-instrument--compact .lifecycle-lane-rail-pulse {
+  display: none;
+}
+
+.home-hero-instrument--compact .lifecycle-lane-marker {
+  width: 7px;
+  height: 7px;
+  border-color: rgb(148 163 184 / 0.4);
+  box-shadow: 0 0 0 2px rgb(var(--token-muted-rgb) / 0.1);
+}
+
+.home-hero-instrument--compact .webhook-ribbon-rail-base {
+  stroke: rgb(148 163 184 / 0.32);
+  stroke-width: 1.05;
+}
+
+.home-hero-instrument--compact .webhook-ribbon-rail-pulse {
+  display: none;
+}
+
+.home-hero-instrument--compact .webhook-ribbon-step strong {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: rgb(var(--token-primary-rgb) / 0.8);
+}
+
+.home-hero-instrument--compact .webhook-ribbon-step {
+  font-size: 0.625rem;
+  color: rgb(var(--token-muted-rgb) / 0.58);
+}
+
+.home-hero-instrument--compact .lifecycle-lane-node > span:nth-child(2) {
+  font-size: 0.75rem;
+}
+
+.home-hero-instrument--compact .lifecycle-lane {
+  padding: 0.15rem 0 0.05rem;
+}
+
+.home-hero-instrument--compact .webhook-ribbon-wrap {
+  padding: 0.1rem 0 0;
+}
+
 .home-hero-instrument {
   min-width: 0;
   align-self: stretch;
 }
 
 @media (min-width: 1024px) {
-  .home-hero-instrument {
+  .home-hero-instrument:not(.home-hero-instrument--compact) {
     min-height: 20rem;
   }
 }
 
 @media (min-width: 1280px) {
-  .home-hero-instrument {
+  .home-hero-instrument:not(.home-hero-instrument--compact) {
     min-height: 21.5rem;
     transform: scale(1.02);
     transform-origin: center right;
@@ -692,6 +842,7 @@
 
 @media (max-width: 1023px) {
   .home-hero-instrument,
+  .home-hero-instrument--compact,
   .home-hero-summary {
     order: 2;
   }

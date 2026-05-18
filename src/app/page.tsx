@@ -8,7 +8,7 @@ import { CTAGroup } from "@/components/primitives/CTAGroup";
 import { Link } from "@/components/primitives/link";
 import { Section } from "@/components/primitives/Section";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { HeroInfrastructureSummary } from "@/components/landing/HeroInfrastructureSummary";
+import { HeroOperationalInstrumentCompact } from "@/components/landing/HeroOperationalInstrumentCompact";
 import { InfrastructureOperationsSection } from "@/components/proof";
 import { OperationalRealismEntry } from "@/components/realism";
 import { OG_IMAGES, OG_IMAGE, SITE_URL } from "@/lib/site";
@@ -158,7 +158,7 @@ export default function HomePage() {
                 </p>
               </div>
             </div>
-            <HeroInfrastructureSummary />
+            <HeroOperationalInstrumentCompact />
           </div>
           <div className="home-hero-trust">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
