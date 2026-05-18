@@ -110,55 +110,47 @@ export default function HomePage() {
       <Section
         id="hero"
         tone="default"
-        className="home-hero home-hero--dominant home-section-bridge-out home-ops-story-start relative overflow-hidden pb-12 pt-12 sm:pb-14 sm:pt-[5.25rem]"
+        className="home-hero home-hero--dominant home-section-bridge-out home-ops-story-start relative overflow-hidden pb-14 pt-14 sm:pb-16 sm:pt-[5.75rem]"
       >
         <HeroBackdrop />
         <Container className="relative z-10">
           <div className="home-hero-grid">
             <div className="home-hero-copy">
-              <p className="home-hero-eyebrow text-xs font-semibold uppercase tracking-[0.24em]">
+              <p className="home-hero-eyebrow text-xs font-semibold uppercase tracking-[0.18em]">
                 B2B crypto payments
               </p>
-              <h1 className="home-hero-title mt-4 text-balance text-display font-semibold text-primary sm:mt-5">
+              <h1 className="home-hero-title mt-5 text-balance text-display font-semibold text-primary sm:mt-6">
                 <span className="home-hero-title-accent">API-first</span> crypto payment{" "}
                 <span className="home-hero-title-accent">infrastructure</span> for serious merchants
               </h1>
-              <p className="home-hero-lead mt-4 text-body sm:mt-5">
+              <p className="home-hero-lead mt-5 sm:mt-6">
                 Kobbopay is API-first B2B crypto payment infrastructure with signed webhooks,
                 explicit payment lifecycles, and a merchant portal for operations — after merchant
                 approval, on selected rails where enabled.
               </p>
-              <div className="ops-console-cta-strip ops-gate-cta">
-                <span className="ops-console-routing" aria-hidden="true">
-                  GATE · ACCESS
-                </span>
-                <CTAGroup className="home-hero-cta">
-                  <Link
-                    href="/contact#merchant-intake"
-                    variant="button-primary"
-                    className="no-underline"
-                    conv="request_access_click"
-                  >
-                    Request access
-                  </Link>
-                  <Link href="/docs" variant="button-secondary" className="no-underline">
-                    Integration docs
-                  </Link>
-                </CTAGroup>
-              </div>
+              <CTAGroup className="home-hero-cta">
+                <Link
+                  href="/contact#merchant-intake"
+                  variant="button-primary"
+                  className="home-hero-cta-primary no-underline"
+                  conv="request_access_click"
+                >
+                  Request access
+                </Link>
+                <Link href="/docs" variant="button-secondary" className="no-underline">
+                  Integration docs
+                </Link>
+              </CTAGroup>
               <div className="home-hero-meta">
-                <p className="text-sm font-medium">
+                <p className="home-hero-meta-primary">
                   <Link href="/onboarding">Onboarding expectations →</Link>
                 </p>
-                <p className="text-sm text-muted">
-                  Review onboarding expectations before requesting access.
-                </p>
-                <p className="text-sm text-muted">
-                  Merchant portal for approved merchants:{" "}
+                <p className="home-hero-meta-secondary">
+                  Merchant portal:{" "}
                   <Link href="https://merchant.kobbex.com/" conv="merchant_login_click">
                     merchant.kobbex.com
-                  </Link>{" "}
-                  ·{" "}
+                  </Link>
+                  {" · "}
                   <Link href="/login" conv="merchant_login_click">
                     Merchant login
                   </Link>
