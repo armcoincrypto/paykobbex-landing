@@ -10,37 +10,41 @@ const nav: Array<{
   href: string;
   label: string;
   conv?: ConversionEventName;
+  tier?: "secondary";
 }> = [
   { href: "/features", label: "Features" },
   { href: "/docs", label: "Docs" },
   { href: "/guides", label: "Guides" },
   { href: "/developers", label: "Developers" },
-  { href: "/onboarding", label: "Onboarding" },
-  { href: "/security", label: "Security" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/use-cases", label: "Use cases" },
-  { href: "/contact#merchant-intake", label: "Contact" },
+  { href: "/onboarding", label: "Onboarding", tier: "secondary" },
+  { href: "/security", label: "Security", tier: "secondary" },
+  { href: "/pricing", label: "Pricing", tier: "secondary" },
+  { href: "/use-cases", label: "Use cases", tier: "secondary" },
+  { href: "/contact#merchant-intake", label: "Contact", tier: "secondary" },
 ];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border-subtle/70 bg-canvas/85 shadow-[0_1px_0_0_rgb(255_255_255/0.03)] backdrop-blur-md supports-[backdrop-filter]:bg-canvas/75 print:hidden">
-      <Container className="flex h-14 items-center justify-between gap-4 sm:h-16">
+    <header className="site-navbar sticky top-0 z-50 border-b border-border-subtle/60 bg-canvas/82 shadow-[0_1px_0_0_rgb(255_255_255/0.025)] backdrop-blur-md supports-[backdrop-filter]:bg-canvas/72 print:hidden">
+      <Container className="flex h-14 items-center justify-between gap-4 sm:h-[3.75rem]">
         <Link
           href="/"
-          className="text-sm font-semibold tracking-tight text-primary no-underline transition-colors hover:text-accent"
+          className="site-navbar__brand text-sm font-semibold tracking-tight text-primary no-underline transition-colors hover:text-accent"
         >
           Kobbopay
         </Link>
 
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
+        <nav className="site-navbar__nav hidden items-center lg:flex" aria-label="Primary">
           {nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm no-underline decoration-transparent hover:decoration-transparent"
+              className={cn(
+                "site-navbar__link text-[0.8125rem] no-underline decoration-transparent hover:decoration-transparent",
+                item.tier === "secondary" && "site-navbar__link--secondary",
+              )}
               muted
               {...(item.conv ? { conv: item.conv } : {})}
             >
@@ -49,7 +53,7 @@ export function Navbar() {
           ))}
           <Link
             href="https://merchant.kobbex.com/"
-            className="text-sm no-underline"
+            className="site-navbar__link site-navbar__link--secondary text-[0.8125rem] no-underline"
             muted
             conv="merchant_login_click"
           >
@@ -57,11 +61,11 @@ export function Navbar() {
           </Link>
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="site-navbar__actions flex items-center gap-2">
           <Link
             href="/contact#merchant-intake"
             variant="button-primary"
-            className="hidden px-4 py-2.5 text-sm no-underline lg:inline-flex"
+            className="site-navbar__cta hidden px-4 py-2 text-sm no-underline lg:inline-flex"
             conv="request_access_click"
           >
             Request access
@@ -93,7 +97,10 @@ export function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className="min-h-11 rounded-md px-2 py-2.5 text-sm no-underline decoration-transparent hover:bg-surface-elevated/60 hover:decoration-transparent"
+              className={cn(
+                "min-h-11 rounded-md px-2 py-2.5 text-sm no-underline decoration-transparent hover:bg-surface-elevated/50 hover:decoration-transparent",
+                item.tier === "secondary" && "text-muted/80",
+              )}
               muted
               {...(item.conv ? { conv: item.conv } : {})}
               onClick={() => setOpen(false)}

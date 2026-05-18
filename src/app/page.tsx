@@ -40,7 +40,7 @@ const trustChips = [
   "Failures bounded — replay contained",
   "Finance owns recognition semantics",
   "Merchant approval required",
-  "No license or audit claims on this site",
+  "No audit claims",
 ];
 
 const faqItems: Array<{ q: string; a: string }> = [
@@ -111,7 +111,7 @@ export default function HomePage() {
       <Section
         id="hero"
         tone="default"
-        className="home-hero home-hero--dominant home-section-bridge-out home-ops-story-start relative overflow-hidden pb-14 pt-14 sm:pb-16 sm:pt-[5.75rem]"
+        className="home-hero home-hero--dominant home-hero--refined home-section-bridge-out home-ops-story-start relative overflow-hidden pb-11 pt-12 sm:pb-[3.25rem] sm:pt-[5.35rem]"
       >
         <HeroBackdrop />
         <Container className="relative z-10">
@@ -120,11 +120,11 @@ export default function HomePage() {
               <p className="home-hero-eyebrow text-xs font-semibold uppercase tracking-[0.18em]">
                 B2B crypto payments
               </p>
-              <h1 className="home-hero-title mt-5 text-balance text-display font-semibold text-primary sm:mt-6">
+              <h1 className="home-hero-title mt-4 text-balance text-display font-semibold text-primary sm:mt-5">
                 <span className="home-hero-title-accent">API-first</span> crypto payment{" "}
                 <span className="home-hero-title-accent">infrastructure</span> for serious merchants
               </h1>
-              <p className="home-hero-lead mt-5 sm:mt-6">
+              <p className="home-hero-lead mt-4 sm:mt-5">
                 Kobbopay is API-first B2B crypto payment infrastructure with signed webhooks,
                 explicit payment lifecycles, and a merchant portal for operations — after merchant
                 approval, on selected rails where enabled.
@@ -161,10 +161,10 @@ export default function HomePage() {
             <HeroOperationalInstrumentCompact />
           </div>
           <div className="home-hero-trust">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+            <p className="home-hero-trust-label text-xs font-medium tracking-[0.12em] text-muted">
               Production governance
             </p>
-            <div className="home-hero-trust-chips mt-4" role="list">
+            <div className="home-hero-trust-chips mt-3" role="list">
               {trustChips.map((label) => (
                 <span key={label} className="trust-chip" role="listitem">
                   {label}

@@ -32,7 +32,7 @@ export function HeroOperationalInstrumentCompact({ className }: { className?: st
       <div className="home-hero-instrument-compact-card">
         <p
           id="hero-instrument-heading"
-          className="home-hero-instrument-compact-eyebrow font-mono text-[10px] font-medium uppercase tracking-[0.14em]"
+          className="home-hero-instrument-compact-eyebrow"
         >
           Operational sequence
         </p>
