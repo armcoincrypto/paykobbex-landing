@@ -27,11 +27,13 @@ export function MerchantReviewPipeline({
   className,
   labelledBy,
   compact = false,
+  showInspectCopy = true,
 }: {
   className?: string;
   labelledBy?: string;
   /** Homepage proof bento — vf-rail title only, no duplicate telemetry chrome. */
   compact?: boolean;
+  showInspectCopy?: boolean;
 }) {
   const [hovered, setHovered] = useState<number | null>(null);
   const { inspect, setInspect, clearInspect } = useInfrastructureInspect();
@@ -79,19 +81,23 @@ export function MerchantReviewPipeline({
             >
               <span className="ops-console-meta-tag">{stageTags[i]}</span>
               <FlowStep title={stageTitles[i]} subtitle={stageSubtitles[i]} />
-              <span className="ops-context-reveal">{stage.tag}</span>
-              <span className="ops-inspect-hint">{stage.hint}</span>
-              <span className="ops-inspect-meta" aria-hidden="true">
-                <span>{stage.ownership}</span>
-                <span> · </span>
-                <span>{stage.affects}</span>
-              </span>
-              <OpsNarrativeReveal
-                node={stage}
-                active={isHot}
-                downstreamNote={downstreamNote}
-                activeLens={activeLens}
-              />
+              {showInspectCopy ? (
+                <>
+                  <span className="ops-context-reveal">{stage.tag}</span>
+                  <span className="ops-inspect-hint">{stage.hint}</span>
+                  <span className="ops-inspect-meta" aria-hidden="true">
+                    <span>{stage.ownership}</span>
+                    <span> · </span>
+                    <span>{stage.affects}</span>
+                  </span>
+                  <OpsNarrativeReveal
+                    node={stage}
+                    active={isHot}
+                    downstreamNote={downstreamNote}
+                    activeLens={activeLens}
+                  />
+                </>
+              ) : null}
             </div>
             {i < reviewInspectNodes.length - 1 ? (
               <FlowArrow direction="right" className="hidden sm:block" />
@@ -111,7 +117,7 @@ export function MerchantReviewPipeline({
       sublabel="Request pipeline (conceptual)"
       className={cn(
         className,
-        hovered !== null && "merchant-review-pipeline--narrative-active",
+        showInspectCopy && hovered !== null && "merchant-review-pipeline--narrative-active",
       )}
       labelledBy={labelledBy}
     >

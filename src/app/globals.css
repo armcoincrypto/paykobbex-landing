@@ -3370,10 +3370,6 @@
   box-shadow: none;
 }
 
-.proof-bento .proof-bento-inspect .ops-narrative {
-  margin-bottom: 0.35rem;
-}
-
 .proof-bento .proof-bento-confirm-meta {
   margin-top: 0.85rem;
   padding-top: 0.55rem;
@@ -3481,6 +3477,10 @@
 .proof-bento .lifecycle-lane-node .ops-telemetry-chip {
   font-size: 0.5rem;
   opacity: 0.8;
+}
+
+.proof-bento .lifecycle-lane-node {
+  gap: 0.35rem;
 }
 
 .proof-bento .ops-review-stage {

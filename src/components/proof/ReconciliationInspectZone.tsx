@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
-import { OpsNarrativeReveal } from "@/components/proof/OpsNarrativeReveal";
 import { inspectStateFromNode, reconcileInspect } from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
 import type { ReactNode } from "react";
@@ -16,13 +15,11 @@ export function ReconciliationInspectZone({
   className?: string;
 }) {
   const [active, setActive] = useState(false);
-  const { inspect, setInspect, clearInspect } = useInfrastructureInspect();
-  const activeLens = inspect?.lens ?? null;
-  const node = reconcileInspect;
+  const { setInspect, clearInspect } = useInfrastructureInspect();
 
   const engage = () => {
     setActive(true);
-    setInspect(inspectStateFromNode(node));
+    setInspect(inspectStateFromNode(reconcileInspect));
   };
 
   const release = () => {
@@ -44,12 +41,6 @@ export function ReconciliationInspectZone({
       onBlur={release}
       tabIndex={0}
     >
-      <OpsNarrativeReveal
-        node={node}
-        active={active}
-        showTrustStatic
-        activeLens={activeLens}
-      />
       {children}
     </div>
   );

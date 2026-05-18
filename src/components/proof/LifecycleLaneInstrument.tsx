@@ -23,12 +23,15 @@ export function LifecycleLaneInstrument({
   animate = true,
   interactive,
   showTelemetry = true,
+  showInspectCopy = true,
 }: {
   className?: string;
   compact?: boolean;
   animate?: boolean;
   interactive?: boolean;
   showTelemetry?: boolean;
+  /** When false, hover keeps inspect/focus but hides hint/meta/narrative prose. */
+  showInspectCopy?: boolean;
 }) {
   const [hovered, setHovered] = useState<number | null>(null);
   const { inspect, setInspect, clearInspect } = useInfrastructureInspect();
@@ -116,21 +119,23 @@ export function LifecycleLaneInstrument({
                 )}
               />
               <StatePill label={label} className={compact ? "scale-[0.92]" : undefined} />
-              <span
-                className={cn(
-                  "ops-telemetry-node-tag ops-telemetry-chip",
-                  `ops-telemetry-chip--${i === 0 ? "policy" : i === 1 ? "signal" : "verified"}`,
-                )}
-              >
+              {showInspectCopy ? (
                 <span
                   className={cn(
-                    "ops-telemetry-led",
-                    i === 0 ? "ops-telemetry-led--policy" : i === 1 ? "ops-telemetry-led--signal" : "ops-telemetry-led--verified",
+                    "ops-telemetry-node-tag ops-telemetry-chip",
+                    `ops-telemetry-chip--${i === 0 ? "policy" : i === 1 ? "signal" : "verified"}`,
                   )}
-                />
-                {node.tag.split(" · ")[0]}
-              </span>
-              {isInteractive ? (
+                >
+                  <span
+                    className={cn(
+                      "ops-telemetry-led",
+                      i === 0 ? "ops-telemetry-led--policy" : i === 1 ? "ops-telemetry-led--signal" : "ops-telemetry-led--verified",
+                    )}
+                  />
+                  {node.tag.split(" · ")[0]}
+                </span>
+              ) : null}
+              {isInteractive && showInspectCopy ? (
                 <>
                   <span className="ops-context-reveal">{node.tag}</span>
                   <span className="ops-inspect-hint">{node.hint}</span>
@@ -169,7 +174,7 @@ export function LifecycleLaneInstrument({
         animate && "lifecycle-lane--animated",
         showTelemetry && "lifecycle-lane--structured",
         hovered !== null && "lifecycle-lane--route-active",
-        hovered !== null && "lifecycle-lane--narrative-active",
+        showInspectCopy && hovered !== null && "lifecycle-lane--narrative-active",
         className,
       )}
       aria-hidden="true"

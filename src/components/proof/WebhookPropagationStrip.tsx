@@ -59,6 +59,7 @@ function WebhookRibbonSteps({
   hovered,
   applyInspect,
   activeLens,
+  showInspectCopy,
 }: {
   slice: readonly (typeof steps)[number][];
   segmentOffset: number;
@@ -66,6 +67,7 @@ function WebhookRibbonSteps({
   hovered: number | null;
   applyInspect: (index: number | null) => void;
   activeLens: import("@/lib/ops-inspection").OpsJourneyLens | null;
+  showInspectCopy: boolean;
 }) {
   return (
     <>
@@ -103,27 +105,29 @@ function WebhookRibbonSteps({
             ) : globalIndex < steps.length - 1 ? (
               <ConnectorSvg segmentIndex={globalIndex} />
             ) : null}
-            <span
-              className={cn(
-                "ops-telemetry-chip",
-                node.focus === "verify" || node.focus === "egress"
-                  ? "ops-telemetry-chip--verified"
-                  : "ops-telemetry-chip--signal",
-              )}
-            >
+            {showInspectCopy ? (
               <span
                 className={cn(
-                  "ops-telemetry-led",
+                  "ops-telemetry-chip",
                   node.focus === "verify" || node.focus === "egress"
-                    ? "ops-telemetry-led--verified"
-                    : "ops-telemetry-led--signal",
+                    ? "ops-telemetry-chip--verified"
+                    : "ops-telemetry-chip--signal",
                 )}
-              />
-              {node.tag.split(" · ")[0]}
-            </span>
+              >
+                <span
+                  className={cn(
+                    "ops-telemetry-led",
+                    node.focus === "verify" || node.focus === "egress"
+                      ? "ops-telemetry-led--verified"
+                      : "ops-telemetry-led--signal",
+                  )}
+                />
+                {node.tag.split(" · ")[0]}
+              </span>
+            ) : null}
             <strong>{["Event", "POST", "Verify", "Apply"][globalIndex]}</strong>
             {["Lifecycle transition", "Signed body", "Server-side", "Idempotent"][globalIndex]}
-            {isInteractive ? (
+            {isInteractive && showInspectCopy ? (
               <>
                 <span className="ops-context-reveal">{node.tag}</span>
                 <span className="ops-inspect-hint">{node.hint}</span>
@@ -156,6 +160,7 @@ export function WebhookPropagationStrip({
   showTelemetry = true,
   channelLayout = false,
   compact = false,
+  showInspectCopy = true,
 }: {
   className?: string;
   animate?: boolean;
@@ -164,6 +169,7 @@ export function WebhookPropagationStrip({
   channelLayout?: boolean;
   /** Homepage proof bento — flat ribbon without extra well/boundary wrappers. */
   compact?: boolean;
+  showInspectCopy?: boolean;
 }) {
   const [hovered, setHovered] = useState<number | null>(null);
   const { inspect, setInspect, clearInspect } = useInfrastructureInspect();
@@ -190,6 +196,7 @@ export function WebhookPropagationStrip({
         hovered={hovered}
         applyInspect={applyInspect}
         activeLens={activeLens}
+        showInspectCopy={showInspectCopy}
       />
     </div>
   );
@@ -206,6 +213,7 @@ export function WebhookPropagationStrip({
             hovered={hovered}
             applyInspect={applyInspect}
             activeLens={activeLens}
+            showInspectCopy={showInspectCopy}
           />
         </div>
       </div>
@@ -220,6 +228,7 @@ export function WebhookPropagationStrip({
             hovered={hovered}
             applyInspect={applyInspect}
             activeLens={activeLens}
+            showInspectCopy={showInspectCopy}
           />
         </div>
       </div>
@@ -247,7 +256,7 @@ export function WebhookPropagationStrip({
         showTelemetry && "webhook-ribbon-wrap--structured",
         useChannels && "webhook-ribbon-wrap--channeled",
         hovered !== null && "webhook-ribbon-wrap--route-active",
-        hovered !== null && "webhook-ribbon-wrap--narrative-active",
+        showInspectCopy && hovered !== null && "webhook-ribbon-wrap--narrative-active",
         className,
       )}
       aria-hidden="true"

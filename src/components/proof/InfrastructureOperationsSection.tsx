@@ -79,7 +79,11 @@ export function InfrastructureOperationsSection() {
               className="ops-instrument-surface ops-telemetry-surface ops-console-surface ops-console-deep"
             >
               <div className="proof-bento-instrument ops-console-module ops-console-module--lane">
-                <LifecycleLaneInstrument className="mb-0" showTelemetry={false} />
+                <LifecycleLaneInstrument
+                  className="mb-0"
+                  showTelemetry={false}
+                  showInspectCopy={false}
+                />
               </div>
               <div className="proof-bento-annotation ops-console-module__annotation">
                 <ul className="list-disc space-y-1.5 pl-4 text-sm leading-relaxed text-muted">
@@ -129,7 +133,11 @@ export function InfrastructureOperationsSection() {
               className="ops-instrument-surface ops-telemetry-surface ops-console-surface ops-console-deep"
             >
               <div className="proof-bento-instrument">
-                <WebhookPropagationStrip compact showTelemetry={false} />
+                <WebhookPropagationStrip
+                  compact
+                  showTelemetry={false}
+                  showInspectCopy={false}
+                />
               </div>
               <div className="proof-bento-annotation ops-console-module__annotation mt-4">
                 <WebhookFlowDiagram variant="compact" diagramLabelledBy={headingId} settle={false} />
@@ -141,6 +149,7 @@ export function InfrastructureOperationsSection() {
             <MerchantReviewPipeline
               labelledBy={headingId}
               compact
+              showInspectCopy={false}
               className="ops-instrument-surface ops-telemetry-surface ops-console-surface ops-console-deep"
             />
           </article>
