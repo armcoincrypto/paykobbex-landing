@@ -49,3 +49,5 @@ docs/reports/weekly-evidence-*.md
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.next-dev/
