@@ -229,6 +229,97 @@
   box-shadow: var(--token-surface-shadow-panel);
 }
 
+/* P18 — fit check conversion panel */
+.ops-fit-check .ops-fit-check__panel {
+  max-width: var(--token-ops-fit-check-max, 52rem);
+  margin-inline: auto;
+  border-color: rgb(var(--token-accent-rgb) / 0.16);
+  background: linear-gradient(
+    165deg,
+    rgb(11 18 30 / 0.88) 0%,
+    rgb(8 12 22 / 0.72) 52%,
+    rgb(7 10 18 / 0.62) 100%
+  );
+  box-shadow:
+    var(--token-surface-shadow-panel),
+    inset 0 1px 0 rgb(255 255 255 / 0.06),
+    0 20px 48px -36px rgb(0 0 0 / 0.55);
+}
+
+.ops-fit-check__head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.35rem;
+}
+
+.ops-fit-check__index {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgb(var(--token-accent-bright-rgb) / 0.5);
+}
+
+.ops-fit-check__eyebrow {
+  margin: 0;
+}
+
+.ops-fit-check__title {
+  max-width: 28ch;
+  text-wrap: balance;
+}
+
+.ops-fit-check__lead {
+  max-width: 48ch;
+}
+
+.ops-fit-check__criteria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.45rem;
+  margin-top: var(--token-stack-md);
+  margin-bottom: 0.15rem;
+}
+
+.ops-fit-check__criterion {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.45rem;
+  border-radius: var(--ui-radius-pill);
+  border: 1px solid rgb(var(--token-muted-rgb) / 0.14);
+  color: rgb(var(--token-muted-rgb) / 0.52);
+}
+
+.ops-fit-check__actions {
+  margin-top: var(--token-stack-lg);
+}
+
+.ops-fit-check__primary {
+  min-height: 2.875rem;
+  padding-inline: 1.35rem;
+  font-weight: 600;
+}
+
+@media (max-width: 639px) {
+  .ops-fit-check__panel {
+    padding: var(--token-stack-md) var(--token-stack-sm);
+  }
+
+  .ops-fit-check__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ops-fit-check__actions a[class*="inline-flex"] {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 @media (min-width: 640px) {
   .home-flow-cta__panel {
     padding: calc(var(--token-surface-pad-panel-y) + 0.125rem)
@@ -590,4 +681,145 @@ footer a:focus-visible {
   #faq .faq-card {
     height: 100%;
   }
+}
+
+/* —— P20: Cross-page consistency —— */
+.ops-page-wayfinding {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.625rem;
+  margin-top: 1.25rem;
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.ops-page-wayfinding a {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+}
+
+.ops-page-wayfinding__sep {
+  font-weight: 400;
+  color: var(--token-text-muted);
+}
+
+.ops-page-footer-links {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--token-border-subtle);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--token-text-muted);
+}
+
+.legal-page {
+  scroll-margin-top: 4rem;
+}
+
+.legal-page h1 {
+  text-wrap: balance;
+  letter-spacing: -0.02em;
+}
+
+.legal-page .legal-meta {
+  margin-top: 1rem;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--token-text-muted);
+}
+
+.legal-page .legal-lead {
+  margin-top: 1.5rem;
+  max-width: 42rem;
+  font-size: var(--text-body);
+  line-height: 1.65;
+  color: var(--token-text-muted);
+}
+
+.legal-page .legal-body .ui-surface-card h2 {
+  letter-spacing: -0.015em;
+}
+
+/* P20.1 — secondary pages + footer polish */
+.site-footer {
+  position: relative;
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(var(--token-accent-rgb) / 0.35),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.site-footer__bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.site-footer__legal {
+  max-width: 72rem;
+}
+
+@media (min-width: 640px) {
+  .site-footer__legal {
+    line-height: 1.55;
+  }
+}
+
+.legal-page .legal-body .ui-surface-card p + p,
+.legal-page .legal-body .ui-surface-card ul + p,
+.legal-page .legal-body .ui-surface-card ol + p {
+  margin-top: 0.875rem;
+}
+
+.legal-page .legal-body .ui-surface-card ul,
+.legal-page .legal-body .ui-surface-card ol {
+  margin-top: 0.75rem;
+  padding-left: 1.25rem;
+}
+
+.legal-page .legal-body .ui-surface-card li + li {
+  margin-top: 0.5rem;
+}
+
+.ops-contact-intake-primary.ui-surface-card {
+  border-color: rgb(var(--token-accent-rgb) / 0.22);
+  box-shadow:
+    0 0 0 1px rgb(var(--token-accent-rgb) / 0.08) inset,
+    0 12px 40px -24px rgb(0 0 0 / 0.55);
+}
+
+.ops-use-cases-list {
+  border: 1px solid var(--token-border-subtle);
+  border-radius: var(--token-radius-lg);
+  background: var(--token-surface-bg-panel);
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .ops-use-cases-list {
+    padding-inline: 1.5rem;
+  }
+}
+
+.ops-use-cases-list > li:first-child {
+  border-top: none;
+  padding-top: 1.25rem;
+}
+
+.ops-use-cases-list > li:last-child {
+  padding-bottom: 1.25rem;
 }

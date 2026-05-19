@@ -29,9 +29,10 @@ export const metadata: Metadata = {
 export default function UseCasesPage() {
   return (
     <>
-      <Section tone="default" className="ops-page pt-10 sm:pt-16">
+      <Section tone="default" className="ops-page ops-page-hero-band pt-10 sm:pt-16">
         <Container className="max-w-content">
           <OperationalPageHeader
+            className="ops-page-header--hero"
             eyebrow="Patterns"
             title="Use cases"
             lead={
@@ -43,7 +44,12 @@ export default function UseCasesPage() {
               </>
             }
           />
-          <ul className="mt-10 space-y-0">
+        </Container>
+      </Section>
+
+      <Section tone="muted" className="pb-[var(--token-section-loose)]">
+        <Container className="max-w-content">
+          <ul className="ops-use-cases-list space-y-0">
             {MERCHANT_JOURNEY_FLOWS.map((flow) => (
               <li
                 key={flow.id}
@@ -57,7 +63,7 @@ export default function UseCasesPage() {
               </li>
             ))}
           </ul>
-          <p className="mt-10 text-sm text-muted">
+          <p className="ops-page-footer-links">
             <Link href="/contact#merchant-intake" conv="request_access_click">
               Request access
             </Link>

@@ -29,9 +29,10 @@ export const metadata: Metadata = {
 export default function PricingPage() {
   return (
     <>
-      <Section tone="default" className="ops-page pt-10 sm:pt-16">
+      <Section tone="default" className="ops-page ops-page-hero-band pt-10 sm:pt-16">
         <Container className="max-w-content">
           <OperationalPageHeader
+            className="ops-page-header--hero"
             eyebrow="Commercial"
             title="Pricing"
             lead="Pricing depends on rails, volume, operating model, and merchant requirements. We do not publish a public fee grid on this marketing site until numbers are approved for your segment and contract."
@@ -75,16 +76,16 @@ export default function PricingPage() {
             </CTAGroup>
           </section>
 
-          <p className="mt-8 text-sm text-muted">
-            For technical context:{" "}
+          <p className="ops-page-footer-links">
+            <Link href="/contact#merchant-intake" conv="request_access_click">
+              Request access
+            </Link>
+            {" · "}
             <Link href="/docs">Docs</Link>
             {" · "}
             <Link href="/security">Security</Link>
             {" · "}
-            <Link href="/contact#merchant-intake" conv="request_access_click">
-              Request access
-            </Link>
-            .
+            <Link href="/onboarding">Onboarding</Link>
           </p>
         </Container>
       </Section>

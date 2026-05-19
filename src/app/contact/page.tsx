@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { MerchantIntakeForm } from "@/components/contact/MerchantIntakeForm";
+import { OperationalPageHeader } from "@/components/operational/OperationalPageHeader";
 import { Card } from "@/components/primitives/Card";
 import { Container } from "@/components/primitives/Container";
 import { Link } from "@/components/primitives/link";
@@ -37,34 +38,46 @@ export default function ContactPage() {
 
   return (
     <>
-      <Section tone="default" className="pt-10 sm:pt-16">
-        <Container className="max-w-3xl">
-          <h1 className="text-display font-semibold tracking-tight text-primary">Contact</h1>
-          <p className="mt-4 max-w-3xl text-body leading-[1.65] text-muted">
-            Request merchant access or ask an integration question. Access is subject to{" "}
-            <strong className="text-primary">merchant approval</strong> and environment configuration
-            — production enablement is reviewed before credentials and rails are issued.
-          </p>
-          <p className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-medium">
-            {wayfinding.map((item, i) => (
-              <span key={item.href} className="inline-flex items-center gap-2">
-                {i > 0 ? <span className="font-normal text-muted" aria-hidden="true">·</span> : null}
-                <Link href={item.href}>{item.label}</Link>
-              </span>
-            ))}
-          </p>
-          <p className="mt-4 text-sm leading-relaxed text-muted">
-            Evaluating integration mechanics? Read the links above first. Ready to apply? Use the
-            structured intake below. Never send secrets in email — see{" "}
-            <Link href="/security">security guidance</Link>.
-          </p>
+      <Section tone="default" className="ops-page ops-page-hero-band pt-10 sm:pt-16">
+        <Container className="max-w-content">
+          <OperationalPageHeader
+            className="ops-page-header--hero"
+            eyebrow="Access"
+            title="Contact"
+            lead={
+              <>
+                Request merchant access or ask an integration question. Access is subject to{" "}
+                <strong className="text-primary">merchant approval</strong> and environment
+                configuration — production enablement is reviewed before credentials and rails are
+                issued.
+              </>
+            }
+          >
+            <nav className="ops-page-wayfinding" aria-label="Related pages before you apply">
+              {wayfinding.map((item, i) => (
+                <span key={item.href} className="inline-flex items-center gap-2">
+                  {i > 0 ? (
+                    <span className="ops-page-wayfinding__sep" aria-hidden="true">
+                      ·
+                    </span>
+                  ) : null}
+                  <Link href={item.href}>{item.label}</Link>
+                </span>
+              ))}
+            </nav>
+            <p className="mt-4 text-sm leading-relaxed text-muted">
+              Evaluating integration mechanics? Read the links above first. Ready to apply? Use the
+              structured intake below. Never send secrets in email — see{" "}
+              <Link href="/security">security guidance</Link>.
+            </p>
+          </OperationalPageHeader>
         </Container>
       </Section>
 
       <Section tone="muted" className="pb-[var(--token-section-loose)]">
         <Container className="max-w-2xl space-y-6 sm:space-y-7">
           <div id="merchant-intake" className="scroll-mt-28">
-            <Card className="p-5 sm:p-7">
+            <Card className="ops-contact-intake-primary p-5 sm:p-7">
               <h2 className="text-h2 font-semibold text-primary">Request access</h2>
               <p className="mt-2 text-sm leading-relaxed text-muted">
                 This intake prepares an email in your browser — we do not store submissions on this
@@ -182,6 +195,14 @@ export default function ContactPage() {
               </Link>
             </div>
           </Card>
+
+          <p className="ops-page-footer-links">
+            <Link href="/onboarding">Onboarding expectations</Link>
+            {" · "}
+            <Link href="/docs">Docs</Link>
+            {" · "}
+            <Link href="/security">Security</Link>
+          </p>
         </Container>
       </Section>
     </>

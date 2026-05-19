@@ -8,6 +8,29 @@ import {
 } from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
 
+const workflowModules = [
+  {
+    id: "webhook",
+    title: "Webhook orchestration",
+    hint: "Signed callbacks & idempotent apply",
+  },
+  {
+    id: "reconcile",
+    title: "Reconciliation progression",
+    hint: "Ledger alignment to lifecycle states",
+  },
+  {
+    id: "settlement",
+    title: "Settlement coordination",
+    hint: "Engineering & finance handoff",
+  },
+  {
+    id: "environment",
+    title: "Environment promotion",
+    hint: "Sandbox through scoped access",
+  },
+] as const;
+
 /**
  * Surrounding operational systems revealed on inspect — ecosystem navigation, not pages.
  */
@@ -16,11 +39,46 @@ export function OpsEcosystemGuidance({ className }: { className?: string }) {
 
   if (!inspect?.focus) {
     return (
-      <p className={cn("ops-ecosystem-static", className)}>
-        Operational workflows continue beyond a single payment: webhook orchestration,
-        reconciliation progression, settlement coordination, and environment promotion —
-        explore stages to see surrounding systems.
-      </p>
+      <section
+        className={cn("ops-workflow-domains", className)}
+        aria-labelledby="ops-workflow-domains-heading"
+      >
+        <p className="sr-only">
+          Operational workflows continue beyond a single payment: webhook orchestration,
+          reconciliation progression, settlement coordination, and environment promotion —
+          explore stages to see surrounding systems.
+        </p>
+
+        <header className="ops-workflow-domains__header">
+          <h4 id="ops-workflow-domains-heading" className="ops-workflow-domains__title">
+            Surrounding workflows
+          </h4>
+          <p className="ops-workflow-domains__lead">
+            Operational workflows continue beyond a single payment — explore stages to see
+            surrounding systems.
+          </p>
+        </header>
+
+        <ul className="ops-workflow-domains__grid list-none p-0 m-0">
+          {workflowModules.map((module) => (
+            <li key={module.id} className="ops-workflow-domains__module" tabIndex={0}>
+              <span className="ops-workflow-domains__module-index" aria-hidden="true">
+                {module.id === "webhook"
+                  ? "A"
+                  : module.id === "reconcile"
+                    ? "B"
+                    : module.id === "settlement"
+                      ? "C"
+                      : "D"}
+              </span>
+              <span className="ops-workflow-domains__module-body">
+                <span className="ops-workflow-domains__module-title">{module.title}</span>
+                <span className="ops-workflow-domains__module-hint">{module.hint}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
     );
   }
 

@@ -32,11 +32,12 @@ export default function PrivacyPage() {
 
   return (
     <>
-      <Section tone="default" className="pt-10 sm:pt-16">
+      <Section tone="default" className="legal-page legal-page-hero-band pt-10 sm:pt-16">
         <Container className="max-w-3xl">
-          <h1 className="text-display font-semibold tracking-tight text-primary">Privacy</h1>
-          <p className="mt-4 text-sm font-medium text-muted">Last updated: {updated}</p>
-          <p className="mt-6 text-body leading-relaxed text-muted">
+          <p className="ops-eyebrow">Legal</p>
+          <h1 className="mt-3 text-display font-semibold tracking-tight text-primary">Privacy</h1>
+          <p className="legal-meta">Last updated: {updated}</p>
+          <p className="legal-lead">
             This page is a <strong className="text-primary">placeholder privacy notice</strong> for
             the public marketing site at {SITE_URL.replace(/^https:\/\//, "")}. It is{" "}
             <strong className="text-primary">not legal advice</strong> and has not been tailored to
@@ -46,7 +47,7 @@ export default function PrivacyPage() {
         </Container>
       </Section>
 
-      <Section tone="muted">
+      <Section tone="muted" className="legal-page legal-body pb-[var(--token-section-loose)]">
         <Container className="max-w-3xl space-y-8">
           <Card>
             <h2 className="text-h2 font-semibold text-primary">What this site is</h2>
@@ -160,6 +161,14 @@ export default function PrivacyPage() {
               </Link>
             </p>
           </Card>
+
+          <p className="ops-page-footer-links">
+            <Link href="/terms">Terms</Link>
+            {" · "}
+            <Link href="/security">Security</Link>
+            {" · "}
+            <Link href="/contact">Contact</Link>
+          </p>
         </Container>
       </Section>
     </>

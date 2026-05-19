@@ -54,6 +54,10 @@
   --ops-route-reconcile: 180 140 60;
   --ops-route-egress: 56 189 248;
   --token-ops-transport-duration: 3.25s;
+  /* P13 — institutional choreography (slower than transport) */
+  --token-ops-choreo-duration: 4.75s;
+  --token-ops-choreo-duration-slow: 7.5s;
+  --token-ops-choreo-ease: cubic-bezier(0.4, 0, 0.2, 1);
   /* P26.2C — instrument presence + layout balance */
   --token-ops-instrument-min-h: 7.75rem;
   --token-ops-section-gap: 2.75rem;
@@ -91,7 +95,26 @@
   --token-hero-display-lh: 1.06;
   --token-hero-display-tracking: -0.038em;
   --token-hero-lead-max: 42ch;
-  --token-hero-instrument-max: 27rem;
+  --token-hero-instrument-max: 38rem;
+  --token-hero-instrument-stack-gap: 1.125rem;
+  --token-hero-instrument-section-pad: 1rem;
+  /* P14 — hero product preview typography */
+  --token-hero-preview-title-size: 1.0625rem;
+  --token-hero-preview-body-size: 0.8125rem;
+  --token-hero-preview-meta-size: 0.6875rem;
+  /* P16 — operational systems editorial */
+  --token-ops-editorial-title: clamp(1.75rem, 1.35rem + 1.1vw, 2.375rem);
+  --token-ops-editorial-lead-max: 48ch;
+  --token-ops-editorial-rail-width: 11.5rem;
+  /* P17 — operational state engine */
+  --token-ops-state-engine-title: clamp(0.8125rem, 0.78rem + 0.12vw, 0.9375rem);
+  --token-ops-state-chamber-min: 4.75rem;
+  --token-ops-pipeline-chamber-gap: 0.5rem;
+  /* P17.1 — settlement intelligence */
+  --token-ops-settlement-topology-min: 8.5rem;
+  /* P18 — operational architecture system */
+  --token-ops-principles-card-min-h: 9.5rem;
+  --token-ops-fit-check-max: 52rem;
   --token-hero-accent-end: 0.58;
   /* P6 — navigation */
   --token-nav-height: 3.5rem;

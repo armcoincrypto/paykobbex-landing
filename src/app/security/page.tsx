@@ -33,9 +33,10 @@ export const metadata: Metadata = {
 export default function SecurityPage() {
   return (
     <div className="ops-security">
-      <Section tone="default" className="ops-page pt-10 sm:pt-16">
+      <Section tone="default" className="ops-page ops-page-hero-band pt-10 sm:pt-16">
         <Container className="max-w-content">
           <OperationalPageHeader
+            className="ops-page-header--hero"
             eyebrow="Security"
             title="Operational security boundaries"
             lead={
@@ -119,15 +120,16 @@ export default function SecurityPage() {
 
           <SecurityReviewFriendlySection variant="compact" />
 
-          <p className="text-sm text-muted">
-            Webhook overview: <Link href="/docs#webhook-verification">/docs#webhook-verification</Link>
+          <p className="ops-page-footer-links">
+            <Link href="/docs#webhook-verification">Webhook verification (docs)</Link>
             {" · "}
-            <Link href="/guides/webhook-verification">Webhook verification guide</Link>
+            <Link href="/guides/webhook-verification">Webhook guide</Link>
+            {" · "}
+            <Link href="/developers">Developers</Link>
             {" · "}
             <Link href="/contact#merchant-intake" conv="request_access_click">
               Request access
             </Link>
-            .
           </p>
         </Container>
       </Section>

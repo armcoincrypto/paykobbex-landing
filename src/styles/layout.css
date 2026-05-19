@@ -30,3 +30,25 @@
   max-width: 40rem;
   line-height: 1.62;
 }
+
+/* P20.1 — legal hero band (subtler than ops pages) */
+.legal-page-hero-band {
+  position: relative;
+  overflow: hidden;
+}
+
+.legal-page-hero-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgb(var(--token-accent-rgb) / 0.028) 0%, transparent 38%),
+    radial-gradient(65% 50% at 0% 0%, rgb(var(--token-accent-rgb) / 0.04), transparent 55%);
+}
+
+.legal-page-hero-band > * {
+  position: relative;
+  z-index: 1;
+}

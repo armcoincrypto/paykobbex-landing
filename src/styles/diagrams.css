@@ -2692,3 +2692,30 @@
     padding: var(--token-surface-pad-panel-y) var(--token-surface-pad-panel-x);
   }
 }
+
+/* P11 — hero operational sequence preview (equal columns, calm rails) */
+.home-hero-instrument--preview .home-hero-instrument-compact-lane .lifecycle-lane-rail-branch {
+  stroke: rgb(var(--token-muted-rgb) / 0.22);
+}
+
+.home-hero-instrument--preview .home-hero-instrument-compact-webhook .webhook-ribbon-step {
+  min-width: 0;
+}
+
+.home-hero-instrument--preview .home-hero-instrument-compact-webhook .webhook-ribbon-rail-depth {
+  stroke: transparent;
+}
+
+.home-hero-instrument--preview .home-hero-instrument-compact-lane .lifecycle-lane-rail-depth {
+  stroke: transparent;
+  filter: none;
+}
+
+/* P14 — hero product preview pipeline depth */
+.home-hero-instrument--product .home-hero-preview__module--webhook .webhook-ribbon-connector {
+  top: 1.15rem;
+}
+
+.home-hero-instrument--product .home-hero-preview__module--webhook .webhook-ribbon-step:nth-child(3) {
+  border-color: rgb(var(--token-accent-rgb) / 0.14);
+}

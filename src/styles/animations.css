@@ -1,4 +1,135 @@
-/* P2 — keyframes remain co-located with their domains (zero-diff cascade):
- *   hero-atmosphere.css  → hero-aurora-in
- *   diagrams.css         → ops-transport-flow, ops-transport-webhook, ops-rail-pulse-flow, ops-webhook-rail-flow
- * Intentionally empty — do not import unless keyframes are centralized in a later phase. */
+/* P13 — operational choreography (institutional, GPU-safe) */
+
+@keyframes ops-choreo-lifecycle-flow {
+  0% {
+    stroke-dashoffset: 100;
+    opacity: 0.35;
+  }
+  15% {
+    opacity: 0.75;
+  }
+  85% {
+    opacity: 0.75;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.35;
+  }
+}
+
+@keyframes ops-choreo-webhook-flow {
+  0% {
+    stroke-dashoffset: 48;
+    opacity: 0.32;
+  }
+  12% {
+    opacity: 0.72;
+  }
+  88% {
+    opacity: 0.72;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.32;
+  }
+}
+
+@keyframes ops-choreo-ambient-sweep {
+  0%,
+  100% {
+    background-position: 120% 0;
+    opacity: 0.85;
+  }
+  50% {
+    background-position: -20% 0;
+    opacity: 1;
+  }
+}
+
+@keyframes ops-choreo-marker-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 2px rgb(var(--token-accent-rgb) / 0.1);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 3px rgb(var(--token-accent-rgb) / 0.18);
+  }
+}
+
+@keyframes ops-choreo-review-glow {
+  0%,
+  100% {
+    border-color: rgb(var(--token-muted-rgb) / 0.16);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04);
+  }
+  50% {
+    border-color: rgb(var(--token-accent-rgb) / 0.22);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.06),
+      0 0 12px -4px rgb(var(--token-accent-rgb) / 0.12);
+  }
+}
+
+@keyframes ops-choreo-step-emphasis {
+  0%,
+  100% {
+    color: rgb(var(--token-primary-rgb) / 0.88);
+  }
+  50% {
+    color: rgb(var(--token-primary-rgb) / 0.98);
+  }
+}
+
+@keyframes ops-choreo-sep-nudge {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateX(1px);
+    opacity: 0.55;
+  }
+}
+
+@keyframes ops-choreo-env-rail {
+  0% {
+    stroke-dashoffset: 24;
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.35;
+  }
+}
+
+@keyframes ops-choreo-env-marker {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes ops-choreo-stage-ambient {
+  0%,
+  100% {
+    box-shadow: var(--token-surface-shadow-cell);
+  }
+  50% {
+    box-shadow:
+      var(--token-surface-shadow-cell),
+      0 4px 16px -8px rgb(var(--token-accent-rgb) / 0.08);
+  }
+}
+
+/* Reduced-motion overrides live in hero.css and proof.css (P13 scopes). */

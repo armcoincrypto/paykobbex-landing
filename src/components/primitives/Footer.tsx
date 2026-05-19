@@ -12,6 +12,7 @@ const legalTrustLinks = [
   { href: "/privacy", label: "Privacy" },
   { href: "/terms", label: "Terms" },
   { href: "/security", label: "Security" },
+  { href: "/contact", label: "Contact" },
 ];
 
 const buildLinks: Array<{ href: string; label: string; conv?: ConversionEventName }> = [
@@ -26,7 +27,7 @@ const buildLinks: Array<{ href: string; label: string; conv?: ConversionEventNam
 
 export function Footer() {
   return (
-    <footer className="border-t border-border-subtle/80 bg-surface bg-gradient-to-b from-surface to-canvas py-14 sm:py-16 print:hidden">
+    <footer className="site-footer border-t border-border-subtle/80 bg-surface bg-gradient-to-b from-surface to-canvas py-14 sm:py-16 print:hidden">
       <Container className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
         <div className="lg:col-span-1">
           <p className="text-sm font-semibold text-primary">Kobbopay</p>
@@ -88,8 +89,8 @@ export function Footer() {
           </ul>
         </div>
       </Container>
-      <Container className="mt-10 border-t border-border-subtle pt-6">
-        <p className="text-xs text-muted">
+      <Container className="site-footer__bar mt-10 border-t border-border-subtle pt-6">
+        <p className="site-footer__legal text-xs leading-relaxed text-muted">
           © {new Date().getFullYear()} Kobbopay. Marketing site — payment processing is provided
           through approved merchant accounts on configured rails where enabled.{" "}
           <Link href="/privacy" className="text-muted no-underline hover:text-primary" muted>

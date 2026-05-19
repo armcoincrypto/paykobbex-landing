@@ -13,6 +13,36 @@ import { cn } from "@/lib/cn";
 
 const primary: StatePillLabel[] = ["Pending", "Paid", "Confirmed"];
 
+const lifecycleStateEngineMeta: ReadonlyArray<{
+  label: StatePillLabel;
+  index: string;
+  semantic: string;
+  zone: "provisional" | "final";
+  ownership: string;
+}> = [
+  {
+    label: "Pending",
+    index: "01",
+    semantic: "Created · awaiting detection",
+    zone: "provisional",
+    ownership: "Policy-controlled",
+  },
+  {
+    label: "Paid",
+    index: "02",
+    semantic: "Detected · not final for books",
+    zone: "provisional",
+    ownership: "Merchant-owned books",
+  },
+  {
+    label: "Confirmed",
+    index: "03",
+    semantic: "Policy + rail semantics met",
+    zone: "final",
+    ownership: "Finance / treasury policy",
+  },
+];
+
 /**
  * Horizontal lifecycle lane — SVG operational rails with calm signal motion.
  * Conceptual states only; not live merchant data.
@@ -24,6 +54,7 @@ export function LifecycleLaneInstrument({
   interactive,
   showTelemetry = true,
   showInspectCopy = true,
+  variant = "default",
 }: {
   className?: string;
   compact?: boolean;
@@ -32,6 +63,8 @@ export function LifecycleLaneInstrument({
   showTelemetry?: boolean;
   /** When false, hover keeps inspect/focus but hides hint/meta/narrative prose. */
   showInspectCopy?: boolean;
+  /** P17 — institutional state-engine surface (proof bento / ops). */
+  variant?: "default" | "state-engine";
 }) {
   const [hovered, setHovered] = useState<number | null>(null);
   const { inspect, setInspect, clearInspect } = useInfrastructureInspect();
@@ -47,6 +80,122 @@ export function LifecycleLaneInstrument({
     const node = lifecycleInspectNodes[index];
     setInspect(inspectStateFromNode(node));
   };
+
+  if (variant === "state-engine") {
+    return (
+      <div
+        className={cn(
+          "lifecycle-lane lifecycle-lane--state-engine ops-state-engine ops-route--settlement",
+          animate && "lifecycle-lane--animated ops-state-engine--animated",
+          className,
+        )}
+        aria-hidden="true"
+      >
+        <header className="ops-state-engine__masthead">
+          <div className="ops-state-engine__masthead-primary">
+            <span className="ops-state-engine__system-index">01</span>
+            <span className="ops-state-engine__system-label">State engine</span>
+          </div>
+          <span className="ops-state-engine__system-meta">Progression topology · conceptual</span>
+        </header>
+
+        <div className="ops-state-engine__zone-rail" aria-hidden="true">
+          <span className="ops-state-engine__zone ops-state-engine__zone--provisional">
+            Provisional ownership
+          </span>
+          <span className="ops-state-engine__zone-divider" />
+          <span className="ops-state-engine__zone ops-state-engine__zone--final">
+            Final for your books
+          </span>
+        </div>
+
+        <div className="ops-state-engine__topology">
+          <svg
+            className="lifecycle-lane-rail-svg ops-state-engine__rail-svg"
+            viewBox="0 0 100 28"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              className="ops-state-engine__rail-zone ops-state-engine__rail-zone--provisional"
+              d="M 4 6 H 62 V 22 H 4 Z"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              className="ops-state-engine__rail-zone ops-state-engine__rail-zone--final"
+              d="M 62 6 H 96 V 22 H 62 Z"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              className="lifecycle-lane-rail-depth"
+              d="M 8 10 H 92"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              className="lifecycle-lane-rail-base"
+              d="M 8 10 H 92"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              className="lifecycle-lane-rail-pulse ops-state-engine__rail-pulse"
+              d="M 8 10 H 92"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              className="lifecycle-lane-rail-branch ops-state-engine__rail-branch"
+              d="M 50 10 V 24"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              className="ops-state-engine__depth-mark"
+              d="M 62 10 V 14"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+
+          <ol className="ops-state-engine__nodes list-none p-0 m-0">
+            {lifecycleStateEngineMeta.map((state) => (
+              <li
+                key={state.label}
+                className={cn(
+                  "ops-state-node",
+                  `ops-state-node--${state.label.toLowerCase()}`,
+                  `ops-state-node--${state.zone}`,
+                )}
+              >
+                <span className="ops-state-node__index">{state.index}</span>
+                <span className="ops-state-node__marker" aria-hidden="true" />
+                <div className="ops-state-node__body">
+                  <span className="ops-state-node__label">{state.label}</span>
+                  <span className="ops-state-node__semantic">{state.semantic}</span>
+                  <span className="ops-state-node__ownership">{state.ownership}</span>
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          <aside className="ops-state-engine__terminal">
+            <span className="ops-state-engine__terminal-tag">Policy branch</span>
+            <div className="ops-state-node ops-state-node--expired ops-state-node--terminal">
+              <span className="ops-state-node__index">T</span>
+              <span className="ops-state-node__marker" aria-hidden="true" />
+              <div className="ops-state-node__body">
+                <span className="ops-state-node__label">Expired</span>
+                <span className="ops-state-node__semantic">Terminal branch for the attempt</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <footer className="ops-state-engine__rail-meta">
+          <span className="ops-state-engine__rail-meta-tag">STATE</span>
+          <span className="ops-state-engine__rail-meta-tag">POLICY</span>
+          <span className="ops-state-engine__rail-meta-copy">Explicit state lane · conceptual</span>
+        </footer>
+      </div>
+    );
+  }
 
   const execution = (
     <>
