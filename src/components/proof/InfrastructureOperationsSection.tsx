@@ -1,5 +1,5 @@
-import { WebhookFlowDiagram } from "@/components/diagrams/WebhookFlowDiagram";
 import { VerificationBoundaryDiagram } from "@/components/diagrams/VerificationBoundaryDiagram";
+import { OperationalPrinciplesMatrix } from "@/components/proof/OperationalPrinciplesMatrix";
 import { Container } from "@/components/primitives/Container";
 import { Link } from "@/components/primitives/link";
 import { Section } from "@/components/primitives/Section";
@@ -41,8 +41,10 @@ const operations: Array<{ title: string; body: string; zone?: "reconcile" }> = [
   },
 ];
 
+const frameSecondary = "vf-frame vf-frame--tier-secondary ops-instrument-surface";
+
 /**
- * How infrastructure actually operates — systems visibility, not “why choose us.”
+ * How infrastructure actually operates — unified platform shell (P19).
  */
 export function InfrastructureOperationsSection() {
   const headingId = "home-heading-infrastructure-operates";
@@ -51,137 +53,198 @@ export function InfrastructureOperationsSection() {
     <Section
       id="how-infrastructure-operates"
       tone="default"
-      className="proof-section home-ops-follow home-ops-deep home-ops-story home-ops-journey home-ops-credibility home-ops-ecosystem home-ops-premium"
+      className="proof-section home-ops-follow home-ops-deep home-ops-story home-ops-journey home-ops-credibility home-ops-ecosystem home-ops-premium home-platform-ops"
     >
       <Container>
-        <header className="proof-section-header">
-          <p className="type-eyebrow">Operational systems</p>
-          <h2
-            id={headingId}
-            className="type-section-heading type-stack-after-eyebrow text-h2 font-semibold text-primary"
-          >
-            How infrastructure actually operates
-          </h2>
-          <p className="type-section-lead type-stack-after-heading">
-            Kobbopay is designed as visible infrastructure: explicit lifecycles, signed webhooks,
-            merchant review gates, and operational boundaries you can map to your own controls. The
-            visuals below are conceptual instrumentation — not live dashboards, metrics, or client
-            logos.
-          </p>
-        </header>
-
-        <div className="proof-section-intro">
-          <OpsEnvironmentProgression />
-          <OpsEcosystemGuidance />
-        </div>
-
-        <div className="type-stack-section-block proof-bento proof-bento--premium">
-          <article className="proof-bento-lifecycle ops-route--settlement ops-journey-emphasis--finance ops-governance-surface ops-ecosystem-surface">
-            <VerificationFramePanel
-              label="Lifecycle lane"
-              sublabel="State transitions (conceptual)"
-              labelledBy={headingId}
-              className="ops-instrument-surface ops-telemetry-surface ops-console-surface ops-console-deep"
-            >
-              <div className="proof-bento-instrument ops-console-module ops-console-module--lane">
-                <LifecycleLaneInstrument
-                  className="mb-0"
-                  showTelemetry={false}
-                  showInspectCopy={false}
-                />
+        <div className="ops-platform">
+          <header className="ops-platform__thesis ops-editorial proof-section-header">
+            <div className="ops-editorial__masthead">
+              <div className="ops-editorial__identity">
+                <span className="ops-editorial__section-index" aria-hidden="true">
+                  01
+                </span>
+                <p className="ops-editorial__eyebrow">Operating model</p>
+                <span className="ops-editorial__layer-tag">Platform thesis</span>
               </div>
-              <div className="proof-bento-annotation ops-console-module__annotation">
-                <ul className="list-disc space-y-1.5 pl-4 text-sm leading-relaxed text-muted">
-                  <li>
-                    <strong className="text-primary">Pending</strong> — created / awaiting detection.
-                  </li>
-                  <li>
-                    <strong className="text-primary">Paid</strong> — detected, not final for your books.
-                  </li>
-                  <li>
-                    <strong className="text-primary">Confirmed</strong> — policy + rail semantics met.
-                  </li>
-                  <li>
-                    <strong className="text-primary">Expired</strong> — terminal branch for the attempt.
-                  </li>
-                </ul>
-              </div>
-            </VerificationFramePanel>
-          </article>
+              <aside className="ops-editorial__meta-rail" aria-label="Section context">
+                <p className="ops-editorial__meta-line">Control plane</p>
+                <p className="ops-editorial__meta-line">Governed access</p>
+              </aside>
+            </div>
 
-          <aside className="proof-bento-confirm ops-route--reconcile ops-journey-emphasis--finance ops-governance-surface ops-ecosystem-surface flex flex-col gap-4">
-            <VerificationFramePanel
-              label="Confirmation depth"
-              sublabel="Settlement visibility"
-              className="ops-instrument-surface ops-telemetry-surface ops-console-surface ops-console-deep"
-            >
-              <ReconciliationInspectZone>
-                <ConfirmationDepthStack />
-              </ReconciliationInspectZone>
-              <footer className="proof-bento-confirm-meta ops-console-module__meta">
-                <span className="ops-console-meta-tag">RAIL</span>
-                <span className="ops-console-meta-tag">RECONCILE</span>
-                <span>State ownership · conceptual</span>
-              </footer>
-              <p className="proof-bento-confirm-note mt-5 text-sm leading-relaxed text-muted">
-                Depth reflects policy: what is detected, what is provisional, and what is final for
-                your books — not a single “paid” boolean.
+            <div className="ops-editorial__signature" aria-hidden="true" />
+
+            <div className="ops-editorial__hero">
+              <h2 id={headingId} className="ops-editorial__title">
+                How infrastructure actually operates
+              </h2>
+            </div>
+
+            <div className="ops-editorial__body">
+              <p className="ops-editorial__lead">
+                Kobbopay is designed as visible infrastructure: explicit lifecycles, signed
+                webhooks, merchant review gates, and operational boundaries you can map to your own
+                controls.
               </p>
-            </VerificationFramePanel>
-          </aside>
+            </div>
+          </header>
 
-          <article className="proof-bento-webhook ops-route--verify ops-journey-emphasis--engineering ops-governance-surface ops-ecosystem-surface min-w-0">
-            <VerificationFramePanel
-              label="Webhook verification"
-              sublabel="Signed pipeline (conceptual)"
-              labelledBy={headingId}
-              className="ops-instrument-surface ops-telemetry-surface ops-console-surface ops-console-deep"
-            >
-              <div className="proof-bento-instrument">
-                <WebhookPropagationStrip
-                  compact
-                  showTelemetry={false}
-                  showInspectCopy={false}
-                />
+          <div className="ops-platform__control ops-tier-primary">
+            <p className="ops-platform__control-label" aria-hidden="true">
+              Operational control plane
+            </p>
+            <div className="ops-control-plane proof-env-maturity proof-env-maturity--choreo">
+              <div className="ops-control-plane__frame">
+                <OpsEnvironmentProgression />
+                <div className="ops-control-plane__divider" aria-hidden="true" />
+                <OpsEcosystemGuidance />
               </div>
-              <div className="proof-bento-annotation ops-console-module__annotation mt-4">
-                <WebhookFlowDiagram variant="compact" diagramLabelledBy={headingId} settle={false} />
-              </div>
-            </VerificationFramePanel>
-          </article>
-
-          <article className="proof-bento-review ops-route--ingress ops-journey-emphasis--operations ops-governance-surface ops-ecosystem-surface">
-            <MerchantReviewPipeline
-              labelledBy={headingId}
-              compact
-              showInspectCopy={false}
-              className="ops-instrument-surface ops-telemetry-surface ops-console-surface ops-console-deep"
-            />
-          </article>
-        </div>
-
-        <div className="proof-ops-split proof-ops-split--premium type-stack-section-block">
-          <div className="proof-editorial-rail proof-editorial-rail--premium ops-console-split-rail">
-            {operations.map((op, i) => (
-              <div key={op.title} data-ops-zone={op.zone}>
-                <p className="proof-workflow-index">{String(i + 1).padStart(2, "0")}</p>
-                {op.zone === "reconcile" ? (
-                  <span className="ops-console-routing">RECONCILE · POLICY</span>
-                ) : null}
-                <h3 className="mt-1 text-h3 font-semibold text-primary">{op.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{op.body}</p>
-              </div>
-            ))}
+            </div>
           </div>
-          <div className="min-w-0 ops-console-plate">
-            <VerificationBoundaryDiagram className="[&_h2]:text-h3 [&_h2]:mt-0" />
-            <p className="mt-6 text-sm text-muted">
+
+          <div
+            className="ops-platform__instruments"
+            aria-label="Settlement, transport, and approval instrumentation"
+          >
+            <section className="ops-platform__cluster ops-platform__cluster--settlement">
+              <header className="ops-platform__cluster-head">
+                <span className="ops-platform__cluster-index">A</span>
+                <div>
+                  <h3 className="ops-platform__cluster-title">Settlement &amp; lifecycle</h3>
+                  <p className="ops-platform__cluster-meta">
+                    State progression and finance-owned recognition
+                  </p>
+                </div>
+              </header>
+              <div className="ops-platform__cluster-grid ops-platform__cluster-grid--settlement">
+                <VerificationFramePanel
+                  label="Lifecycle lane"
+                  className={frameSecondary}
+                  labelledBy={headingId}
+                >
+                  <div className="proof-bento-instrument proof-bento-instrument--state-engine">
+                    <LifecycleLaneInstrument
+                      variant="state-engine"
+                      className="mb-0"
+                      showTelemetry={false}
+                      showInspectCopy={false}
+                      animate
+                      interactive={false}
+                    />
+                  </div>
+                  <div className="proof-bento-annotation ops-state-engine-legend ops-tier-annotation">
+                    <dl className="ops-state-engine-legend__grid">
+                      <div>
+                        <dt>Pending</dt>
+                        <dd>created / awaiting detection.</dd>
+                      </div>
+                      <div>
+                        <dt>Paid</dt>
+                        <dd>detected, not final for your books.</dd>
+                      </div>
+                      <div>
+                        <dt>Confirmed</dt>
+                        <dd>policy + rail semantics met.</dd>
+                      </div>
+                      <div>
+                        <dt>Expired</dt>
+                        <dd>terminal branch for the attempt.</dd>
+                      </div>
+                    </dl>
+                  </div>
+                </VerificationFramePanel>
+
+                <VerificationFramePanel label="Confirmation depth" className={frameSecondary}>
+                  <ReconciliationInspectZone className="proof-bento-instrument--settlement">
+                    <ConfirmationDepthStack variant="settlement-intelligence" animate />
+                  </ReconciliationInspectZone>
+                </VerificationFramePanel>
+              </div>
+            </section>
+
+            <section className="ops-platform__cluster ops-platform__cluster--transport">
+              <header className="ops-platform__cluster-head">
+                <span className="ops-platform__cluster-index">B</span>
+                <div>
+                  <h3 className="ops-platform__cluster-title">Signed transport</h3>
+                  <p className="ops-platform__cluster-meta">
+                    Webhook pipeline and server-side verification path
+                  </p>
+                </div>
+              </header>
+              <VerificationFramePanel
+                label="Webhook verification"
+                className={frameSecondary}
+                labelledBy={headingId}
+              >
+                <div className="proof-bento-instrument proof-bento-instrument--state-engine">
+                  <WebhookPropagationStrip
+                    variant="state-engine"
+                    showTelemetry={false}
+                    showInspectCopy={false}
+                    animate
+                    interactive={false}
+                  />
+                </div>
+              </VerificationFramePanel>
+            </section>
+
+            <section className="ops-platform__cluster ops-platform__cluster--governance">
+              <header className="ops-platform__cluster-head">
+                <span className="ops-platform__cluster-index">C</span>
+                <div>
+                  <h3 className="ops-platform__cluster-title">
+                    Merchant approval &amp; access
+                  </h3>
+                  <p className="ops-platform__cluster-meta">
+                    Controlled production gates — not self-serve keys on day one
+                  </p>
+                </div>
+              </header>
+              <MerchantReviewPipeline
+                variant="approval-pipeline"
+                labelledBy={headingId}
+                compact
+                showInspectCopy={false}
+                interactive={false}
+                className={frameSecondary}
+              />
+            </section>
+          </div>
+
+          <section className="ops-platform__support ops-tier-support" aria-labelledby="ops-platform-support-heading">
+            <header className="ops-platform__support-head">
+              <span className="ops-platform__support-index" aria-hidden="true">
+                D
+              </span>
+              <div>
+                <h3 id="ops-platform-support-heading" className="ops-platform__support-title">
+                  Integration architecture
+                </h3>
+                <p className="ops-platform__support-meta">
+                  Operational principles and verification boundaries for production teams
+                </p>
+              </div>
+            </header>
+
+            <OperationalPrinciplesMatrix principles={operations} embedded />
+
+            <div className="ops-platform__boundary">
+              <VerificationBoundaryDiagram variant="premium" settle={false} />
+            </div>
+
+            <p className="ops-platform__rails-note">
               Selected rails: networks and assets are enabled per merchant configuration.{" "}
               <Link href="/docs">Integration docs</Link>
               {" · "}
               <Link href="/glossary">Glossary</Link>
             </p>
-          </div>
+          </section>
+
+          <p className="ops-platform__disclaimer ops-tier-annotation">
+            <span className="ops-platform__disclaimer-led" aria-hidden="true" />
+            Conceptual instrumentation on this page — not live dashboards, metrics, or client logos.
+          </p>
         </div>
       </Container>
     </Section>

@@ -116,7 +116,7 @@ export default function HomePage() {
       <JsonLd id="ld-json-faq" data={faqJson} />
       <JsonLd id="ld-json-app" data={appJson} />
 
-      <HomeInfrastructurePlane>
+      <HomeInfrastructurePlane className="home-platform">
       <Section
         id="hero"
         tone="default"
@@ -170,7 +170,7 @@ export default function HomePage() {
             <HeroOperationalInstrumentCompact />
           </div>
           <section
-            className="home-hero-governance"
+            className="home-hero-governance home-tier-annotation"
             aria-labelledby="home-governance-heading"
           >
             <header className="home-hero-governance__header">
@@ -219,33 +219,48 @@ export default function HomePage() {
       <Section
         id="home-fit-check"
         tone="muted"
-        className="home-flow-cta home-flow-cta--mid home-flow-bridge"
+        className="home-flow-cta home-flow-cta--mid home-flow-bridge ops-fit-check home-platform__conversion home-tier-conversion"
         aria-labelledby="home-fit-check-heading"
       >
         <Container>
-          <div className="home-flow-cta__panel">
-            <p className="type-eyebrow">Fit check</p>
+          <div className="ops-fit-check__panel home-flow-cta__panel">
+            <header className="ops-fit-check__head">
+              <span className="ops-fit-check__index" aria-hidden="true">
+                07
+              </span>
+              <p className="type-eyebrow ops-fit-check__eyebrow">Fit check</p>
+            </header>
             <h2
               id="home-fit-check-heading"
-              className="home-flow-cta__title type-section-heading text-h2 font-semibold text-primary"
+              className="ops-fit-check__title home-flow-cta__title type-section-heading text-h2 font-semibold text-primary"
             >
               A match if you ship server-side integrations
             </h2>
-            <p className="home-flow-cta__lead type-section-lead">
+            <p className="ops-fit-check__lead home-flow-cta__lead type-section-lead">
               Kobbopay fits teams that need explicit payment lifecycles, verifiable webhooks, merchant
               approval, and finance-owned reconciliation — not anonymous self-serve keys or marketing
               settlement promises on day one.
             </p>
-            <CTAGroup className="home-flow-cta__actions type-stack-after-lead">
+            <div className="ops-fit-check__criteria" aria-hidden="true">
+              <span className="ops-fit-check__criterion">Explicit lifecycles</span>
+              <span className="ops-fit-check__criterion">Verifiable webhooks</span>
+              <span className="ops-fit-check__criterion">Merchant approval</span>
+              <span className="ops-fit-check__criterion">Finance-owned reconciliation</span>
+            </div>
+            <CTAGroup className="ops-fit-check__actions home-flow-cta__actions type-stack-after-lead">
               <Link
                 href="/contact#merchant-intake"
                 variant="button-primary"
-                className="home-flow-cta__primary no-underline"
+                className="home-flow-cta__primary ops-fit-check__primary no-underline"
                 conv="request_access_click"
               >
                 Request access
               </Link>
-              <Link href="/onboarding" variant="button-secondary" className="no-underline">
+              <Link
+                href="/onboarding"
+                variant="button-secondary"
+                className="ops-fit-check__secondary no-underline"
+              >
                 Onboarding expectations
               </Link>
             </CTAGroup>
@@ -256,7 +271,7 @@ export default function HomePage() {
       <Section
         id="how-it-works"
         tone="default"
-        className="home-section-after-ops home-flow-step home-flow-step--how"
+        className="home-section-after-ops home-flow-step home-flow-step--how home-tier-support"
       >
         <Container>
           <p className="type-eyebrow">Integration path</p>
@@ -307,14 +322,14 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      <OperationalRealismEntry className="home-section-bridge home-flow-step home-flow-step--ops" />
+      <OperationalRealismEntry className="home-section-bridge home-flow-step home-flow-step--ops home-tier-support" />
 
       </HomeInfrastructurePlane>
 
       <Section
         id="buyer-contexts"
         tone="default"
-        className="home-buyer-contexts home-flow-bridge"
+        className="home-buyer-contexts home-flow-bridge home-tier-support"
         aria-labelledby="home-buyer-contexts-heading"
       >
         <Container>
@@ -356,7 +371,7 @@ export default function HomePage() {
       <Section
         id="integration-and-security"
         tone="default"
-        className="proof-section home-integration-band home-flow-step"
+        className="proof-section home-integration-band home-flow-step home-tier-support"
       >
         <Container className="max-w-3xl">
           <p className="type-eyebrow">Before production</p>
@@ -425,7 +440,7 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      <Section id="faq" tone="default" className="home-flow-step">
+      <Section id="faq" tone="default" className="home-flow-step home-tier-support">
         <Container>
           <p className="type-eyebrow">Due diligence</p>
           <h2 className="type-section-heading type-stack-after-eyebrow text-h2 font-semibold text-primary">
@@ -448,7 +463,7 @@ export default function HomePage() {
       <Section
         id="contact"
         tone="muted"
-        className="home-flow-cta home-flow-cta--final pb-[var(--token-section-loose)]"
+        className="home-flow-cta home-flow-cta--final home-tier-conversion-secondary pb-[var(--token-section-loose)]"
         aria-labelledby="home-final-cta-heading"
       >
         <Container>

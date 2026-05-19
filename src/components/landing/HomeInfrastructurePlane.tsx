@@ -9,7 +9,13 @@ import {
 import { OpsStoryBeacon } from "@/components/landing/OpsStoryBeacon";
 import { resolveJourneyLens } from "@/lib/ops-inspection";
 
-function HomeInfrastructurePlaneInner({ children }: { children: ReactNode }) {
+function HomeInfrastructurePlaneInner({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   const { inspect } = useInfrastructureInspect();
   const journeyLens = inspect?.focus
     ? inspect.lens ?? resolveJourneyLens(inspect.focus, inspect.linkGate)
@@ -19,6 +25,7 @@ function HomeInfrastructurePlaneInner({ children }: { children: ReactNode }) {
     <div
       className={cn(
         "home-infrastructure-plane home-infrastructure-plane--journey home-infrastructure-plane--credibility home-infrastructure-plane--ecosystem ops-topology-surface",
+        className,
         inspect?.focus && `inspect-focus-${inspect.focus}`,
         journeyLens && `inspect-journey-${journeyLens}`,
         ...(inspect?.downstream.map((route) => `inspect-downstream-${route}`) ?? []),
@@ -82,10 +89,18 @@ function HomeInfrastructurePlaneInner({ children }: { children: ReactNode }) {
 /**
  * Homepage operational topology shell — decorative continuity mesh and route anchors.
  */
-export function HomeInfrastructurePlane({ children }: { children: ReactNode }) {
+export function HomeInfrastructurePlane({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
     <InfrastructureInspectProvider>
-      <HomeInfrastructurePlaneInner>{children}</HomeInfrastructurePlaneInner>
+      <HomeInfrastructurePlaneInner className={className}>
+        {children}
+      </HomeInfrastructurePlaneInner>
     </InfrastructureInspectProvider>
   );
 }

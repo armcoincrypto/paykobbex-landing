@@ -2,6 +2,7 @@
 
 /* P2 — domain stylesheets (import order preserves former monolith cascade) */
 @import "../styles/tokens.css";
+@import "../styles/animations.css";
 @import "../styles/base.css";
 @import "../styles/typography.css";
 @import "../styles/hero-atmosphere.css";
@@ -11,5 +12,6 @@
 @import "../styles/diagrams.css";
 @import "../styles/proof.css";
 @import "../styles/site-polish.css";
+@import "../styles/home-platform.css";
 @import "../styles/forms.css";
 @import "../styles/print.css";
