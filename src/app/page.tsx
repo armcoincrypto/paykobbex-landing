@@ -11,7 +11,15 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { HeroOperationalInstrumentCompact } from "@/components/landing/HeroOperationalInstrumentCompact";
 import { InfrastructureOperationsSection } from "@/components/proof";
 import { OperationalRealismEntry } from "@/components/realism";
+import { MERCHANT_JOURNEY_FLOWS } from "@/lib/operational-realism";
 import { OG_IMAGES, OG_IMAGE, SITE_URL } from "@/lib/site";
+
+/** P7 — homepage buyer contexts (from existing illustrative flows, not case studies). */
+const homeBuyerContexts = MERCHANT_JOURNEY_FLOWS.slice(0, 4).map((flow) => ({
+  id: flow.id,
+  title: flow.title.replace(/\s*\(illustrative\)\s*/i, ""),
+  summary: flow.summary,
+}));
 
 export const metadata: Metadata = {
   title: "B2B crypto payment infrastructure",
@@ -208,11 +216,53 @@ export default function HomePage() {
 
       <InfrastructureOperationsSection />
 
-      <Section id="how-it-works" tone="default" className="home-section-after-ops">
+      <Section
+        id="home-fit-check"
+        tone="muted"
+        className="home-flow-cta home-flow-cta--mid home-flow-bridge"
+        aria-labelledby="home-fit-check-heading"
+      >
         <Container>
+          <div className="home-flow-cta__panel">
+            <p className="type-eyebrow">Fit check</p>
+            <h2
+              id="home-fit-check-heading"
+              className="home-flow-cta__title type-section-heading text-h2 font-semibold text-primary"
+            >
+              A match if you ship server-side integrations
+            </h2>
+            <p className="home-flow-cta__lead type-section-lead">
+              Kobbopay fits teams that need explicit payment lifecycles, verifiable webhooks, merchant
+              approval, and finance-owned reconciliation — not anonymous self-serve keys or marketing
+              settlement promises on day one.
+            </p>
+            <CTAGroup className="home-flow-cta__actions type-stack-after-lead">
+              <Link
+                href="/contact#merchant-intake"
+                variant="button-primary"
+                className="home-flow-cta__primary no-underline"
+                conv="request_access_click"
+              >
+                Request access
+              </Link>
+              <Link href="/onboarding" variant="button-secondary" className="no-underline">
+                Onboarding expectations
+              </Link>
+            </CTAGroup>
+          </div>
+        </Container>
+      </Section>
+
+      <Section
+        id="how-it-works"
+        tone="default"
+        className="home-section-after-ops home-flow-step home-flow-step--how"
+      >
+        <Container>
+          <p className="type-eyebrow">Integration path</p>
           <h2
             id="home-heading-how-it-works"
-            className="type-section-heading text-h2 font-semibold text-primary"
+            className="type-section-heading type-stack-after-eyebrow text-h2 font-semibold text-primary"
           >
             How it works
           </h2>
@@ -257,17 +307,60 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      <OperationalRealismEntry className="home-section-bridge" />
+      <OperationalRealismEntry className="home-section-bridge home-flow-step home-flow-step--ops" />
 
       </HomeInfrastructurePlane>
 
       <Section
+        id="buyer-contexts"
+        tone="default"
+        className="home-buyer-contexts home-flow-bridge"
+        aria-labelledby="home-buyer-contexts-heading"
+      >
+        <Container>
+          <p className="type-eyebrow">Buyer contexts</p>
+          <h2
+            id="home-buyer-contexts-heading"
+            className="type-section-heading type-stack-after-eyebrow text-h2 font-semibold text-primary"
+          >
+            Where teams adopt this infrastructure
+          </h2>
+          <p className="type-section-lead type-stack-after-heading max-w-2xl">
+            Illustrative B2B payment patterns — not guarantees that every industry, geography, or
+            business model is supported. See{" "}
+            <Link href="/use-cases">use cases</Link> and{" "}
+            <Link href="/operations">operational walkthroughs</Link> for detail.
+          </p>
+          <ul className="home-buyer-contexts__grid type-stack-section-block" role="list">
+            {homeBuyerContexts.map((ctx) => (
+              <li key={ctx.id} className="home-buyer-contexts__card" role="listitem">
+                <h3 className="home-buyer-contexts__card-title text-h3 font-semibold text-primary">
+                  {ctx.title}
+                </h3>
+                <p className="home-buyer-contexts__card-summary">{ctx.summary}</p>
+                <p className="home-buyer-contexts__card-link">
+                  <Link href={`/operations#${ctx.id}`}>
+                    Example operational flow →
+                  </Link>
+                </p>
+              </li>
+            ))}
+          </ul>
+          <p className="type-stack-after-lead text-sm text-muted">
+            Payment operations, treasury, and engineering teams typically map these patterns to their
+            own controls — merchant agreement and environment configuration remain authoritative.
+          </p>
+        </Container>
+      </Section>
+
+      <Section
         id="integration-and-security"
         tone="default"
-        className="proof-section home-integration-band"
+        className="proof-section home-integration-band home-flow-step"
       >
         <Container className="max-w-3xl">
-          <h2 className="type-section-heading text-h2 font-semibold text-primary">
+          <p className="type-eyebrow">Before production</p>
+          <h2 className="type-section-heading type-stack-after-eyebrow text-h2 font-semibold text-primary">
             Integration expectations &amp; security
           </h2>
           <p className="type-section-lead type-stack-after-heading">
@@ -332,9 +425,12 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      <Section id="faq" tone="default">
+      <Section id="faq" tone="default" className="home-flow-step">
         <Container>
-          <h2 className="type-section-heading text-h2 font-semibold text-primary">FAQ</h2>
+          <p className="type-eyebrow">Due diligence</p>
+          <h2 className="type-section-heading type-stack-after-eyebrow text-h2 font-semibold text-primary">
+            FAQ
+          </h2>
           <div className="type-stack-after-heading space-y-4">
             {faqItems.map((item) => (
               <Card key={item.q} interactive className="faq-card">
@@ -349,31 +445,47 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      <Section id="contact" tone="muted" className="pb-[var(--token-section-loose)]">
+      <Section
+        id="contact"
+        tone="muted"
+        className="home-flow-cta home-flow-cta--final pb-[var(--token-section-loose)]"
+        aria-labelledby="home-final-cta-heading"
+      >
         <Container>
-          <h2 className="type-section-heading text-h2 font-semibold text-primary">Request access</h2>
-          <p className="type-section-lead type-stack-after-heading max-w-2xl">
-            Tell us what you are building. Legitimate teams never need your seed phrase, private
-            keys, API keys, webhook secrets, wallet access credentials, or remote access to your
-            wallets — and neither do we.
-          </p>
-          <div className="ops-console-cta-strip ops-gate-cta type-stack-after-lead">
-            <span className="ops-console-routing" aria-hidden="true">
-              GATE · REVIEW · ACCESS
-            </span>
-            <CTAGroup>
-              <Link
-                href="/contact#merchant-intake"
-                variant="button-primary"
-                className="no-underline"
-                conv="request_access_click"
-              >
-                Request access
-              </Link>
-              <Link href="/pricing" variant="button-secondary" className="no-underline">
-                Pricing
-              </Link>
-            </CTAGroup>
+          <div className="home-flow-cta__panel home-flow-cta__panel--final">
+            <p className="type-eyebrow">Next step</p>
+            <h2
+              id="home-final-cta-heading"
+              className="home-flow-cta__title type-section-heading text-h2 font-semibold text-primary"
+            >
+              Request access
+            </h2>
+            <p className="home-flow-cta__lead type-section-lead max-w-2xl">
+              Tell us what you are building. Legitimate teams never need your seed phrase, private
+              keys, API keys, webhook secrets, wallet access credentials, or remote access to your
+              wallets — and neither do we.
+            </p>
+            <div className="home-flow-cta__actions home-flow-cta__actions--final type-stack-after-lead">
+              <span className="home-flow-cta__routing" aria-hidden="true">
+                GATE · REVIEW · ACCESS
+              </span>
+              <CTAGroup className="home-flow-cta__buttons">
+                <Link
+                  href="/contact#merchant-intake"
+                  variant="button-primary"
+                  className="home-flow-cta__primary no-underline"
+                  conv="request_access_click"
+                >
+                  Request access
+                </Link>
+                <Link href="/pricing" variant="button-secondary" className="no-underline">
+                  Pricing
+                </Link>
+                <Link href="/docs" variant="button-secondary" className="no-underline">
+                  Integration docs
+                </Link>
+              </CTAGroup>
+            </div>
           </div>
         </Container>
       </Section>

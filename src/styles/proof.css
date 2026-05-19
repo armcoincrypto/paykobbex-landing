@@ -829,3 +829,14 @@
   line-height: 1.55;
   color: rgb(var(--token-muted-rgb) / 0.7);
 }
+
+/* P7 — ops section → conversion flow handoff */
+.home-ops-premium.home-ops-follow {
+  padding-bottom: var(--token-stack-2xl);
+}
+
+@media (min-width: 1024px) {
+  .home-ops-premium.home-ops-follow {
+    padding-bottom: var(--token-stack-3xl);
+  }
+}

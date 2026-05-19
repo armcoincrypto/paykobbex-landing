@@ -173,3 +173,208 @@
     max-width: 100%;
   }
 }
+
+/* P7 — homepage conversion flow */
+.home-flow-bridge {
+  position: relative;
+}
+
+.home-flow-bridge::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto;
+  left: 50%;
+  width: min(12rem, 40%);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(var(--token-accent-rgb) / 0.28),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.home-flow-step {
+  position: relative;
+}
+
+.home-flow-cta--mid {
+  padding-top: var(--token-stack-xl);
+  padding-bottom: var(--token-stack-xl);
+}
+
+@media (min-width: 640px) {
+  .home-flow-cta--mid {
+    padding-top: var(--token-stack-2xl);
+    padding-bottom: var(--token-stack-2xl);
+  }
+}
+
+.home-flow-cta__panel {
+  max-width: 44rem;
+  padding: var(--token-stack-lg) var(--token-stack-md);
+  border-radius: var(--token-radius-lg);
+  border: 1px solid var(--token-glass-border);
+  background: linear-gradient(
+    165deg,
+    rgb(11 17 28 / 0.82) 0%,
+    rgb(8 12 20 / 0.58) 100%
+  );
+  box-shadow:
+    var(--token-shadow-1),
+    inset 0 1px 0 var(--token-glass-highlight),
+    0 20px 48px -32px rgb(0 0 0 / 0.5);
+}
+
+@media (min-width: 640px) {
+  .home-flow-cta__panel {
+    padding: var(--token-stack-xl) var(--token-stack-lg);
+  }
+}
+
+.home-flow-cta__panel--final {
+  max-width: 52rem;
+  margin-inline: auto;
+}
+
+.home-flow-cta__title {
+  max-width: 24ch;
+  text-wrap: balance;
+}
+
+.home-flow-cta__lead {
+  max-width: 46ch;
+}
+
+.home-flow-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.625rem 0.75rem;
+}
+
+.home-flow-cta__primary {
+  min-height: 2.875rem;
+  padding-inline: 1.25rem;
+  font-weight: 600;
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.1),
+    0 12px 28px -10px rgb(var(--token-accent-rgb) / 0.22);
+}
+
+.home-flow-cta__actions--final {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--token-stack-md);
+}
+
+@media (min-width: 640px) {
+  .home-flow-cta__actions--final {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
+
+.home-flow-cta__routing {
+  display: block;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: rgb(var(--token-accent-bright-rgb) / 0.62);
+}
+
+.home-flow-cta__buttons {
+  flex: 1;
+  min-width: min(100%, 20rem);
+}
+
+.home-flow-cta--final .home-flow-cta__panel {
+  border-color: rgb(var(--token-accent-rgb) / 0.14);
+  background: linear-gradient(
+    165deg,
+    rgb(12 20 34 / 0.88) 0%,
+    rgb(8 12 22 / 0.72) 48%,
+    rgb(6 9 16 / 0.62) 100%
+  );
+  box-shadow:
+    var(--token-shadow-1),
+    inset 0 1px 0 var(--token-glass-highlight),
+    0 24px 56px -28px rgb(0 0 0 / 0.55),
+    inset 0 0 0 1px rgb(var(--token-accent-rgb) / 0.06);
+}
+
+/* Buyer context teaser */
+.home-buyer-contexts__grid {
+  display: grid;
+  gap: var(--token-stack-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 640px) {
+  .home-buyer-contexts__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--token-stack-lg);
+  }
+}
+
+@media (min-width: 1280px) {
+  .home-buyer-contexts__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--token-stack-md);
+  }
+}
+
+.home-buyer-contexts__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--token-stack-sm);
+  min-width: 0;
+  padding: var(--token-stack-md) var(--token-stack-md) var(--token-stack-lg);
+  border-radius: var(--token-radius-md);
+  border: 1px solid rgb(var(--token-muted-rgb) / 0.14);
+  background: linear-gradient(
+    180deg,
+    rgb(10 15 24 / 0.55) 0%,
+    rgb(7 10 18 / 0.38) 100%
+  );
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.035);
+}
+
+.home-buyer-contexts__card-title {
+  font-size: 1rem;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+
+.home-buyer-contexts__card-summary {
+  flex: 1;
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: rgb(var(--token-muted-rgb) / 0.72);
+}
+
+.home-buyer-contexts__card-link {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.home-section-after-ops.home-flow-step--how {
+  border-top: 0;
+}
+
+.home-flow-step--how::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3rem;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgb(7 11 18 / 0.35), transparent);
+}
