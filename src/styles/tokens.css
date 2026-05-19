@@ -93,22 +93,61 @@
   --token-hero-lead-max: 42ch;
   --token-hero-instrument-max: 27rem;
   --token-hero-accent-end: 0.58;
-  --token-hero-glass-border: rgb(var(--token-accent-rgb) / 0.22);
-  --token-hero-glass-glow: 0 28px 56px -20px rgb(0 0 0 / 0.65);
-  /* P4 — hero governance matrix */
-  --token-governance-panel-border: rgb(var(--token-accent-rgb) / 0.1);
   /* P6 — navigation */
   --token-nav-height: 3.5rem;
   --token-nav-height-sm: 3.75rem;
   --token-nav-blur: 14px;
-  /* P5 — operational infrastructure section */
-  --token-ops-surface-radius: var(--token-radius-lg);
-  --token-ops-surface-border: rgb(var(--token-muted-rgb) / 0.14);
-  --token-ops-surface-bg: linear-gradient(
+  /* P10 — premium surface / card symmetry system */
+  --token-surface-radius-panel: var(--token-radius-lg);
+  --token-surface-radius-cell: var(--token-radius-md);
+  --token-surface-border: rgb(var(--token-muted-rgb) / 0.14);
+  --token-surface-border-accent: rgb(var(--token-accent-rgb) / 0.14);
+  --token-surface-border-instrument: rgb(var(--token-accent-rgb) / 0.18);
+  --token-surface-bg-panel: linear-gradient(
     165deg,
-    rgb(11 17 28 / 0.78) 0%,
-    rgb(8 12 20 / 0.55) 100%
+    rgb(11 17 28 / 0.84) 0%,
+    rgb(8 12 20 / 0.64) 52%,
+    rgb(7 10 18 / 0.5) 100%
   );
+  --token-surface-bg-cell: linear-gradient(
+    180deg,
+    rgb(12 18 28 / 0.74) 0%,
+    rgb(9 13 22 / 0.58) 100%
+  );
+  --token-surface-bg-instrument: linear-gradient(
+    165deg,
+    rgb(13 20 32 / 0.9) 0%,
+    rgb(9 12 20 / 0.76) 48%,
+    rgb(7 9 16 / 0.7) 100%
+  );
+  --token-surface-bg-final: linear-gradient(
+    165deg,
+    rgb(12 20 34 / 0.9) 0%,
+    rgb(8 12 22 / 0.74) 48%,
+    rgb(6 9 16 / 0.64) 100%
+  );
+  --token-surface-shadow-panel:
+    var(--token-shadow-1), inset 0 1px 0 var(--token-glass-highlight),
+    0 20px 48px -32px rgb(0 0 0 / 0.52);
+  --token-surface-shadow-cell: inset 0 1px 0 rgb(255 255 255 / 0.045);
+  --token-surface-shadow-instrument:
+    var(--token-surface-shadow-panel), 0 24px 52px -28px rgb(0 0 0 / 0.58);
+  --token-surface-pad-panel-y: 1.375rem;
+  --token-surface-pad-panel-x: 1.25rem;
+  --token-surface-pad-cell-y: 0.9375rem;
+  --token-surface-pad-cell-x: 1rem;
+  --token-surface-grid-gap: 0.75rem;
+  --token-surface-grid-gap-lg: 1rem;
+  --token-surface-cell-min-h: 6.25rem;
+  --token-surface-label-size: 0.625rem;
+  --token-surface-label-tracking: 0.1em;
+  /* P5 — operational infrastructure section (aliases) */
+  --token-ops-surface-radius: var(--token-surface-radius-panel);
+  --token-ops-surface-border: var(--token-surface-border);
+  --token-ops-surface-bg: var(--token-surface-bg-panel);
+  --token-hero-glass-border: var(--token-surface-border-instrument);
+  --token-hero-glass-glow: 0 24px 52px -28px rgb(0 0 0 / 0.58);
+  --token-governance-panel-border: var(--token-surface-border-accent);
   /* UI systems — control symmetry (homepage) */
   --ui-control-height: 2.75rem;
   --ui-chip-height: 1.625rem;

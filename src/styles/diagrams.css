@@ -2674,3 +2674,21 @@
   color: rgb(var(--token-primary-rgb) / 0.82);
 }
 
+/* P10 — homepage diagram frames share surface rhythm */
+.home-infrastructure-plane .proof-bento .vf-frame {
+  border-radius: var(--token-surface-radius-panel);
+}
+
+.home-infrastructure-plane .proof-bento .ops-instrument-surface.vf-frame {
+  border-color: var(--token-surface-border);
+}
+
+.home-infrastructure-plane .proof-bento .vf-frame-body {
+  padding: var(--token-surface-pad-cell-y) var(--token-surface-pad-cell-x);
+}
+
+@media (min-width: 640px) {
+  .home-infrastructure-plane .proof-bento .vf-frame-body {
+    padding: var(--token-surface-pad-panel-y) var(--token-surface-pad-panel-x);
+  }
+}

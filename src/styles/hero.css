@@ -313,17 +313,12 @@
 
 .home-hero-instrument-compact-card {
   position: relative;
-  padding: calc(var(--ui-pad-card) + 0.35rem) var(--ui-pad-card);
-  border-radius: var(--token-radius-lg);
-  border: 1px solid var(--token-hero-glass-border, rgb(var(--token-accent-rgb) / 0.22));
-  background: linear-gradient(
-    165deg,
-    rgb(14 20 32 / 0.88) 0%,
-    rgb(9 12 20 / 0.78) 48%,
-    rgb(7 9 16 / 0.72) 100%
-  );
+  padding: var(--token-surface-pad-panel-y) var(--token-surface-pad-panel-x);
+  border-radius: var(--token-surface-radius-panel);
+  border: 1px solid var(--token-hero-glass-border);
+  background: var(--token-surface-bg-instrument);
   box-shadow:
-    var(--token-hero-glass-glow, 0 28px 56px -20px rgb(0 0 0 / 0.65)),
+    var(--token-surface-shadow-instrument),
     inset 0 1px 0 rgb(255 255 255 / 0.08),
     inset 0 0 0 1px rgb(255 255 255 / 0.04);
   backdrop-filter: blur(16px) saturate(1.15);
@@ -669,19 +664,11 @@
 /* P4 — hero governance matrix (trust layer under hero) */
 .home-hero-governance {
   margin-top: var(--token-stack-3xl);
-  padding: var(--token-stack-lg) var(--token-stack-md);
-  border-radius: var(--token-radius-lg);
-  border: 1px solid var(--token-glass-border);
-  background: linear-gradient(
-    165deg,
-    rgb(11 17 28 / 0.82) 0%,
-    rgb(8 12 20 / 0.62) 52%,
-    rgb(6 9 16 / 0.48) 100%
-  );
-  box-shadow:
-    var(--token-shadow-1),
-    inset 0 1px 0 var(--token-glass-highlight),
-    0 20px 48px -28px rgb(0 0 0 / 0.55);
+  padding: var(--token-surface-pad-panel-y) var(--token-surface-pad-panel-x);
+  border-radius: var(--token-surface-radius-panel);
+  border: 1px solid var(--token-governance-panel-border);
+  background: var(--token-surface-bg-panel);
+  box-shadow: var(--token-surface-shadow-panel);
   backdrop-filter: blur(12px) saturate(1.08);
   -webkit-backdrop-filter: blur(12px) saturate(1.08);
 }
@@ -730,14 +717,14 @@
 .home-hero-governance__matrix {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.625rem;
+  align-items: stretch;
+  gap: var(--token-surface-grid-gap);
   margin-top: var(--token-stack-lg);
 }
 
 @media (min-width: 640px) {
   .home-hero-governance__matrix {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.75rem;
     margin-top: var(--token-stack-xl);
   }
 }
@@ -745,14 +732,12 @@
 @media (min-width: 1024px) {
   .home-hero-governance__matrix {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.875rem;
   }
 }
 
 @media (min-width: 1280px) {
   .home-hero-governance__matrix {
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 0.75rem;
   }
 }
 
@@ -760,16 +745,14 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  height: 100%;
   min-width: 0;
-  padding: 0.875rem 0.9375rem;
-  border-radius: var(--token-radius-md);
-  border: 1px solid rgb(var(--token-muted-rgb) / 0.14);
-  background: linear-gradient(
-    180deg,
-    rgb(12 18 28 / 0.72) 0%,
-    rgb(9 13 22 / 0.55) 100%
-  );
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.045);
+  min-height: var(--token-surface-cell-min-h);
+  padding: var(--token-surface-pad-cell-y) var(--token-surface-pad-cell-x);
+  border-radius: var(--token-surface-radius-cell);
+  border: 1px solid var(--token-surface-border);
+  background: var(--token-surface-bg-cell);
+  box-shadow: var(--token-surface-shadow-cell);
 }
 
 .home-hero-governance__cell-head {
@@ -794,9 +777,9 @@
 }
 
 .home-hero-governance__bucket {
-  font-size: 0.625rem;
+  font-size: var(--token-surface-label-size);
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--token-surface-label-tracking);
   text-transform: uppercase;
   line-height: 1.35;
   color: rgb(var(--token-accent-bright-rgb) / 0.72);
