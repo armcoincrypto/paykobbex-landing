@@ -139,6 +139,7 @@ export function Navbar() {
         id="mobile-nav"
         className={cn("site-navbar__drawer lg:hidden", open && "site-navbar__drawer--open")}
         hidden={!open}
+        aria-hidden={!open}
       >
         <Container className="site-navbar__drawer-inner">
           {navGroups.map((group) => (

@@ -6,7 +6,7 @@
     letter-spacing: var(--token-type-eyebrow-tracking);
     line-height: 1.35;
     text-transform: uppercase;
-    color: var(--token-text-muted);
+    color: rgb(var(--token-muted-rgb) / 0.72);
   }
 
   .type-eyebrow--soft {

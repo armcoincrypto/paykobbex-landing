@@ -63,8 +63,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col font-sans`}
       >
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <Navbar />
-        <div className="flex-1">{children}</div>
+        <main id="main-content" className="flex-1 outline-none">
+          {children}
+        </main>
         <Footer />
         <div className="print:hidden">
           <Suspense fallback={null}>
