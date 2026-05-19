@@ -666,51 +666,161 @@
   }
 }
 
-.home-hero-trust {
+/* P4 — hero governance matrix (trust layer under hero) */
+.home-hero-governance {
   margin-top: var(--token-stack-3xl);
   padding: var(--token-stack-lg) var(--token-stack-md);
-  border-radius: var(--token-radius-md);
-  border: 1px solid rgb(var(--token-muted-rgb) / 0.12);
+  border-radius: var(--token-radius-lg);
+  border: 1px solid var(--token-glass-border);
   background: linear-gradient(
-    180deg,
-    rgb(9 13 22 / 0.55) 0%,
-    rgb(7 10 18 / 0.35) 100%
+    165deg,
+    rgb(11 17 28 / 0.82) 0%,
+    rgb(8 12 20 / 0.62) 52%,
+    rgb(6 9 16 / 0.48) 100%
   );
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04);
+  box-shadow:
+    var(--token-shadow-1),
+    inset 0 1px 0 var(--token-glass-highlight),
+    0 20px 48px -28px rgb(0 0 0 / 0.55);
+  backdrop-filter: blur(12px) saturate(1.08);
+  -webkit-backdrop-filter: blur(12px) saturate(1.08);
 }
 
 @media (min-width: 640px) {
-  .home-hero-trust {
+  .home-hero-governance {
     margin-top: 3.75rem;
     padding: var(--token-stack-xl) var(--token-stack-lg);
   }
 }
 
-.home-hero-trust-label,
-.home-hero-trust > p {
+.home-hero-governance__header {
+  max-width: 42rem;
+}
+
+.home-hero-governance__eyebrow {
   margin: 0;
-  color: rgb(var(--token-muted-rgb) / 0.55);
-  font-size: 0.6875rem;
+}
+
+.home-hero-governance__title {
+  margin: var(--token-stack-sm) 0 0;
+  max-width: 22ch;
+  font-size: clamp(1.0625rem, 0.95rem + 0.35vw, 1.3125rem);
   font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: rgb(var(--token-primary-rgb) / 0.94);
+  text-wrap: balance;
 }
 
-.home-hero-trust-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 0.55rem;
-  margin-top: var(--token-stack-md);
-  max-width: 56rem;
+.home-hero-governance__lead {
+  margin: var(--token-stack-sm) 0 0;
+  max-width: 48ch;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: rgb(var(--token-muted-rgb) / 0.68);
 }
 
-@media (min-width: 1024px) {
-  .home-hero-trust-chips {
-    gap: 0.55rem 0.65rem;
+@media (min-width: 640px) {
+  .home-hero-governance__lead {
+    font-size: 0.875rem;
+    line-height: 1.6;
   }
 }
 
-.home-hero .trust-chip,
+.home-hero-governance__matrix {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.625rem;
+  margin-top: var(--token-stack-lg);
+}
+
+@media (min-width: 640px) {
+  .home-hero-governance__matrix {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: var(--token-stack-xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-hero-governance__matrix {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.875rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .home-hero-governance__matrix {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+}
+
+.home-hero-governance__cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+  padding: 0.875rem 0.9375rem;
+  border-radius: var(--token-radius-md);
+  border: 1px solid rgb(var(--token-muted-rgb) / 0.14);
+  background: linear-gradient(
+    180deg,
+    rgb(12 18 28 / 0.72) 0%,
+    rgb(9 13 22 / 0.55) 100%
+  );
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.045);
+}
+
+.home-hero-governance__cell-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.home-hero-governance__status {
+  flex-shrink: 0;
+  width: 0.4375rem;
+  height: 0.4375rem;
+  border-radius: 50%;
+  background: rgb(var(--token-accent-rgb) / 0.88);
+  box-shadow: 0 0 0 3px rgb(var(--token-accent-rgb) / 0.14);
+}
+
+.home-hero-governance__cell:last-child .home-hero-governance__status {
+  background: rgb(var(--token-muted-rgb) / 0.55);
+  box-shadow: 0 0 0 3px rgb(var(--token-muted-rgb) / 0.12);
+}
+
+.home-hero-governance__bucket {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.35;
+  color: rgb(var(--token-accent-bright-rgb) / 0.72);
+}
+
+.home-hero-governance__cell:last-child .home-hero-governance__bucket {
+  color: rgb(var(--token-muted-rgb) / 0.62);
+}
+
+.home-hero-governance__principle {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: rgb(var(--token-primary-rgb) / 0.86);
+}
+
+@media (min-width: 1280px) {
+  .home-hero-governance__principle {
+    font-size: 0.75rem;
+    line-height: 1.42;
+  }
+}
+
 .home-hero-instrument-compact-review-pill {
   min-height: 1.75rem;
   padding: 0.35rem 0.75rem;
@@ -719,21 +829,6 @@
   font-size: 0.75rem;
   font-weight: 500;
   line-height: 1.3;
-}
-
-.home-hero .trust-chip {
-  background: rgb(11 15 24 / 0.65);
-  color: rgb(var(--token-primary-rgb) / 0.78);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-
-.home-hero .trust-chip:hover {
-  border-color: rgb(var(--token-accent-rgb) / 0.22);
-  color: rgb(var(--token-primary-rgb) / 0.92);
-  background: rgb(12 18 28 / 0.75);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
 }
 
 /* P3 — calm instrument rails in hero (no glow escalation on compact) */

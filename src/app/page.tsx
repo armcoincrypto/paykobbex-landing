@@ -35,13 +35,14 @@ export const metadata: Metadata = {
   },
 };
 
-const trustChips = [
-  "Verification precedes state mutation",
-  "Failures bounded — replay contained",
-  "Finance owns recognition semantics",
-  "Merchant approval required",
-  "No audit claims",
-];
+/** P4 — hero governance matrix (existing principles, grouped by concern). */
+const governancePrinciples = [
+  { bucket: "Verification", principle: "Verification precedes state mutation" },
+  { bucket: "Failure handling", principle: "Failures bounded — replay contained" },
+  { bucket: "Finance semantics", principle: "Finance owns recognition semantics" },
+  { bucket: "Merchant control", principle: "Merchant approval required" },
+  { bucket: "Claims boundary", principle: "No audit claims" },
+] as const;
 
 const faqItems: Array<{ q: string; a: string }> = [
   {
@@ -160,18 +161,48 @@ export default function HomePage() {
             </div>
             <HeroOperationalInstrumentCompact />
           </div>
-          <div className="home-hero-trust">
-            <p className="home-hero-trust-label type-eyebrow type-eyebrow--soft">
-              Production governance
-            </p>
-            <div className="home-hero-trust-chips" role="list">
-              {trustChips.map((label) => (
-                <span key={label} className="trust-chip ui-chip" role="listitem">
-                  {label}
-                </span>
+          <section
+            className="home-hero-governance"
+            aria-labelledby="home-governance-heading"
+          >
+            <header className="home-hero-governance__header">
+              <p className="home-hero-governance__eyebrow type-eyebrow type-eyebrow--soft">
+                Production governance
+              </p>
+              <h2
+                id="home-governance-heading"
+                className="home-hero-governance__title"
+              >
+                Operational production boundaries
+              </h2>
+              <p className="home-hero-governance__lead">
+                Grouped by reviewer concern—honest public positioning on this marketing
+                site, not audit or compliance certifications.
+              </p>
+            </header>
+            <div
+              className="home-hero-governance__matrix"
+              role="list"
+              aria-label="Production governance principles"
+            >
+              {governancePrinciples.map(({ bucket, principle }) => (
+                <article
+                  key={principle}
+                  className="home-hero-governance__cell"
+                  role="listitem"
+                >
+                  <div className="home-hero-governance__cell-head">
+                    <span
+                      className="home-hero-governance__status"
+                      aria-hidden="true"
+                    />
+                    <span className="home-hero-governance__bucket">{bucket}</span>
+                  </div>
+                  <p className="home-hero-governance__principle">{principle}</p>
+                </article>
               ))}
             </div>
-          </div>
+          </section>
         </Container>
       </Section>
 
