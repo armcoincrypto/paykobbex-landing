@@ -378,3 +378,105 @@
   pointer-events: none;
   background: linear-gradient(180deg, rgb(7 11 18 / 0.35), transparent);
 }
+
+/* P8 — mobile + tablet premium QA (homepage) */
+@media (max-width: 1023px) {
+  html,
+  body {
+    overflow-x: clip;
+  }
+}
+
+@media (max-width: 639px) {
+  .home-flow-bridge::before {
+    width: min(8rem, 52%);
+  }
+
+  .home-flow-cta--mid {
+    padding-top: var(--token-stack-lg);
+    padding-bottom: var(--token-stack-lg);
+  }
+
+  .home-flow-cta__panel {
+    padding: var(--token-stack-md) var(--token-stack-sm);
+  }
+
+  .home-flow-cta__title {
+    max-width: 100%;
+  }
+
+  .home-flow-cta__lead {
+    max-width: 100%;
+  }
+
+  .home-flow-cta__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .home-flow-cta__actions a[class*="inline-flex"],
+  .home-flow-cta__primary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .home-flow-cta__buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    min-width: 0;
+    gap: 0.5rem;
+  }
+
+  .home-flow-cta__buttons a[class*="inline-flex"] {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .home-buyer-contexts__card {
+    padding: var(--token-stack-md) var(--token-stack-sm);
+  }
+
+  .home-buyer-contexts__card-title {
+    font-size: 0.9375rem;
+  }
+
+  .home-integration-band .home-integration-column {
+    padding: 1.125rem 1rem;
+  }
+
+  .faq-card {
+    padding: 1rem 0.875rem;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .home-buyer-contexts__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--token-stack-md);
+  }
+
+  .home-flow-cta__panel {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .home-flow-cta__actions--final {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 1023px) {
+  .home-section-after-ops .type-stack-after-heading,
+  .home-section-after-ops ol {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .home-section-after-ops ol {
+    padding-left: 1.125rem;
+  }
+}
