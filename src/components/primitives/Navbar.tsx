@@ -1,84 +1,134 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { Link } from "@/components/primitives/link";
 import { Container } from "@/components/primitives/Container";
 import { cn } from "@/lib/cn";
 import type { ConversionEventName } from "@/lib/conversion-events";
 
-const nav: Array<{
+type NavItem = {
   href: string;
   label: string;
   conv?: ConversionEventName;
   tier?: "secondary";
-}> = [
-  { href: "/features", label: "Features" },
-  { href: "/docs", label: "Docs" },
-  { href: "/guides", label: "Guides" },
-  { href: "/developers", label: "Developers" },
-  { href: "/onboarding", label: "Onboarding", tier: "secondary" },
-  { href: "/security", label: "Security", tier: "secondary" },
-  { href: "/pricing", label: "Pricing", tier: "secondary" },
-  { href: "/use-cases", label: "Use cases", tier: "secondary" },
-  { href: "/contact#merchant-intake", label: "Contact", tier: "secondary" },
+};
+
+/** P6 — enterprise IA grouping (labels shown in mobile drawer only). */
+const navGroups: Array<{ id: string; label: string; items: NavItem[] }> = [
+  {
+    id: "product",
+    label: "Product",
+    items: [
+      { href: "/features", label: "Features" },
+      { href: "/use-cases", label: "Use cases", tier: "secondary" },
+    ],
+  },
+  {
+    id: "developers",
+    label: "Developers",
+    items: [
+      { href: "/docs", label: "Docs" },
+      { href: "/guides", label: "Guides" },
+      { href: "/developers", label: "Developers" },
+    ],
+  },
+  {
+    id: "trust",
+    label: "Trust",
+    items: [
+      { href: "/security", label: "Security", tier: "secondary" },
+      { href: "/onboarding", label: "Onboarding", tier: "secondary" },
+    ],
+  },
+  {
+    id: "commercial",
+    label: "Commercial",
+    items: [
+      { href: "/pricing", label: "Pricing", tier: "secondary" },
+      { href: "/contact#merchant-intake", label: "Contact", tier: "secondary" },
+    ],
+  },
 ];
+
+const merchantLogin: NavItem = {
+  href: "https://merchant.kobbex.com/",
+  label: "Merchant login",
+  conv: "merchant_login_click",
+  tier: "secondary",
+};
+
+function NavLink({
+  item,
+  className,
+  onNavigate,
+}: {
+  item: NavItem;
+  className?: string;
+  onNavigate?: () => void;
+}) {
+  return (
+    <Link
+      href={item.href}
+      className={cn(
+        "site-navbar__link no-underline decoration-transparent hover:decoration-transparent",
+        item.tier === "secondary" && "site-navbar__link--secondary",
+        className,
+      )}
+      muted
+      {...(item.conv ? { conv: item.conv } : {})}
+      {...(onNavigate ? { onClick: onNavigate } : {})}
+    >
+      {item.label}
+    </Link>
+  );
+}
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const close = () => setOpen(false);
 
   return (
-    <header className="site-navbar sticky top-0 z-50 border-b border-border-subtle/60 bg-canvas/82 shadow-[0_1px_0_0_rgb(255_255_255/0.025)] backdrop-blur-md supports-[backdrop-filter]:bg-canvas/72 print:hidden">
-      <Container className="flex h-14 items-center justify-between gap-4 sm:h-[3.75rem]">
-        <Link
-          href="/"
-          className="site-navbar__brand text-sm font-semibold tracking-tight text-primary no-underline transition-colors hover:text-accent"
-        >
+    <header className="site-navbar sticky top-0 z-50 print:hidden">
+      <Container className="site-navbar__bar">
+        <Link href="/" className="site-navbar__brand no-underline">
           Kobbopay
         </Link>
 
-        <nav className="site-navbar__nav hidden items-center lg:flex" aria-label="Primary">
-          {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "site-navbar__link text-[0.8125rem] no-underline decoration-transparent hover:decoration-transparent",
-                item.tier === "secondary" && "site-navbar__link--secondary",
-              )}
-              muted
-              {...(item.conv ? { conv: item.conv } : {})}
-            >
-              {item.label}
-            </Link>
+        <nav className="site-navbar__nav hidden lg:flex" aria-label="Primary">
+          {navGroups.map((group, groupIndex) => (
+            <Fragment key={group.id}>
+              {groupIndex > 0 ? (
+                <span className="site-navbar__divider" aria-hidden="true" />
+              ) : null}
+              <div className="site-navbar__group" role="group" aria-label={group.label}>
+                {group.items.map((item) => (
+                  <NavLink key={item.href} item={item} />
+                ))}
+              </div>
+            </Fragment>
           ))}
-          <Link
-            href="https://merchant.kobbex.com/"
-            className="site-navbar__link site-navbar__link--secondary text-[0.8125rem] no-underline"
-            muted
-            conv="merchant_login_click"
-          >
-            Merchant login
-          </Link>
+          <span className="site-navbar__divider site-navbar__divider--access" aria-hidden="true" />
+          <NavLink item={merchantLogin} className="site-navbar__link--merchant" />
         </nav>
 
-        <div className="site-navbar__actions flex items-center gap-2">
+        <div className="site-navbar__actions">
           <Link
             href="/contact#merchant-intake"
             variant="button-primary"
-            className="site-navbar__cta ui-control hidden text-sm no-underline lg:inline-flex"
+            className="site-navbar__cta ui-control hidden no-underline lg:inline-flex"
             conv="request_access_click"
           >
             Request access
           </Link>
           <button
             type="button"
-            className="inline-flex rounded-md border border-border-subtle p-2 text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-canvas lg:hidden"
+            className="site-navbar__menu-toggle lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen((v) => !v)}
           >
-            <span className="sr-only">Toggle menu</span>
-            <span aria-hidden className="text-lg leading-none">
+            <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
+            <span className="site-navbar__menu-icon" aria-hidden>
               {open ? "×" : "≡"}
             </span>
           </button>
@@ -87,43 +137,45 @@ export function Navbar() {
 
       <div
         id="mobile-nav"
-        className={cn(
-          "border-t border-border-subtle bg-canvas lg:hidden",
-          open ? "block" : "hidden",
-        )}
+        className={cn("site-navbar__drawer lg:hidden", open && "site-navbar__drawer--open")}
+        hidden={!open}
       >
-        <Container className="flex flex-col gap-1 py-3">
-          {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "min-h-11 rounded-md px-2 py-2.5 text-sm no-underline decoration-transparent hover:bg-surface-elevated/50 hover:decoration-transparent",
-                item.tier === "secondary" && "text-muted/80",
-              )}
-              muted
-              {...(item.conv ? { conv: item.conv } : {})}
-              onClick={() => setOpen(false)}
-            >
-              {item.label}
-            </Link>
+        <Container className="site-navbar__drawer-inner">
+          {navGroups.map((group) => (
+            <div key={group.id} className="site-navbar__drawer-group">
+              <p className="site-navbar__drawer-label">{group.label}</p>
+              <div className="site-navbar__drawer-links">
+                {group.items.map((item) => (
+                  <NavLink
+                    key={item.href}
+                    item={item}
+                    className="site-navbar__drawer-link"
+                    onNavigate={close}
+                  />
+                ))}
+              </div>
+            </div>
           ))}
-          <Link
-            href="https://merchant.kobbex.com/"
-            className="text-sm"
-            muted
-            conv="merchant_login_click"
-          >
-            Merchant login
-          </Link>
-          <Link
-            href="/contact#merchant-intake"
-            className="text-sm font-medium"
-            conv="request_access_click"
-            onClick={() => setOpen(false)}
-          >
-            Request access →
-          </Link>
+
+          <div className="site-navbar__drawer-access">
+            <p className="site-navbar__drawer-label">Access</p>
+            <div className="site-navbar__drawer-links">
+              <NavLink
+                item={merchantLogin}
+                className="site-navbar__drawer-link"
+                onNavigate={close}
+              />
+            </div>
+            <Link
+              href="/contact#merchant-intake"
+              variant="button-primary"
+              className="site-navbar__drawer-cta ui-control no-underline"
+              conv="request_access_click"
+              onClick={close}
+            >
+              Request access
+            </Link>
+          </div>
         </Container>
       </div>
     </header>
