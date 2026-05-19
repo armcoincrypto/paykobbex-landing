@@ -51,27 +51,31 @@ export function InfrastructureOperationsSection() {
     <Section
       id="how-infrastructure-operates"
       tone="default"
-      className="proof-section home-ops-follow home-ops-deep home-ops-story home-ops-journey home-ops-credibility home-ops-ecosystem"
+      className="proof-section home-ops-follow home-ops-deep home-ops-story home-ops-journey home-ops-credibility home-ops-ecosystem home-ops-premium"
     >
       <Container>
-        <p className="type-eyebrow">Operational systems</p>
-        <h2
-          id={headingId}
-          className="type-section-heading type-stack-after-eyebrow text-h2 font-semibold text-primary"
-        >
-          How infrastructure actually operates
-        </h2>
-        <p className="type-section-lead type-stack-after-heading">
-          Kobbopay is designed as visible infrastructure: explicit lifecycles, signed webhooks,
-          merchant review gates, and operational boundaries you can map to your own controls. The
-          visuals below are conceptual instrumentation — not live dashboards, metrics, or client
-          logos.
-        </p>
+        <header className="proof-section-header">
+          <p className="type-eyebrow">Operational systems</p>
+          <h2
+            id={headingId}
+            className="type-section-heading type-stack-after-eyebrow text-h2 font-semibold text-primary"
+          >
+            How infrastructure actually operates
+          </h2>
+          <p className="type-section-lead type-stack-after-heading">
+            Kobbopay is designed as visible infrastructure: explicit lifecycles, signed webhooks,
+            merchant review gates, and operational boundaries you can map to your own controls. The
+            visuals below are conceptual instrumentation — not live dashboards, metrics, or client
+            logos.
+          </p>
+        </header>
 
-        <OpsEnvironmentProgression className="type-stack-after-lead" />
-        <OpsEcosystemGuidance className="type-stack-after-heading" />
+        <div className="proof-section-intro">
+          <OpsEnvironmentProgression />
+          <OpsEcosystemGuidance />
+        </div>
 
-        <div className="type-stack-section-block proof-bento">
+        <div className="type-stack-section-block proof-bento proof-bento--premium">
           <article className="proof-bento-lifecycle ops-route--settlement ops-journey-emphasis--finance ops-governance-surface ops-ecosystem-surface">
             <VerificationFramePanel
               label="Lifecycle lane"
@@ -156,8 +160,8 @@ export function InfrastructureOperationsSection() {
           </article>
         </div>
 
-        <div className="proof-ops-split type-stack-section-block">
-          <div className="proof-editorial-rail ops-console-split-rail space-y-4">
+        <div className="proof-ops-split proof-ops-split--premium type-stack-section-block">
+          <div className="proof-editorial-rail proof-editorial-rail--premium ops-console-split-rail">
             {operations.map((op, i) => (
               <div key={op.title} data-ops-zone={op.zone}>
                 <p className="proof-workflow-index">{String(i + 1).padStart(2, "0")}</p>

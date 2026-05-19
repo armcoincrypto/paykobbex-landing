@@ -97,6 +97,14 @@
   --token-hero-glass-glow: 0 28px 56px -20px rgb(0 0 0 / 0.65);
   /* P4 — hero governance matrix */
   --token-governance-panel-border: rgb(var(--token-accent-rgb) / 0.1);
+  /* P5 — operational infrastructure section */
+  --token-ops-surface-radius: var(--token-radius-lg);
+  --token-ops-surface-border: rgb(var(--token-muted-rgb) / 0.14);
+  --token-ops-surface-bg: linear-gradient(
+    165deg,
+    rgb(11 17 28 / 0.78) 0%,
+    rgb(8 12 20 / 0.55) 100%
+  );
   /* UI systems — control symmetry (homepage) */
   --ui-control-height: 2.75rem;
   --ui-chip-height: 1.625rem;
