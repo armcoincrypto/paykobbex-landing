@@ -132,4 +132,17 @@
   }
 }
 
+/* P22.1 — institutional navbar motion */
+@keyframes site-navbar-drawer-in {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Reduced-motion overrides live in hero.css and proof.css (P13 scopes). */
