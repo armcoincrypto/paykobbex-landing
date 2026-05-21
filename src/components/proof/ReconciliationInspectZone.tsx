@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FocusEvent, type MouseEvent } from "react";
 import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
+import { isReconciliationStaticReadout } from "@/lib/inspect-static-readout";
 import { inspectStateFromNode, reconcileInspect } from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
 import type { ReactNode } from "react";
@@ -17,12 +18,14 @@ export function ReconciliationInspectZone({
   const [active, setActive] = useState(false);
   const { setInspect, clearInspect } = useInfrastructureInspect();
 
-  const engage = () => {
+  const engage = (event: MouseEvent | FocusEvent) => {
+    if (isReconciliationStaticReadout(event.target)) return;
     setActive(true);
     setInspect(inspectStateFromNode(reconcileInspect));
   };
 
-  const release = () => {
+  const release = (event: MouseEvent | FocusEvent) => {
+    if (isReconciliationStaticReadout(event.target)) return;
     setActive(false);
     clearInspect();
   };
