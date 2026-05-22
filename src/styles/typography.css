@@ -1,0 +1,51 @@
+/* P1 — Typography + spacing utilities (token-driven; no duplicate scales) */
+@layer components {
+  .type-eyebrow {
+    font-size: var(--token-type-eyebrow-size);
+    font-weight: var(--token-type-eyebrow-weight);
+    letter-spacing: var(--token-type-eyebrow-tracking);
+    line-height: 1.35;
+    text-transform: uppercase;
+    color: rgb(var(--token-muted-rgb) / 0.72);
+  }
+
+  .type-eyebrow--soft {
+    letter-spacing: 0.1em;
+    text-transform: none;
+    font-weight: 500;
+  }
+
+  .type-section-heading {
+    max-width: var(--token-type-heading-max);
+    text-wrap: balance;
+  }
+
+  .type-section-lead {
+    max-width: var(--token-type-prose-max);
+    font-size: var(--text-sm);
+    line-height: var(--text-body--line-height);
+    color: var(--token-text-muted);
+  }
+
+  @media (min-width: 640px) {
+    .type-section-lead {
+      font-size: var(--text-body);
+    }
+  }
+
+  .type-stack-after-eyebrow {
+    margin-top: var(--token-stack-md);
+  }
+
+  .type-stack-after-heading {
+    margin-top: var(--token-stack-lg);
+  }
+
+  .type-stack-after-lead {
+    margin-top: var(--token-stack-xl);
+  }
+
+  .type-stack-section-block {
+    margin-top: var(--token-stack-3xl);
+  }
+}

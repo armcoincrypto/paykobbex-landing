@@ -2,24 +2,22 @@ import { Container } from "@/components/primitives/Container";
 import { Link } from "@/components/primitives/link";
 import { Section } from "@/components/primitives/Section";
 import { VerificationFramePanel } from "@/components/proof/VerificationFramePanel";
-import { cn } from "@/lib/cn";
-
 /** Compact homepage bridge to /operations — no duplicate walkthrough content. */
 export function OperationalRealismEntry({ className }: { className?: string }) {
   return (
-    <Section id="operational-realism" tone="muted" className={cn("py-10 sm:py-14", className)}>
+    <Section id="operational-realism" tone="muted" className={className}>
       <Container className="max-w-content">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(260px,320px)] lg:items-center">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(260px,320px)] lg:items-center lg:gap-12">
           <div>
             <p className="ops-eyebrow">Operational realism</p>
-            <h2 className="mt-3 text-h2 font-semibold text-primary">
+            <h2 className="type-section-heading type-stack-after-eyebrow text-h2 font-semibold text-primary">
               How operations actually work
             </h2>
-            <p className="mt-3 max-w-xl text-sm leading-[1.65] text-muted sm:text-body">
+            <p className="type-section-lead type-stack-after-heading max-w-xl">
               Illustrative walkthroughs for lifecycles, webhook retries, reconciliation, review, and
               anonymized merchant workflows — practical and constrained, not marketing stories.
             </p>
-            <p className="mt-4 text-sm font-medium">
+            <p className="type-stack-after-lead text-sm font-medium">
               <Link href="/operations">View operational walkthroughs →</Link>
             </p>
           </div>

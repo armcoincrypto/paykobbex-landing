@@ -14,13 +14,11 @@ export function Card({
   return (
     <div
       className={cn(
-        "rounded-lg border border-[var(--token-glass-border)] bg-[var(--token-glass-bg)] p-5 shadow-card backdrop-blur-md sm:p-7",
-        "ring-1 ring-inset ring-[var(--token-glass-highlight)]",
-        "transition-[box-shadow,border-color,background-color] duration-[var(--token-motion-base)] ease-[var(--token-ease-out)] motion-reduce:transition-none",
-        interactive &&
-          "motion-safe:hover:border-[rgb(var(--token-accent-rgb)/0.22)] motion-safe:hover:bg-surface-elevated/88 motion-safe:hover:shadow-card-hover",
+        "ui-surface-card",
+        interactive && "ui-surface-card--interactive",
         className,
       )}
+      {...(interactive ? { tabIndex: 0 } : {})}
     >
       {children}
     </div>

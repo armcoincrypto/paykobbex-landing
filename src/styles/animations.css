@@ -1,0 +1,374 @@
+/* P13 — operational choreography (institutional, GPU-safe) */
+
+@keyframes ops-choreo-lifecycle-flow {
+  0% {
+    stroke-dashoffset: 100;
+    opacity: 0.35;
+  }
+  15% {
+    opacity: 0.75;
+  }
+  85% {
+    opacity: 0.75;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.35;
+  }
+}
+
+@keyframes ops-choreo-webhook-flow {
+  0% {
+    stroke-dashoffset: 48;
+    opacity: 0.32;
+  }
+  12% {
+    opacity: 0.72;
+  }
+  88% {
+    opacity: 0.72;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.32;
+  }
+}
+
+@keyframes ops-choreo-ambient-sweep {
+  0%,
+  100% {
+    background-position: 120% 0;
+    opacity: 0.85;
+  }
+  50% {
+    background-position: -20% 0;
+    opacity: 1;
+  }
+}
+
+@keyframes ops-choreo-marker-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 2px rgb(var(--token-accent-rgb) / 0.1);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 3px rgb(var(--token-accent-rgb) / 0.18);
+  }
+}
+
+@keyframes ops-choreo-review-glow {
+  0%,
+  100% {
+    border-color: rgb(var(--token-muted-rgb) / 0.16);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04);
+  }
+  50% {
+    border-color: rgb(var(--token-accent-rgb) / 0.22);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.06),
+      0 0 12px -4px rgb(var(--token-accent-rgb) / 0.12);
+  }
+}
+
+@keyframes ops-choreo-step-emphasis {
+  0%,
+  100% {
+    color: rgb(var(--token-primary-rgb) / 0.88);
+  }
+  50% {
+    color: rgb(var(--token-primary-rgb) / 0.98);
+  }
+}
+
+@keyframes ops-choreo-sep-nudge {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateX(1px);
+    opacity: 0.55;
+  }
+}
+
+@keyframes ops-choreo-env-rail {
+  0% {
+    stroke-dashoffset: 24;
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.35;
+  }
+}
+
+@keyframes ops-choreo-env-marker {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes ops-choreo-stage-ambient {
+  0%,
+  100% {
+    box-shadow: var(--token-surface-shadow-cell);
+  }
+  50% {
+    box-shadow:
+      var(--token-surface-shadow-cell),
+      0 4px 16px -8px rgb(var(--token-accent-rgb) / 0.08);
+  }
+}
+
+/* P23.2 — hero preview surface entrance (server-rendered, CSS-only) */
+@keyframes hero-preview-card-in {
+  from {
+    opacity: 0.5;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-preview-surface-in {
+  from {
+    opacity: 0.55;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* P23.2-FIX — perceptible preview pulses (still institutional, no JS) */
+@keyframes hero-preview-lifecycle-pulse {
+  0% {
+    stroke-dashoffset: 100;
+    opacity: 0.5;
+  }
+
+  45% {
+    stroke-dashoffset: 18;
+    opacity: 1;
+  }
+
+  100% {
+    stroke-dashoffset: 100;
+    opacity: 0.5;
+  }
+}
+
+@keyframes hero-preview-webhook-pulse {
+  0% {
+    stroke-dashoffset: 48;
+    opacity: 0.48;
+  }
+
+  45% {
+    stroke-dashoffset: 6;
+    opacity: 1;
+  }
+
+  100% {
+    stroke-dashoffset: 48;
+    opacity: 0.48;
+  }
+}
+
+@keyframes hero-preview-ambient-sweep {
+  0%,
+  100% {
+    background-position: 140% 0;
+    opacity: 0.65;
+  }
+
+  50% {
+    background-position: -40% 0;
+    opacity: 1;
+  }
+}
+
+@keyframes hero-preview-review-shimmer {
+  0%,
+  100% {
+    border-color: rgb(var(--token-muted-rgb) / 0.14);
+    background-color: rgb(4 7 12 / 0.2);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.03);
+  }
+
+  50% {
+    border-color: rgb(var(--token-accent-rgb) / 0.38);
+    background-color: rgb(var(--token-accent-rgb) / 0.1);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.07),
+      0 0 14px -6px rgb(var(--token-accent-rgb) / 0.2);
+  }
+}
+
+@keyframes diagram-reveal-in-home {
+  from {
+    opacity: 0.55;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* P23.4 — calmer homepage motion (orchestration / restraint) */
+@keyframes home-motion-rail-calm {
+  0% {
+    stroke-dashoffset: 100;
+    opacity: 0.38;
+  }
+
+  50% {
+    stroke-dashoffset: 22;
+    opacity: 0.58;
+  }
+
+  100% {
+    stroke-dashoffset: 100;
+    opacity: 0.38;
+  }
+}
+
+@keyframes home-motion-rail-calm-webhook {
+  0% {
+    stroke-dashoffset: 48;
+    opacity: 0.36;
+  }
+
+  50% {
+    stroke-dashoffset: 10;
+    opacity: 0.54;
+  }
+
+  100% {
+    stroke-dashoffset: 48;
+    opacity: 0.36;
+  }
+}
+
+@keyframes home-motion-editorial-in {
+  from {
+    opacity: 0.9;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes home-motion-diagram-in {
+  from {
+    opacity: 0.88;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes home-motion-ambient-calm {
+  0%,
+  100% {
+    background-position: 130% 0;
+    opacity: 0.45;
+  }
+
+  50% {
+    background-position: -30% 0;
+    opacity: 0.62;
+  }
+}
+
+/* P23.4-FIX — balanced visible rails (between P23.4 calm and P23.3 bright) */
+@keyframes home-motion-rail-balanced {
+  0% {
+    stroke-dashoffset: 100;
+  }
+
+  50% {
+    stroke-dashoffset: 20;
+  }
+
+  100% {
+    stroke-dashoffset: 100;
+  }
+}
+
+@keyframes home-motion-rail-balanced-webhook {
+  0% {
+    stroke-dashoffset: 48;
+  }
+
+  50% {
+    stroke-dashoffset: 8;
+  }
+
+  100% {
+    stroke-dashoffset: 48;
+  }
+}
+
+/* P23 — diagram reveal (CSS replaces Framer on DiagramReveal) */
+@keyframes diagram-reveal-in {
+  from {
+    transform: translateY(6px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes confirmation-depth-layer-in {
+  from {
+    opacity: 0.65;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* P22.1 — institutional navbar motion */
+@keyframes site-navbar-drawer-in {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced-motion overrides live in hero.css and proof.css (P13 scopes). */

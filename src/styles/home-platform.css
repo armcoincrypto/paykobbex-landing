@@ -1,0 +1,488 @@
+/* P19 — institutional homepage information architecture */
+
+/* P23 — defer below-fold layout/paint for homepage ops section */
+#how-infrastructure-operates {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1200px;
+}
+
+/* P24.4 — ops + homepage motion: see home-motion.css */
+
+.home-platform .home-infrastructure-plane__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* —— Tier system —— */
+
+.home-tier-primary {
+  position: relative;
+  z-index: 2;
+}
+
+.home-tier-architecture {
+  position: relative;
+  z-index: 1;
+}
+
+.home-tier-support {
+  position: relative;
+  z-index: 0;
+}
+
+.home-tier-annotation {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: rgb(var(--token-muted-rgb) / 0.55);
+}
+
+.home-tier-conversion {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hero governance → annotation tier inside platform narrative */
+.home-platform .home-hero-governance {
+  margin-top: var(--token-stack-2xl);
+  padding-top: var(--token-stack-lg);
+  border-top: 1px solid rgb(var(--token-muted-rgb) / 0.08);
+}
+
+.home-platform .home-hero-governance__header {
+  margin-bottom: var(--token-stack-md);
+}
+
+.home-platform .home-hero-governance__title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.home-platform .home-hero-governance__lead {
+  font-size: 0.8125rem;
+  max-width: 48ch;
+}
+
+.home-platform .home-hero-governance__matrix {
+  gap: 0.5rem;
+}
+
+.home-platform .home-hero-governance__cell {
+  padding: 0.5rem 0.6rem;
+  border-radius: var(--token-radius-sm);
+  border: 1px solid rgb(var(--token-muted-rgb) / 0.1);
+  background: rgb(8 12 20 / 0.35);
+  box-shadow: none;
+}
+
+.home-platform .home-hero-governance__principle {
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+/* —— Ops platform shell (dominant) —— */
+
+.home-platform-ops {
+  padding-top: var(--token-stack-xl);
+  padding-bottom: var(--token-stack-2xl);
+  background: linear-gradient(
+    180deg,
+    rgb(8 12 20 / 0.35) 0%,
+    rgb(6 9 16 / 0.15) 100%
+  );
+}
+
+.ops-platform {
+  display: flex;
+  flex-direction: column;
+  gap: var(--token-stack-2xl);
+  max-width: 72rem;
+  margin-inline: auto;
+}
+
+.ops-platform__thesis {
+  max-width: none;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.ops-platform__thesis .ops-editorial__pillars {
+  display: none;
+}
+
+.ops-platform__thesis .ops-editorial__boundary {
+  display: none;
+}
+
+.ops-tier-primary {
+  padding: calc(var(--token-surface-pad-panel-y) + 0.15rem)
+    calc(var(--token-surface-pad-panel-x) + 0.15rem);
+  border-radius: var(--token-surface-radius-panel);
+  border: 1px solid rgb(var(--token-accent-rgb) / 0.2);
+  background: linear-gradient(
+    165deg,
+    rgb(11 18 30 / 0.92) 0%,
+    rgb(8 12 22 / 0.78) 100%
+  );
+  box-shadow:
+    var(--token-surface-shadow-panel),
+    inset 0 1px 0 rgb(255 255 255 / 0.07),
+    0 24px 56px -40px rgb(0 0 0 / 0.55);
+}
+
+.ops-platform__control-label {
+  margin: 0 0 var(--token-stack-md);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgb(var(--token-accent-bright-rgb) / 0.55);
+}
+
+.home-platform-ops .ops-control-plane {
+  margin-top: 0;
+}
+
+.home-platform-ops .ops-control-plane__frame {
+  border-color: rgb(var(--token-accent-rgb) / 0.16);
+}
+
+/* Instrument clusters — secondary tier */
+
+.ops-platform__instruments {
+  display: flex;
+  flex-direction: column;
+  gap: var(--token-stack-lg);
+}
+
+.ops-platform__cluster {
+  padding: var(--token-stack-md) var(--token-stack-sm);
+  border-radius: var(--token-surface-radius-panel);
+  border: 1px solid rgb(var(--token-muted-rgb) / 0.12);
+  background: rgb(8 12 20 / 0.38);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.03);
+}
+
+.ops-platform__cluster-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-bottom: var(--token-stack-md);
+  padding-bottom: var(--token-stack-sm);
+  border-bottom: 1px solid rgb(var(--token-muted-rgb) / 0.08);
+}
+
+.ops-platform__cluster-index {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgb(var(--token-accent-bright-rgb) / 0.48);
+  padding-top: 0.15rem;
+}
+
+.ops-platform__cluster-title {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: rgb(var(--token-primary-rgb) / 0.9);
+}
+
+.ops-platform__cluster-meta {
+  margin: 0.2rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: rgb(var(--token-muted-rgb) / 0.52);
+}
+
+.ops-platform__cluster-grid {
+  display: grid;
+  gap: var(--token-stack-md);
+}
+
+.ops-platform__cluster-grid--settlement {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+  .ops-platform__cluster-grid--settlement {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    align-items: stretch;
+  }
+
+  .ops-platform__instruments {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "settlement settlement"
+      "transport governance";
+    gap: var(--token-stack-md);
+  }
+
+  .ops-platform__cluster--settlement {
+    grid-area: settlement;
+  }
+
+  .ops-platform__cluster--transport {
+    grid-area: transport;
+  }
+
+  .ops-platform__cluster--governance {
+    grid-area: governance;
+  }
+}
+
+/* De-emphasize nested instrument frames */
+
+.home-platform-ops .vf-frame--tier-secondary {
+  border-color: rgb(var(--token-muted-rgb) / 0.12);
+  box-shadow: none;
+  background: transparent;
+}
+
+.home-platform-ops .vf-frame--tier-secondary .vf-frame-body {
+  padding: 0.65rem 0.55rem 0.75rem;
+  min-height: 0;
+  background: transparent;
+}
+
+.home-platform-ops .vf-frame--tier-secondary .vf-frame-corner {
+  opacity: 0.35;
+}
+
+.home-platform-ops .vf-frame--tier-secondary .vf-frame-rail span:last-child {
+  display: none;
+}
+
+.home-platform-ops .proof-bento-instrument--state-engine,
+.home-platform-ops .proof-bento-instrument--approval {
+  border-width: 1px;
+  box-shadow: none;
+}
+
+.home-platform-ops .ops-state-engine-legend.ops-tier-annotation {
+  margin-top: 0.55rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed rgb(var(--token-muted-rgb) / 0.1);
+}
+
+.home-platform-ops .ops-state-engine-legend__grid {
+  gap: 0.35rem 0.75rem;
+}
+
+.home-platform-ops .ops-state-engine-legend__grid dt {
+  font-size: 0.6875rem;
+}
+
+.home-platform-ops .ops-state-engine-legend__grid dd {
+  font-size: 0.6875rem;
+}
+
+/* Support band — tertiary density */
+
+.ops-platform__support {
+  padding: var(--token-stack-lg) var(--token-stack-md);
+  border-radius: var(--token-surface-radius-panel);
+  border: 1px solid rgb(var(--token-muted-rgb) / 0.1);
+  background: rgb(7 10 18 / 0.42);
+}
+
+.ops-platform__support-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-bottom: var(--token-stack-lg);
+}
+
+.ops-platform__support-index {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: rgb(var(--token-muted-rgb) / 0.42);
+}
+
+.ops-platform__support-title {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: rgb(var(--token-primary-rgb) / 0.88);
+}
+
+.ops-platform__support-meta {
+  margin: 0.2rem 0 0;
+  font-size: 0.75rem;
+  color: rgb(var(--token-muted-rgb) / 0.52);
+}
+
+.home-platform-ops .ops-architecture-system {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.home-platform-ops .ops-principles-matrix--embedded {
+  margin-bottom: var(--token-stack-lg);
+}
+
+.home-platform-ops .ops-principles-matrix--embedded .ops-principles-matrix__card {
+  min-height: 7.5rem;
+  padding: 0.55rem 0.6rem;
+  box-shadow: none;
+}
+
+.home-platform-ops .ops-principles-matrix--embedded .ops-principles-matrix__card-body {
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.ops-platform__boundary {
+  margin-top: var(--token-stack-md);
+}
+
+.home-platform-ops .ops-architecture-system__boundary,
+.ops-platform__boundary .verify-boundary--premium {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
+.ops-platform__rails-note {
+  margin: var(--token-stack-md) 0 0;
+  font-size: 0.75rem;
+  color: rgb(var(--token-muted-rgb) / 0.55);
+}
+
+.ops-platform__disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  margin: 0;
+  max-width: 52ch;
+}
+
+.ops-platform__disclaimer-led {
+  flex-shrink: 0;
+  width: 0.375rem;
+  height: 0.375rem;
+  margin-top: 0.35rem;
+  border-radius: 50%;
+  background: rgb(var(--token-muted-rgb) / 0.4);
+}
+
+/* Remove old split / bento chrome competing with platform */
+
+.home-platform-ops .proof-ops-split--premium,
+.home-platform-ops .proof-bento--premium {
+  display: none;
+}
+
+.home-platform-ops .proof-section-header {
+  border-bottom: none;
+}
+
+/* —— Conversion rail (fit check) —— */
+
+.home-platform__conversion {
+  margin-top: calc(-1 * var(--token-stack-md));
+  padding-top: 0;
+  padding-bottom: var(--token-stack-xl);
+  background: transparent;
+  border-top: none;
+}
+
+.home-platform__conversion .ops-fit-check__panel {
+  max-width: 52rem;
+  margin-inline: auto;
+}
+
+/* —— Support sections below platform —— */
+
+.home-tier-support.home-flow-step,
+.home-tier-support.home-buyer-contexts,
+.home-tier-support.home-integration-band,
+.home-tier-support#faq {
+  padding-top: var(--token-stack-xl);
+  padding-bottom: var(--token-stack-xl);
+}
+
+.home-tier-support .type-section-heading,
+.home-tier-support h2.text-h2 {
+  font-size: clamp(1.25rem, 1.1rem + 0.35vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.home-tier-support .type-section-lead {
+  font-size: 0.9375rem;
+  max-width: 44ch;
+  color: rgb(var(--token-muted-rgb) / 0.68);
+}
+
+.home-tier-support .home-buyer-contexts__card,
+.home-tier-support .faq-card,
+.home-tier-support .home-integration-column {
+  border-radius: var(--token-radius-md);
+  border: 1px solid rgb(var(--token-muted-rgb) / 0.12);
+  background: rgb(8 12 20 / 0.35);
+  box-shadow: none;
+}
+
+.home-tier-support .home-buyer-contexts__card {
+  padding: var(--token-stack-md);
+}
+
+.home-tier-support .faq-card {
+  padding: var(--token-stack-md) var(--token-stack-md);
+}
+
+.home-tier-support .faq-card:hover {
+  box-shadow: none;
+  border-color: rgb(var(--token-muted-rgb) / 0.16);
+}
+
+.home-tier-support .home-buyer-contexts__grid {
+  gap: var(--token-stack-md);
+}
+
+/* How it works — bridge from platform */
+
+.home-platform .home-flow-step--how {
+  border-top: 1px solid rgb(var(--token-muted-rgb) / 0.1);
+}
+
+.home-platform .home-flow-step--how::before {
+  opacity: 0.35;
+}
+
+/* Final CTA — secondary conversion */
+
+.home-tier-conversion-secondary.home-flow-cta--final {
+  padding-top: var(--token-stack-lg);
+}
+
+.home-tier-conversion-secondary .home-flow-cta__panel--final {
+  max-width: 44rem;
+  border-color: rgb(var(--token-muted-rgb) / 0.14);
+  background: rgb(8 12 20 / 0.45);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04);
+}
+
+.home-tier-conversion-secondary .home-flow-cta__title {
+  font-size: clamp(1.25rem, 1.1rem + 0.35vw, 1.5rem);
+}
+
+@media (max-width: 1023px) {
+  .ops-platform__cluster-grid--settlement {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-tier-support .faq-card {
+    transition: none;
+  }
+}

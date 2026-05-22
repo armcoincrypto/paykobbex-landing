@@ -111,10 +111,11 @@ export default function OnboardingPage() {
     <>
       <JsonLd id="ld-json-onboarding-faq" data={faqJson} />
 
-      <Section tone="default" className="ops-page pt-10 sm:pt-16">
+      <Section tone="default" className="ops-page ops-page-hero-band pt-10 sm:pt-16">
         <Container className="max-w-content">
           <div className="ops-page-instrument-grid">
             <OperationalPageHeader
+              className="ops-page-header--hero"
               eyebrow="Merchants"
               title="Merchant onboarding — what to expect"
               lead={
@@ -193,6 +194,17 @@ export default function OnboardingPage() {
               </div>
             ))}
           </dl>
+          <p className="ops-page-footer-links">
+            <Link href="/contact#merchant-intake" conv="request_access_click">
+              Request access
+            </Link>
+            {" · "}
+            <Link href="/docs">Docs</Link>
+            {" · "}
+            <Link href="/operations">Operations</Link>
+            {" · "}
+            <Link href="/security">Security</Link>
+          </p>
         </Container>
       </Section>
     </>

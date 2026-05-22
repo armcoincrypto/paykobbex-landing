@@ -1,0 +1,280 @@
+/* Semantic tokens — raw values in :root, mapped into Tailwind @theme (no cycles). */
+:root {
+  --token-canvas: #03060c;
+  --token-surface: #070b14;
+  --token-surface-elevated: #0c121d;
+  --token-border-subtle: #1a2538;
+  --token-border-strong: #2a3a52;
+  --token-text-primary: #e8ecf4;
+  --token-text-muted: #8b95a8;
+  --token-text-inverse: #041018;
+  --token-accent: #22d3ee;
+  --token-accent-bright: #5eead4;
+  --token-accent-hover: #06b6d4;
+  --token-accent-rgb: 34 211 238;
+  --token-accent-bright-rgb: 94 234 212;
+  --token-focus-ring: #67e8f9;
+  --token-danger: #f87171;
+  --token-warning: #fbbf24;
+  --token-warning-fg: #fde68a;
+  --token-warning-muted: #422006;
+  --token-success: #34d399;
+  --token-success-fg: #a7f3d0;
+  --token-success-muted: #064e3b;
+  --token-glass-bg: rgb(11 17 28 / 0.78);
+  --token-glass-border: rgb(148 163 184 / 0.14);
+  --token-glass-highlight: rgb(255 255 255 / 0.055);
+  --token-glass-edge: rgb(var(--token-accent-rgb) / 0.08);
+  --token-code-panel: #060a12;
+  --token-radius-sm: 6px;
+  --token-radius-md: 12px;
+  --token-radius-lg: 16px;
+  --token-shadow-1: 0 1px 2px rgb(0 0 0 / 0.5);
+  --token-shadow-2: 0 12px 32px rgb(0 0 0 / 0.44);
+  --token-line-subtle: rgb(94 234 212 / 0.05);
+  --token-motion-hover: 120ms;
+  --token-motion-press: 100ms;
+  --token-motion-fast: 140ms;
+  --token-motion-base: 200ms;
+  --token-motion-slow: 280ms;
+  --token-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --token-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  /* P26.2B — operational rail instrumentation */
+  --token-ops-rail-base: rgb(var(--token-accent-rgb) / 0.4);
+  --token-ops-rail-depth: rgb(var(--token-accent-rgb) / 0.14);
+  --token-ops-rail-branch: rgb(var(--token-accent-rgb) / 0.28);
+  --token-ops-rail-pulse: rgb(var(--token-accent-bright-rgb) / 0.78);
+  --token-ops-rail-glow: rgb(var(--token-accent-rgb) / 0.22);
+  --token-ops-rail-pulse-duration: 2.75s;
+  --token-ops-webhook-pulse-duration: 2.5s;
+  /* P26.4 — settlement topology routes */
+  --ops-route-ingress: 34 211 238;
+  --ops-route-verify: 94 234 212;
+  --ops-route-settlement: 45 212 191;
+  --ops-route-reconcile: 180 140 60;
+  --ops-route-egress: 56 189 248;
+  --token-ops-transport-duration: 3.25s;
+  /* P13 — institutional choreography (slower than transport) */
+  --token-ops-choreo-duration: 4.75s;
+  --token-ops-choreo-duration-slow: 7.5s;
+  --token-ops-choreo-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  /* P23.4 — homepage motion rhythm (CSS-only, editorial calm) */
+  --token-home-motion-editorial-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --token-home-motion-entrance: 0.72s;
+  --token-home-motion-stagger: 0.06s;
+  --token-home-motion-rail: 6.5s;
+  --token-home-motion-rail-slow: 7.25s;
+  --token-home-motion-ambient: 14s;
+  /* P26.2C — instrument presence + layout balance */
+  --token-ops-instrument-min-h: 7.75rem;
+  --token-ops-section-gap: 2.75rem;
+  --token-shadow-card:
+    var(--token-shadow-1), 0 18px 44px -32px rgb(0 0 0 / 0.62),
+    0 0 0 1px var(--token-glass-edge), inset 0 1px 0 var(--token-glass-highlight);
+  --token-shadow-card-hover:
+    var(--token-shadow-1), 0 22px 48px -28px rgb(var(--token-accent-rgb) / 0.12),
+    0 0 0 1px rgb(var(--token-accent-rgb) / 0.14),
+    inset 0 1px 0 rgb(255 255 255 / 0.07);
+  --token-focus-offset: 2px;
+  --token-width-content: 72rem;
+  --token-muted-rgb: 139 149 168;
+  --token-primary-rgb: 232 236 244;
+  /* P1 — vertical section rhythm */
+  --token-section-tight: 3.25rem;
+  --token-section-default: 5rem;
+  --token-section-loose: 6.5rem;
+  --token-stack-xs: 0.5rem;
+  --token-stack-sm: 0.75rem;
+  --token-stack-md: 1rem;
+  --token-stack-lg: 1.5rem;
+  --token-stack-xl: 2rem;
+  --token-stack-2xl: 2.5rem;
+  --token-stack-3xl: 3rem;
+  /* P1 — typography rhythm */
+  --token-type-eyebrow-size: 0.6875rem;
+  --token-type-eyebrow-tracking: 0.14em;
+  --token-type-eyebrow-weight: 600;
+  --token-type-prose-max: 42rem;
+  --token-type-copy-max: 36ch;
+  --token-type-heading-max: 30ch;
+  /* P3 / P3.1 — hero premiumization */
+  --token-hero-display-size: clamp(2.5rem, 1.7rem + 2.85vw, 3.625rem);
+  --token-hero-display-lh: 1.06;
+  --token-hero-display-tracking: -0.038em;
+  --token-hero-lead-max: 42ch;
+  --token-hero-instrument-max: 38rem;
+  --token-hero-instrument-stack-gap: 1.125rem;
+  --token-hero-instrument-section-pad: 1rem;
+  /* P14 — hero product preview typography */
+  --token-hero-preview-title-size: 1.0625rem;
+  --token-hero-preview-body-size: 0.8125rem;
+  --token-hero-preview-meta-size: 0.6875rem;
+  /* P16 — operational systems editorial */
+  --token-ops-editorial-title: clamp(1.75rem, 1.35rem + 1.1vw, 2.375rem);
+  --token-ops-editorial-lead-max: 48ch;
+  --token-ops-editorial-rail-width: 11.5rem;
+  /* P17 — operational state engine */
+  --token-ops-state-engine-title: clamp(0.8125rem, 0.78rem + 0.12vw, 0.9375rem);
+  --token-ops-state-chamber-min: 4.75rem;
+  --token-ops-pipeline-chamber-gap: 0.5rem;
+  /* P17.1 — settlement intelligence */
+  --token-ops-settlement-topology-min: 8.5rem;
+  /* P18 — operational architecture system */
+  --token-ops-principles-card-min-h: 9.5rem;
+  --token-ops-fit-check-max: 52rem;
+  --token-hero-accent-end: 0.58;
+  /* P22.5 — private institutional access console */
+  /* P24.9 / P25 — header vertical rhythm + premium surface */
+  --token-nav-height: 4.375rem;
+  --token-nav-height-sm: 4.625rem;
+  --token-nav-blur: 18px;
+  --token-nav-surface-top: rgb(3 5 12 / 0.99);
+  --token-nav-surface-mid: rgb(6 9 18 / 0.94);
+  --token-nav-surface-bottom: rgb(2 3 8 / 0.98);
+  --token-nav-champagne: rgb(236 228 210 / 0.16);
+  --token-nav-champagne-line: rgb(236 228 210 / 0.2);
+  --token-nav-console-pad-x: 0.125rem;
+  --token-nav-console-pad-y: 0.25rem;
+  --token-nav-brand-seam: rgb(255 255 255 / 0.035);
+  --token-nav-cta-shadow: 0 10px 28px -18px rgb(0 0 0 / 0.65), 0 1px 0 rgb(255 255 255 / 0.06);
+  --token-nav-more-panel-bg: rgb(5 8 16 / 0.98);
+  --token-nav-more-panel-border: rgb(255 255 255 / 0.07);
+  --token-nav-cta-border: rgb(236 228 210 / 0.16);
+  --token-nav-cta-bg: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 0.11) 0%,
+    rgb(255 255 255 / 0.05) 48%,
+    rgb(10 14 24 / 0.42) 100%
+  );
+  --token-nav-cta-bg-hover: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 0.13) 0%,
+    rgb(255 255 255 / 0.06) 48%,
+    rgb(12 17 28 / 0.5) 100%
+  );
+  --token-brand-mark-plate: rgb(4 7 14 / 1);
+  --token-brand-mark-plate-stroke: rgb(236 228 210 / 0.1);
+  --token-brand-mark-corridor: rgb(236 228 210 / 0.12);
+  --token-brand-mark-k: rgb(236 240 248 / 0.96);
+  --token-brand-mark-k-hover: rgb(255 255 255 / 1);
+  /* P10 — premium surface / card symmetry system */
+  --token-surface-radius-panel: var(--token-radius-lg);
+  --token-surface-radius-cell: var(--token-radius-md);
+  --token-surface-border: rgb(var(--token-muted-rgb) / 0.14);
+  --token-surface-border-accent: rgb(var(--token-accent-rgb) / 0.14);
+  --token-surface-border-instrument: rgb(var(--token-accent-rgb) / 0.18);
+  --token-surface-bg-panel: linear-gradient(
+    165deg,
+    rgb(11 17 28 / 0.84) 0%,
+    rgb(8 12 20 / 0.64) 52%,
+    rgb(7 10 18 / 0.5) 100%
+  );
+  --token-surface-bg-cell: linear-gradient(
+    180deg,
+    rgb(12 18 28 / 0.74) 0%,
+    rgb(9 13 22 / 0.58) 100%
+  );
+  --token-surface-bg-instrument: linear-gradient(
+    165deg,
+    rgb(13 20 32 / 0.9) 0%,
+    rgb(9 12 20 / 0.76) 48%,
+    rgb(7 9 16 / 0.7) 100%
+  );
+  --token-surface-bg-final: linear-gradient(
+    165deg,
+    rgb(12 20 34 / 0.9) 0%,
+    rgb(8 12 22 / 0.74) 48%,
+    rgb(6 9 16 / 0.64) 100%
+  );
+  --token-surface-shadow-panel:
+    var(--token-shadow-1), inset 0 1px 0 var(--token-glass-highlight),
+    0 20px 48px -32px rgb(0 0 0 / 0.52);
+  --token-surface-shadow-cell: inset 0 1px 0 rgb(255 255 255 / 0.045);
+  --token-surface-shadow-instrument:
+    var(--token-surface-shadow-panel), 0 24px 52px -28px rgb(0 0 0 / 0.58);
+  --token-surface-pad-panel-y: 1.375rem;
+  --token-surface-pad-panel-x: 1.25rem;
+  --token-surface-pad-cell-y: 0.9375rem;
+  --token-surface-pad-cell-x: 1rem;
+  --token-surface-grid-gap: 0.75rem;
+  --token-surface-grid-gap-lg: 1rem;
+  --token-surface-cell-min-h: 6.25rem;
+  --token-surface-label-size: 0.625rem;
+  --token-surface-label-tracking: 0.1em;
+  /* P5 — operational infrastructure section (aliases) */
+  --token-ops-surface-radius: var(--token-surface-radius-panel);
+  --token-ops-surface-border: var(--token-surface-border);
+  --token-ops-surface-bg: var(--token-surface-bg-panel);
+  --token-hero-glass-border: var(--token-surface-border-instrument);
+  --token-hero-glass-glow: 0 24px 52px -28px rgb(0 0 0 / 0.58);
+  --token-governance-panel-border: var(--token-surface-border-accent);
+  /* UI systems — control symmetry (homepage) */
+  --ui-control-height: 2.75rem;
+  --ui-chip-height: 1.625rem;
+  --ui-chip-pad-x: 0.625rem;
+  --ui-dot-size: 0.375rem;
+  --ui-marker-size: 0.4375rem;
+  --ui-radius-control: var(--token-radius-sm);
+  --ui-radius-card: var(--token-radius-md);
+  --ui-radius-pill: 9999px;
+  --ui-border: rgb(148 163 184 / 0.12);
+  --ui-border-subtle: rgb(148 163 184 / 0.08);
+  --ui-pad-card: 1.375rem;
+  --ui-stack-gap: 1rem;
+  --ui-label-gap: 0.625rem;
+  --ui-instrument-diagram-min-h: 3.25rem;
+  --ui-instrument-review-min-h: var(--ui-chip-height);
+}
+
+@theme inline {
+  --color-canvas: var(--token-canvas);
+  --color-surface: var(--token-surface);
+  --color-surface-elevated: var(--token-surface-elevated);
+  --color-border-subtle: var(--token-border-subtle);
+  --color-border-strong: var(--token-border-strong);
+  --color-primary: var(--token-text-primary);
+  --color-muted: var(--token-text-muted);
+  --color-inverse: var(--token-text-inverse);
+  --color-accent: var(--token-accent);
+  --color-accent-hover: var(--token-accent-hover);
+  --color-focus: var(--token-focus-ring);
+  --color-danger: var(--token-danger);
+  --color-warning: var(--token-warning);
+  --color-success: var(--token-success);
+  --color-code-panel: var(--token-code-panel);
+
+  --radius-sm: var(--token-radius-sm);
+  --radius-md: var(--token-radius-md);
+
+  --shadow-elev-1: var(--token-shadow-1);
+  --shadow-elev-2: var(--token-shadow-2);
+  --shadow-card: var(--token-shadow-card);
+  --shadow-card-hover: var(--token-shadow-card-hover);
+
+  --radius-lg: var(--token-radius-lg);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --width-content: var(--token-width-content);
+
+  --spacing-section-tight: var(--token-section-tight);
+  --spacing-section-default: var(--token-section-default);
+  --spacing-section-loose: var(--token-section-loose);
+
+  --text-display: clamp(2.25rem, 1.45rem + 2.5vw, 3.25rem);
+  --text-display--line-height: 1.1;
+  --text-h1: clamp(1.9375rem, 1.4rem + 1.5vw, 2.5rem);
+  --text-h1--line-height: 1.14;
+  --text-h2: clamp(1.375rem, 1.2rem + 0.5vw, 1.625rem);
+  --text-h2--line-height: 1.32;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h3: 1.1875rem;
+  --text-h3--line-height: 1.38;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.65;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.58;
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.5;
+}

@@ -5,6 +5,7 @@ import { ConfirmationDepthStack } from "@/components/proof/ConfirmationDepthStac
 import { ReviewPipelineInstrument } from "@/components/operational/ReviewPipelineInstrument";
 import { SecurityBoundaryInstrument } from "@/components/operational/SecurityBoundaryInstrument";
 import { Container } from "@/components/primitives/Container";
+import { CTAGroup } from "@/components/primitives/CTAGroup";
 import { Link } from "@/components/primitives/link";
 import { Section } from "@/components/primitives/Section";
 import { OperationalPageHeader } from "@/components/operational/OperationalPageHeader";
@@ -93,7 +94,21 @@ export default function FeaturesPage() {
                 selected rails where enabled.
               </>
             }
-          />
+          >
+            <CTAGroup className="mt-6">
+              <Link href="/docs" variant="button-primary" className="no-underline">
+                Read integration docs
+              </Link>
+              <Link
+                href="/contact#merchant-intake"
+                variant="button-secondary"
+                className="no-underline"
+                conv="request_access_click"
+              >
+                Request access
+              </Link>
+            </CTAGroup>
+          </OperationalPageHeader>
         </Container>
       </Section>
 
@@ -119,7 +134,7 @@ export default function FeaturesPage() {
               </article>
             ))}
           </div>
-          <p className="mt-12 text-sm text-muted">
+          <p className="ops-page-footer-links">
             See also: <Link href="/docs">Docs</Link>
             {" · "}
             <Link href="/guides">Guides</Link>

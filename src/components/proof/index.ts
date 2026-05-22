@@ -2,6 +2,7 @@ export { ConfirmationDepthStack } from "@/components/proof/ConfirmationDepthStac
 export { HeroOperationalInstrument } from "@/components/proof/HeroOperationalInstrument";
 export { HowTeamsOperateSection } from "@/components/proof/HowTeamsOperateSection";
 export { InfrastructureOperationsSection } from "@/components/proof/InfrastructureOperationsSection";
+export { OperationalPrinciplesMatrix } from "@/components/proof/OperationalPrinciplesMatrix";
 export { LifecycleLaneInstrument } from "@/components/proof/LifecycleLaneInstrument";
 export { MerchantReviewPipeline } from "@/components/proof/MerchantReviewPipeline";
 export { VerificationFramePanel } from "@/components/proof/VerificationFramePanel";

@@ -1,0 +1,48 @@
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  body {
+    @apply bg-canvas text-primary antialiased;
+    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+    text-rendering: optimizeLegibility;
+    background-image:
+      radial-gradient(120% 80% at 50% -30%, rgb(var(--token-accent-rgb) / 0.06), transparent 55%),
+      radial-gradient(90% 60% at 100% 0%, rgb(var(--token-accent-bright-rgb) / 0.04), transparent 45%);
+    background-attachment: fixed;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body {
+      background-image: none;
+    }
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: none;
+  }
+
+  h1 {
+    letter-spacing: -0.032em;
+    line-height: var(--text-display--line-height, 1.1);
+  }
+
+  h2 {
+    letter-spacing: var(--text-h2--letter-spacing, -0.02em);
+    line-height: var(--text-h2--line-height, 1.32);
+  }
+
+  h3 {
+    letter-spacing: -0.015em;
+    line-height: var(--text-h3--line-height, 1.38);
+  }
+}

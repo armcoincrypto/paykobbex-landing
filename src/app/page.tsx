@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { HeroBackdrop } from "@/components/landing/HeroBackdrop";
 import { HomeInfrastructurePlane } from "@/components/landing/HomeInfrastructurePlane";
 import { ArchitectureDiagram } from "@/components/diagrams/ArchitectureDiagram";
@@ -8,9 +9,25 @@ import { CTAGroup } from "@/components/primitives/CTAGroup";
 import { Link } from "@/components/primitives/link";
 import { Section } from "@/components/primitives/Section";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { HeroOperationalInstrument, InfrastructureOperationsSection } from "@/components/proof";
+import { HeroOperationalInstrumentPreview } from "@/components/landing/HeroOperationalInstrumentPreview";
 import { OperationalRealismEntry } from "@/components/realism";
+
+const InfrastructureOperationsSection = dynamic(
+  () =>
+    import("@/components/proof/InfrastructureOperationsSection").then(
+      (mod) => mod.InfrastructureOperationsSection,
+    ),
+  { ssr: true },
+);
+import { MERCHANT_JOURNEY_FLOWS } from "@/lib/operational-realism";
 import { OG_IMAGES, OG_IMAGE, SITE_URL } from "@/lib/site";
+
+/** P7 — homepage buyer contexts (from existing illustrative flows, not case studies). */
+const homeBuyerContexts = MERCHANT_JOURNEY_FLOWS.slice(0, 4).map((flow) => ({
+  id: flow.id,
+  title: flow.title.replace(/\s*\(illustrative\)\s*/i, ""),
+  summary: flow.summary,
+}));
 
 export const metadata: Metadata = {
   title: "B2B crypto payment infrastructure",
@@ -34,13 +51,14 @@ export const metadata: Metadata = {
   },
 };
 
-const trustChips = [
-  "Verification precedes state mutation",
-  "Failures bounded — replay contained",
-  "Finance owns recognition semantics",
-  "Merchant approval required",
-  "No license or audit claims on this site",
-];
+/** P4 — hero governance matrix (existing principles, grouped by concern). */
+const governancePrinciples = [
+  { bucket: "Verification", principle: "Verification precedes state mutation" },
+  { bucket: "Failure handling", principle: "Failures bounded — replay contained" },
+  { bucket: "Finance semantics", principle: "Finance owns recognition semantics" },
+  { bucket: "Merchant control", principle: "Merchant approval required" },
+  { bucket: "Claims boundary", principle: "No audit claims" },
+] as const;
 
 const faqItems: Array<{ q: string; a: string }> = [
   {
@@ -106,95 +124,178 @@ export default function HomePage() {
       <JsonLd id="ld-json-faq" data={faqJson} />
       <JsonLd id="ld-json-app" data={appJson} />
 
-      <HomeInfrastructurePlane>
+      <HomeInfrastructurePlane className="home-platform home-platform--motion">
       <Section
         id="hero"
         tone="default"
-        className="home-hero home-hero--dominant home-section-bridge-out home-ops-story-start relative overflow-hidden pb-12 pt-12 sm:pb-14 sm:pt-[5.25rem]"
+        className="home-hero home-hero--dominant home-hero--refined home-hero--premium home-section-bridge-out home-ops-story-start relative overflow-hidden pb-16 pt-16 sm:pb-20 sm:pt-20 lg:pb-24 lg:pt-[6.5rem]"
       >
         <HeroBackdrop />
         <Container className="relative z-10">
           <div className="home-hero-grid">
             <div className="home-hero-copy">
-              <p className="home-hero-eyebrow text-xs font-semibold uppercase tracking-[0.24em]">
+              <p className="home-hero-eyebrow type-eyebrow">
                 B2B crypto payments
               </p>
-              <h1 className="home-hero-title mt-4 text-balance text-display font-semibold text-primary sm:mt-5">
+              <h1 className="home-hero-title type-stack-after-eyebrow text-balance text-display font-semibold text-primary">
                 <span className="home-hero-title-accent">API-first</span> crypto payment{" "}
                 <span className="home-hero-title-accent">infrastructure</span> for serious merchants
               </h1>
-              <p className="home-hero-lead mt-4 text-body sm:mt-5">
+              <p className="home-hero-lead type-stack-after-heading">
                 Kobbopay is API-first B2B crypto payment infrastructure with signed webhooks,
                 explicit payment lifecycles, and a merchant portal for operations — after merchant
                 approval, on selected rails where enabled.
               </p>
-              <div className="ops-console-cta-strip ops-gate-cta">
-                <span className="ops-console-routing" aria-hidden="true">
-                  GATE · ACCESS
-                </span>
-                <CTAGroup className="home-hero-cta">
-                  <Link
-                    href="/contact#merchant-intake"
-                    variant="button-primary"
-                    className="no-underline"
-                    conv="request_access_click"
-                  >
-                    Request access
-                  </Link>
-                  <Link href="/docs" variant="button-secondary" className="no-underline">
-                    Integration docs
-                  </Link>
-                </CTAGroup>
-              </div>
+              <CTAGroup className="home-hero-cta">
+                <Link
+                  href="/contact#merchant-intake"
+                  variant="button-primary"
+                  className="home-hero-cta-primary no-underline"
+                  conv="request_access_click"
+                >
+                  Request access
+                </Link>
+                <Link href="/docs" variant="button-secondary" className="no-underline">
+                  Integration docs
+                </Link>
+              </CTAGroup>
               <div className="home-hero-meta">
-                <p className="text-sm font-medium">
+                <p className="home-hero-meta-primary">
                   <Link href="/onboarding">Onboarding expectations →</Link>
                 </p>
-                <p className="text-sm text-muted">
-                  Review onboarding expectations before requesting access.
-                </p>
-                <p className="text-sm text-muted">
-                  Merchant portal for approved merchants:{" "}
+                <p className="home-hero-meta-secondary">
+                  Merchant portal:{" "}
                   <Link href="https://merchant.kobbex.com/" conv="merchant_login_click">
                     merchant.kobbex.com
-                  </Link>{" "}
-                  ·{" "}
+                  </Link>
+                  {" · "}
                   <Link href="/login" conv="merchant_login_click">
                     Merchant login
                   </Link>
                 </p>
               </div>
             </div>
-            <HeroOperationalInstrument />
+            <HeroOperationalInstrumentPreview />
           </div>
-          <div className="home-hero-trust">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-              Production governance
-            </p>
-            <div className="home-hero-trust-chips mt-4" role="list">
-              {trustChips.map((label) => (
-                <span key={label} className="trust-chip" role="listitem">
-                  {label}
-                </span>
+          <section
+            className="home-hero-governance home-tier-annotation"
+            aria-labelledby="home-governance-heading"
+          >
+            <header className="home-hero-governance__header">
+              <p className="home-hero-governance__eyebrow type-eyebrow type-eyebrow--soft">
+                Production governance
+              </p>
+              <h2
+                id="home-governance-heading"
+                className="home-hero-governance__title"
+              >
+                Operational production boundaries
+              </h2>
+              <p className="home-hero-governance__lead">
+                Grouped by reviewer concern—honest public positioning on this marketing
+                site, not audit or compliance certifications.
+              </p>
+            </header>
+            <div
+              className="home-hero-governance__matrix"
+              role="list"
+              aria-label="Production governance principles"
+            >
+              {governancePrinciples.map(({ bucket, principle }) => (
+                <article
+                  key={principle}
+                  className="home-hero-governance__cell"
+                  role="listitem"
+                >
+                  <div className="home-hero-governance__cell-head">
+                    <span
+                      className="home-hero-governance__status"
+                      aria-hidden="true"
+                    />
+                    <span className="home-hero-governance__bucket">{bucket}</span>
+                  </div>
+                  <p className="home-hero-governance__principle">{principle}</p>
+                </article>
               ))}
             </div>
-          </div>
+          </section>
         </Container>
       </Section>
 
       <InfrastructureOperationsSection />
 
-      <Section id="how-it-works" tone="default" className="home-section-after-ops">
+      <Section
+        id="home-fit-check"
+        tone="muted"
+        className="home-flow-cta home-flow-cta--mid home-flow-bridge ops-fit-check home-platform__conversion home-tier-conversion"
+        aria-labelledby="home-fit-check-heading"
+      >
         <Container>
-          <h2 id="home-heading-how-it-works" className="text-h2 font-semibold text-primary">
+          <div className="ops-fit-check__panel home-flow-cta__panel">
+            <header className="ops-fit-check__head">
+              <span className="ops-fit-check__index" aria-hidden="true">
+                07
+              </span>
+              <p className="type-eyebrow ops-fit-check__eyebrow">Fit check</p>
+            </header>
+            <h2
+              id="home-fit-check-heading"
+              className="ops-fit-check__title home-flow-cta__title type-section-heading text-h2 font-semibold text-primary"
+            >
+              A match if you ship server-side integrations
+            </h2>
+            <p className="ops-fit-check__lead home-flow-cta__lead type-section-lead">
+              Kobbopay fits teams that need explicit payment lifecycles, verifiable webhooks, merchant
+              approval, and finance-owned reconciliation — not anonymous self-serve keys or marketing
+              settlement promises on day one.
+            </p>
+            <div className="ops-fit-check__criteria" aria-hidden="true">
+              <span className="ops-fit-check__criterion">Explicit lifecycles</span>
+              <span className="ops-fit-check__criterion">Verifiable webhooks</span>
+              <span className="ops-fit-check__criterion">Merchant approval</span>
+              <span className="ops-fit-check__criterion">Finance-owned reconciliation</span>
+            </div>
+            <CTAGroup className="ops-fit-check__actions home-flow-cta__actions type-stack-after-lead">
+              <Link
+                href="/contact#merchant-intake"
+                variant="button-primary"
+                className="home-flow-cta__primary ops-fit-check__primary no-underline"
+                conv="request_access_click"
+              >
+                Request access
+              </Link>
+              <Link
+                href="/onboarding"
+                variant="button-secondary"
+                className="ops-fit-check__secondary no-underline"
+              >
+                Onboarding expectations
+              </Link>
+            </CTAGroup>
+          </div>
+        </Container>
+      </Section>
+
+      <Section
+        id="how-it-works"
+        tone="default"
+        className="home-section-after-ops home-flow-step home-flow-step--how home-tier-support"
+      >
+        <Container>
+          <p className="type-eyebrow">Integration path</p>
+          <h2
+            id="home-heading-how-it-works"
+            className="type-section-heading type-stack-after-eyebrow text-h2 font-semibold text-primary"
+          >
             How it works
           </h2>
           <ArchitectureDiagram
             variant="compact"
-            className="mt-6"
+            className="type-stack-after-heading"
             diagramLabelledBy="home-heading-how-it-works"
+            settle
           />
-          <ol className="mt-6 list-decimal space-y-3 pl-5 text-sm text-muted sm:text-body">
+          <ol className="type-stack-after-heading list-decimal space-y-3.5 pl-5 text-sm text-muted sm:text-body">
             <li>
               <strong className="text-primary">Create a payment</strong> from your backend using a
               server-side API key.
@@ -230,25 +331,68 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      <OperationalRealismEntry className="home-section-bridge" />
+      <OperationalRealismEntry className="home-section-bridge home-flow-step home-flow-step--ops home-tier-support" />
 
       </HomeInfrastructurePlane>
 
       <Section
+        id="buyer-contexts"
+        tone="default"
+        className="home-buyer-contexts home-flow-bridge home-tier-support"
+        aria-labelledby="home-buyer-contexts-heading"
+      >
+        <Container>
+          <p className="type-eyebrow">Buyer contexts</p>
+          <h2
+            id="home-buyer-contexts-heading"
+            className="type-section-heading type-stack-after-eyebrow text-h2 font-semibold text-primary"
+          >
+            Where teams adopt this infrastructure
+          </h2>
+          <p className="type-section-lead type-stack-after-heading max-w-2xl">
+            Illustrative B2B payment patterns — not guarantees that every industry, geography, or
+            business model is supported. See{" "}
+            <Link href="/use-cases">use cases</Link> and{" "}
+            <Link href="/operations">operational walkthroughs</Link> for detail.
+          </p>
+          <ul className="home-buyer-contexts__grid type-stack-section-block" role="list">
+            {homeBuyerContexts.map((ctx) => (
+              <li key={ctx.id} className="home-buyer-contexts__card" role="listitem">
+                <h3 className="home-buyer-contexts__card-title text-h3 font-semibold text-primary">
+                  {ctx.title}
+                </h3>
+                <p className="home-buyer-contexts__card-summary">{ctx.summary}</p>
+                <p className="home-buyer-contexts__card-link">
+                  <Link href={`/operations#${ctx.id}`}>
+                    Example operational flow →
+                  </Link>
+                </p>
+              </li>
+            ))}
+          </ul>
+          <p className="type-stack-after-lead text-sm text-muted">
+            Payment operations, treasury, and engineering teams typically map these patterns to their
+            own controls — merchant agreement and environment configuration remain authoritative.
+          </p>
+        </Container>
+      </Section>
+
+      <Section
         id="integration-and-security"
         tone="default"
-        className="proof-section home-integration-band"
+        className="proof-section home-integration-band home-flow-step home-tier-support"
       >
         <Container className="max-w-3xl">
-          <h2 className="text-h2 font-semibold text-primary">
+          <p className="type-eyebrow">Before production</p>
+          <h2 className="type-section-heading type-stack-after-eyebrow text-h2 font-semibold text-primary">
             Integration expectations &amp; security
           </h2>
-          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted sm:text-body">
+          <p className="type-section-lead type-stack-after-heading">
             Serious integrations assume server-side secrets, verifiable webhooks, and honest
             operational boundaries. For authoritative behavior, your merchant agreement and
             environment configuration remain the source of truth.
           </p>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 sm:gap-6">
+          <div className="type-stack-section-block grid gap-6 sm:grid-cols-2 sm:gap-7">
             <div className="home-integration-column">
               <h3 className="text-h3 font-semibold text-primary">Before production traffic</h3>
               <ul className="mt-4 list-disc space-y-2.5 pl-5 text-sm leading-relaxed text-muted">
@@ -291,7 +435,7 @@ export default function HomePage() {
               </ul>
             </div>
           </div>
-          <p className="mt-8 text-sm text-muted">
+          <p className="type-stack-after-lead text-sm text-muted">
             <Link href="/docs">Integration docs</Link>
             {" · "}
             <Link href="/docs#webhook-verification">Webhook verification</Link>
@@ -305,48 +449,67 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      <Section id="faq" tone="default">
+      <Section id="faq" tone="default" className="home-flow-step home-tier-support">
         <Container>
-          <h2 className="text-h2 font-semibold text-primary">FAQ</h2>
-          <div className="mt-7 space-y-3.5 sm:space-y-4">
+          <p className="type-eyebrow">Due diligence</p>
+          <h2 className="type-section-heading type-stack-after-eyebrow text-h2 font-semibold text-primary">
+            FAQ
+          </h2>
+          <div className="type-stack-after-heading space-y-4">
             {faqItems.map((item) => (
               <Card key={item.q} interactive className="faq-card">
                 <h3 className="text-h3 font-semibold text-primary">{item.q}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{item.a}</p>
+                <p className="mt-2.5 text-sm leading-relaxed text-muted">{item.a}</p>
               </Card>
             ))}
           </div>
-          <p className="mt-6 text-sm font-medium">
+          <p className="type-stack-after-lead text-sm font-medium">
             <Link href="/onboarding">Merchant onboarding FAQ and approval flow →</Link>
           </p>
         </Container>
       </Section>
 
-      <Section id="contact" tone="muted" className="pb-[var(--token-section-loose)]">
+      <Section
+        id="contact"
+        tone="muted"
+        className="home-flow-cta home-flow-cta--final home-tier-conversion-secondary pb-[var(--token-section-loose)]"
+        aria-labelledby="home-final-cta-heading"
+      >
         <Container>
-          <h2 className="text-h2 font-semibold text-primary">Request access</h2>
-          <p className="mt-3 max-w-2xl text-sm text-muted sm:text-body">
-            Tell us what you are building. Legitimate teams never need your seed phrase, private
-            keys, API keys, webhook secrets, wallet access credentials, or remote access to your
-            wallets — and neither do we.
-          </p>
-          <div className="ops-console-cta-strip ops-gate-cta mt-6">
-            <span className="ops-console-routing" aria-hidden="true">
-              GATE · REVIEW · ACCESS
-            </span>
-            <CTAGroup>
-              <Link
-                href="/contact#merchant-intake"
-                variant="button-primary"
-                className="no-underline"
-                conv="request_access_click"
-              >
-                Request access
-              </Link>
-              <Link href="/pricing" variant="button-secondary" className="no-underline">
-                Pricing
-              </Link>
-            </CTAGroup>
+          <div className="home-flow-cta__panel home-flow-cta__panel--final">
+            <p className="type-eyebrow">Next step</p>
+            <h2
+              id="home-final-cta-heading"
+              className="home-flow-cta__title type-section-heading text-h2 font-semibold text-primary"
+            >
+              Request access
+            </h2>
+            <p className="home-flow-cta__lead type-section-lead max-w-2xl">
+              Tell us what you are building. Legitimate teams never need your seed phrase, private
+              keys, API keys, webhook secrets, wallet access credentials, or remote access to your
+              wallets — and neither do we.
+            </p>
+            <div className="home-flow-cta__actions home-flow-cta__actions--final type-stack-after-lead">
+              <span className="home-flow-cta__routing" aria-hidden="true">
+                GATE · REVIEW · ACCESS
+              </span>
+              <CTAGroup className="home-flow-cta__buttons">
+                <Link
+                  href="/contact#merchant-intake"
+                  variant="button-primary"
+                  className="home-flow-cta__primary no-underline"
+                  conv="request_access_click"
+                >
+                  Request access
+                </Link>
+                <Link href="/pricing" variant="button-secondary" className="no-underline">
+                  Pricing
+                </Link>
+                <Link href="/docs" variant="button-secondary" className="no-underline">
+                  Integration docs
+                </Link>
+              </CTAGroup>
+            </div>
           </div>
         </Container>
       </Section>

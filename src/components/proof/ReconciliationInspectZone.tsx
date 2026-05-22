@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FocusEvent, type MouseEvent } from "react";
 import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
-import { OpsNarrativeReveal } from "@/components/proof/OpsNarrativeReveal";
+import { isReconciliationStaticReadout } from "@/lib/inspect-static-readout";
 import { inspectStateFromNode, reconcileInspect } from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
 import type { ReactNode } from "react";
@@ -16,16 +16,16 @@ export function ReconciliationInspectZone({
   className?: string;
 }) {
   const [active, setActive] = useState(false);
-  const { inspect, setInspect, clearInspect } = useInfrastructureInspect();
-  const activeLens = inspect?.lens ?? null;
-  const node = reconcileInspect;
+  const { setInspect, clearInspect } = useInfrastructureInspect();
 
-  const engage = () => {
+  const engage = (event: MouseEvent | FocusEvent) => {
+    if (isReconciliationStaticReadout(event.target)) return;
     setActive(true);
-    setInspect(inspectStateFromNode(node));
+    setInspect(inspectStateFromNode(reconcileInspect));
   };
 
-  const release = () => {
+  const release = (event: MouseEvent | FocusEvent) => {
+    if (isReconciliationStaticReadout(event.target)) return;
     setActive(false);
     clearInspect();
   };
@@ -33,7 +33,7 @@ export function ReconciliationInspectZone({
   return (
     <div
       className={cn(
-        "ops-control-plane__zone ops-route--reconcile ops-inspect-zone ops-journey-emphasis--finance",
+        "ops-route--reconcile ops-inspect-zone proof-bento-inspect",
         active && "ops-inspect-zone--active",
         className,
       )}
@@ -44,29 +44,6 @@ export function ReconciliationInspectZone({
       onBlur={release}
       tabIndex={0}
     >
-      <p className="ops-narrative-purpose ops-narrative-purpose--module" aria-hidden="true">
-        {node.purpose}
-      </p>
-      <p className="ops-narrative-readiness ops-narrative-readiness--module" aria-hidden="true">
-        {node.readiness}
-      </p>
-      <p className="ops-accountability-static" aria-hidden="true">
-        Finance owns recognition · engineering owns verification
-      </p>
-      <p className="ops-inspect-hint ops-inspect-hint--static" aria-hidden="true">
-        {node.hint}
-      </p>
-      <p className="ops-inspect-meta ops-inspect-meta--static" aria-hidden="true">
-        <span>{node.ownership}</span>
-        <span className="text-muted"> · </span>
-        <span>{node.affects}</span>
-      </p>
-      <OpsNarrativeReveal
-        node={node}
-        active={active}
-        showTrustStatic
-        activeLens={activeLens}
-      />
       {children}
     </div>
   );

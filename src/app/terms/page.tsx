@@ -32,11 +32,12 @@ export default function TermsPage() {
 
   return (
     <>
-      <Section tone="default" className="pt-10 sm:pt-16">
+      <Section tone="default" className="legal-page legal-page-hero-band pt-10 sm:pt-16">
         <Container className="max-w-3xl">
-          <h1 className="text-display font-semibold tracking-tight text-primary">Terms</h1>
-          <p className="mt-4 text-sm font-medium text-muted">Last updated: {updated}</p>
-          <p className="mt-6 text-body leading-relaxed text-muted">
+          <p className="ops-eyebrow">Legal</p>
+          <h1 className="mt-3 text-display font-semibold tracking-tight text-primary">Terms</h1>
+          <p className="legal-meta">Last updated: {updated}</p>
+          <p className="legal-lead">
             These are <strong className="text-primary">placeholder website terms</strong> for the
             marketing site at {SITE_URL.replace(/^https:\/\//, "")}. They are{" "}
             <strong className="text-primary">not legal advice</strong>, are{" "}
@@ -47,7 +48,7 @@ export default function TermsPage() {
         </Container>
       </Section>
 
-      <Section tone="muted">
+      <Section tone="muted" className="legal-page legal-body pb-[var(--token-section-loose)]">
         <Container className="max-w-3xl space-y-8">
           <Card>
             <h2 className="text-h2 font-semibold text-primary">Marketing vs product</h2>
@@ -142,6 +143,14 @@ export default function TermsPage() {
               </Link>
             </p>
           </Card>
+
+          <p className="ops-page-footer-links">
+            <Link href="/privacy">Privacy</Link>
+            {" · "}
+            <Link href="/security">Security</Link>
+            {" · "}
+            <Link href="/contact">Contact</Link>
+          </p>
         </Container>
       </Section>
     </>

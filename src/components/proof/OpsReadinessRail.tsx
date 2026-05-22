@@ -1,8 +1,8 @@
-import { opsMaturityJourney } from "@/lib/ops-inspection";
+import { getEcosystemContext, opsMaturityJourney } from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
 
 /**
- * Guided operational maturity journey — procedural readiness and governance.
+ * Guided operational maturity journey — readiness, governance, and continuity.
  */
 export function OpsReadinessRail({ className }: { className?: string }) {
   return (
@@ -33,6 +33,9 @@ export function OpsReadinessRail({ className }: { className?: string }) {
               </span>
               <span className="ops-readiness-rail__governance" aria-hidden="true">
                 {item.governance}
+              </span>
+              <span className="ops-readiness-rail__continuity" aria-hidden="true">
+                {getEcosystemContext(item.route).continuity}
               </span>
             </span>
           </li>

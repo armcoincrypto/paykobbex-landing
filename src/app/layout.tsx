@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { DeferredAnalyticsShell } from "@/components/analytics/DeferredAnalyticsShell";
 import { Navbar } from "@/components/primitives/Navbar";
 import { Footer } from "@/components/primitives/Footer";
-import { AnalyticsRoot } from "@/components/analytics/AnalyticsRoot";
-import { RouteIntentBeacon } from "@/components/analytics/RouteIntentBeacon";
 import { OG_IMAGES, OG_IMAGE } from "@/lib/site";
 
 const geistSans = Geist({
@@ -63,14 +61,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col font-sans`}
       >
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <Navbar />
-        <div className="flex-1">{children}</div>
+        <main id="main-content" className="flex-1 outline-none">
+          {children}
+        </main>
         <Footer />
         <div className="print:hidden">
-          <Suspense fallback={null}>
-            <RouteIntentBeacon />
-          </Suspense>
-          <AnalyticsRoot />
+          <DeferredAnalyticsShell />
         </div>
       </body>
     </html>

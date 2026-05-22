@@ -7,6 +7,7 @@ import { Container } from "@/components/primitives/Container";
 import { CTAGroup } from "@/components/primitives/CTAGroup";
 import { Link } from "@/components/primitives/link";
 import { Section } from "@/components/primitives/Section";
+import { OperationalPageHeader } from "@/components/operational/OperationalPageHeader";
 import { SITE_URL, OG_IMAGES, OG_IMAGE } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -56,37 +57,42 @@ function verifyWebhook(rawBody, signatureHeader, secret) {
 export default function DevelopersPage() {
   return (
     <>
-      <Section tone="default" className="pt-10 sm:pt-16">
-        <Container>
-          <h1 className="text-display font-semibold tracking-tight text-primary">Developers</h1>
-          <p className="mt-4 max-w-3xl text-body text-muted">
-            Kobbopay is designed for server-to-server integrations: your backend creates payments,
-            consumes signed webhooks, and reconciles using explicit lifecycle semantics. Start with the{" "}
-            <Link href="/docs">
-              integration docs
-            </Link>{" "}
-            for a CTO-friendly overview, then request access for environment-specific materials.
-          </p>
-          <CTAGroup className="mt-6">
-            <Link href="/docs" variant="button-primary" className="no-underline">
-              Read integration docs
-            </Link>
-            <Link href="/onboarding" variant="button-secondary" className="no-underline">
-              Onboarding expectations
-            </Link>
-          </CTAGroup>
-          <p className="mt-4 text-sm text-muted">
-            Environment-specific materials after review:{" "}
-            <Link href="/contact#merchant-intake" conv="request_access_click">
-              Request access
-            </Link>
-            .
-          </p>
+      <Section tone="default" className="ops-page ops-page-hero-band pt-10 sm:pt-16">
+        <Container className="max-w-content">
+          <OperationalPageHeader
+            className="ops-page-header--hero"
+            eyebrow="Developers"
+            title="Server-to-server integration hub"
+            lead={
+              <>
+                Kobbopay is designed for server-to-server integrations: your backend creates payments,
+                consumes signed webhooks, and reconciles using explicit lifecycle semantics. Start with{" "}
+                <Link href="/docs">integration docs</Link> for a CTO-friendly overview, then request
+                access for environment-specific materials after merchant approval.
+              </>
+            }
+          >
+            <CTAGroup className="mt-6">
+              <Link href="/docs" variant="button-primary" className="no-underline">
+                Read integration docs
+              </Link>
+              <Link href="/onboarding" variant="button-secondary" className="no-underline">
+                Onboarding expectations
+              </Link>
+            </CTAGroup>
+            <p className="mt-4 text-sm text-muted">
+              Environment-specific materials after review:{" "}
+              <Link href="/contact#merchant-intake" conv="request_access_click">
+                Request access
+              </Link>
+              .
+            </p>
+          </OperationalPageHeader>
         </Container>
       </Section>
 
-      <Section tone="muted">
-        <Container className="space-y-10">
+      <Section tone="muted" className="pb-[var(--token-section-loose)]">
+        <Container className="max-w-content space-y-10">
           <Card>
             <h2 className="text-h2 font-semibold text-primary">Integration principles</h2>
             <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-muted">
@@ -161,13 +167,17 @@ export default function DevelopersPage() {
             </div>
           </Card>
 
-          <p className="text-sm text-muted">
+          <p className="ops-page-footer-links">
             Related:{" "}
-            <Link href="/docs">
-              Integration docs
-            </Link>
-            , <Link href="/guides">Guides</Link>, <Link href="/glossary">Glossary</Link>,{" "}
-            <Link href="/security">Security</Link>, <Link href="/features">Features</Link>.
+            <Link href="/docs">Integration docs</Link>
+            {" · "}
+            <Link href="/guides">Guides</Link>
+            {" · "}
+            <Link href="/glossary">Glossary</Link>
+            {" · "}
+            <Link href="/security">Security</Link>
+            {" · "}
+            <Link href="/features">Features</Link>
           </p>
         </Container>
       </Section>

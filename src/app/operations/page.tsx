@@ -53,9 +53,10 @@ export default function OperationsPage() {
     <>
       <JsonLd id="ld-json-operations-bc" data={breadcrumbJson} />
 
-      <Section tone="default" className="ops-page pt-10 sm:pt-16">
+      <Section tone="default" className="ops-page ops-page-hero-band pt-10 sm:pt-16">
         <Container className="max-w-content">
           <OperationalPageHeader
+            className="ops-page-header--hero"
             eyebrow="Operations"
             title="Operational procedures and walkthroughs"
             lead={

@@ -3,8 +3,7 @@
 import { Link } from "@/components/primitives/link";
 import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
 import {
-  getCredibilityContext,
-  getJourneyContext,
+  getInspectPanelCopy,
   getJourneyGuidance,
   journeyLensLabels,
   resolveJourneyLens,
@@ -23,6 +22,7 @@ export function OpsJourneyGuidance({ className }: { className?: string }) {
     inspect?.lens ??
     (inspect?.focus ? resolveJourneyLens(inspect.focus, inspect.linkGate) : null);
   const route = inspect?.focus;
+  const panel = route ? getInspectPanelCopy(route) : null;
 
   return (
     <aside
@@ -49,17 +49,16 @@ export function OpsJourneyGuidance({ className }: { className?: string }) {
             data-journey-lens={lens}
           >
             <span className="ops-journey-lens-block__label">{journeyLensLabels[lens]}</span>
-            {activeLens === lens && route ? (
+            {activeLens === lens && panel && route ? (
               <>
                 <p className="ops-journey-persona" aria-hidden="true">
-                  {getJourneyContext(route).personaEcho}
+                  {panel.body}
                 </p>
-                <p className="ops-journey-readiness" aria-hidden="true">
-                  {getJourneyContext(route).readiness}
-                </p>
-                <p className="ops-journey-accountability" aria-hidden="true">
-                  {getCredibilityContext(route).accountability}
-                </p>
+                <ul className="ops-journey-readiness list-none p-0 m-0" aria-hidden="true">
+                  {panel.bullets.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
                 <ul className="ops-journey-links list-none p-0 m-0">
                   {getJourneyGuidance(route).map((item) => (
                     <li key={item.href}>
