@@ -15,112 +15,179 @@ const legalTrustLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
-const buildLinks: Array<{ href: string; label: string; conv?: ConversionEventName }> = [
+const buildLinks = [
   { href: "/docs", label: "Docs" },
   { href: "/guides", label: "Guides" },
   { href: "/glossary", label: "Glossary" },
   { href: "/developers", label: "Developers" },
   { href: "/operations", label: "Operations" },
+] as const;
+
+const merchantLinks: Array<{
+  href: string;
+  label: string;
+  conv?: ConversionEventName;
+  external?: boolean;
+}> = [
   { href: "/onboarding", label: "Onboarding" },
   { href: "/contact#merchant-intake", label: "Request access", conv: "request_access_click" },
+  { href: "/login", label: "Merchant login", conv: "merchant_login_click" },
+  {
+    href: "https://merchant.kobbex.com/",
+    label: "Merchant portal",
+    conv: "merchant_login_click",
+    external: true,
+  },
 ];
 
+const utilityLinks = [
+  { href: "/privacy", label: "Privacy" },
+  { href: "/terms", label: "Terms" },
+  { href: "/docs", label: "Docs" },
+  { href: "/guides", label: "Guides" },
+  { href: "/glossary", label: "Glossary" },
+  { href: "/security", label: "Security" },
+  { href: "/contact", label: "Contact" },
+] as const;
+
 export function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="site-footer border-t border-border-subtle/80 bg-surface bg-gradient-to-b from-surface to-canvas py-14 sm:py-16 print:hidden">
-      <Container className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="lg:col-span-1">
-          <p className="text-sm font-semibold text-primary">Kobbopay</p>
-          <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted">
+    <footer className="site-footer print:hidden">
+      <Container className="site-footer__main">
+        <div className="site-footer__brand">
+          <div className="site-footer__brand-head">
+            <p className="site-footer__brand-name">Kobbopay</p>
+            <span className="site-footer__infra-chip">Operational infrastructure</span>
+          </div>
+          <p className="site-footer__brand-copy">
             API-first B2B crypto payment infrastructure. Access is reviewed; rails and environments are
             scoped per merchant configuration. Operational procedures — not marketing SLAs — govern
             production enablement.
           </p>
+          <div className="site-footer__signature" aria-hidden="true">
+            <svg
+              className="site-footer__signature-svg"
+              viewBox="0 0 120 8"
+              preserveAspectRatio="none"
+              focusable="false"
+            >
+              <line
+                className="site-footer__signature-depth"
+                x1="0"
+                y1="4"
+                x2="120"
+                y2="4"
+                vectorEffect="non-scaling-stroke"
+              />
+              <line
+                className="site-footer__signature-base"
+                x1="0"
+                y1="4"
+                x2="120"
+                y2="4"
+                vectorEffect="non-scaling-stroke"
+              />
+              <line
+                className="site-footer__signature-pulse"
+                x1="0"
+                y1="4"
+                x2="120"
+                y2="4"
+                vectorEffect="non-scaling-stroke"
+              />
+              <circle className="site-footer__signature-node" cx="88" cy="4" r="1.75" />
+            </svg>
+          </div>
+          <p className="site-footer__telemetry" aria-hidden="true">
+            <span className="site-footer__telemetry-led" />
+            <span className="site-footer__telemetry-copy">Reviewed merchant environments</span>
+          </p>
         </div>
-        <div>
-          <p className="type-eyebrow">Product</p>
-          <ul className="mt-3 space-y-2 text-sm">
+
+        <div className="site-footer__column site-footer__column--product">
+          <p className="type-eyebrow site-footer__eyebrow">Product</p>
+          <ul className="site-footer__list">
             {productLinks.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="text-muted no-underline hover:text-primary" muted>
+                <Link href={item.href} className="site-footer__link" muted>
                   {item.label}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
-        <div>
-          <p className="type-eyebrow">Legal &amp; trust</p>
-          <ul className="mt-3 space-y-2 text-sm">
+
+        <div className="site-footer__column site-footer__column--legal">
+          <p className="type-eyebrow site-footer__eyebrow">Legal &amp; trust</p>
+          <ul className="site-footer__list">
             {legalTrustLinks.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="text-muted no-underline hover:text-primary" muted>
+                <Link href={item.href} className="site-footer__link" muted>
                   {item.label}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
-        <div>
-          <p className="type-eyebrow">Build &amp; merchants</p>
-          <ul className="mt-3 space-y-2 text-sm">
-            {buildLinks.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="text-muted no-underline hover:text-primary"
-                  muted
-                  {...(item.conv ? { conv: item.conv } : {})}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <Link href="/login" conv="merchant_login_click">
-                Merchant login
-              </Link>
-            </li>
-            <li>
-              <Link href="https://merchant.kobbex.com/" conv="merchant_login_click">
-                Merchant portal
-              </Link>
-            </li>
-          </ul>
+
+        <div className="site-footer__column site-footer__column--nav">
+          <div className="site-footer__nav-cluster">
+            <div className="site-footer__nav-group">
+              <p className="type-eyebrow site-footer__eyebrow">Build</p>
+              <ul className="site-footer__list">
+                {buildLinks.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href} className="site-footer__link" muted>
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="site-footer__nav-group">
+              <p className="type-eyebrow site-footer__eyebrow">Merchants</p>
+              <ul className="site-footer__list">
+                {merchantLinks.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="site-footer__link"
+                      muted
+                      {...(item.conv ? { conv: item.conv } : {})}
+                      {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </Container>
-      <Container className="site-footer__bar mt-10 border-t border-border-subtle pt-6">
-        <p className="site-footer__legal text-xs leading-relaxed text-muted">
-          © {new Date().getFullYear()} Kobbopay. Marketing site — payment processing is provided
-          through approved merchant accounts on configured rails where enabled.{" "}
-          <Link href="/privacy" className="text-muted no-underline hover:text-primary" muted>
-            Privacy
-          </Link>
-          {" · "}
-          <Link href="/terms" className="text-muted no-underline hover:text-primary" muted>
-            Terms
-          </Link>
-          {" · "}
-          <Link href="/docs" className="text-muted no-underline hover:text-primary" muted>
-            Docs
-          </Link>
-          {" · "}
-          <Link href="/guides" className="text-muted no-underline hover:text-primary" muted>
-            Guides
-          </Link>
-          {" · "}
-          <Link href="/glossary" className="text-muted no-underline hover:text-primary" muted>
-            Glossary
-          </Link>
-          {" · "}
-          <Link href="/security" className="text-muted no-underline hover:text-primary" muted>
-            Security
-          </Link>
-          {" · "}
-          <Link href="/contact" className="text-muted no-underline hover:text-primary" muted>
-            Contact
-          </Link>
-        </p>
+
+      <Container className="site-footer__bar">
+        <div className="site-footer__bar-inner">
+          <p className="site-footer__legal">
+            <span className="site-footer__legal-copy">
+              © {year} Kobbopay. Marketing site — payment processing is provided through approved
+              merchant accounts on configured rails where enabled.
+            </span>
+          </p>
+          <nav className="site-footer__utilities" aria-label="Footer utilities">
+            <ul className="site-footer__utility-list">
+              {utilityLinks.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="site-footer__link site-footer__utility-link" muted>
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
       </Container>
     </footer>
   );
