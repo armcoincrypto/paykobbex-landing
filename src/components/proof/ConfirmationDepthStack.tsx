@@ -1,7 +1,3 @@
-"use client";
-
-import { motion, useInView, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
 import { cn } from "@/lib/cn";
 
 const layers = [
@@ -45,14 +41,9 @@ export function ConfirmationDepthStack({
   variant?: "default" | "settlement-intelligence";
   animate?: boolean;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-10% 0px" });
-  const reduce = useReducedMotion();
-
   if (variant === "settlement-intelligence") {
     return (
       <div
-        ref={ref}
         className={cn(
           "settlement-intelligence ops-route--reconcile",
           animate && "settlement-intelligence--animated",
@@ -63,9 +54,11 @@ export function ConfirmationDepthStack({
         <header className="ops-state-engine__masthead settlement-intelligence__masthead">
           <div className="ops-state-engine__masthead-primary">
             <span className="ops-state-engine__system-index">03</span>
-            <span className="ops-state-engine__system-label">Settlement intelligence</span>
+            <span className="ops-state-engine__system-label">Configured rails and reconciliation</span>
           </div>
-          <span className="ops-state-engine__system-meta">Reconciliation topology · conceptual</span>
+          <span className="ops-state-engine__system-meta">
+            Payment state, rail confirmation, and merchant books stay separated — conceptual
+          </span>
         </header>
 
         <div className="settlement-intelligence__zone-rail" aria-hidden="true">
@@ -151,7 +144,7 @@ export function ConfirmationDepthStack({
         <div className="settlement-intelligence__topology">
           <header className="settlement-intelligence__topology-head">
             <span className="settlement-intelligence__topology-title">Ownership map</span>
-            <span className="settlement-intelligence__topology-meta">Semantic depth · conceptual</span>
+            <span className="settlement-intelligence__topology-meta">Payment state vs merchant books · conceptual</span>
           </header>
           <div className="settlement-intelligence__segments">
             {layers.map((layer, i) => (
@@ -202,41 +195,36 @@ export function ConfirmationDepthStack({
         </footer>
 
         <footer className="ops-state-engine__rail-meta settlement-intelligence__rail-meta">
-          <span className="ops-state-engine__rail-meta-tag">RAIL</span>
-          <span className="ops-state-engine__rail-meta-tag">RECONCILE</span>
-          <span className="ops-state-engine__rail-meta-copy">State ownership · conceptual</span>
+          <span className="ops-state-engine__rail-meta-tag">PAYMENT STATE</span>
+          <span className="ops-state-engine__rail-meta-tag">BOOKS FINALITY</span>
+          <span className="ops-state-engine__rail-meta-copy">
+            Detection, confirmation, and accounting stay separated.
+          </span>
         </footer>
       </div>
     );
   }
 
   return (
-    <div ref={ref} className={cn("confirmation-depth", className)} aria-hidden="true">
-      {layers.map((layer, i) => (
-        <motion.div
+    <div
+      className={cn(
+        "confirmation-depth",
+        animate && "confirmation-depth--animated",
+        className,
+      )}
+      aria-hidden="true"
+    >
+      {layers.map((layer) => (
+        <div
           key={layer.label}
           className={cn(
             "confirmation-depth-layer",
             layer.tone === "provisional" && "is-emphasized",
           )}
-          initial={reduce ? false : { opacity: 0.65, y: 4 }}
-          animate={
-            inView || reduce
-              ? {
-                  opacity: layer.tone === "final" ? 1 : i === 0 ? 0.74 : 0.88,
-                  y: 0,
-                }
-              : undefined
-          }
-          transition={{
-            duration: reduce ? 0 : 0.38,
-            delay: reduce ? 0 : i * 0.08,
-            ease: [0.22, 1, 0.36, 1],
-          }}
         >
           <p className="confirmation-depth-layer__label">{layer.label}</p>
           <p className="confirmation-depth-layer__note">{layer.note}</p>
-        </motion.div>
+        </div>
       ))}
     </div>
   );

@@ -918,12 +918,16 @@
   }
 }
 
-.home-ops-premium .proof-env-maturity .ops-ecosystem-guidance {
+.home-ops-premium .proof-env-maturity .ops-ecosystem-guidance:not(.ops-inspect-panel) {
   padding: var(--token-stack-sm) var(--token-stack-md);
   border-radius: var(--token-radius-sm);
   border: 1px solid rgb(var(--token-muted-rgb) / 0.12);
   border-left: 2px solid rgb(var(--token-accent-rgb) / 0.28);
   background: rgb(8 12 20 / 0.45);
+}
+
+.home-ops-premium .proof-env-maturity .ops-ecosystem-guidance.ops-inspect-panel {
+  margin-top: 0.15rem;
 }
 
 .home-ops-premium .proof-bento--premium {
@@ -2956,6 +2960,33 @@
   margin-top: 0.5rem;
 }
 
+/* P24.4-FIX — settlement readout: static on hover (no inspect-zone inset shadow flutter) */
+.ops-route--reconcile.ops-inspect-zone.proof-bento-inspect:hover,
+.ops-route--reconcile.ops-inspect-zone.proof-bento-inspect:focus-within {
+  box-shadow: none;
+  transition: none;
+}
+
+.settlement-intelligence__rail-meta,
+.settlement-intelligence__rail-meta:hover,
+.settlement-intelligence__depth-annotation,
+.settlement-intelligence__depth-annotation:hover {
+  animation: none !important;
+  transform: none !important;
+  filter: none !important;
+  will-change: auto;
+}
+
+.settlement-intelligence__rail-meta .ops-state-engine__rail-meta-tag,
+.settlement-intelligence__rail-meta .ops-state-engine__rail-meta-copy,
+.settlement-intelligence__rail-meta:hover .ops-state-engine__rail-meta-tag,
+.settlement-intelligence__rail-meta:hover .ops-state-engine__rail-meta-copy {
+  animation: none !important;
+  transform: none !important;
+  filter: none !important;
+  transition: none;
+}
+
 @media (max-width: 479px) {
   .settlement-intelligence__zone-rail {
     grid-template-columns: 1fr;
@@ -3005,8 +3036,8 @@
 }
 
 /* Exclude static approval pipeline from cross-surface inspect dimming */
-.home-infrastructure-plane[data-inspect-focus] .approval-pipeline--static,
-.home-infrastructure-plane[data-inspect-focus] .proof-bento-review:has(.approval-pipeline--static) {
+.home-infrastructure-plane[data-inspect-focus] .approval-pipeline--choreo,
+.home-infrastructure-plane[data-inspect-focus] .proof-bento-review:has(.approval-pipeline--choreo) {
   opacity: 1 !important;
   filter: none !important;
   transition: none !important;
@@ -3259,8 +3290,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .approval-pipeline--static,
-  .approval-pipeline--static * {
+  .approval-pipeline--choreo,
+  .approval-pipeline--choreo * {
     animation: none !important;
     transition: none !important;
   }

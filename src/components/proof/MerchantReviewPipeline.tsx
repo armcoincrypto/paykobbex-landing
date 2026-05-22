@@ -92,7 +92,7 @@ export function MerchantReviewPipeline({
   const approvalPipeline = (
     <div
       className={cn(
-        "approval-pipeline approval-pipeline--static ops-route--ingress",
+        "approval-pipeline approval-pipeline--choreo ops-route--ingress",
         compact && "approval-pipeline--compact",
       )}
       aria-hidden="true"

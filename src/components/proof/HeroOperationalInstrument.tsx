@@ -38,7 +38,7 @@ export function HeroOperationalInstrument({ className }: { className?: string })
           <section className="ops-console-module ops-route--settlement">
             <header className="ops-console-module__header">
               <span className="ops-console-module__title">Lifecycle lane</span>
-              <span className="ops-console-routing">STATE · RAIL</span>
+              <span className="ops-console-routing">STATE · CONFIGURED</span>
             </header>
             <div className="ops-console-module__telemetry">
               <div className="ops-density-strip" aria-hidden="true">

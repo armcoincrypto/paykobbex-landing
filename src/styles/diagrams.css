@@ -2229,6 +2229,194 @@
   background: rgb(6 12 20 / 0.3);
 }
 
+/* P24.8 — inspect side panel visual hierarchy (control plane) */
+.ops-ecosystem-guidance.ops-inspect-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  max-width: min(40rem, 100%);
+  padding: 0.9rem 1rem 0.85rem;
+  border: 1px solid rgb(var(--token-muted-rgb) / 0.09);
+  border-left: 2px solid rgb(var(--token-accent-rgb) / 0.22);
+  border-radius: var(--token-radius-sm);
+  background: linear-gradient(
+    168deg,
+    rgb(11 17 28 / 0.78) 0%,
+    rgb(7 11 18 / 0.58) 52%,
+    rgb(6 9 16 / 0.5) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.045),
+    0 12px 32px -26px rgb(0 0 0 / 0.5);
+}
+
+.ops-inspect-panel__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 0 0 0.7rem;
+  padding: 0 0 0.6rem;
+  border-bottom: 1px solid rgb(var(--token-muted-rgb) / 0.07);
+}
+
+.ops-inspect-panel__eyebrow {
+  margin: 0;
+  font-size: 0.5rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: rgb(var(--token-muted-rgb) / 0.4);
+}
+
+.ops-inspect-panel__title {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.28;
+  color: rgb(var(--token-primary-rgb) / 0.96);
+}
+
+.ops-inspect-panel__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.ops-inspect-panel__body {
+  margin: 0;
+  font-size: 0.6875rem;
+  line-height: 1.65;
+  color: rgb(var(--token-muted-rgb) / 0.58);
+  max-width: 34ch;
+}
+
+.ops-inspect-panel__bullets {
+  margin: 0;
+  padding: 0.55rem 0 0.55rem 0.8rem;
+  border-left: 1px solid rgb(var(--token-accent-rgb) / 0.16);
+  display: flex;
+  flex-direction: column;
+  gap: 0.48rem;
+}
+
+.ops-inspect-panel__bullets li {
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 0.15rem;
+  font-size: 0.625rem;
+  line-height: 1.52;
+  color: rgb(var(--token-muted-rgb) / 0.54);
+}
+
+.ops-inspect-panel__bullets li::before {
+  content: "";
+  position: absolute;
+  left: -0.8rem;
+  top: 0.58em;
+  width: 3px;
+  height: 3px;
+  border-radius: 1px;
+  background: rgb(var(--token-accent-rgb) / 0.32);
+  box-shadow: 0 0 0 1px rgb(var(--token-accent-rgb) / 0.08);
+}
+
+.ops-inspect-panel__labels {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.4rem;
+  margin: 0;
+  padding: 0.55rem 0 0;
+  border-top: 1px solid rgb(var(--token-muted-rgb) / 0.06);
+}
+
+.ops-inspect-panel__label {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.5rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgb(var(--token-muted-rgb) / 0.46);
+  padding: 0.22rem 0.55rem;
+  border: none;
+  border-radius: 999px;
+  background: rgb(var(--token-muted-rgb) / 0.07);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.035);
+}
+
+.ops-inspect-panel__footer {
+  margin: 0.75rem 0 0;
+  padding: 0.6rem 0 0;
+  border-top: 1px solid rgb(var(--token-muted-rgb) / 0.08);
+}
+
+.ops-inspect-panel__links {
+  margin: 0;
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.75rem;
+}
+
+.ops-inspect-panel__link {
+  font-size: 0.625rem;
+  line-height: 1.35;
+  color: rgb(var(--token-accent-rgb) / 0.62);
+  text-decoration: none;
+}
+
+.ops-inspect-panel__link:hover {
+  color: rgb(var(--token-accent-bright-rgb) / 0.82);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ops-inspect-panel--finance {
+  border-left-color: rgb(var(--ops-route-reconcile, var(--token-accent-rgb)) / 0.3);
+}
+
+.ops-inspect-panel--finance .ops-inspect-panel__title {
+  color: rgb(var(--ops-route-reconcile, var(--token-accent-rgb)) / 0.9);
+}
+
+.ops-inspect-panel--finance .ops-inspect-panel__bullets {
+  border-left-color: rgb(var(--ops-route-reconcile, var(--token-accent-rgb)) / 0.2);
+}
+
+.ops-inspect-panel--engineering .ops-inspect-panel__bullets {
+  border-left-color: rgb(var(--ops-route-verify, var(--token-accent-rgb)) / 0.18);
+}
+
+.ops-inspect-panel--operations .ops-inspect-panel__bullets {
+  border-left-color: rgb(var(--ops-route-ingress, var(--token-accent-rgb)) / 0.18);
+}
+
+@media (max-width: 767px) {
+  .ops-ecosystem-guidance.ops-inspect-panel {
+    padding: 0.8rem 0.85rem 0.75rem;
+    max-width: 100%;
+  }
+
+  .ops-inspect-panel__body {
+    max-width: none;
+  }
+
+  .ops-inspect-panel__bullets {
+    gap: 0.42rem;
+    padding-left: 0.72rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .ops-ecosystem-guidance.ops-inspect-panel {
+    padding: 0.85rem 0.9rem;
+  }
+}
+
 .ops-ecosystem-guidance__continuity {
   margin: 0;
   font-size: 0.65rem;
@@ -2672,6 +2860,58 @@
 
 .confirmation-depth-layer:nth-child(3) .confirmation-depth-layer__label {
   color: rgb(var(--token-primary-rgb) / 0.82);
+}
+
+/* P23 — CSS entrance (replaces Framer motion on default ConfirmationDepthStack) */
+.confirmation-depth--animated .confirmation-depth-layer {
+  animation: confirmation-depth-layer-in 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.confirmation-depth--animated .confirmation-depth-layer:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.confirmation-depth--animated .confirmation-depth-layer:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.confirmation-depth--animated .confirmation-depth-layer:nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.diagram-reveal--settle {
+  animation: diagram-reveal-in 0.36s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 28%;
+}
+
+/* P23.2-FIX — homepage diagram reveal (perceptible on scroll) */
+@media (prefers-reduced-motion: no-preference) {
+  #how-it-works .diagram-reveal--settle {
+    animation: diagram-reveal-in-home 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 50%;
+  }
+}
+
+@supports not (animation-timeline: view()) {
+  .diagram-reveal--settle {
+    animation-timeline: auto;
+    animation-range: normal;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    #how-it-works .diagram-reveal--settle {
+      animation: diagram-reveal-in-home 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confirmation-depth--animated .confirmation-depth-layer,
+  .diagram-reveal--settle {
+    animation: none;
+  }
 }
 
 /* P10 — homepage diagram frames share surface rhythm */

@@ -13,8 +13,8 @@ const principleMeta: ReadonlyArray<{
   { tags: ["ENGINEERING", "LIFECYCLE"], group: "lifecycle" },
   { tags: ["ENGINEERING", "WEBHOOK"], group: "webhook" },
   { tags: ["OPERATIONS", "POLICY"], group: "review" },
-  { tags: ["RECONCILE", "POLICY"], group: "reconcile" },
-  { tags: ["RECONCILE", "POLICY"], group: "reconcile" },
+  { tags: ["SETTLEMENT", "POLICY"], group: "reconcile" },
+  { tags: ["FINANCE", "SETTLEMENT"], group: "reconcile" },
   { tags: ["OPERATIONS", "TREASURY"], group: "withdrawal" },
 ];
 

@@ -1,3 +1,5 @@
+import { HomeInfrastructureInspectBridge } from "@/components/landing/HomeInfrastructureInspectBridge";
+import { InfrastructureInspectProvider } from "@/components/landing/InfrastructureInspectContext";
 import { VerificationBoundaryDiagram } from "@/components/diagrams/VerificationBoundaryDiagram";
 import { OperationalPrinciplesMatrix } from "@/components/proof/OperationalPrinciplesMatrix";
 import { Container } from "@/components/primitives/Container";
@@ -50,10 +52,12 @@ export function InfrastructureOperationsSection() {
   const headingId = "home-heading-infrastructure-operates";
 
   return (
-    <Section
+    <InfrastructureInspectProvider>
+      <HomeInfrastructureInspectBridge />
+      <Section
       id="how-infrastructure-operates"
       tone="default"
-      className="proof-section home-ops-follow home-ops-deep home-ops-story home-ops-journey home-ops-credibility home-ops-ecosystem home-ops-premium home-platform-ops"
+      className="proof-section home-ops-follow home-ops-deep home-ops-story home-ops-journey home-ops-credibility home-ops-ecosystem home-ops-premium home-platform-ops home-platform-ops--motion"
     >
       <Container>
         <div className="ops-platform">
@@ -154,7 +158,11 @@ export function InfrastructureOperationsSection() {
                   </div>
                 </VerificationFramePanel>
 
-                <VerificationFramePanel label="Confirmation depth" className={frameSecondary}>
+                <VerificationFramePanel
+                  label="Configured rails and reconciliation"
+                  sublabel="Conceptual separation of payment state, rail confirmation, and books"
+                  className={frameSecondary}
+                >
                   <ReconciliationInspectZone className="proof-bento-instrument--settlement">
                     <ConfirmationDepthStack variant="settlement-intelligence" animate />
                   </ReconciliationInspectZone>
@@ -234,7 +242,8 @@ export function InfrastructureOperationsSection() {
             </div>
 
             <p className="ops-platform__rails-note">
-              Selected rails: networks and assets are enabled per merchant configuration.{" "}
+              Configured rails: policy-scoped networks and assets are enabled per merchant
+              configuration.{" "}
               <Link href="/docs">Integration docs</Link>
               {" · "}
               <Link href="/glossary">Glossary</Link>
@@ -248,5 +257,6 @@ export function InfrastructureOperationsSection() {
         </div>
       </Container>
     </Section>
+    </InfrastructureInspectProvider>
   );
 }

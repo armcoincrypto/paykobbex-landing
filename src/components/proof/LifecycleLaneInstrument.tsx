@@ -333,7 +333,7 @@ export function LifecycleLaneInstrument({
           <div className="ops-console-module__telemetry">
             <div className="ops-density-strip" aria-hidden="true">
               <span className="ops-density-line">STATE · POLICY GATED</span>
-              <span className="ops-density-line">RAIL · SCOPED</span>
+              <span className="ops-density-line">CONFIGURED · SCOPED</span>
             </div>
             <p className="ops-narrative-purpose ops-narrative-purpose--module" aria-hidden="true">
               {lifecycleInspectNodes[1].purpose}
@@ -361,7 +361,7 @@ export function LifecycleLaneInstrument({
           </div>
           <footer className="ops-console-module__meta">
             <span className="ops-console-meta-tag">STATE</span>
-            <span className="ops-console-meta-tag">RAIL</span>
+            <span className="ops-console-meta-tag">CONFIGURED</span>
             <span className="ops-console-meta-tag">GATE</span>
             <span>Topology · conceptual</span>
           </footer>

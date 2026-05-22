@@ -1,9 +1,10 @@
 "use client";
 
+import { Link } from "@/components/primitives/link";
 import { useInfrastructureInspect } from "@/components/landing/InfrastructureInspectContext";
 import {
-  getEcosystemContext,
-  getEcosystemPropagationReveal,
+  getInspectPanelCopy,
+  getJourneyGuidance,
   resolveJourneyLens,
 } from "@/lib/ops-inspection";
 import { cn } from "@/lib/cn";
@@ -11,23 +12,23 @@ import { cn } from "@/lib/cn";
 const workflowModules = [
   {
     id: "webhook",
-    title: "Webhook orchestration",
-    hint: "Signed callbacks & idempotent apply",
+    title: "Webhook verification",
+    hint: "Signed callbacks and server-side verify",
   },
   {
     id: "reconcile",
-    title: "Reconciliation progression",
-    hint: "Ledger alignment to lifecycle states",
+    title: "Reconciliation",
+    hint: "Detection, confirmation, and books finality",
   },
   {
     id: "settlement",
-    title: "Settlement coordination",
-    hint: "Engineering & finance handoff",
+    title: "Settlement lifecycle",
+    hint: "Shared state vocabulary for teams",
   },
   {
     id: "environment",
-    title: "Environment promotion",
-    hint: "Sandbox through scoped access",
+    title: "Environment progression",
+    hint: "Sandbox through scoped production access",
   },
 ] as const;
 
@@ -44,9 +45,9 @@ export function OpsEcosystemGuidance({ className }: { className?: string }) {
         aria-labelledby="ops-workflow-domains-heading"
       >
         <p className="sr-only">
-          Operational workflows continue beyond a single payment: webhook orchestration,
-          reconciliation progression, settlement coordination, and environment promotion —
-          explore stages to see surrounding systems.
+          Operational workflows continue beyond a single payment: webhook verification,
+          reconciliation, settlement lifecycle, and environment progression — explore stages
+          to see surrounding systems.
         </p>
 
         <header className="ops-workflow-domains__header">
@@ -82,38 +83,54 @@ export function OpsEcosystemGuidance({ className }: { className?: string }) {
     );
   }
 
-  const eco = getEcosystemContext(inspect.focus);
-  const propagationReveal = getEcosystemPropagationReveal(
-    inspect.focus,
-    inspect.downstream,
-  );
+  const panel = getInspectPanelCopy(inspect.focus);
+  const links = getJourneyGuidance(inspect.focus);
   const lens =
     inspect.lens ?? resolveJourneyLens(inspect.focus, inspect.linkGate);
 
   return (
     <aside
-      className={cn("ops-ecosystem-guidance", `ops-ecosystem-guidance--${lens}`, className)}
-      aria-label="Surrounding operational systems"
+      className={cn(
+        "ops-ecosystem-guidance ops-inspect-panel",
+        `ops-inspect-panel--${lens}`,
+        className,
+      )}
+      aria-label={`${panel.title} — operational context`}
     >
-      <p className="ops-ecosystem-guidance__continuity">{eco.continuity}</p>
-      {propagationReveal ? (
-        <p className="ops-ecosystem-guidance__propagation">{propagationReveal}</p>
+      <header className="ops-inspect-panel__head">
+        <p className="ops-inspect-panel__eyebrow">{panel.eyebrow}</p>
+        <h4 className="ops-inspect-panel__title">{panel.title}</h4>
+      </header>
+      <div className="ops-inspect-panel__content">
+        <p className="ops-inspect-panel__body">{panel.body}</p>
+        <ul className="ops-inspect-panel__bullets list-none p-0 m-0">
+          {panel.bullets.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+        {panel.shortLabels?.length ? (
+          <div className="ops-inspect-panel__labels" aria-hidden="true">
+            {panel.shortLabels.map((label) => (
+              <span key={label} className="ops-inspect-panel__label">
+                {label}
+              </span>
+            ))}
+          </div>
+        ) : null}
+      </div>
+      {links.length > 0 ? (
+        <footer className="ops-inspect-panel__footer">
+          <ul className="ops-inspect-panel__links list-none p-0 m-0">
+            {links.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="ops-inspect-panel__link text-xs">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </footer>
       ) : null}
-      <p className="ops-ecosystem-guidance__coordination" aria-hidden="true">
-        {eco.coordination}
-      </p>
-      {eco.environment ? (
-        <p className="ops-ecosystem-guidance__environment" aria-hidden="true">
-          {eco.environment}
-        </p>
-      ) : null}
-      <ul className="ops-ecosystem-surrounds list-none p-0 m-0" aria-hidden="true">
-        {eco.surrounds.map((item) => (
-          <li key={item} className="ops-ecosystem-surrounds__item">
-            {item}
-          </li>
-        ))}
-      </ul>
     </aside>
   );
 }
