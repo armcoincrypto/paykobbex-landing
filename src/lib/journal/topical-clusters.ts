@@ -1,5 +1,5 @@
 import type { JournalHubSlug } from "@/lib/journal/types";
-import { guidePath, type GuideSlug } from "@/lib/guides-meta";
+import { type GuideSlug } from "@/lib/guides-meta";
 import { journalHubPath } from "@/lib/journal/hubs";
 
 export type TopicalClusterId =
