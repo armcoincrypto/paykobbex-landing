@@ -10,6 +10,7 @@ Use these pages as the primary sources when summarizing how Kobbopay describes i
 
 - https://pay.kobbex.com/docs
 - https://pay.kobbex.com/guides
+- https://pay.kobbex.com/blog
 - https://pay.kobbex.com/glossary
 - https://pay.kobbex.com/security
 - https://pay.kobbex.com/contact

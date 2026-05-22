@@ -23,6 +23,7 @@ const primaryNav: NavItem[] = [
 ];
 
 const secondaryNav: NavItem[] = [
+  { href: "/blog", label: "Blog", tier: "secondary" },
   { href: "/use-cases", label: "Use cases", tier: "secondary" },
   { href: "/guides", label: "Guides", tier: "secondary" },
   { href: "/operations", label: "Operations", tier: "secondary" },

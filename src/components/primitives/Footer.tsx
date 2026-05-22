@@ -17,6 +17,7 @@ const legalTrustLinks = [
 
 const buildLinks = [
   { href: "/docs", label: "Docs" },
+  { href: "/blog", label: "Blog" },
   { href: "/guides", label: "Guides" },
   { href: "/glossary", label: "Glossary" },
   { href: "/developers", label: "Developers" },
