@@ -21,7 +21,7 @@ export function BrandMark({
       className={cn("brand-mark", className)}
       aria-hidden="true"
     >
-      <rect className="brand-mark__plate" x="1.5" y="1.5" width="29" height="29" rx="8" />
+      <rect className="brand-mark__plate" x="1.5" y="1.5" width="29" height="29" rx="7.5" />
       <rect className="brand-mark__corridor" x="4" y="13.5" width="24" height="4" rx="1.2" />
       <path
         className="brand-mark__k"
