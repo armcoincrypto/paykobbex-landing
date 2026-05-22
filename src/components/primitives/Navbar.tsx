@@ -20,10 +20,10 @@ const primaryNav: NavItem[] = [
   { href: "/developers", label: "Developers", tier: "primary" },
   { href: "/security", label: "Security", tier: "primary" },
   { href: "/docs", label: "Docs", tier: "primary" },
+  { href: "/blog", label: "Blog", tier: "primary" },
 ];
 
 const secondaryNav: NavItem[] = [
-  { href: "/blog", label: "Blog", tier: "secondary" },
   { href: "/use-cases", label: "Use cases", tier: "secondary" },
   { href: "/guides", label: "Guides", tier: "secondary" },
   { href: "/operations", label: "Operations", tier: "secondary" },
