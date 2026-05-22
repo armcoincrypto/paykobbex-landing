@@ -1,18 +1,10 @@
-"use client";
-
-import { LifecycleLaneInstrument } from "@/components/proof/LifecycleLaneInstrument";
-import { WebhookPropagationStrip } from "@/components/proof/WebhookPropagationStrip";
+import {
+  HeroPreviewLifecycleLane,
+  HeroPreviewWebhookRibbon,
+} from "@/components/landing/hero-preview-surfaces";
 import { cn } from "@/lib/cn";
 
 const reviewSteps = ["Intake", "Review", "Approval"] as const;
-
-const laneProps = {
-  compact: false,
-  animate: false,
-  interactive: false,
-  showTelemetry: false,
-  showInspectCopy: false,
-} as const;
 
 function ModuleIcon({ variant }: { variant: "lifecycle" | "webhook" | "gate" }) {
   if (variant === "lifecycle") {
@@ -65,13 +57,13 @@ function ModuleIcon({ variant }: { variant: "lifecycle" | "webhook" | "gate" }) 
 }
 
 /**
- * Homepage hero — ultra-premium operational product preview (conceptual only).
+ * Homepage hero — server-rendered operational preview (conceptual only).
  */
-export function HeroOperationalInstrumentCompact({ className }: { className?: string }) {
+export function HeroOperationalInstrumentPreview({ className }: { className?: string }) {
   return (
     <aside
       className={cn(
-        "home-hero-instrument home-hero-instrument--compact home-hero-instrument--preview home-hero-instrument--choreo home-hero-instrument--product",
+        "home-hero-instrument home-hero-instrument--compact home-hero-instrument--preview home-hero-instrument--choreo home-hero-instrument--product home-hero-preview--motion",
         className,
       )}
       aria-labelledby="hero-instrument-heading"
@@ -117,10 +109,7 @@ export function HeroOperationalInstrumentCompact({ className }: { className?: st
               <span className="home-hero-preview__module-title">Lifecycle</span>
             </header>
             <div className="home-hero-preview__module-body home-hero-preview__module-body--lane">
-              <LifecycleLaneInstrument
-                {...laneProps}
-                className="home-hero-instrument-compact-lane"
-              />
+              <HeroPreviewLifecycleLane className="home-hero-instrument-compact-lane" />
             </div>
           </article>
 
@@ -135,10 +124,7 @@ export function HeroOperationalInstrumentCompact({ className }: { className?: st
                 <span className="home-hero-preview__module-title">Webhook</span>
               </header>
               <div className="home-hero-preview__module-body home-hero-preview__module-body--webhook">
-                <WebhookPropagationStrip
-                  {...laneProps}
-                  className="home-hero-instrument-compact-webhook"
-                />
+                <HeroPreviewWebhookRibbon className="home-hero-instrument-compact-webhook" />
               </div>
             </article>
 
@@ -164,9 +150,7 @@ export function HeroOperationalInstrumentCompact({ className }: { className?: st
                           ›
                         </span>
                       ) : null}
-                      <span className="home-hero-preview__segment-pill" tabIndex={0}>
-                        {step}
-                      </span>
+                      <span className="home-hero-preview__segment-pill">{step}</span>
                     </span>
                   ))}
                 </div>

@@ -1,0 +1,661 @@
+/* P24.4 — consolidated homepage motion (hero + ops + below-fold)
+ * Replaces: home-animation-parity, home-motion-tuning, home-ops-instrument-motion, home-micro-motion
+ * Rules: time-based timelines only on infinite loops; no opacity pulsing on SVG rails; no micro overlays.
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* —— Infinite loops: never use scroll/view timelines —— */
+  .home-hero-preview--motion.home-hero-instrument--choreo .lifecycle-lane-rail-pulse,
+  .home-hero-preview--motion.home-hero-instrument--choreo .webhook-ribbon-rail-pulse,
+  .home-hero-preview--motion.home-hero-instrument--choreo .home-hero-preview__console::before,
+  .home-hero-preview--motion.home-hero-instrument--choreo .lifecycle-lane-node:nth-child(2) .lifecycle-lane-marker,
+  .home-hero-preview--motion.home-hero-instrument--choreo .home-hero-preview__segment-pill,
+  .home-platform-ops--motion .proof-env-maturity--choreo .ops-env-progression__rail-line--pulse,
+  .home-platform-ops--motion .proof-env-maturity--choreo .ops-env-progression__stage--active,
+  .home-platform-ops--motion .proof-env-maturity--choreo .ops-env-progression__policy-gate-icon,
+  .home-platform-ops--motion .proof-bento-instrument--state-engine .lifecycle-lane-rail-pulse,
+  .home-platform-ops--motion .proof-bento-instrument--state-engine .ops-pipeline-rail-pulse,
+  .home-platform-ops--motion .proof-bento-instrument--state-engine .webhook-ribbon-rail-pulse,
+  .home-platform-ops--motion .proof-bento-confirm .settlement-intelligence__rail-pulse,
+  .home-platform-ops--motion .proof-bento-instrument--approval .approval-pipeline__rail-base,
+  .home-platform-ops--motion .proof-bento-instrument--approval .approval-pipeline__chamber--final .approval-pipeline__chamber-body,
+  .home-platform-ops--motion .proof-bento-instrument--approval .approval-pipeline__access-led,
+  .home-platform-ops--motion .proof-bento-instrument--approval .approval-pipeline__boundary--policy,
+  .home-platform-ops--motion .proof-bento-instrument--state-engine .ops-state-node__marker,
+  .home-platform-ops--motion .proof-bento-instrument--state-engine .ops-pipeline-engine__boundary {
+    animation-timeline: auto;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     HERO — source of truth (.home-hero-preview--motion)
+     ═══════════════════════════════════════════════════════════════════════════ */
+  .home-hero-preview--motion .home-hero-instrument-compact-card {
+    animation: home-motion-editorial-in var(--token-home-motion-entrance) var(--token-home-motion-editorial-ease)
+      both;
+    animation-delay: 0.05s;
+  }
+
+  .home-hero-preview--motion .home-hero-preview__header {
+    animation: home-motion-editorial-in 0.58s var(--token-home-motion-editorial-ease) both;
+    animation-delay: 0.1s;
+  }
+
+  .home-hero-preview--motion .home-hero-preview__meta {
+    animation: home-motion-editorial-in 0.58s var(--token-home-motion-editorial-ease) both;
+    animation-delay: 0.14s;
+  }
+
+  .home-hero-preview--motion .home-hero-preview__console {
+    animation: home-motion-editorial-in 0.58s var(--token-home-motion-editorial-ease) both;
+    animation-delay: 0.18s;
+  }
+
+  .home-hero-preview--motion .home-hero-preview__module--lifecycle {
+    animation: home-motion-editorial-in 0.54s var(--token-home-motion-editorial-ease) both;
+    animation-delay: 0.24s;
+  }
+
+  .home-hero-preview--motion .home-hero-preview__module--webhook {
+    animation: home-motion-editorial-in 0.54s var(--token-home-motion-editorial-ease) both;
+    animation-delay: 0.3s;
+  }
+
+  .home-hero-preview--motion .home-hero-preview__module--gate {
+    animation: home-motion-editorial-in 0.54s var(--token-home-motion-editorial-ease) both;
+    animation-delay: 0.36s;
+  }
+
+  .home-hero-preview--motion .home-hero-preview__footer {
+    animation: home-motion-editorial-in 0.54s var(--token-home-motion-editorial-ease) both;
+    animation-delay: 0.42s;
+  }
+
+  .home-hero-preview--motion .home-hero-preview-surface {
+    animation: none;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .home-hero-preview__console {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .home-hero-preview__console::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(
+      105deg,
+      transparent 0%,
+      transparent 32%,
+      rgb(var(--token-accent-rgb) / 0.14) 50%,
+      transparent 68%,
+      transparent 100%
+    );
+    background-size: 220% 100%;
+    animation: hero-preview-ambient-sweep 9s var(--token-ops-choreo-ease) infinite;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .home-hero-preview__module {
+    position: relative;
+    z-index: 1;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .lifecycle-lane-rail-pulse {
+    display: block;
+    stroke: rgb(var(--token-accent-bright-rgb) / 0.68);
+    stroke-width: 1.25;
+    opacity: 1;
+    filter: none;
+    stroke-dasharray: 28 72;
+    animation: home-motion-rail-balanced var(--token-home-motion-rail) linear infinite;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .webhook-ribbon-rail-pulse {
+    display: block;
+    stroke: rgb(var(--token-accent-bright-rgb) / 0.64);
+    stroke-width: 1.2;
+    opacity: 1;
+    filter: none;
+    stroke-dasharray: 18 30;
+    stroke-dashoffset: 48;
+    animation: home-motion-rail-balanced-webhook 6.5s linear infinite;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .webhook-ribbon-rail-pulse--seg-1 {
+    animation-delay: 0.4s;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .webhook-ribbon-rail-pulse--seg-2 {
+    animation-delay: 0.75s;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .lifecycle-lane-node:nth-child(2) .lifecycle-lane-marker {
+    animation: ops-choreo-marker-pulse 4.25s var(--token-ops-choreo-ease) infinite;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .webhook-ribbon-step:nth-child(2) strong,
+  .home-hero-preview--motion.home-hero-instrument--choreo .webhook-ribbon-step:nth-child(3) strong {
+    animation: none;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .home-hero-preview__segment-pill {
+    animation: ops-choreo-review-glow 5.5s var(--token-ops-choreo-ease) infinite;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo
+    .home-hero-preview__segment-item:nth-child(2)
+    .home-hero-preview__segment-pill {
+    animation-delay: 1s;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo
+    .home-hero-preview__segment-item:nth-child(3)
+    .home-hero-preview__segment-pill {
+    animation-delay: 2s;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .home-hero-preview__segment-chevron {
+    animation: none;
+  }
+
+  .home-platform--motion .home-hero-governance__cell {
+    animation: home-motion-editorial-in 0.56s var(--token-home-motion-editorial-ease) both;
+    animation-delay: calc(0.08s + (var(--home-governance-i, 0) * var(--token-home-motion-stagger)));
+    animation-timeline: auto;
+  }
+
+  .home-platform--motion .home-hero-governance__cell:nth-child(1) {
+    --home-governance-i: 0;
+  }
+
+  .home-platform--motion .home-hero-governance__cell:nth-child(2) {
+    --home-governance-i: 1;
+  }
+
+  .home-platform--motion .home-hero-governance__cell:nth-child(3) {
+    --home-governance-i: 2;
+  }
+
+  .home-platform--motion .home-hero-governance__cell:nth-child(4) {
+    --home-governance-i: 3;
+  }
+
+  .home-platform--motion .home-hero-governance__cell:nth-child(5) {
+    --home-governance-i: 4;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     OPS BENTO — source of truth (.home-platform-ops--motion)
+     ═══════════════════════════════════════════════════════════════════════════ */
+  .home-platform-ops--motion .ops-platform__thesis {
+    animation: none;
+  }
+
+  .home-platform-ops--motion .ops-platform__thesis .ops-editorial__masthead,
+  .home-platform-ops--motion .ops-platform__thesis .ops-editorial__signature,
+  .home-platform-ops--motion .ops-platform__thesis .ops-editorial__hero,
+  .home-platform-ops--motion .ops-platform__thesis .ops-editorial__body {
+    animation: home-motion-editorial-in var(--token-home-motion-entrance) var(--token-home-motion-editorial-ease)
+      both;
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion .ops-platform__thesis .ops-editorial__signature {
+    animation-delay: var(--token-home-motion-stagger);
+  }
+
+  .home-platform-ops--motion .ops-platform__thesis .ops-editorial__hero {
+    animation-delay: calc(var(--token-home-motion-stagger) * 2);
+  }
+
+  .home-platform-ops--motion .ops-platform__thesis .ops-editorial__body {
+    animation-delay: calc(var(--token-home-motion-stagger) * 3);
+  }
+
+  .home-platform-ops--motion .ops-platform__control {
+    animation: home-motion-editorial-in var(--token-home-motion-entrance) var(--token-home-motion-editorial-ease)
+      both;
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion .ops-platform__cluster {
+    animation: home-motion-editorial-in 0.58s var(--token-home-motion-editorial-ease) both;
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion .ops-platform__cluster--transport {
+    animation-delay: var(--token-home-motion-stagger);
+  }
+
+  .home-platform-ops--motion .ops-platform__cluster--governance {
+    animation-delay: calc(var(--token-home-motion-stagger) * 2);
+  }
+
+  .home-platform-ops--motion .ops-platform__instruments {
+    animation: none;
+  }
+
+  .home-platform-ops--motion .proof-bento-instrument--state-engine,
+  .home-platform-ops--motion .proof-bento-instrument--approval {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .home-platform-ops--motion .proof-env-maturity {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .home-platform-ops--motion .proof-env-maturity .ops-control-plane__frame {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Environment progression */
+  .home-platform-ops--motion .proof-env-maturity--choreo .ops-env-progression__rail-line--pulse {
+    display: block;
+    stroke: rgb(var(--token-accent-bright-rgb) / 0.58);
+    stroke-width: 1.2;
+    opacity: 1;
+    filter: none;
+    stroke-dasharray: 6 10;
+    animation: home-motion-rail-balanced var(--token-home-motion-rail-slow) linear infinite;
+  }
+
+  .home-platform-ops--motion .proof-env-maturity--choreo .ops-env-progression__pipeline > .ops-env-progression__stage:nth-child(1) {
+    animation: confirmation-depth-layer-in 0.52s var(--token-home-motion-editorial-ease) both;
+    animation-delay: 0s;
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion .proof-env-maturity--choreo .ops-env-progression__pipeline > .ops-env-progression__stage:nth-child(2) {
+    animation: confirmation-depth-layer-in 0.52s var(--token-home-motion-editorial-ease) both;
+    animation-delay: var(--token-home-motion-stagger);
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion .proof-env-maturity--choreo .ops-env-progression__pipeline > .ops-env-progression__stage:nth-child(4) {
+    animation: confirmation-depth-layer-in 0.52s var(--token-home-motion-editorial-ease) both;
+    animation-delay: calc(var(--token-home-motion-stagger) * 2);
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion
+    .proof-env-maturity--choreo
+    .ops-env-progression__pipeline
+    > .ops-env-progression__stage:nth-child(2)
+    .ops-env-progression__marker {
+    animation: ops-choreo-env-marker 5.5s var(--token-ops-choreo-ease) infinite;
+  }
+
+  .home-platform-ops--motion .proof-env-maturity--choreo .ops-env-progression__policy-gate-icon {
+    animation: ops-choreo-marker-pulse 4.75s var(--token-ops-choreo-ease) infinite;
+  }
+
+  /* State engine + signed transport (shared bento) */
+  .home-platform-ops--motion .proof-bento-instrument--state-engine .lifecycle-lane--animated .lifecycle-lane-rail-pulse {
+    display: block;
+    stroke-dasharray: 28 72;
+    filter: none;
+  }
+
+  .home-platform-ops--motion .proof-bento-instrument--state-engine .lifecycle-lane-rail-pulse,
+  .home-platform-ops--motion .proof-bento-confirm .settlement-intelligence__rail-pulse {
+    display: block;
+    stroke: rgb(var(--token-accent-bright-rgb) / 0.62);
+    stroke-width: 1.25;
+    opacity: 1;
+    filter: none;
+    animation: home-motion-rail-balanced var(--token-home-motion-rail) linear infinite;
+  }
+
+  .home-platform-ops--motion .proof-bento-instrument--state-engine .ops-pipeline-rail-pulse,
+  .home-platform-ops--motion .proof-bento-instrument--state-engine .webhook-ribbon-rail-pulse {
+    display: block;
+    stroke: rgb(var(--token-accent-bright-rgb) / 0.6);
+    stroke-width: 1.2;
+    opacity: 1;
+    filter: none;
+    stroke-dasharray: 18 30;
+    stroke-dashoffset: 48;
+    animation: home-motion-rail-balanced-webhook var(--token-home-motion-rail-slow) linear infinite;
+  }
+
+  .home-platform-ops--motion .proof-bento-instrument--state-engine .webhook-ribbon-rail-pulse--seg-1,
+  .home-platform-ops--motion .proof-bento-instrument--state-engine .ops-pipeline-rail-pulse--seg-1 {
+    animation-delay: 0.4s;
+  }
+
+  .home-platform-ops--motion .proof-bento-instrument--state-engine .webhook-ribbon-rail-pulse--seg-2,
+  .home-platform-ops--motion .proof-bento-instrument--state-engine .ops-pipeline-rail-pulse--seg-2 {
+    animation-delay: 0.75s;
+  }
+
+  .home-platform-ops--motion
+    .proof-bento-instrument--state-engine
+    .ops-state-engine__nodes
+    > .ops-state-node:nth-child(1) {
+    animation: confirmation-depth-layer-in 0.52s var(--token-home-motion-editorial-ease) both;
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion
+    .proof-bento-instrument--state-engine
+    .ops-state-engine__nodes
+    > .ops-state-node:nth-child(2) {
+    animation: confirmation-depth-layer-in 0.52s var(--token-home-motion-editorial-ease) both;
+    animation-delay: calc(var(--token-home-motion-stagger) * 2);
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion
+    .proof-bento-instrument--state-engine
+    .ops-state-engine__nodes
+    > .ops-state-node:nth-child(3) {
+    animation: confirmation-depth-layer-in 0.52s var(--token-home-motion-editorial-ease) both;
+    animation-delay: calc(var(--token-home-motion-stagger) * 4);
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion
+    .proof-bento-instrument--state-engine
+    .ops-state-engine__terminal
+    .ops-state-node--expired {
+    animation: confirmation-depth-layer-in 0.52s var(--token-home-motion-editorial-ease) both;
+    animation-delay: calc(var(--token-home-motion-stagger) * 6);
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion
+    .proof-bento-instrument--state-engine
+    .ops-state-engine__nodes
+    > .ops-state-node:nth-child(2)
+    .ops-state-node__marker {
+    animation: ops-choreo-marker-pulse 4.25s var(--token-ops-choreo-ease) infinite;
+  }
+
+  .home-platform-ops--motion
+    .proof-bento-instrument--state-engine
+    .ops-pipeline-engine--animated
+    .webhook-ribbon-rail-pulse,
+  .home-platform-ops--motion
+    .proof-bento-instrument--state-engine
+    .ops-pipeline-engine--animated
+    .ops-pipeline-rail-pulse {
+    display: block;
+    stroke-dasharray: 18 30;
+    stroke-dashoffset: 48;
+    filter: none;
+  }
+
+  .home-platform-ops--motion
+    .proof-bento-instrument--state-engine
+    .ops-pipeline-engine__channel--ingress
+    .ops-pipeline-chamber:nth-child(1) {
+    animation: confirmation-depth-layer-in 0.5s var(--token-home-motion-editorial-ease) both;
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion
+    .proof-bento-instrument--state-engine
+    .ops-pipeline-engine__channel--ingress
+    .ops-pipeline-chamber:nth-child(2) {
+    animation: confirmation-depth-layer-in 0.5s var(--token-home-motion-editorial-ease) both;
+    animation-delay: var(--token-home-motion-stagger);
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion
+    .proof-bento-instrument--state-engine
+    .ops-pipeline-engine__channel--boundary
+    .ops-pipeline-chamber {
+    animation: confirmation-depth-layer-in 0.5s var(--token-home-motion-editorial-ease) both;
+    animation-delay: calc(var(--token-home-motion-stagger) * 2);
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion
+    .proof-bento-instrument--state-engine
+    .ops-pipeline-engine__channel--egress
+    .ops-pipeline-chamber {
+    animation: confirmation-depth-layer-in 0.5s var(--token-home-motion-editorial-ease) both;
+    animation-delay: calc(var(--token-home-motion-stagger) * 3);
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion
+    .proof-bento-instrument--state-engine
+    .ops-pipeline-engine__boundary {
+    animation: ops-choreo-review-glow 6.5s var(--token-ops-choreo-ease) infinite;
+  }
+
+  /* Merchant approval */
+  .home-platform-ops--motion .proof-bento-instrument--approval .approval-pipeline__rail-base {
+    stroke: rgb(var(--token-accent-bright-rgb) / 0.5);
+    stroke-width: 1.15;
+    stroke-dasharray: 10 18;
+    stroke-dashoffset: 28;
+    filter: none;
+    animation: home-motion-rail-balanced 7s linear infinite;
+  }
+
+  .home-platform-ops--motion .proof-bento-instrument--approval .approval-pipeline__boundary--policy {
+    animation: ops-choreo-review-glow 6.25s var(--token-ops-choreo-ease) infinite;
+  }
+
+  .home-platform-ops--motion .proof-bento-instrument--approval .approval-pipeline__chamber:nth-child(1) {
+    animation: confirmation-depth-layer-in 0.5s var(--token-home-motion-editorial-ease) both;
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion .proof-bento-instrument--approval .approval-pipeline__chamber:nth-child(2) {
+    animation: confirmation-depth-layer-in 0.5s var(--token-home-motion-editorial-ease) both;
+    animation-delay: var(--token-home-motion-stagger);
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion .proof-bento-instrument--approval .approval-pipeline__chamber:nth-child(3) {
+    animation: confirmation-depth-layer-in 0.5s var(--token-home-motion-editorial-ease) both;
+    animation-delay: calc(var(--token-home-motion-stagger) * 2);
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion .proof-bento-instrument--approval .approval-pipeline__chamber:nth-child(4) {
+    animation: confirmation-depth-layer-in 0.5s var(--token-home-motion-editorial-ease) both;
+    animation-delay: calc(var(--token-home-motion-stagger) * 3);
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion .proof-bento-instrument--approval .approval-pipeline__chamber--final .approval-pipeline__chamber-body {
+    animation: ops-choreo-review-glow 5.75s var(--token-ops-choreo-ease) infinite;
+  }
+
+  .home-platform-ops--motion .proof-bento-instrument--approval .approval-pipeline__access-led {
+    animation: ops-choreo-marker-pulse 4.5s var(--token-ops-choreo-ease) infinite;
+  }
+
+  /* Settlement / reconciliation */
+  .home-platform-ops--motion .settlement-intelligence__node,
+  .home-platform-ops--motion .settlement-intelligence__segment {
+    animation: confirmation-depth-layer-in 0.56s var(--token-home-motion-editorial-ease) both;
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion .settlement-intelligence__node:nth-child(2),
+  .home-platform-ops--motion .settlement-intelligence__segment:nth-child(2) {
+    animation-delay: var(--token-home-motion-stagger);
+  }
+
+  .home-platform-ops--motion .settlement-intelligence__node:nth-child(3),
+  .home-platform-ops--motion .settlement-intelligence__segment:nth-child(3) {
+    animation-delay: calc(var(--token-home-motion-stagger) * 2);
+  }
+
+  .home-platform-ops--motion .ops-principles-matrix {
+    animation: none;
+  }
+
+  .home-platform-ops--motion .ops-principles-matrix__card {
+    animation: confirmation-depth-layer-in 0.54s var(--token-home-motion-editorial-ease) both;
+    animation-timeline: auto;
+  }
+
+  .home-platform-ops--motion .ops-principles-matrix__card:nth-child(2) {
+    animation-delay: var(--token-home-motion-stagger);
+  }
+
+  .home-platform-ops--motion .ops-principles-matrix__card:nth-child(3) {
+    animation-delay: calc(var(--token-home-motion-stagger) * 2);
+  }
+
+  .home-platform-ops--motion .ops-principles-matrix__card:nth-child(4) {
+    animation-delay: calc(var(--token-home-motion-stagger) * 3);
+  }
+
+  .home-platform-ops--motion .ops-principles-matrix__card:nth-child(5) {
+    animation-delay: calc(var(--token-home-motion-stagger) * 4);
+  }
+
+  .home-platform-ops--motion .ops-principles-matrix__card:nth-child(6) {
+    animation-delay: calc(var(--token-home-motion-stagger) * 5);
+  }
+
+  .home-platform-ops--motion .verify-boundary--premium {
+    animation: home-motion-diagram-in 0.78s var(--token-home-motion-editorial-ease) both;
+    animation-timeline: auto;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     BELOW-FOLD — one-shot entrances (auto timeline; diagrams.css keeps view fallback)
+     ═══════════════════════════════════════════════════════════════════════════ */
+  .home-platform--motion #how-it-works .diagram-reveal--settle {
+    animation: home-motion-diagram-in 0.78s var(--token-home-motion-editorial-ease) both;
+    animation-timeline: auto;
+  }
+
+  .home-platform--motion #home-fit-check .ops-fit-check__panel {
+    animation: home-motion-editorial-in var(--token-home-motion-entrance) var(--token-home-motion-editorial-ease)
+      both;
+    animation-timeline: auto;
+  }
+
+  .home-platform--motion .home-buyer-contexts__grid {
+    animation: none;
+  }
+
+  .home-platform--motion .home-buyer-contexts__card {
+    animation: home-motion-editorial-in 0.56s var(--token-home-motion-editorial-ease) both;
+    animation-timeline: auto;
+  }
+
+  .home-platform--motion .home-buyer-contexts__card:nth-child(2) {
+    animation-delay: var(--token-home-motion-stagger);
+  }
+
+  .home-platform--motion .home-buyer-contexts__card:nth-child(3) {
+    animation-delay: calc(var(--token-home-motion-stagger) * 2);
+  }
+
+  .home-platform--motion .home-buyer-contexts__card:nth-child(4) {
+    animation-delay: calc(var(--token-home-motion-stagger) * 3);
+  }
+
+  .home-platform--motion #faq .type-stack-after-heading {
+    animation: none;
+  }
+
+  .home-platform--motion #faq .faq-card {
+    animation: home-motion-editorial-in 0.54s var(--token-home-motion-editorial-ease) both;
+    animation-timeline: auto;
+  }
+
+  .home-platform--motion #faq .faq-card:nth-child(2) {
+    animation-delay: var(--token-home-motion-stagger);
+  }
+
+  .home-platform--motion #faq .faq-card:nth-child(3) {
+    animation-delay: calc(var(--token-home-motion-stagger) * 2);
+  }
+
+  .home-platform--motion #faq .faq-card:nth-child(4) {
+    animation-delay: calc(var(--token-home-motion-stagger) * 3);
+  }
+
+  .home-platform--motion .home-flow-cta__panel--final {
+    animation: home-motion-editorial-in var(--token-home-motion-entrance) var(--token-home-motion-editorial-ease)
+      both;
+    animation-timeline: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero-preview--motion .home-hero-instrument-compact-card,
+  .home-hero-preview--motion .home-hero-preview__header,
+  .home-hero-preview--motion .home-hero-preview__meta,
+  .home-hero-preview--motion .home-hero-preview__console,
+  .home-hero-preview--motion .home-hero-preview__module,
+  .home-hero-preview--motion .home-hero-preview__footer,
+  .home-hero-preview--motion.home-hero-instrument--choreo .home-hero-preview__console::before,
+  .home-hero-preview--motion.home-hero-instrument--choreo .lifecycle-lane-rail-pulse,
+  .home-hero-preview--motion.home-hero-instrument--choreo .webhook-ribbon-rail-pulse,
+  .home-hero-preview--motion.home-hero-instrument--choreo .lifecycle-lane-node:nth-child(2) .lifecycle-lane-marker,
+  .home-hero-preview--motion.home-hero-instrument--choreo .home-hero-preview__segment-pill,
+  .home-platform--motion .home-hero-governance__cell,
+  .home-platform-ops--motion .ops-platform__thesis .ops-editorial__masthead,
+  .home-platform-ops--motion .ops-platform__thesis .ops-editorial__signature,
+  .home-platform-ops--motion .ops-platform__thesis .ops-editorial__hero,
+  .home-platform-ops--motion .ops-platform__thesis .ops-editorial__body,
+  .home-platform-ops--motion .ops-platform__control,
+  .home-platform-ops--motion .ops-platform__cluster,
+  .home-platform-ops--motion .proof-env-maturity--choreo .ops-env-progression__rail-line--pulse,
+  .home-platform-ops--motion .proof-bento-instrument--state-engine .lifecycle-lane-rail-pulse,
+  .home-platform-ops--motion .proof-bento-instrument--state-engine .ops-pipeline-rail-pulse,
+  .home-platform-ops--motion .proof-bento-instrument--state-engine .webhook-ribbon-rail-pulse,
+  .home-platform-ops--motion .proof-bento-confirm .settlement-intelligence__rail-pulse,
+  .home-platform-ops--motion .settlement-intelligence__node,
+  .home-platform-ops--motion .settlement-intelligence__segment,
+  .home-platform-ops--motion .proof-bento-instrument--approval .approval-pipeline__rail-base,
+  .home-platform-ops--motion .proof-bento-instrument--approval .approval-pipeline__chamber--final .approval-pipeline__chamber-body,
+  .home-platform-ops--motion .proof-bento-instrument--approval .approval-pipeline__access-led,
+  .home-platform-ops--motion .proof-bento-instrument--approval .approval-pipeline__boundary--policy,
+  .home-platform-ops--motion
+    .proof-bento-instrument--state-engine
+    .ops-state-engine__nodes
+    > .ops-state-node,
+  .home-platform-ops--motion
+    .proof-bento-instrument--state-engine
+    .ops-state-engine__terminal
+    .ops-state-node--expired,
+  .home-platform-ops--motion
+    .proof-bento-instrument--state-engine
+    .ops-state-engine__nodes
+    > .ops-state-node:nth-child(2)
+    .ops-state-node__marker,
+  .home-platform-ops--motion
+    .proof-bento-instrument--state-engine
+    .ops-pipeline-engine__channel
+    .ops-pipeline-chamber,
+  .home-platform-ops--motion
+    .proof-bento-instrument--state-engine
+    .ops-pipeline-engine__boundary,
+  .home-platform-ops--motion .proof-bento-instrument--approval .approval-pipeline__chamber,
+  .home-platform-ops--motion .proof-env-maturity--choreo .ops-env-progression__pipeline > .ops-env-progression__stage,
+  .home-platform-ops--motion .proof-env-maturity--choreo .ops-env-progression__policy-gate-icon,
+  .home-platform-ops--motion .ops-principles-matrix__card,
+  .home-platform-ops--motion .verify-boundary--premium,
+  .home-platform--motion #how-it-works .diagram-reveal--settle,
+  .home-platform--motion #home-fit-check .ops-fit-check__panel,
+  .home-platform--motion .home-buyer-contexts__card,
+  .home-platform--motion #faq .faq-card,
+  .home-platform--motion .home-flow-cta__panel--final {
+    animation: none !important;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .lifecycle-lane-rail-pulse,
+  .home-hero-preview--motion.home-hero-instrument--choreo .webhook-ribbon-rail-pulse {
+    display: none !important;
+  }
+}

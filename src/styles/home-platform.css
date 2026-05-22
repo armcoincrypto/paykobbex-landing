@@ -1,5 +1,13 @@
 /* P19 — institutional homepage information architecture */
 
+/* P23 — defer below-fold layout/paint for homepage ops section */
+#how-infrastructure-operates {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1200px;
+}
+
+/* P24.4 — ops + homepage motion: see home-motion.css */
+
 .home-platform .home-infrastructure-plane__content {
   display: flex;
   flex-direction: column;

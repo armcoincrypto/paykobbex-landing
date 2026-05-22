@@ -742,42 +742,7 @@ footer a:focus-visible {
   letter-spacing: -0.015em;
 }
 
-/* P20.1 — secondary pages + footer polish */
-.site-footer {
-  position: relative;
-}
-
-.site-footer::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto auto;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgb(var(--token-accent-rgb) / 0.35),
-    transparent
-  );
-  pointer-events: none;
-}
-
-.site-footer__bar {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.site-footer__legal {
-  max-width: 72rem;
-}
-
-@media (min-width: 640px) {
-  .site-footer__legal {
-    line-height: 1.55;
-  }
-}
+/* P20.1 — footer base polish moved to footer.css (P24) */
 
 .legal-page .legal-body .ui-surface-card p + p,
 .legal-page .legal-body .ui-surface-card ul + p,

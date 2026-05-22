@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { HeroBackdrop } from "@/components/landing/HeroBackdrop";
 import { HomeInfrastructurePlane } from "@/components/landing/HomeInfrastructurePlane";
 import { ArchitectureDiagram } from "@/components/diagrams/ArchitectureDiagram";
@@ -8,9 +9,16 @@ import { CTAGroup } from "@/components/primitives/CTAGroup";
 import { Link } from "@/components/primitives/link";
 import { Section } from "@/components/primitives/Section";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { HeroOperationalInstrumentCompact } from "@/components/landing/HeroOperationalInstrumentCompact";
-import { InfrastructureOperationsSection } from "@/components/proof";
+import { HeroOperationalInstrumentPreview } from "@/components/landing/HeroOperationalInstrumentPreview";
 import { OperationalRealismEntry } from "@/components/realism";
+
+const InfrastructureOperationsSection = dynamic(
+  () =>
+    import("@/components/proof/InfrastructureOperationsSection").then(
+      (mod) => mod.InfrastructureOperationsSection,
+    ),
+  { ssr: true },
+);
 import { MERCHANT_JOURNEY_FLOWS } from "@/lib/operational-realism";
 import { OG_IMAGES, OG_IMAGE, SITE_URL } from "@/lib/site";
 
@@ -116,7 +124,7 @@ export default function HomePage() {
       <JsonLd id="ld-json-faq" data={faqJson} />
       <JsonLd id="ld-json-app" data={appJson} />
 
-      <HomeInfrastructurePlane className="home-platform">
+      <HomeInfrastructurePlane className="home-platform home-platform--motion">
       <Section
         id="hero"
         tone="default"
@@ -167,7 +175,7 @@ export default function HomePage() {
                 </p>
               </div>
             </div>
-            <HeroOperationalInstrumentCompact />
+            <HeroOperationalInstrumentPreview />
           </div>
           <section
             className="home-hero-governance home-tier-annotation"
@@ -285,6 +293,7 @@ export default function HomePage() {
             variant="compact"
             className="type-stack-after-heading"
             diagramLabelledBy="home-heading-how-it-works"
+            settle
           />
           <ol className="type-stack-after-heading list-decimal space-y-3.5 pl-5 text-sm text-muted sm:text-body">
             <li>

@@ -1672,3 +1672,159 @@
     animation: none !important;
   }
 }
+
+/* P23.2 — server hero preview: restrained CSS choreography */
+@media (prefers-reduced-motion: no-preference) {
+  .home-hero-preview--motion .home-hero-instrument-compact-card {
+    animation: hero-preview-card-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: 0.05s;
+  }
+
+  .home-hero-preview--motion .home-hero-preview__header,
+  .home-hero-preview--motion .home-hero-preview__meta,
+  .home-hero-preview--motion .home-hero-preview__footer {
+    animation: hero-preview-surface-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .home-hero-preview--motion .home-hero-preview__header {
+    animation-delay: 0.1s;
+  }
+
+  .home-hero-preview--motion .home-hero-preview__meta {
+    animation-delay: 0.14s;
+  }
+
+  .home-hero-preview--motion .home-hero-preview__console {
+    animation: hero-preview-surface-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: 0.18s;
+  }
+
+  .home-hero-preview--motion .home-hero-preview__module--lifecycle {
+    animation: hero-preview-surface-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: 0.24s;
+  }
+
+  .home-hero-preview--motion .home-hero-preview__module--webhook {
+    animation: hero-preview-surface-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: 0.32s;
+  }
+
+  .home-hero-preview--motion .home-hero-preview__module--gate {
+    animation: hero-preview-surface-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: 0.38s;
+  }
+
+  .home-hero-preview--motion .home-hero-preview__footer {
+    animation-delay: 0.44s;
+  }
+
+  /* P23.2-FIX — card ::before sits under opaque panel bg; sweep the console well instead */
+  .home-hero-preview--motion.home-hero-instrument--choreo .home-hero-preview__console {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .home-hero-preview__console::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(
+      105deg,
+      transparent 0%,
+      transparent 30%,
+      rgb(var(--token-accent-rgb) / 0.18) 50%,
+      transparent 70%,
+      transparent 100%
+    );
+    background-size: 220% 100%;
+    animation: hero-preview-ambient-sweep 7s var(--token-ops-choreo-ease) infinite;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .home-hero-preview__module {
+    position: relative;
+    z-index: 1;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .lifecycle-lane-rail-pulse {
+    display: block;
+    opacity: 1;
+    stroke: rgb(var(--token-accent-bright-rgb) / 0.82);
+    stroke-width: 1.35;
+    stroke-dasharray: 28 72;
+    stroke-dashoffset: 100;
+    filter: drop-shadow(0 0 5px rgb(var(--token-accent-rgb) / 0.28));
+    animation: hero-preview-lifecycle-pulse 3.6s linear infinite;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .webhook-ribbon-rail-pulse {
+    display: block;
+    opacity: 1;
+    stroke: rgb(var(--token-accent-bright-rgb) / 0.78);
+    stroke-width: 1.3;
+    stroke-dasharray: 18 30;
+    stroke-dashoffset: 48;
+    filter: drop-shadow(0 0 5px rgb(var(--token-accent-rgb) / 0.24));
+    animation: hero-preview-webhook-pulse 3.2s linear infinite;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .webhook-ribbon-rail-pulse--seg-1 {
+    animation-delay: 0.35s;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .webhook-ribbon-rail-pulse--seg-2 {
+    animation-delay: 0.7s;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .lifecycle-lane-node:nth-child(2) .lifecycle-lane-marker {
+    animation: ops-choreo-marker-pulse 2.8s var(--token-ops-choreo-ease) infinite;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .webhook-ribbon-step:nth-child(2) strong,
+  .home-hero-preview--motion.home-hero-instrument--choreo .webhook-ribbon-step:nth-child(3) strong {
+    animation: ops-choreo-step-emphasis 3.6s var(--token-ops-choreo-ease) infinite;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .home-hero-preview__segment-pill {
+    animation: hero-preview-review-shimmer 4.2s var(--token-ops-choreo-ease) infinite;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo
+    .home-hero-preview__segment-item:nth-child(2)
+    .home-hero-preview__segment-pill {
+    animation-delay: 0.9s;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo
+    .home-hero-preview__segment-item:nth-child(3)
+    .home-hero-preview__segment-pill {
+    animation-delay: 1.8s;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .home-hero-preview__segment-chevron {
+    animation: ops-choreo-sep-nudge 4.2s var(--token-ops-choreo-ease) infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero-preview--motion .home-hero-instrument-compact-card,
+  .home-hero-preview--motion .home-hero-preview__header,
+  .home-hero-preview--motion .home-hero-preview__meta,
+  .home-hero-preview--motion .home-hero-preview__console,
+  .home-hero-preview--motion .home-hero-preview__module,
+  .home-hero-preview--motion .home-hero-preview__footer,
+  .home-hero-preview--motion.home-hero-instrument--choreo .home-hero-preview__console::before,
+  .home-hero-preview--motion.home-hero-instrument--choreo .lifecycle-lane-rail-pulse,
+  .home-hero-preview--motion.home-hero-instrument--choreo .webhook-ribbon-rail-pulse,
+  .home-hero-preview--motion.home-hero-instrument--choreo .home-hero-preview__segment-pill,
+  .home-hero-preview--motion.home-hero-instrument--choreo .home-hero-preview__segment-chevron {
+    animation: none !important;
+  }
+
+  .home-hero-preview--motion.home-hero-instrument--choreo .lifecycle-lane-rail-pulse,
+  .home-hero-preview--motion.home-hero-instrument--choreo .webhook-ribbon-rail-pulse {
+    display: none !important;
+  }
+}
