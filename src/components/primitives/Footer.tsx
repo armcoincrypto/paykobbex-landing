@@ -22,6 +22,8 @@ const buildLinks = [
   { href: "/glossary", label: "Glossary" },
   { href: "/developers", label: "Developers" },
   { href: "/operations", label: "Operations" },
+  { href: "/about", label: "About" },
+  { href: "/editorial-principles", label: "Editorial" },
 ] as const;
 
 const merchantLinks: Array<{
