@@ -1,4 +1,5 @@
 import type { JournalArticle, JournalBlock, JournalHub } from "@/lib/journal/types";
+import type { JournalArticleRelations } from "@/lib/journal/types";
 import type { Metadata } from "next";
 import { OG_IMAGE, OG_IMAGES, SITE_URL } from "@/lib/site";
 import { journalHubPath } from "@/lib/journal/hubs";
@@ -65,53 +66,88 @@ export function journalArticleMetadata(article: JournalArticle): Metadata {
   };
 }
 
-export function journalArticleJsonLd(article: JournalArticle & { readingTimeMinutes: number }) {
+export function journalArticleJsonLd(
+  article: JournalArticle & { readingTimeMinutes: number },
+  relations?: JournalArticleRelations,
+) {
   const url = `${SITE_URL}${journalArticlePath(article.slug)}`;
   const hubUrl = `${SITE_URL}${journalHubPath(article.hubSlug)}`;
-  return {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Article",
-        "@id": `${url}#article`,
-        headline: article.title,
-        description: article.metaDescription,
-        url,
-        inLanguage: "en",
-        publisher: {
-          "@type": "Organization",
-          name: "Kobbopay",
-          url: SITE_URL,
+  const blogUrl = `${SITE_URL}/blog`;
+  const seriesUrl = `${SITE_URL}/research#series`;
+
+  const glossaryMentions =
+    relations?.operationalReferences.glossary.slice(0, 6).map((g) => ({
+      "@type": "DefinedTerm" as const,
+      name: g.label,
+      url: g.href.startsWith("http") ? g.href : `${SITE_URL}${g.href}`,
+    })) ?? [];
+
+  const graph: Record<string, unknown>[] = [
+    {
+      "@type": "TechArticle",
+      "@id": `${url}#article`,
+      headline: article.title,
+      description: article.metaDescription,
+      url,
+      inLanguage: "en",
+      articleSection: article.category,
+      publisher: {
+        "@type": "Organization",
+        name: "Kobbopay",
+        url: SITE_URL,
+      },
+      mainEntityOfPage: { "@type": "WebPage", "@id": url },
+      keywords: article.seoFocus.join(", "),
+      timeRequired: `PT${article.readingTimeMinutes}M`,
+      isPartOf: [
+        { "@type": "CollectionPage", "@id": hubUrl, name: article.category },
+        { "@type": "CollectionPage", "@id": blogUrl, name: "Kobbopay Journal" },
+      ],
+      ...(glossaryMentions.length > 0 ? { about: glossaryMentions } : {}),
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Journal", item: blogUrl },
+        { "@type": "ListItem", position: 3, name: "Research", item: `${SITE_URL}/research` },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: article.category,
+          item: hubUrl,
         },
-        mainEntityOfPage: { "@type": "WebPage", "@id": url },
-        keywords: article.seoFocus.join(", "),
-        timeRequired: `PT${article.readingTimeMinutes}M`,
-        isPartOf: { "@type": "CollectionPage", "@id": hubUrl, name: article.category },
+        { "@type": "ListItem", position: 5, name: article.title, item: url },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: article.faq.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: { "@type": "Answer", text: item.answer },
+      })),
+    },
+  ];
+
+  if (relations?.series) {
+    graph.push({
+      "@type": "ItemList",
+      "@id": `${url}#series`,
+      name: relations.series.name,
+      url: seriesUrl,
+      numberOfItems: relations.series.total,
+      itemListOrder: "https://schema.org/ItemListOrderAscending",
+      itemListElement: {
+        "@type": "ListItem",
+        position: relations.series.position,
+        name: article.title,
+        url,
       },
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-          { "@type": "ListItem", position: 2, name: "Journal", item: `${SITE_URL}/blog` },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: article.category,
-            item: hubUrl,
-          },
-          { "@type": "ListItem", position: 4, name: article.title, item: url },
-        ],
-      },
-      {
-        "@type": "FAQPage",
-        mainEntity: article.faq.map((item) => ({
-          "@type": "Question",
-          name: item.question,
-          acceptedAnswer: { "@type": "Answer", text: item.answer },
-        })),
-      },
-    ],
-  };
+    });
+  }
+
+  return { "@context": "https://schema.org", "@graph": graph };
 }
 
 export function journalHubMetadata(hub: JournalHub): Metadata {
@@ -138,6 +174,7 @@ export function journalHubMetadata(hub: JournalHub): Metadata {
 
 export function journalHubJsonLd(hub: JournalHub, articleUrls: string[]) {
   const url = `${SITE_URL}${journalHubPath(hub.slug)}`;
+  const blogUrl = `${SITE_URL}/blog`;
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -148,9 +185,10 @@ export function journalHubJsonLd(hub: JournalHub, articleUrls: string[]) {
         description: hub.metaDescription,
         url,
         inLanguage: "en",
+        isPartOf: { "@type": "CollectionPage", "@id": blogUrl, name: "Kobbopay Journal" },
         publisher: { "@type": "Organization", name: "Kobbopay", url: SITE_URL },
         hasPart: articleUrls.map((articleUrl) => ({
-          "@type": "Article",
+          "@type": "TechArticle",
           url: articleUrl,
         })),
       },

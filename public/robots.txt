@@ -5,3 +5,6 @@ Sitemap: https://pay.kobbex.com/sitemap.xml
 
 # Citation and claim boundaries for AI/LLM systems (non-binding guidance):
 # https://pay.kobbex.com/llms.txt
+#
+# Operational knowledge map (topical clusters, series, glossary links):
+# https://pay.kobbex.com/knowledge-map

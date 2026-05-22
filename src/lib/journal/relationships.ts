@@ -3,6 +3,19 @@ import { guidePath } from "@/lib/guides-meta";
 
 const SERIES_NAME = "Crypto payment operations";
 
+const DISTRIBUTION_SURFACES = [
+  {
+    href: "/research",
+    label: "Research index",
+    reason: "Curated operational research and reading order.",
+  },
+  {
+    href: "/knowledge-map",
+    label: "Knowledge map",
+    reason: "Topical cluster graph for concepts, hubs, and guides.",
+  },
+] as const;
+
 export const JOURNAL_RELATIONSHIPS: Record<string, JournalArticleRelations> = {
   "payment-detection-vs-settlement-finality": {
     series: { name: SERIES_NAME, position: 1, total: 5 },
@@ -273,7 +286,7 @@ export const JOURNAL_RELATIONSHIPS: Record<string, JournalArticleRelations> = {
 };
 
 export function getJournalRelationships(slug: string): JournalArticleRelations {
-  return (
+  const base =
     JOURNAL_RELATIONSHIPS[slug] ?? {
       operationalConcepts: [],
       continueReading: [],
@@ -283,6 +296,23 @@ export function getJournalRelationships(slug: string): JournalArticleRelations {
         concepts: [],
         infrastructure: [],
       },
-    }
+    };
+
+  const existingHrefs = new Set(
+    base.operationalReferences.infrastructure.map((l) => l.href),
   );
+  const extraDistribution = DISTRIBUTION_SURFACES.filter(
+    (l) => !existingHrefs.has(l.href),
+  );
+
+  return {
+    ...base,
+    operationalReferences: {
+      ...base.operationalReferences,
+      infrastructure: [
+        ...base.operationalReferences.infrastructure,
+        ...extraDistribution,
+      ],
+    },
+  };
 }

@@ -126,6 +126,12 @@ export function JournalHome() {
             >
               Request access
             </Link>
+            <Link href="/research" className="journal-index__footer-link no-underline" muted>
+              Research
+            </Link>
+            <Link href="/knowledge-map" className="journal-index__footer-link no-underline" muted>
+              Knowledge map
+            </Link>
             <Link href="/editorial-principles" className="journal-index__footer-link no-underline" muted>
               Editorial principles
             </Link>

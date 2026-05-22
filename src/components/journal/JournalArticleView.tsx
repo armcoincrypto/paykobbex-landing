@@ -5,6 +5,7 @@ import { JournalArticleBody } from "@/components/journal/JournalArticleBody";
 import { JournalArticleRelations } from "@/components/journal/JournalArticleRelations";
 import { JournalOperationalReferences } from "@/components/journal/JournalOperationalReferences";
 import { JournalArticleDiagrams } from "@/components/journal/JournalArticleDiagrams";
+import { JournalSemanticSummary } from "@/components/journal/JournalSemanticSummary";
 import { JsonLd } from "@/components/seo/JsonLd";
 import type { JournalArticleEntry, JournalBlock } from "@/lib/journal";
 import { journalArticleJsonLd, journalHubPath } from "@/lib/journal";
@@ -21,7 +22,10 @@ export function JournalArticleView({ article }: { article: JournalArticleEntry }
 
   return (
     <>
-      <JsonLd id={`ld-json-journal-${article.slug}`} data={journalArticleJsonLd(article)} />
+      <JsonLd
+        id={`ld-json-journal-${article.slug}`}
+        data={journalArticleJsonLd(article, article.relations)}
+      />
 
       <article className="journal-article">
         <div className="journal-article__frame" aria-hidden="true" />
@@ -97,6 +101,8 @@ export function JournalArticleView({ article }: { article: JournalArticleEntry }
                   ))}
                 </ol>
               </aside>
+
+              <JournalSemanticSummary article={article} />
 
               <JournalArticleRelations article={article} />
 

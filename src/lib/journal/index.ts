@@ -79,6 +79,22 @@ export {
   journalHubPath,
 };
 
+export {
+  JOURNAL_SERIES,
+  JOURNAL_SERIES_ID,
+  JOURNAL_TOPIC_ROADMAP,
+  JOURNAL_ARTICLE_AI_SUMMARIES,
+  getArticleAiSummary,
+} from "@/lib/journal/publication";
+
+export { TOPICAL_CLUSTERS, getClusterForArticle } from "@/lib/journal/topical-clusters";
+export { buildKnowledgeGraph, knowledgeMapJsonLd } from "@/lib/journal/knowledge-graph";
+export {
+  journalIndexMetadata,
+  researchIndexMetadata,
+  knowledgeMapMetadata,
+} from "@/lib/journal/search-metadata";
+
 export type {
   JournalArticle,
   JournalBlock,
