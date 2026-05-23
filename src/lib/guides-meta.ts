@@ -6,7 +6,13 @@ export type GuideSlug =
   | "webhook-verification"
   | "reconciliation-and-confirmations"
   | "server-side-api-keys"
-  | "merchant-onboarding";
+  | "merchant-onboarding"
+  | "reconciliation-checklist"
+  | "payment-lifecycle-decision-tree"
+  | "merchant-integration-architecture"
+  | "treasury-recognition-flow"
+  | "settlement-vs-payout"
+  | "webhook-replay-handling";
 
 export const GUIDE_ENTRIES: Array<{
   slug: GuideSlug;
@@ -48,6 +54,48 @@ export const GUIDE_ENTRIES: Array<{
     shortTitle: "Server-side API keys",
     description:
       "Where secrets belong, what “server-to-server” implies for checkout UX, and common anti-patterns that create preventable incidents.",
+  },
+  {
+    slug: "reconciliation-checklist",
+    title: "Reconciliation implementation checklist for crypto payments",
+    shortTitle: "Reconciliation checklist",
+    description:
+      "Operational checklist for three-plane matchers, exception queues, period close, and finance-ready evidence—without inventing universal posting rules.",
+  },
+  {
+    slug: "payment-lifecycle-decision-tree",
+    title: "Payment lifecycle decision tree for operators",
+    shortTitle: "Lifecycle decision tree",
+    description:
+      "Decision paths from detection through policy confirmation, exception handling, and books-ready gates—aligned with bounded lifecycle vocabulary.",
+  },
+  {
+    slug: "merchant-integration-architecture",
+    title: "Merchant integration architecture overview",
+    shortTitle: "Integration architecture",
+    description:
+      "Layered server-side boundaries: API authority, webhook verification, lifecycle mapping, reconciliation, and treasury controls—architecture-first, not feature lists.",
+  },
+  {
+    slug: "treasury-recognition-flow",
+    title: "Treasury recognition flow for merchant operations",
+    shortTitle: "Treasury recognition",
+    description:
+      "How treasury posting differs from lifecycle Confirmed states—recognition gates, allocation discipline, and separation from payout orchestration.",
+  },
+  {
+    slug: "settlement-vs-payout",
+    title: "Settlement vs payout for crypto merchant operations",
+    shortTitle: "Settlement vs payout",
+    description:
+      "Inbound settlement rails, merchant balance semantics, and payout orchestration—why conflating them creates treasury and support incidents.",
+  },
+  {
+    slug: "webhook-replay-handling",
+    title: "Webhook replay and ordering for payment operators",
+    shortTitle: "Webhook replay handling",
+    description:
+      "Replay windows, duplicate suppression, out-of-order delivery, and provider retry semantics—with an illustrative verification walkthrough.",
   },
 ];
 

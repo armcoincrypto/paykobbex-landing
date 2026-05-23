@@ -1,8 +1,8 @@
 import type { JournalArticle, JournalBlock, JournalHub } from "@/lib/journal/types";
 import type { JournalArticleRelations } from "@/lib/journal/types";
 import type { Metadata } from "next";
+import { JOURNAL_HUBS, journalHubPath } from "@/lib/journal/hubs";
 import { OG_IMAGE, OG_IMAGES, SITE_URL } from "@/lib/site";
-import { journalHubPath } from "@/lib/journal/hubs";
 
 function blockText(block: JournalBlock): string {
   switch (block.type) {
@@ -148,6 +148,46 @@ export function journalArticleJsonLd(
   }
 
   return { "@context": "https://schema.org", "@graph": graph };
+}
+
+export function journalIndexJsonLd(
+  articles: Array<Pick<JournalArticle, "slug" | "title" | "metaDescription">>,
+) {
+  const url = `${SITE_URL}/blog`;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": url,
+        name: "Kobbopay Journal",
+        description:
+          "Operational research on crypto payment settlement, signed webhooks, reconciliation, stablecoin treasury flows, and B2B payment infrastructure.",
+        url,
+        inLanguage: "en",
+        isPartOf: { "@type": "WebSite", "@id": `${SITE_URL}/#website`, name: "Kobbopay" },
+        publisher: { "@type": "Organization", name: "Kobbopay", url: SITE_URL },
+        hasPart: articles.map((article) => ({
+          "@type": "TechArticle",
+          url: `${SITE_URL}${journalArticlePath(article.slug)}`,
+          headline: article.title,
+          description: article.metaDescription,
+        })),
+      },
+      {
+        "@type": "ItemList",
+        "@id": `${url}#hubs`,
+        name: "Journal topic hubs",
+        numberOfItems: JOURNAL_HUBS.length,
+        itemListElement: JOURNAL_HUBS.map((hub, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: hub.title,
+          url: `${SITE_URL}${journalHubPath(hub.slug)}`,
+        })),
+      },
+    ],
+  };
 }
 
 export function journalHubMetadata(hub: JournalHub): Metadata {

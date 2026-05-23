@@ -1,7 +1,7 @@
 import { GLOSSARY_TERMS } from "@/lib/glossary-terms";
 import { GUIDE_ENTRIES, guidePath } from "@/lib/guides-meta";
 import { JOURNAL_ARTICLES, journalArticlePath, journalHubPath } from "@/lib/journal";
-import { TOPICAL_CLUSTERS, RECONCILIATION_CLUSTER_ARTICLE } from "@/lib/journal/topical-clusters";
+import { TOPICAL_CLUSTERS } from "@/lib/journal/topical-clusters";
 import { JOURNAL_SERIES, JOURNAL_ARTICLE_AI_SUMMARIES } from "@/lib/journal/publication";
 import { SITE_URL } from "@/lib/site";
 
@@ -30,9 +30,6 @@ export function buildKnowledgeGraph(): {
 } {
   const clusters: KnowledgeGraphCluster[] = TOPICAL_CLUSTERS.map((cluster) => {
     const articleSlugs = new Set(cluster.articleSlugs);
-    if (cluster.id === "settlement") {
-      articleSlugs.add(RECONCILIATION_CLUSTER_ARTICLE);
-    }
 
     return {
       id: cluster.id,

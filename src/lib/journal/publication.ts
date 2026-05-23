@@ -17,6 +17,27 @@ export const JOURNAL_SERIES = {
   ] as const,
 };
 
+export const JOURNAL_RECONCILIATION_SERIES = {
+  id: "reconciliation-operations",
+  name: "Reconciliation operations",
+  description:
+    "Deep reconciliation research: three-plane architecture, exception taxonomy, and settlement drift recovery—for finance and payment operations teams.",
+  articleSlugs: [
+    "reliable-reconciliation-flows",
+    "three-plane-reconciliation-architecture",
+    "exception-taxonomy-crypto-payment-operations",
+    "operational-settlement-drift-recovery",
+  ] as const,
+};
+
+export const JOURNAL_WEBHOOK_DEPTH_SERIES = {
+  id: "webhook-operations",
+  name: "Webhook operations",
+  description:
+    "Verification, replay protection, and ordering discipline for at-least-once payment event delivery.",
+  articleSlugs: ["verify-crypto-webhooks-safely", "webhook-replay-ordering-controls"] as const,
+};
+
 export type RoadmapEntryStatus = "published" | "planned";
 
 export type JournalRoadmapEntry = {
@@ -47,7 +68,7 @@ export const JOURNAL_TOPIC_ROADMAP: JournalRoadmapEntry[] = [
     topic: "Reliable reconciliation flows",
     status: "published",
     slug: "reliable-reconciliation-flows",
-    cluster: "Settlement / reconciliation",
+    cluster: "Reconciliation",
     note: "Three-plane alignment and exception discipline.",
   },
   {
@@ -66,15 +87,31 @@ export const JOURNAL_TOPIC_ROADMAP: JournalRoadmapEntry[] = [
   },
   {
     topic: "Exception taxonomy for payment operations",
-    status: "planned",
+    status: "published",
+    slug: "exception-taxonomy-crypto-payment-operations",
     cluster: "Reconciliation",
-    note: "Structured exception classes for finance and support—editorial queue.",
+    note: "Structured exception classes for finance and support routing.",
+  },
+  {
+    topic: "Three-plane reconciliation architecture",
+    status: "published",
+    slug: "three-plane-reconciliation-architecture",
+    cluster: "Reconciliation",
+    note: "Commerce, provider, and finance plane alignment.",
+  },
+  {
+    topic: "Operational settlement drift and recovery",
+    status: "published",
+    slug: "operational-settlement-drift-recovery",
+    cluster: "Settlement",
+    note: "Checkpoint guardrails and bounded recovery playbooks.",
   },
   {
     topic: "Webhook replay and ordering controls",
-    status: "planned",
+    status: "published",
+    slug: "webhook-replay-ordering-controls",
     cluster: "Webhooks",
-    note: "Operational patterns beyond signature verification—editorial queue.",
+    note: "Replay windows, duplicate suppression, and ordering guarantees.",
   },
 ];
 
@@ -90,6 +127,14 @@ export const JOURNAL_ARTICLE_AI_SUMMARIES: Record<string, string> = {
     "Frames USDT merchant flows with treasury recognition, network abstraction, and the operational distinction between settlement and payout requests.",
   "production-grade-crypto-payment-infrastructure":
     "Defines production infrastructure as layered server-side trust boundaries, lifecycle semantics, and bounded rails—not checkout widgets or marketing feature lists.",
+  "exception-taxonomy-crypto-payment-operations":
+    "Defines structured exception classes—amount, reference, timing, and rail mismatches—with owned queues and auditable resolution instead of informal overrides.",
+  "three-plane-reconciliation-architecture":
+    "Maps commerce, provider lifecycle, and finance reconciliation planes with explicit matchers and tolerances—without collapsing detection into books-ready finality.",
+  "operational-settlement-drift-recovery":
+    "Explains operational drift between planes, settlement checkpoint guardrails, and bounded recovery playbooks grounded in verified provider events.",
+  "webhook-replay-ordering-controls":
+    "Covers replay protection, duplicate suppression, out-of-order delivery, and provider retry semantics beyond raw-body signature verification.",
 };
 
 export function getArticleAiSummary(

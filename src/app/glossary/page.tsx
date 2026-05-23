@@ -11,7 +11,7 @@ import { OG_IMAGE, OG_IMAGES, SITE_URL } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Glossary",
   description:
-    "Canonical glossary for Kobbopay B2B crypto payments: lifecycle states, signed webhooks, idempotency, reconciliation, merchant approval, selected rails, and withdrawal requests—bounded, citation-friendly definitions.",
+    "Canonical glossary for Kobbopay B2B crypto payments: lifecycle states, three-plane reconciliation, webhook replay controls, settlement checkpoints, treasury recognition, and merchant rail semantics—44 bounded, citation-friendly terms.",
   alternates: { canonical: `${SITE_URL}/glossary` },
   openGraph: {
     title: "Glossary — Kobbopay",

@@ -1,10 +1,11 @@
 import type { JournalHubSlug } from "@/lib/journal/types";
-import { type GuideSlug } from "@/lib/guides-meta";
+import type { GuideSlug } from "@/lib/guides-meta";
 import { journalHubPath } from "@/lib/journal/hubs";
 
 export type TopicalClusterId =
   | "settlement"
   | "webhooks"
+  | "reconciliation"
   | "infrastructure"
   | "stablecoin-operations";
 
@@ -26,33 +27,58 @@ export const TOPICAL_CLUSTERS: TopicalCluster[] = [
     name: "Settlement operations",
     hubSlug: "settlement-operations",
     primaryIntent:
-      "Detection vs finality, confirmation policy, treasury recognition, and reconciliation semantics.",
+      "Detection vs finality, confirmation policy, treasury recognition, and settlement checkpoint discipline.",
     concepts: [
       { term: "Settlement finality", href: "/glossary#settlement-finality" },
       { term: "Policy confirmation", href: "/glossary#policy-confirmation" },
-      { term: "Confirmations", href: "/glossary#confirmations" },
+      { term: "Operational finality", href: "/glossary#operational-finality" },
+      { term: "Settlement checkpoint", href: "/glossary#settlement-checkpoint" },
       { term: "Treasury recognition", href: "/glossary#treasury-recognition" },
-      { term: "Reconciliation", href: "/glossary#reconciliation" },
     ],
-    articleSlugs: ["payment-detection-vs-settlement-finality"],
-    guideSlugs: ["payment-lifecycle", "reconciliation-and-confirmations"],
-    relatedClusterIds: ["webhooks", "infrastructure"],
+    articleSlugs: [
+      "payment-detection-vs-settlement-finality",
+      "operational-settlement-drift-recovery",
+    ],
+    guideSlugs: ["payment-lifecycle", "payment-lifecycle-decision-tree", "settlement-vs-payout"],
+    relatedClusterIds: ["reconciliation", "webhooks", "infrastructure"],
   },
   {
     id: "webhooks",
     name: "Webhook security",
     hubSlug: "webhook-security",
     primaryIntent:
-      "Signed webhooks, raw-body verification, replay-safe delivery, and idempotent consumers.",
+      "Signed webhooks, raw-body verification, replay protection, idempotent consumers, and ordering discipline.",
     concepts: [
       { term: "Signed webhook", href: "/glossary#signed-webhook" },
-      { term: "Webhook verification", href: "/glossary#webhook-verification" },
-      { term: "Webhook secret", href: "/glossary#webhook-secret" },
-      { term: "Idempotency", href: "/glossary#idempotency" },
+      { term: "Raw-body verification", href: "/glossary#raw-body-verification" },
+      { term: "Replay protection", href: "/glossary#replay-protection" },
+      { term: "Idempotent processing", href: "/glossary#idempotent-processing" },
+      { term: "Webhook replay window", href: "/glossary#webhook-replay-window" },
     ],
-    articleSlugs: ["verify-crypto-webhooks-safely"],
-    guideSlugs: ["webhook-verification", "server-side-api-keys"],
-    relatedClusterIds: ["settlement", "infrastructure"],
+    articleSlugs: ["verify-crypto-webhooks-safely", "webhook-replay-ordering-controls"],
+    guideSlugs: ["webhook-verification", "webhook-replay-handling", "server-side-api-keys"],
+    relatedClusterIds: ["settlement", "reconciliation", "infrastructure"],
+  },
+  {
+    id: "reconciliation",
+    name: "Reconciliation",
+    hubSlug: "reconciliation",
+    primaryIntent:
+      "Three-plane alignment, exception queues, finance reconciliation, and merchant-owned ledger mapping.",
+    concepts: [
+      { term: "Three-plane reconciliation", href: "/glossary#three-plane-reconciliation" },
+      { term: "Exception queue", href: "/glossary#exception-queue" },
+      { term: "Commerce reconciliation", href: "/glossary#commerce-reconciliation" },
+      { term: "Finance reconciliation", href: "/glossary#finance-reconciliation" },
+      { term: "Operational drift", href: "/glossary#operational-drift" },
+    ],
+    articleSlugs: [
+      "reliable-reconciliation-flows",
+      "exception-taxonomy-crypto-payment-operations",
+      "three-plane-reconciliation-architecture",
+    ],
+    guideSlugs: ["reconciliation-and-confirmations", "reconciliation-checklist"],
+    relatedClusterIds: ["settlement", "webhooks", "stablecoin-operations"],
   },
   {
     id: "infrastructure",
@@ -62,13 +88,13 @@ export const TOPICAL_CLUSTERS: TopicalCluster[] = [
       "Merchant rails, operational lifecycle, policy gating, and treasury orchestration boundaries.",
     concepts: [
       { term: "Payment lifecycle", href: "/glossary#payment-lifecycle" },
+      { term: "Payment rail abstraction", href: "/glossary#payment-rail-abstraction" },
       { term: "Selected rails", href: "/glossary#selected-rails" },
       { term: "Merchant approval", href: "/glossary#merchant-approval" },
-      { term: "Lifecycle status", href: "/glossary#lifecycle-status" },
     ],
     articleSlugs: ["production-grade-crypto-payment-infrastructure"],
-    guideSlugs: ["merchant-onboarding", "server-side-api-keys"],
-    relatedClusterIds: ["settlement", "webhooks", "stablecoin-operations"],
+    guideSlugs: ["merchant-integration-architecture", "merchant-onboarding", "server-side-api-keys"],
+    relatedClusterIds: ["settlement", "webhooks", "reconciliation", "stablecoin-operations"],
   },
   {
     id: "stablecoin-operations",
@@ -78,23 +104,17 @@ export const TOPICAL_CLUSTERS: TopicalCluster[] = [
       "USDT operational flows, treasury separation, network abstraction, and settlement vs payout.",
     concepts: [
       { term: "Treasury recognition", href: "/glossary#treasury-recognition" },
-      { term: "Paid", href: "/glossary#paid" },
-      { term: "Confirmed", href: "/glossary#confirmed" },
-      { term: "Reconciliation", href: "/glossary#reconciliation" },
+      { term: "Treasury posting", href: "/glossary#treasury-posting" },
+      { term: "Settlement rail", href: "/glossary#settlement-rail" },
+      { term: "Payout rail", href: "/glossary#payout-rail" },
     ],
     articleSlugs: ["usdt-business-payments"],
-    guideSlugs: ["payment-lifecycle", "reconciliation-and-confirmations"],
-    relatedClusterIds: ["settlement", "infrastructure"],
+    guideSlugs: ["treasury-recognition-flow", "settlement-vs-payout", "payment-lifecycle"],
+    relatedClusterIds: ["settlement", "reconciliation", "infrastructure"],
   },
 ];
 
-export const RECONCILIATION_CLUSTER_ARTICLE = "reliable-reconciliation-flows";
-
-/** Reconciliation spans settlement + stablecoin; linked from settlement cluster without duplicate hub. */
 export function getClusterForArticle(slug: string): TopicalCluster | undefined {
-  if (slug === RECONCILIATION_CLUSTER_ARTICLE) {
-    return TOPICAL_CLUSTERS.find((c) => c.id === "settlement");
-  }
   return TOPICAL_CLUSTERS.find((c) => c.articleSlugs.includes(slug));
 }
 

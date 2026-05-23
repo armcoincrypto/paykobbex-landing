@@ -146,12 +146,14 @@ export const JOURNAL_HUBS: JournalHub[] = [
     ],
     relatedGuides: [
       { slug: "reconciliation-and-confirmations", reason: "Confirmations vs books-ready gates." },
+      { slug: "reconciliation-checklist", reason: "Implementation checklist for matchers and exceptions." },
       { slug: "payment-lifecycle", reason: "Shared state vocabulary." },
     ],
     semanticLinks: [
+      { href: "/glossary#three-plane-reconciliation", label: "Three-plane reconciliation", reason: "Architecture anchor." },
+      { href: "/glossary#exception-queue", label: "Exception queue", reason: "Operational routing term." },
       { href: "/glossary#reconciliation", label: "Reconciliation", reason: "Glossary definition." },
-      { href: "/glossary#merchant-balance", label: "Merchant balance", reason: "Treasury-facing term." },
-      { href: "/guides/reconciliation-and-confirmations", label: "Reconciliation guide", reason: "Evergreen reference." },
+      { href: "/guides/reconciliation-checklist", label: "Reconciliation checklist", reason: "Implementation reference." },
     ],
   },
   {

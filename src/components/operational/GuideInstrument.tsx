@@ -28,7 +28,58 @@ const INSTRUMENT_LABEL: Record<GuideSlug, { label: string; sublabel: string }> =
     label: "Review pipeline",
     sublabel: "Access gating (conceptual)",
   },
+  "reconciliation-checklist": {
+    label: "Three-plane alignment",
+    sublabel: "Matcher discipline (conceptual)",
+  },
+  "payment-lifecycle-decision-tree": {
+    label: "Lifecycle checkpoints",
+    sublabel: "Operator decision paths",
+  },
+  "merchant-integration-architecture": {
+    label: "Integration layers",
+    sublabel: "Server-side boundaries",
+  },
+  "treasury-recognition-flow": {
+    label: "Recognition gates",
+    sublabel: "Finance vs lifecycle",
+  },
+  "settlement-vs-payout": {
+    label: "Settlement vs payout",
+    sublabel: "Inbound vs outbound rails",
+  },
+  "webhook-replay-handling": {
+    label: "Replay & ordering",
+    sublabel: "At-least-once delivery",
+  },
 };
+
+function GuideInstrumentVisual({ slug }: { slug: GuideSlug }) {
+  if (
+    slug === "payment-lifecycle" ||
+    slug === "payment-lifecycle-decision-tree" ||
+    slug === "settlement-vs-payout"
+  ) {
+    return <LifecycleLaneInstrument compact animate={false} />;
+  }
+  if (slug === "webhook-verification" || slug === "webhook-replay-handling") {
+    return <WebhookPropagationStrip />;
+  }
+  if (
+    slug === "reconciliation-and-confirmations" ||
+    slug === "reconciliation-checklist" ||
+    slug === "treasury-recognition-flow"
+  ) {
+    return <ConfirmationDepthStack />;
+  }
+  if (slug === "server-side-api-keys" || slug === "merchant-integration-architecture") {
+    return <SecurityBoundaryInstrument />;
+  }
+  if (slug === "merchant-onboarding") {
+    return <ReviewPipelineInstrument />;
+  }
+  return null;
+}
 
 /** One signature operational visual per guide — restrained, educational. */
 export function GuideInstrument({
@@ -53,11 +104,7 @@ export function GuideInstrument({
         Conceptual operational diagram for this guide. Not live merchant data or metrics.
       </p>
       <div aria-hidden="true">
-        {slug === "payment-lifecycle" ? <LifecycleLaneInstrument compact animate={false} /> : null}
-        {slug === "webhook-verification" ? <WebhookPropagationStrip /> : null}
-        {slug === "reconciliation-and-confirmations" ? <ConfirmationDepthStack /> : null}
-        {slug === "server-side-api-keys" ? <SecurityBoundaryInstrument /> : null}
-        {slug === "merchant-onboarding" ? <ReviewPipelineInstrument /> : null}
+        <GuideInstrumentVisual slug={slug} />
       </div>
     </VerificationFramePanel>
   );

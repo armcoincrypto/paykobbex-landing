@@ -3,6 +3,10 @@ import { verifyCryptoWebhooksSafely } from "@/lib/journal/articles/verify-crypto
 import { usdtBusinessPayments } from "@/lib/journal/articles/usdt-business-payments";
 import { reliableReconciliationFlows } from "@/lib/journal/articles/reliable-reconciliation-flows";
 import { productionGradeCryptoPaymentInfrastructure } from "@/lib/journal/articles/production-grade-crypto-payment-infrastructure";
+import { exceptionTaxonomyCryptoPaymentOperations } from "@/lib/journal/articles/exception-taxonomy-crypto-payment-operations";
+import { threePlaneReconciliationArchitecture } from "@/lib/journal/articles/three-plane-reconciliation-architecture";
+import { operationalSettlementDriftRecovery } from "@/lib/journal/articles/operational-settlement-drift-recovery";
+import { webhookReplayOrderingControls } from "@/lib/journal/articles/webhook-replay-ordering-controls";
 import {
   enrichArticle,
   journalArticleMetadata,
@@ -10,6 +14,7 @@ import {
   journalArticleJsonLd,
   journalHubMetadata,
   journalHubJsonLd,
+  journalIndexJsonLd,
 } from "@/lib/journal/utils";
 import { getJournalRelationships } from "@/lib/journal/relationships";
 import type { JournalArticle, JournalArticleRelations, JournalHubSlug } from "@/lib/journal/types";
@@ -26,6 +31,10 @@ const RAW_ARTICLES: JournalArticle[] = [
   usdtBusinessPayments,
   reliableReconciliationFlows,
   productionGradeCryptoPaymentInfrastructure,
+  exceptionTaxonomyCryptoPaymentOperations,
+  threePlaneReconciliationArchitecture,
+  operationalSettlementDriftRecovery,
+  webhookReplayOrderingControls,
 ];
 
 export const JOURNAL_FEATURED_SLUG = "payment-detection-vs-settlement-finality";
@@ -73,6 +82,7 @@ export {
   journalArticleJsonLd,
   journalHubMetadata,
   journalHubJsonLd,
+  journalIndexJsonLd,
   JOURNAL_HUBS,
   JOURNAL_HUB_SLUGS,
   getJournalHub,

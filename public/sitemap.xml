@@ -56,6 +56,26 @@
     <priority>0.78</priority>
   </url>
   <url>
+    <loc>https://pay.kobbex.com/blog/exception-taxonomy-crypto-payment-operations</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/blog/three-plane-reconciliation-architecture</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/blog/operational-settlement-drift-recovery</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/blog/webhook-replay-ordering-controls</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
     <loc>https://pay.kobbex.com/blog/settlement-operations</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -124,6 +144,36 @@
     <loc>https://pay.kobbex.com/guides/merchant-onboarding</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/guides/reconciliation-checklist</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/guides/payment-lifecycle-decision-tree</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/guides/merchant-integration-architecture</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/guides/treasury-recognition-flow</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/guides/settlement-vs-payout</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/guides/webhook-replay-handling</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
   </url>
   <url>
     <loc>https://pay.kobbex.com/glossary</loc>

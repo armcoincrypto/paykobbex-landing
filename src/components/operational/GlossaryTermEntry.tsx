@@ -28,6 +28,19 @@ export function GlossaryTermEntry({ term }: { term: GlossaryTerm }) {
           ))}
         </p>
       ) : null}
+      {term.relatedConcepts?.length ? (
+        <p className="mt-2 text-xs text-muted">
+          <span className="font-semibold text-primary">Related:</span>{" "}
+          {term.relatedConcepts.map((concept, i) => (
+            <span key={concept.href}>
+              {i > 0 ? " · " : null}
+              <Link href={concept.href} className="text-muted hover:text-primary">
+                {concept.label}
+              </Link>
+            </span>
+          ))}
+        </p>
+      ) : null}
     </article>
   );
 }

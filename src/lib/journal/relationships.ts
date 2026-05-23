@@ -90,6 +90,10 @@ export const JOURNAL_RELATIONSHIPS: Record<string, JournalArticleRelations> = {
     ],
     continueReading: [
       {
+        slug: "webhook-replay-ordering-controls",
+        reason: "Replay protection and ordering beyond signature verification.",
+      },
+      {
         slug: "reliable-reconciliation-flows",
         reason: "Consume verified events into reconciliation-safe workflows.",
       },
@@ -281,6 +285,197 @@ export const JOURNAL_RELATIONSHIPS: Record<string, JournalArticleRelations> = {
         { href: "/docs", label: "Documentation", reason: "Integration reference." },
         { href: "/about", label: "About Kobbopay", reason: "Institutional positioning." },
       ],
+    },
+  },
+  "exception-taxonomy-crypto-payment-operations": {
+    prerequisite: {
+      slug: "reliable-reconciliation-flows",
+      label: "Reliable reconciliation flows",
+      reason: "Three-plane framing before naming exception classes.",
+    },
+    operationalConcepts: [
+      "Exception queue",
+      "Exception taxonomy",
+      "Commerce reconciliation",
+      "Finance reconciliation",
+      "Operational drift",
+    ],
+    continueReading: [
+      {
+        slug: "three-plane-reconciliation-architecture",
+        reason: "Structural model exceptions align against.",
+      },
+      {
+        slug: "operational-settlement-drift-recovery",
+        reason: "When unnamed exceptions become drift.",
+      },
+    ],
+    operationalReferences: {
+      guides: [
+        {
+          href: guidePath("reconciliation-checklist"),
+          label: "Reconciliation checklist",
+          reason: "Implementation control list.",
+        },
+        {
+          href: guidePath("reconciliation-and-confirmations"),
+          label: "Reconciliation & confirmations",
+          reason: "Lifecycle alignment reference.",
+        },
+      ],
+      glossary: [
+        { href: "/glossary#exception-queue", label: "Exception queue" },
+        { href: "/glossary#three-plane-reconciliation", label: "Three-plane reconciliation" },
+        { href: "/glossary#operational-drift", label: "Operational drift" },
+        { href: "/glossary#finance-reconciliation", label: "Finance reconciliation" },
+      ],
+      concepts: [
+        { label: "Reconciliation hub", href: "/blog/reconciliation" },
+        { label: "Settlement checkpoints", href: "/glossary#settlement-checkpoint" },
+      ],
+      infrastructure: [{ href: "/operations", label: "Operations", reason: "Control framing." }],
+    },
+  },
+  "three-plane-reconciliation-architecture": {
+    prerequisite: {
+      slug: "reliable-reconciliation-flows",
+      label: "Reliable reconciliation flows",
+      reason: "Operational reconciliation vocabulary first.",
+    },
+    operationalConcepts: [
+      "Three-plane reconciliation",
+      "Commerce reconciliation",
+      "Provider reconciliation",
+      "Finance reconciliation",
+      "Matcher design",
+    ],
+    continueReading: [
+      {
+        slug: "exception-taxonomy-crypto-payment-operations",
+        reason: "Route plane mismatches into owned queues.",
+      },
+      {
+        slug: "payment-detection-vs-settlement-finality",
+        reason: "Finality language across planes.",
+      },
+    ],
+    operationalReferences: {
+      guides: [
+        {
+          href: guidePath("reconciliation-checklist"),
+          label: "Reconciliation checklist",
+          reason: "Plane-by-plane implementation steps.",
+        },
+        {
+          href: guidePath("merchant-integration-architecture"),
+          label: "Integration architecture",
+          reason: "Layer boundaries between planes.",
+        },
+      ],
+      glossary: [
+        { href: "/glossary#three-plane-reconciliation", label: "Three-plane reconciliation" },
+        { href: "/glossary#commerce-reconciliation", label: "Commerce reconciliation" },
+        { href: "/glossary#provider-reconciliation", label: "Provider reconciliation" },
+        { href: "/glossary#finance-reconciliation", label: "Finance reconciliation" },
+        { href: "/glossary#merchant-ledger-state", label: "Merchant ledger state" },
+      ],
+      concepts: [{ label: "Reconciliation hub", href: "/blog/reconciliation" }],
+      infrastructure: [{ href: "/docs", label: "Documentation", reason: "Integration reference." }],
+    },
+  },
+  "operational-settlement-drift-recovery": {
+    prerequisite: {
+      slug: "payment-detection-vs-settlement-finality",
+      label: "Payment detection vs settlement finality",
+      reason: "Finality vocabulary before drift recovery.",
+    },
+    operationalConcepts: [
+      "Operational drift",
+      "Settlement checkpoint",
+      "Async settlement",
+      "Treasury posting",
+      "Recovery playbook",
+    ],
+    continueReading: [
+      {
+        slug: "exception-taxonomy-crypto-payment-operations",
+        reason: "Classify drift symptoms into exception taxonomy.",
+      },
+      {
+        slug: "three-plane-reconciliation-architecture",
+        reason: "Re-baseline planes during recovery.",
+      },
+    ],
+    operationalReferences: {
+      guides: [
+        {
+          href: guidePath("payment-lifecycle-decision-tree"),
+          label: "Lifecycle decision tree",
+          reason: "Checkpoint-oriented operator paths.",
+        },
+        {
+          href: guidePath("reconciliation-checklist"),
+          label: "Reconciliation checklist",
+          reason: "Period close and matcher controls.",
+        },
+      ],
+      glossary: [
+        { href: "/glossary#operational-drift", label: "Operational drift" },
+        { href: "/glossary#settlement-checkpoint", label: "Settlement checkpoint" },
+        { href: "/glossary#asynchronous-settlement", label: "Asynchronous settlement" },
+        { href: "/glossary#treasury-posting", label: "Treasury posting" },
+      ],
+      concepts: [
+        { label: "Settlement operations hub", href: "/blog/settlement-operations" },
+        { label: "Reconciliation hub", href: "/blog/reconciliation" },
+      ],
+      infrastructure: [{ href: "/operations", label: "Operations", reason: "Public control overview." }],
+    },
+  },
+  "webhook-replay-ordering-controls": {
+    prerequisite: {
+      slug: "verify-crypto-webhooks-safely",
+      label: "Verify crypto webhooks safely",
+      reason: "Verification before replay and ordering controls.",
+    },
+    operationalConcepts: [
+      "Replay protection",
+      "Webhook replay window",
+      "Duplicate webhook suppression",
+      "Idempotent processing",
+      "Event sequencing",
+    ],
+    continueReading: [
+      {
+        slug: "reliable-reconciliation-flows",
+        reason: "Consume ordered events into reconciliation-safe workflows.",
+      },
+      {
+        slug: "production-grade-crypto-payment-infrastructure",
+        reason: "Place webhook controls inside infrastructure boundaries.",
+      },
+    ],
+    operationalReferences: {
+      guides: [
+        {
+          href: guidePath("webhook-replay-handling"),
+          label: "Webhook replay handling",
+          reason: "Implementation reference with worked example.",
+        },
+        {
+          href: guidePath("webhook-verification"),
+          label: "Webhook verification",
+          reason: "Raw-body verification patterns.",
+        },
+      ],
+      glossary: [
+        { href: "/glossary#replay-protection", label: "Replay protection" },
+        { href: "/glossary#webhook-replay-window", label: "Webhook replay window" },
+        { href: "/glossary#duplicate-webhook-suppression", label: "Duplicate webhook suppression" },
+        { href: "/glossary#idempotent-processing", label: "Idempotent processing" },
+      ],
+      concepts: [{ label: "Webhook security hub", href: "/blog/webhook-security" }],
+      infrastructure: [{ href: "/developers", label: "Developers", reason: "Integration entry." }],
     },
   },
 };

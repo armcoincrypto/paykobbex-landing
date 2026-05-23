@@ -11,12 +11,12 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { OG_IMAGES, OG_IMAGE, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Merchant onboarding",
+  title: "Merchant access & onboarding",
   description:
     "What to expect when requesting Kobbopay merchant access: review, integration discussion, approval, rails selection, and support boundaries — without instant universal self-serve production keys.",
   alternates: { canonical: `${SITE_URL}/onboarding` },
   openGraph: {
-    title: "Merchant onboarding — Kobbopay",
+    title: "Merchant access & onboarding — Kobbopay",
     description:
       "Review process, integration expectations, merchant approval, and operational requirements for B2B crypto payment access.",
     url: `${SITE_URL}/onboarding`,
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Merchant onboarding — Kobbopay",
+    title: "Merchant access & onboarding — Kobbopay",
     description: "Expectations for merchant access, rails, and integration support on Kobbopay.",
     images: [OG_IMAGE.url],
   },

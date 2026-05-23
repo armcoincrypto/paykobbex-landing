@@ -18,18 +18,16 @@ export function JournalTopicalClusters({ compact = false }: { compact?: boolean 
               ) : null}
             </Link>
             <ul className="journal-clusters__articles list-none p-0 m-0">
-              {[...cluster.articleSlugs, ...(cluster.id === "settlement" ? ["reliable-reconciliation-flows"] : [])].map(
-                (slug) => {
-                  const article = JOURNAL_ARTICLES.find((a) => a.slug === slug);
-                  return (
-                    <li key={slug}>
-                      <Link href={journalArticlePath(slug)} className="journal-clusters__article-link no-underline" muted>
-                        {article?.metaTitle ?? slug}
-                      </Link>
-                    </li>
-                  );
-                },
-              )}
+              {cluster.articleSlugs.map((slug) => {
+                const article = JOURNAL_ARTICLES.find((a) => a.slug === slug);
+                return (
+                  <li key={slug}>
+                    <Link href={journalArticlePath(slug)} className="journal-clusters__article-link no-underline" muted>
+                      {article?.metaTitle ?? slug}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </li>
         ))}
