@@ -36,7 +36,7 @@ export default function AboutPage() {
         { href: "/blog", label: "Journal" },
         { href: "/editorial-principles", label: "Editorial principles" },
         { href: "/docs", label: "Documentation" },
-        { href: "/contact#merchant-intake", label: "Request access" },
+        { href: "/request-access", label: "Request access" },
       ]}
     />
   );

@@ -2,6 +2,7 @@ export { CodeExampleTabs } from "@/components/operational/CodeExampleTabs";
 export type { CodeExampleTab, CodeExampleTabId } from "@/components/operational/CodeExampleTabs";
 export { CodeInstrumentPanel } from "@/components/operational/CodeInstrumentPanel";
 export { GlossaryIndex } from "@/components/operational/GlossaryIndex";
+export { GlossaryMobileBar } from "@/components/operational/GlossaryMobileBar";
 export { GlossaryTermEntry } from "@/components/operational/GlossaryTermEntry";
 export { GuideInstrument } from "@/components/operational/GuideInstrument";
 export { GuideLayout } from "@/components/operational/GuideLayout";

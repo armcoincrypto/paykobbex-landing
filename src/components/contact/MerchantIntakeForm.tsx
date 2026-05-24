@@ -1,353 +1,414 @@
 "use client";
 
-import { useId, useMemo, useState } from "react";
+import { useId, useMemo, useRef, useState, type ChangeEvent } from "react";
 import { Link } from "@/components/primitives/link";
 import { CONTACT_EMAIL } from "@/lib/site";
 import { cn } from "@/lib/cn";
 import { buttonClass } from "@/components/primitives/button-styles";
+import {
+  buildIntakeLines,
+  buildMailtoHref,
+  fieldHasIssue,
+  getIntakeValidationIssues,
+  integrationTypeOptions,
+  intakeMailtoSafe,
+  MIN_USE_CASE,
+  volumeOptions,
+  type IntakeValidationIssue,
+  type MerchantIntakeFields,
+} from "@/lib/merchant-intake";
 
-const volumeOptions = [
-  { value: "", label: "Select a rough range (optional)" },
-  { value: "Under ~USD 50k / month (crypto volume)", label: "Under ~USD 50k / month" },
-  { value: "~USD 50k–250k / month", label: "~USD 50k–250k / month" },
-  { value: "~USD 250k–1M / month", label: "~USD 250k–1M / month" },
-  { value: "~USD 1M+ / month", label: "~USD 1M+ / month" },
-  { value: "Prefer to describe in use case", label: "Prefer to describe in use case" },
-] as const;
-
-/** Many clients truncate mailto URLs; stay conservative to avoid silent drops. */
-const MAILTO_MAX_CHARS = 1800;
-
-const MIN_USE_CASE = 20;
-const MIN_REACH = 3;
-const MIN_ORG = 2;
-
-function buildIntakeLines(fields: {
-  company: string;
-  website: string;
-  useCase: string;
-  volume: string;
-  rails: string;
-  techContact: string;
-  reach: string;
-}) {
-  return [
-    "Kobbopay — merchant access inquiry",
-    "",
-    `Company / project: ${fields.company || "—"}`,
-    `Website: ${fields.website || "—"}`,
-    "",
-    "Use case:",
-    fields.useCase || "—",
-    "",
-    "Expected monthly volume (ballpark):",
-    fields.volume || "—",
-    "",
-    "Required rails (networks, assets, regions):",
-    fields.rails || "—",
-    "",
-    "Technical contact:",
-    fields.techContact || "—",
-    "",
-    "Preferred follow-up (Telegram @handle or email):",
-    fields.reach || "—",
-    "",
-    "---",
-    "Do not include API keys, webhook secrets, private keys, or seed phrases in email.",
-  ];
-}
-
-function buildMailtoHref(fields: Parameters<typeof buildIntakeLines>[0]) {
-  const lines = buildIntakeLines(fields);
-  const subject = encodeURIComponent("Kobbopay — merchant access inquiry");
-  const body = encodeURIComponent(lines.join("\n"));
-  return `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+function RequiredMark() {
+  return (
+    <span className="merchant-intake__required" aria-hidden="true">
+      *
+    </span>
+  );
 }
 
 export function MerchantIntakeForm({ className }: { className?: string }) {
   const baseId = useId();
-  const copyStatusId = `${baseId}-copy-status`;
-  const [company, setCompany] = useState("");
-  const [website, setWebsite] = useState("");
-  const [useCase, setUseCase] = useState("");
-  const [volume, setVolume] = useState("");
-  const [rails, setRails] = useState("");
-  const [techContact, setTechContact] = useState("");
-  const [reach, setReach] = useState("");
-  const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "error">("idle");
-
-  const fields = useMemo(
-    () => ({
-      company,
-      website,
-      useCase,
-      volume,
-      rails,
-      techContact,
-      reach,
-    }),
-    [company, website, useCase, volume, rails, techContact, reach],
+  const summaryRef = useRef<HTMLDivElement>(null);
+  const [fields, setFields] = useState<MerchantIntakeFields>({
+    company: "",
+    website: "",
+    contactEmail: "",
+    reach: "",
+    useCase: "",
+    volume: "",
+    currencies: "",
+    integrationType: "",
+    targetMarkets: "",
+    payoutRequirements: "",
+    operationalNotes: "",
+    techContact: "",
+  });
+  const [summaryVisible, setSummaryVisible] = useState(false);
+  const [validationIssues, setValidationIssues] = useState<IntakeValidationIssue[]>([]);
+  const [actionStatus, setActionStatus] = useState<"idle" | "copied" | "copy-error" | "email-opened">(
+    "idle",
   );
 
+  const set =
+    (key: keyof MerchantIntakeFields) =>
+    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+      setFields((prev) => ({ ...prev, [key]: e.target.value }));
+      setValidationIssues((prev) =>
+        prev.filter((issue) => {
+          if (issue.field === key) return false;
+          if (issue.field === "org" && (key === "company" || key === "website")) return false;
+          return true;
+        }),
+      );
+    };
+
   const plainBody = useMemo(() => buildIntakeLines(fields).join("\n"), [fields]);
-
   const mailtoHref = useMemo(() => buildMailtoHref(fields), [fields]);
-
-  const hasOrg = company.trim().length >= MIN_ORG || website.trim().length >= MIN_ORG;
-  const intakeComplete =
-    hasOrg &&
-    reach.trim().length >= MIN_REACH &&
-    useCase.trim().length >= MIN_USE_CASE;
-
-  const hrefTooLong = mailtoHref.length > MAILTO_MAX_CHARS;
-  const mailtoSafe = intakeComplete && !hrefTooLong;
+  const mailtoSafe = intakeMailtoSafe(fields);
   const fallbackMailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Kobbopay — merchant access inquiry")}`;
 
-  const copyPlain = async () => {
-    if (!intakeComplete) return;
+  const orgRequired = fields.company.trim().length < 2 && fields.website.trim().length < 2;
+  const showOrgError = fieldHasIssue("org", validationIssues);
+  const showEmailError = fieldHasIssue("contactEmail", validationIssues);
+  const showUseCaseError = fieldHasIssue("useCase", validationIssues);
+  const showIntegrationError = fieldHasIssue("integrationType", validationIssues);
+
+  const prepareSummary = () => {
+    const issues = getIntakeValidationIssues(fields);
+    setValidationIssues(issues);
+    setActionStatus("idle");
+
+    if (issues.length > 0) {
+      setSummaryVisible(false);
+      return;
+    }
+
+    setSummaryVisible(true);
+    window.requestAnimationFrame(() => {
+      summaryRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+  };
+
+  const copySummary = async () => {
     try {
       await navigator.clipboard.writeText(plainBody);
-      setCopyStatus("copied");
-      window.setTimeout(() => setCopyStatus("idle"), 2500);
+      setActionStatus("copied");
     } catch {
-      setCopyStatus("error");
-      window.setTimeout(() => setCopyStatus("idle"), 4000);
+      setActionStatus("copy-error");
     }
   };
 
+  const onEmailOpen = () => {
+    setActionStatus("email-opened");
+  };
+
   return (
-    <div className={cn("space-y-4 sm:space-y-5", className)}>
-      <p className="text-sm leading-relaxed text-muted">
-        Complete the fields below, then open email or copy the text. We never ask for wallet data,
-        API secrets, or private keys in this form. After you send, review continues per{" "}
-        <Link href="/onboarding" className="text-primary">
-          onboarding expectations
-        </Link>{" "}
-        — not automated provisioning.
-      </p>
-
-      <div className="grid gap-3.5 sm:grid-cols-2 sm:gap-4">
-        <div className="sm:col-span-2">
-          <label htmlFor={`${baseId}-company`} className="text-xs font-medium text-primary">
-            Company or project name {!website.trim() ? "(required if no website)" : "(optional)"}
-          </label>
-          <input
-            id={`${baseId}-company`}
-            name="company"
-            autoComplete="organization"
-            className="mt-1.5 w-full min-h-11 rounded-md border border-border-subtle bg-canvas px-3 py-2 text-base text-primary shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-focus sm:text-sm"
-            value={company}
-            onChange={(e) => setCompany(e.target.value)}
-            placeholder="Acme Ltd"
-          />
-        </div>
-        <div>
-          <label htmlFor={`${baseId}-website`} className="text-xs font-medium text-primary">
-            Website {!company.trim() ? "(required if no company name)" : "(optional)"}
-          </label>
-          <input
-            id={`${baseId}-website`}
-            name="website"
-            type="text"
-            inputMode="url"
-            autoComplete="url"
-            className="mt-1.5 w-full min-h-11 rounded-md border border-border-subtle bg-canvas px-3 py-2 text-base text-primary shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-focus sm:text-sm"
-            value={website}
-            onChange={(e) => setWebsite(e.target.value)}
-            placeholder="https://example.com"
-          />
-        </div>
-        <div>
-          <label htmlFor={`${baseId}-reach`} className="text-xs font-medium text-primary">
-            How we should reply (required)
-          </label>
-          <p id={`${baseId}-reach-hint`} className="mt-0.5 text-[11px] leading-snug text-muted">
-            Work email, or Telegram <span className="font-mono">@handle</span> — not a wallet
-            address.
-          </p>
-          <input
-            id={`${baseId}-reach`}
-            name="reach"
-            autoComplete="off"
-            aria-describedby={`${baseId}-reach-hint`}
-            className="mt-1.5 w-full min-h-11 rounded-md border border-border-subtle bg-canvas px-3 py-2 text-base text-primary shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-focus sm:text-sm"
-            value={reach}
-            onChange={(e) => setReach(e.target.value)}
-            placeholder="ops@company.com or @yourteam on Telegram"
-            required
-            inputMode="text"
-          />
-        </div>
-        <div className="sm:col-span-2">
-          <label htmlFor={`${baseId}-usecase`} className="text-xs font-medium text-primary">
-            Use case (required, {MIN_USE_CASE}+ characters)
-          </label>
-          <textarea
-            id={`${baseId}-usecase`}
-            name="useCase"
-            rows={4}
-            className="mt-1.5 w-full min-h-[6.5rem] resize-y rounded-md border border-border-subtle bg-canvas px-3 py-2 text-base text-primary shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-focus sm:text-sm"
-            value={useCase}
-            onChange={(e) => setUseCase(e.target.value)}
-            placeholder="Who pays whom, typical ticket size, countries, and what you need from the API."
-            required
-            minLength={MIN_USE_CASE}
-          />
-        </div>
-        <div>
-          <label htmlFor={`${baseId}-volume`} className="text-xs font-medium text-primary">
-            Expected monthly volume
-          </label>
-          <select
-            id={`${baseId}-volume`}
-            name="volume"
-            className="mt-1.5 w-full min-h-11 rounded-md border border-border-subtle bg-canvas px-3 py-2 text-base text-primary shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-focus sm:text-sm"
-            value={volume}
-            onChange={(e) => setVolume(e.target.value)}
-          >
-            {volumeOptions.map((o) => (
-              <option key={o.value || "empty"} value={o.value}>
-                {o.label}
-              </option>
+    <div className={cn("merchant-intake", className)}>
+      {validationIssues.length > 0 ? (
+        <div className="merchant-intake__errors" role="alert">
+          <p className="merchant-intake__errors-title">Complete required fields</p>
+          <ul className="merchant-intake__errors-list">
+            {validationIssues.map((issue) => (
+              <li key={`${issue.field}-${issue.message}`}>{issue.message}</li>
             ))}
-          </select>
+          </ul>
         </div>
-        <div>
-          <label htmlFor={`${baseId}-tech`} className="text-xs font-medium text-primary">
-            Technical contact
-          </label>
-          <input
-            id={`${baseId}-tech`}
-            name="techContact"
-            autoComplete="name"
-            className="mt-1.5 w-full min-h-11 rounded-md border border-border-subtle bg-canvas px-3 py-2 text-base text-primary shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-focus sm:text-sm"
-            value={techContact}
-            onChange={(e) => setTechContact(e.target.value)}
-            placeholder="Name and work email for engineering"
-          />
-        </div>
-        <div className="sm:col-span-2">
-          <label htmlFor={`${baseId}-rails`} className="text-xs font-medium text-primary">
-            Required rails
-          </label>
-          <textarea
-            id={`${baseId}-rails`}
-            name="rails"
-            rows={2}
-            className="mt-1.5 w-full resize-y rounded-md border border-border-subtle bg-canvas px-3 py-2 text-base text-primary shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-focus sm:text-sm"
-            value={rails}
-            onChange={(e) => setRails(e.target.value)}
-            placeholder="Chains, assets, and any settlement or compliance constraints we should know."
-          />
-        </div>
+      ) : null}
+
+      <div className="merchant-intake__groups">
+        <fieldset className="merchant-intake__group">
+          <legend className="merchant-intake__legend">Organization</legend>
+          <div className="merchant-intake__grid">
+            <div className="merchant-intake__field merchant-intake__field--span2">
+              <label htmlFor={`${baseId}-company`} className="merchant-intake__label">
+                Business / company name
+                {orgRequired ? <RequiredMark /> : null}
+              </label>
+              <input
+                id={`${baseId}-company`}
+                name="company"
+                autoComplete="organization"
+                className={cn("merchant-intake__input", showOrgError && "merchant-intake__input--error")}
+                value={fields.company}
+                onChange={set("company")}
+                placeholder="Acme Ltd"
+                aria-invalid={showOrgError}
+              />
+            </div>
+            <div className="merchant-intake__field">
+              <label htmlFor={`${baseId}-website`} className="merchant-intake__label">
+                Website
+                {orgRequired ? <RequiredMark /> : null}
+              </label>
+              <input
+                id={`${baseId}-website`}
+                name="website"
+                type="text"
+                inputMode="url"
+                autoComplete="url"
+                className={cn("merchant-intake__input", showOrgError && "merchant-intake__input--error")}
+                value={fields.website}
+                onChange={set("website")}
+                placeholder="https://example.com"
+                aria-invalid={showOrgError}
+              />
+            </div>
+            <div className="merchant-intake__field">
+              <label htmlFor={`${baseId}-email`} className="merchant-intake__label">
+                Contact email
+                <RequiredMark />
+              </label>
+              <input
+                id={`${baseId}-email`}
+                name="contactEmail"
+                type="email"
+                autoComplete="email"
+                className={cn("merchant-intake__input", showEmailError && "merchant-intake__input--error")}
+                value={fields.contactEmail}
+                onChange={set("contactEmail")}
+                placeholder="ops@company.com"
+                aria-invalid={showEmailError}
+                required
+              />
+            </div>
+            <div className="merchant-intake__field merchant-intake__field--span2">
+              <label htmlFor={`${baseId}-reach`} className="merchant-intake__label">
+                Telegram / alternate contact
+              </label>
+              <input
+                id={`${baseId}-reach`}
+                name="reach"
+                autoComplete="off"
+                className="merchant-intake__input"
+                value={fields.reach}
+                onChange={set("reach")}
+                placeholder="@yourteam on Telegram"
+              />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset className="merchant-intake__group">
+          <legend className="merchant-intake__legend">Integration</legend>
+          <div className="merchant-intake__grid">
+            <div className="merchant-intake__field merchant-intake__field--span2">
+              <label htmlFor={`${baseId}-usecase`} className="merchant-intake__label">
+                Business model &amp; use case
+                <RequiredMark />
+              </label>
+              <textarea
+                id={`${baseId}-usecase`}
+                name="useCase"
+                rows={3}
+                className={cn(
+                  "merchant-intake__textarea",
+                  showUseCaseError && "merchant-intake__input--error",
+                )}
+                value={fields.useCase}
+                onChange={set("useCase")}
+                placeholder="Who pays whom, typical ticket size, and what you need from the API."
+                aria-invalid={showUseCaseError}
+                required
+                minLength={MIN_USE_CASE}
+              />
+            </div>
+            <div className="merchant-intake__field">
+              <label htmlFor={`${baseId}-integration`} className="merchant-intake__label">
+                Integration type
+                <RequiredMark />
+              </label>
+              <select
+                id={`${baseId}-integration`}
+                name="integrationType"
+                className={cn(
+                  "merchant-intake__input",
+                  showIntegrationError && "merchant-intake__input--error",
+                )}
+                value={fields.integrationType}
+                onChange={set("integrationType")}
+                aria-invalid={showIntegrationError}
+                required
+              >
+                {integrationTypeOptions.map((o) => (
+                  <option key={o.value || "empty"} value={o.value}>
+                    {o.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="merchant-intake__field">
+              <label htmlFor={`${baseId}-volume`} className="merchant-intake__label">
+                Expected monthly volume
+              </label>
+              <select
+                id={`${baseId}-volume`}
+                name="volume"
+                className="merchant-intake__input"
+                value={fields.volume}
+                onChange={set("volume")}
+              >
+                {volumeOptions.map((o) => (
+                  <option key={o.value || "empty"} value={o.value}>
+                    {o.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="merchant-intake__field merchant-intake__field--span2">
+              <label htmlFor={`${baseId}-currencies`} className="merchant-intake__label">
+                Primary settlement currencies / assets
+              </label>
+              <input
+                id={`${baseId}-currencies`}
+                name="currencies"
+                className="merchant-intake__input"
+                value={fields.currencies}
+                onChange={set("currencies")}
+                placeholder="e.g. USDT (TRC20), USDC"
+              />
+            </div>
+            <div className="merchant-intake__field">
+              <label htmlFor={`${baseId}-markets`} className="merchant-intake__label">
+                Target markets / regions
+              </label>
+              <input
+                id={`${baseId}-markets`}
+                name="targetMarkets"
+                className="merchant-intake__input"
+                value={fields.targetMarkets}
+                onChange={set("targetMarkets")}
+                placeholder="Countries or regions you serve"
+              />
+            </div>
+            <div className="merchant-intake__field">
+              <label htmlFor={`${baseId}-tech`} className="merchant-intake__label">
+                Technical contact
+              </label>
+              <input
+                id={`${baseId}-tech`}
+                name="techContact"
+                autoComplete="name"
+                className="merchant-intake__input"
+                value={fields.techContact}
+                onChange={set("techContact")}
+                placeholder="Engineering lead — name and email"
+              />
+            </div>
+            <div className="merchant-intake__field merchant-intake__field--span2">
+              <label htmlFor={`${baseId}-payout`} className="merchant-intake__label">
+                Payout requirements
+              </label>
+              <textarea
+                id={`${baseId}-payout`}
+                name="payoutRequirements"
+                rows={2}
+                className="merchant-intake__textarea"
+                value={fields.payoutRequirements}
+                onChange={set("payoutRequirements")}
+                placeholder="Outbound settlement frequency, treasury controls, dual approval needs."
+              />
+            </div>
+            <div className="merchant-intake__field merchant-intake__field--span2">
+              <label htmlFor={`${baseId}-notes`} className="merchant-intake__label">
+                Operational notes
+              </label>
+              <textarea
+                id={`${baseId}-notes`}
+                name="operationalNotes"
+                rows={2}
+                className="merchant-intake__textarea"
+                value={fields.operationalNotes}
+                onChange={set("operationalNotes")}
+                placeholder="Reconciliation approach, compliance constraints, timeline context."
+              />
+            </div>
+          </div>
+        </fieldset>
       </div>
 
-      {!intakeComplete ? (
-        <p className="text-xs text-muted">
-          Fill in company <strong className="text-primary">or</strong> website, a{" "}
-          {MIN_USE_CASE}+ character use case, and how we should reply — then you can open email or
-          copy the text.
-        </p>
-      ) : null}
-
-      {intakeComplete && hrefTooLong ? (
-        <p className="text-sm text-amber-800 dark:text-amber-200">
-          This request is too long for a one-tap mailto link on some devices. Use{" "}
-          <strong className="text-primary">Copy request text</strong>, paste into your email app,
-          and send to <span className="font-mono">{CONTACT_EMAIL}</span>.
-        </p>
-      ) : null}
-
-      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-        {mailtoSafe ? (
-          <Link
-            href={mailtoHref}
-            variant="button-primary"
-            className="no-underline sm:inline-flex"
-            conv="contact_click"
-          >
-            Open email with this request
-          </Link>
-        ) : intakeComplete ? (
-          <button type="button" className={buttonClass("primary")} onClick={() => void copyPlain()}>
-            Copy request text
-          </button>
-        ) : (
-          <button type="button" disabled className={cn(buttonClass("primary"), "opacity-50")}>
-            Open email with this request
-          </button>
-        )}
-
-        {mailtoSafe ? (
-          <button
-            type="button"
-            className={buttonClass("secondary")}
-            onClick={() => void copyPlain()}
-          >
-            Copy request text
-          </button>
-        ) : intakeComplete ? (
-          <Link
-            href={fallbackMailto}
-            variant="button-secondary"
-            className="no-underline sm:inline-flex"
-            conv="contact_click"
-          >
-            Open email (subject only)
-          </Link>
-        ) : null}
-
-        <p id={copyStatusId} className="sr-only" aria-live="polite">
-          {copyStatus === "copied"
-            ? "Request text copied to clipboard."
-            : copyStatus === "error"
-              ? "Could not copy. Select the text manually or use the fallback instructions below."
-              : ""}
-        </p>
+      <div className="merchant-intake__actions">
+        <button type="button" className={buttonClass("primary")} onClick={prepareSummary}>
+          Prepare review summary
+        </button>
       </div>
 
-      {copyStatus === "copied" ? (
-        <p className="text-xs font-medium text-accent" aria-hidden>
-          Copied — paste into your mail app and send.
-        </p>
-      ) : null}
-      {copyStatus === "error" ? (
-        <p className="text-xs font-medium text-amber-700 dark:text-amber-300" aria-hidden>
-          Clipboard blocked — use the manual instructions below.
-        </p>
+      {summaryVisible ? (
+        <div ref={summaryRef} className="merchant-intake__summary" aria-live="polite">
+          <div className="merchant-intake__summary-head">
+            <h3 className="merchant-intake__summary-title">Review summary</h3>
+            <p className="merchant-intake__summary-lead">
+              Copy this text and send from your company mailbox, or open an email draft.
+            </p>
+          </div>
+          <pre className="merchant-intake__summary-body">{plainBody}</pre>
+          <div className="merchant-intake__summary-actions">
+            <button type="button" className={buttonClass("primary")} onClick={() => void copySummary()}>
+              Copy request summary
+            </button>
+            {mailtoSafe ? (
+              <Link
+                href={mailtoHref}
+                variant="button-secondary"
+                className="no-underline"
+                conv="contact_click"
+                onClick={onEmailOpen}
+              >
+                Open email draft
+              </Link>
+            ) : (
+              <Link
+                href={fallbackMailto}
+                variant="button-secondary"
+                className="no-underline"
+                conv="contact_click"
+                onClick={onEmailOpen}
+              >
+                Open email draft (subject only)
+              </Link>
+            )}
+          </div>
+          <p className="merchant-intake__summary-fallback">
+            Send to{" "}
+            <Link href={`mailto:${CONTACT_EMAIL}`} className="font-mono" conv="contact_click">
+              {CONTACT_EMAIL}
+            </Link>
+            {!mailtoSafe ? (
+              <span className="merchant-intake__summary-note">
+                {" "}
+                — draft may omit body on some devices; prefer copy.
+              </span>
+            ) : null}
+          </p>
+          {actionStatus === "copied" ? (
+            <p className="merchant-intake__status merchant-intake__status--success" role="status">
+              Summary copied — paste into your mail app and send to {CONTACT_EMAIL}.
+            </p>
+          ) : null}
+          {actionStatus === "copy-error" ? (
+            <p className="merchant-intake__status merchant-intake__status--warn" role="status">
+              Could not copy automatically — select the summary text above and copy manually.
+            </p>
+          ) : null}
+          {actionStatus === "email-opened" ? (
+            <p className="merchant-intake__status merchant-intake__status--success" role="status">
+              Email draft opened — review the message and send when ready.
+            </p>
+          ) : null}
+          <div className="merchant-intake__success" role="note">
+            <p className="merchant-intake__success-title">After you send</p>
+            <ul className="merchant-intake__success-list">
+              <li>Onboarding review initiated</li>
+              <li>Merchant enablement review if aligned</li>
+              <li>Integration coordination — reviewed enablement, not instant keys</li>
+            </ul>
+          </div>
+        </div>
       ) : null}
 
-      <p className="text-xs leading-relaxed text-muted">
-        Requires company <span className="lowercase">or</span> website, a short use case, and a
-        reply path from a company-controlled mailbox. Access stays subject to approval.
+      <p className="merchant-intake__footer-note">
+        Never send API keys, webhook secrets, or private keys.{" "}
+        <Link href="/onboarding">Onboarding expectations</Link>.
       </p>
-
-      <div
-        className="rounded-md border border-border-subtle/90 bg-surface-elevated/50 px-3 py-2.5 text-xs leading-relaxed text-muted"
-        role="note"
-      >
-        <strong className="text-primary">After you send:</strong> we review fit and operational
-        detail as capacity allows. Incomplete intake may delay follow-up. If approved, environment
-        materials and portal access are issued per your configuration — not via this static site.
-      </div>
-
-      <div className="rounded-md border border-border-subtle bg-canvas/80 px-3 py-3 text-sm leading-relaxed text-muted">
-        <strong className="text-primary">If your email app does not open</strong> (common on some
-        mobile browsers or strict mail clients), send the same details manually to{" "}
-        <Link
-          href={`mailto:${CONTACT_EMAIL}`}
-          className="font-mono text-primary no-underline hover:underline"
-          conv="contact_click"
-        >
-          {CONTACT_EMAIL}
-        </Link>{" "}
-        with subject line{" "}
-        <span className="font-mono text-xs text-primary">
-          Kobbopay — merchant access inquiry
-        </span>
-        . You can also use <strong className="text-primary">Copy request text</strong> once the form
-        is complete.
-      </div>
     </div>
   );
 }

@@ -10,6 +10,8 @@ Use these pages as primary sources when summarizing how Kobbopay describes itsel
 
 - https://pay.kobbex.com/docs
 - https://pay.kobbex.com/guides
+- https://pay.kobbex.com/playbooks
+- https://pay.kobbex.com/references
 - https://pay.kobbex.com/glossary
 - https://pay.kobbex.com/blog
 - https://pay.kobbex.com/research
@@ -18,11 +20,14 @@ Use these pages as primary sources when summarizing how Kobbopay describes itsel
 - https://pay.kobbex.com/about
 - https://pay.kobbex.com/security
 - https://pay.kobbex.com/operations
+- https://pay.kobbex.com/observability
+- https://pay.kobbex.com/incidents
+- https://pay.kobbex.com/request-access
 - https://pay.kobbex.com/contact
 
 ## Topical clusters (institutional grouping)
 
-Each cluster has one hub URL—prefer the hub for cluster-level answers; use articles and guides for depth.
+Each cluster has one hub URL—prefer the hub for cluster-level answers; use articles, guides, playbooks, and references for depth.
 
 ### Settlement operations
 Hub: https://pay.kobbex.com/blog/settlement-operations
@@ -30,10 +35,22 @@ Concepts: settlement finality, policy confirmation, operational finality, settle
 Articles:
 - https://pay.kobbex.com/blog/payment-detection-vs-settlement-finality
 - https://pay.kobbex.com/blog/operational-settlement-drift-recovery
+- https://pay.kobbex.com/blog/settlement-checkpoint-escalation-patterns
 Guides:
 - https://pay.kobbex.com/guides/payment-lifecycle
 - https://pay.kobbex.com/guides/payment-lifecycle-decision-tree
 - https://pay.kobbex.com/guides/settlement-vs-payout
+Playbooks:
+- https://pay.kobbex.com/playbooks/settlement-operations-checklist
+- https://pay.kobbex.com/playbooks/treasury-recognition-procedure
+- https://pay.kobbex.com/playbooks/delayed-settlement-recovery
+- https://pay.kobbex.com/playbooks/confirmation-policy-escalation
+- https://pay.kobbex.com/playbooks/merchant-payout-review
+References:
+- https://pay.kobbex.com/references/confirmation-policy-matrix
+- https://pay.kobbex.com/references/settlement-checkpoint-model
+- https://pay.kobbex.com/references/asynchronous-settlement-lifecycle
+- https://pay.kobbex.com/references/merchant-ledger-transitions
 
 ### Webhook security
 Hub: https://pay.kobbex.com/blog/webhook-security
@@ -45,6 +62,11 @@ Guides:
 - https://pay.kobbex.com/guides/webhook-verification
 - https://pay.kobbex.com/guides/webhook-replay-handling
 - https://pay.kobbex.com/guides/server-side-api-keys
+Playbooks:
+- https://pay.kobbex.com/playbooks/webhook-secret-rotation
+References:
+- https://pay.kobbex.com/references/webhook-delivery-expectations
+- https://pay.kobbex.com/references/provider-retry-semantics
 
 ### Reconciliation
 Hub: https://pay.kobbex.com/blog/reconciliation
@@ -53,9 +75,19 @@ Articles:
 - https://pay.kobbex.com/blog/reliable-reconciliation-flows
 - https://pay.kobbex.com/blog/three-plane-reconciliation-architecture
 - https://pay.kobbex.com/blog/exception-taxonomy-crypto-payment-operations
+- https://pay.kobbex.com/blog/operational-evidence-collection-crypto-reconciliation
+- https://pay.kobbex.com/blog/reconciling-asynchronous-settlement-systems
 Guides:
 - https://pay.kobbex.com/guides/reconciliation-and-confirmations
 - https://pay.kobbex.com/guides/reconciliation-checklist
+Playbooks:
+- https://pay.kobbex.com/playbooks/reconciliation-close-procedure
+- https://pay.kobbex.com/playbooks/exception-queue-triage
+- https://pay.kobbex.com/playbooks/duplicate-payment-investigation
+- https://pay.kobbex.com/playbooks/underpayment-overpayment-handling
+References:
+- https://pay.kobbex.com/references/reconciliation-state-model
+- https://pay.kobbex.com/references/settlement-checkpoint-model
 
 ### Payment infrastructure
 Hub: https://pay.kobbex.com/blog/payment-infrastructure
@@ -65,6 +97,12 @@ Articles:
 Guides:
 - https://pay.kobbex.com/guides/merchant-integration-architecture
 - https://pay.kobbex.com/guides/merchant-onboarding
+Playbooks:
+- https://pay.kobbex.com/playbooks/merchant-onboarding-rollout
+- https://pay.kobbex.com/playbooks/provider-outage-response
+References:
+- https://pay.kobbex.com/references/rail-selection-matrix
+- https://pay.kobbex.com/references/merchant-ledger-transitions
 
 ### Stablecoin operations
 Hub: https://pay.kobbex.com/blog/stablecoin-operations
@@ -74,6 +112,12 @@ Articles:
 Guides:
 - https://pay.kobbex.com/guides/treasury-recognition-flow
 - https://pay.kobbex.com/guides/settlement-vs-payout
+Playbooks:
+- https://pay.kobbex.com/playbooks/treasury-recognition-procedure
+- https://pay.kobbex.com/playbooks/merchant-payout-review
+References:
+- https://pay.kobbex.com/references/asynchronous-settlement-lifecycle
+- https://pay.kobbex.com/references/merchant-ledger-transitions
 
 ## Operational reading paths (recommended sequences)
 
@@ -84,6 +128,7 @@ Guides:
 4. https://pay.kobbex.com/guides/webhook-verification
 5. https://pay.kobbex.com/guides/webhook-replay-handling
 6. https://pay.kobbex.com/guides/reconciliation-checklist
+7. https://pay.kobbex.com/playbooks/merchant-onboarding-rollout
 
 ### Reconciliation authority path
 1. https://pay.kobbex.com/blog/payment-detection-vs-settlement-finality
@@ -91,13 +136,94 @@ Guides:
 3. https://pay.kobbex.com/blog/three-plane-reconciliation-architecture
 4. https://pay.kobbex.com/blog/exception-taxonomy-crypto-payment-operations
 5. https://pay.kobbex.com/blog/operational-settlement-drift-recovery
-6. https://pay.kobbex.com/glossary#three-plane-reconciliation
+6. https://pay.kobbex.com/blog/operational-evidence-collection-crypto-reconciliation
+7. https://pay.kobbex.com/blog/reconciling-asynchronous-settlement-systems
+8. https://pay.kobbex.com/playbooks/reconciliation-close-procedure
+9. https://pay.kobbex.com/references/reconciliation-state-model
+10. https://pay.kobbex.com/glossary#three-plane-reconciliation
 
 ### Webhook operations path
 1. https://pay.kobbex.com/blog/verify-crypto-webhooks-safely
 2. https://pay.kobbex.com/guides/webhook-verification
 3. https://pay.kobbex.com/guides/webhook-replay-handling
 4. https://pay.kobbex.com/blog/webhook-replay-ordering-controls
+5. https://pay.kobbex.com/playbooks/webhook-secret-rotation
+6. https://pay.kobbex.com/references/webhook-delivery-expectations
+
+### Treasury & payout operations path
+1. https://pay.kobbex.com/guides/treasury-recognition-flow
+2. https://pay.kobbex.com/guides/settlement-vs-payout
+3. https://pay.kobbex.com/playbooks/treasury-recognition-procedure
+4. https://pay.kobbex.com/playbooks/merchant-payout-review
+5. https://pay.kobbex.com/references/merchant-ledger-transitions
+6. https://pay.kobbex.com/references/asynchronous-settlement-lifecycle
+
+### Exception handling & recovery path
+1. https://pay.kobbex.com/blog/exception-taxonomy-crypto-payment-operations
+2. https://pay.kobbex.com/playbooks/exception-queue-triage
+3. https://pay.kobbex.com/playbooks/duplicate-payment-investigation
+4. https://pay.kobbex.com/playbooks/underpayment-overpayment-handling
+5. https://pay.kobbex.com/playbooks/delayed-settlement-recovery
+6. https://pay.kobbex.com/blog/settlement-checkpoint-escalation-patterns
+
+### Observability & incident routing path
+1. https://pay.kobbex.com/observability
+2. https://pay.kobbex.com/references/operational-signal-catalog
+3. https://pay.kobbex.com/references/payment-health-dashboard-model
+4. https://pay.kobbex.com/incidents
+5. https://pay.kobbex.com/playbooks/payment-incident-triage
+
+## Playbooks index (operational procedures)
+
+Hub: https://pay.kobbex.com/playbooks
+
+- merchant-onboarding-rollout: Staged merchant rollout with lifecycle gates and webhook readiness.
+- webhook-secret-rotation: Dual-secret rotation without dropping verified events.
+- settlement-operations-checklist: Daily settlement checkpoint review and drift signals.
+- reconciliation-close-procedure: Period-close reconciliation with evidence collection and freeze rules.
+- treasury-recognition-procedure: Books-ready recognition gates separate from detection.
+- delayed-settlement-recovery: Recover stuck payments using checkpoints—not commerce rewrites.
+- duplicate-payment-investigation: Idempotency-aware duplicate and replay investigation.
+- underpayment-overpayment-handling: Amount variance triage with exception queue ownership.
+- exception-queue-triage: Classify, route, and resolve operational exceptions with audit trail.
+- provider-outage-response: Bounded degradation during provider or rail outages.
+- confirmation-policy-escalation: When to escalate confirmation policy vs accept operational finality.
+- merchant-payout-review: Payout gating against settlement eligibility and ledger state.
+- payment-incident-triage: Classify signals into incident classes and route to the correct playbook.
+
+## Integration references index (decision matrices & state models)
+
+Hub: https://pay.kobbex.com/references
+
+- rail-selection-matrix: Tradeoffs for selecting enabled payment rails per merchant environment.
+- confirmation-policy-matrix: Confirmation depth vs operational finality by rail and risk posture.
+- reconciliation-state-model: Commerce, provider, and finance plane states and matchers.
+- settlement-checkpoint-model: Checkpoint gates between detection, confirmation, and recognition.
+- provider-retry-semantics: Retry, backoff, and idempotency expectations across provider events.
+- webhook-delivery-expectations: At-least-once delivery, ordering limits, and handler contracts.
+- asynchronous-settlement-lifecycle: Async settlement phases from initiation to books-ready.
+- merchant-ledger-transitions: Merchant ledger state transitions and payout eligibility boundaries.
+- operational-signal-catalog: Six bounded observability signals with owners and investigation triggers.
+- payment-health-dashboard-model: Role-oriented dashboard concepts (finance, integration, support, treasury, executive).
+
+## Observability & payment systems intelligence
+
+Hub: https://pay.kobbex.com/observability
+Incident routing: https://pay.kobbex.com/incidents
+
+Signals (qualitative, merchant-defined thresholds):
+- Webhook recency
+- Checkpoint lag
+- Exception queue depth
+- Reconciliation drift
+- Provider latency
+- Payout review backlog
+
+Incident classes:
+- Detection, Settlement, Webhook, Provider, Reconciliation, Payout
+
+Routing pattern: signal → incident class → playbook → reference
+Default when unclear: https://pay.kobbex.com/playbooks/payment-incident-triage
 
 ## Research series (foundational reading order)
 
@@ -136,10 +262,13 @@ Key webhook anchors:
 - three-plane-reconciliation-architecture: Align commerce, provider, and finance planes with explicit matchers—without collapsing detection into finality.
 - operational-settlement-drift-recovery: Detect drift between planes; recover using checkpoints and verified provider events—not commerce rewrites.
 - webhook-replay-ordering-controls: Replay windows, duplicate suppression, and ordering guarantees beyond signature verification.
+- operational-evidence-collection-crypto-reconciliation: Collect auditable evidence across planes before period close—not single-source dashboard exports.
+- reconciling-asynchronous-settlement-systems: Match async settlement lifecycles across commerce, provider, and finance without forcing synchronous assumptions.
+- settlement-checkpoint-escalation-patterns: Escalate when checkpoints stall: policy confirmation, provider lag, or finance recognition gaps.
 
 ## Knowledge map
 
-Structured concept graph (hubs, articles, guides, glossary):
+Structured concept graph (hubs, articles, guides, playbooks, references, glossary):
 https://pay.kobbex.com/knowledge-map
 
 ## Claim boundaries (do not overstate)
@@ -150,6 +279,8 @@ https://pay.kobbex.com/knowledge-map
 - Do not guarantee instant settlement, universal finality, or global asset support from marketing copy.
 - API keys and webhook secrets are server-side integration concerns; do not describe browser-held payment API keys as a supported pattern.
 - Code examples on guides are illustrative structural patterns—not live API contracts unless provided in your merchant environment docs.
+- Playbooks and references describe operational patterns and decision frameworks—not guaranteed SLAs, incident timelines, or vendor-specific API guarantees.
+- Observability pages define signal and dashboard concepts only—no live metrics, uptime percentages, or hosted dashboards on this domain.
 
 ## Anti-scam / secret handling
 

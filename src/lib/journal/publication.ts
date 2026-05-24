@@ -21,11 +21,13 @@ export const JOURNAL_RECONCILIATION_SERIES = {
   id: "reconciliation-operations",
   name: "Reconciliation operations",
   description:
-    "Deep reconciliation research: three-plane architecture, exception taxonomy, and settlement drift recovery—for finance and payment operations teams.",
+    "Deep reconciliation research: three-plane architecture, exception taxonomy, evidence collection, and async settlement reconciliation.",
   articleSlugs: [
     "reliable-reconciliation-flows",
     "three-plane-reconciliation-architecture",
     "exception-taxonomy-crypto-payment-operations",
+    "operational-evidence-collection-crypto-reconciliation",
+    "reconciling-asynchronous-settlement-systems",
     "operational-settlement-drift-recovery",
   ] as const,
 };
@@ -113,6 +115,27 @@ export const JOURNAL_TOPIC_ROADMAP: JournalRoadmapEntry[] = [
     cluster: "Webhooks",
     note: "Replay windows, duplicate suppression, and ordering guarantees.",
   },
+  {
+    topic: "Operational evidence collection for reconciliation",
+    status: "published",
+    slug: "operational-evidence-collection-crypto-reconciliation",
+    cluster: "Reconciliation",
+    note: "Audit-grade evidence packages across three planes.",
+  },
+  {
+    topic: "Reconciling asynchronous settlement systems",
+    status: "published",
+    slug: "reconciling-asynchronous-settlement-systems",
+    cluster: "Reconciliation",
+    note: "Intermediate states and timing-skew discipline.",
+  },
+  {
+    topic: "Settlement checkpoint escalation patterns",
+    status: "published",
+    slug: "settlement-checkpoint-escalation-patterns",
+    cluster: "Settlement",
+    note: "Human review gates and finance holds without bypass.",
+  },
 ];
 
 /** One-paragraph machine-readable summary per article (derived from published copy). */
@@ -135,6 +158,12 @@ export const JOURNAL_ARTICLE_AI_SUMMARIES: Record<string, string> = {
     "Explains operational drift between planes, settlement checkpoint guardrails, and bounded recovery playbooks grounded in verified provider events.",
   "webhook-replay-ordering-controls":
     "Covers replay protection, duplicate suppression, out-of-order delivery, and provider retry semantics beyond raw-body signature verification.",
+  "operational-evidence-collection-crypto-reconciliation":
+    "Defines evidence packages for reconciliation audits—payment_id trails, verified provider events, matcher outcomes, and finance posting metadata.",
+  "reconciling-asynchronous-settlement-systems":
+    "Explains reconciling delayed settlement with intermediate lifecycle states, timing-skew exceptions, and finance holds—not single paid flags.",
+  "settlement-checkpoint-escalation-patterns":
+    "Documents escalation when payments fail settlement checkpoints—owners, evidence requirements, and forbidden informal overrides.",
 };
 
 export function getArticleAiSummary(

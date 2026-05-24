@@ -83,3 +83,19 @@
   position: relative;
   z-index: 1;
 }
+
+/* P38.1 — consistent authority page section spacing */
+.ops-page section[class*="Section"],
+.ops-page + section {
+  scroll-margin-top: 4.5rem;
+}
+
+main > section {
+  padding-block: var(--token-section-default, 3.5rem);
+}
+
+@media (max-width: 639px) {
+  main > section {
+    padding-block: 2.5rem;
+  }
+}

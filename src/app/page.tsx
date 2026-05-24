@@ -9,6 +9,10 @@ import { CTAGroup } from "@/components/primitives/CTAGroup";
 import { Link } from "@/components/primitives/link";
 import { Section } from "@/components/primitives/Section";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { HomeAssetRailsSection } from "@/components/conversion/HomeAssetRailsSection";
+import { MerchantOutcomesGrid } from "@/components/conversion/MerchantOutcomesGrid";
+import { HomeVisualStorySection } from "@/components/conversion/HomeVisualStorySection";
+import { MerchantOnboardingFlowDiagram } from "@/components/conversion/MerchantOnboardingFlowDiagram";
 import { HeroOperationalInstrumentPreview } from "@/components/landing/HeroOperationalInstrumentPreview";
 import { OperationalRealismEntry } from "@/components/realism";
 
@@ -51,15 +55,7 @@ export const metadata: Metadata = {
   },
 };
 
-/** P4 — hero governance matrix (existing principles, grouped by concern). */
-const governancePrinciples = [
-  { bucket: "Verification", principle: "Verification precedes state mutation" },
-  { bucket: "Failure handling", principle: "Failures bounded — replay contained" },
-  { bucket: "Finance semantics", principle: "Finance owns recognition semantics" },
-  { bucket: "Merchant control", principle: "Merchant approval required" },
-  { bucket: "Claims boundary", principle: "No audit claims" },
-] as const;
-
+/** P4 — hero governance matrix removed P38.7; asset rails section replaces it. */
 const faqItems: Array<{ q: string; a: string }> = [
   {
     q: "Is merchant access instant?",
@@ -128,7 +124,7 @@ export default function HomePage() {
       <Section
         id="hero"
         tone="default"
-        className="home-hero home-hero--dominant home-hero--refined home-hero--premium home-section-bridge-out home-ops-story-start relative overflow-hidden pb-16 pt-16 sm:pb-20 sm:pt-20 lg:pb-24 lg:pt-[6.5rem]"
+        className="home-hero home-hero--dominant home-hero--refined home-hero--premium home-hero--conversion home-section-bridge-out home-ops-story-start relative overflow-hidden pb-16 pt-16 sm:pb-20 sm:pt-20 lg:pb-24 lg:pt-[6.5rem]"
       >
         <HeroBackdrop />
         <Container className="relative z-10">
@@ -138,17 +134,21 @@ export default function HomePage() {
                 B2B crypto payments
               </p>
               <h1 className="home-hero-title type-stack-after-eyebrow text-balance text-display font-semibold text-primary">
-                <span className="home-hero-title-accent">API-first</span> crypto payment{" "}
-                <span className="home-hero-title-accent">infrastructure</span> for serious merchants
+                Crypto payments infrastructure{" "}
+                <span className="home-hero-title-accent">your finance team can reconcile</span>
               </h1>
               <p className="home-hero-lead type-stack-after-heading">
-                Kobbopay is API-first B2B crypto payment infrastructure with signed webhooks,
-                explicit payment lifecycles, and a merchant portal for operations — after merchant
-                approval, on selected rails where enabled.
+                API-first B2B payments with signed webhooks, explicit lifecycles, and reviewed merchant
+                enablement — on selected rails after approval.
               </p>
+              <div className="home-hero-value-strip" aria-label="Core capabilities">
+                <span className="home-hero-value-strip__item">Signed webhooks</span>
+                <span className="home-hero-value-strip__item">Explicit lifecycles</span>
+                <span className="home-hero-value-strip__item">Reviewed onboarding</span>
+              </div>
               <CTAGroup className="home-hero-cta">
                 <Link
-                  href="/contact#merchant-intake"
+                  href="/request-access"
                   variant="button-primary"
                   className="home-hero-cta-primary no-underline"
                   conv="request_access_click"
@@ -159,70 +159,66 @@ export default function HomePage() {
                   Integration docs
                 </Link>
               </CTAGroup>
-              <div className="home-hero-meta">
-                <p className="home-hero-meta-primary">
-                  <Link href="/onboarding">Onboarding expectations →</Link>
-                </p>
-                <p className="home-hero-meta-secondary">
-                  Merchant portal:{" "}
-                  <Link href="https://merchant.kobbex.com/" conv="merchant_login_click">
-                    merchant.kobbex.com
-                  </Link>
-                  {" · "}
-                  <Link href="/login" conv="merchant_login_click">
-                    Merchant login
-                  </Link>
-                </p>
-              </div>
+              <p className="home-hero-cta-secondary-hint">
+                <Link href="/onboarding">Review onboarding expectations</Link>
+                {" · "}
+                <Link href="/guides">Integration guides</Link>
+              </p>
             </div>
             <HeroOperationalInstrumentPreview />
           </div>
-          <section
-            className="home-hero-governance home-tier-annotation"
-            aria-labelledby="home-governance-heading"
-          >
-            <header className="home-hero-governance__header">
-              <p className="home-hero-governance__eyebrow type-eyebrow type-eyebrow--soft">
-                Production governance
-              </p>
-              <h2
-                id="home-governance-heading"
-                className="home-hero-governance__title"
-              >
-                Operational production boundaries
-              </h2>
-              <p className="home-hero-governance__lead">
-                Grouped by reviewer concern—honest public positioning on this marketing
-                site, not audit or compliance certifications.
-              </p>
-            </header>
-            <div
-              className="home-hero-governance__matrix"
-              role="list"
-              aria-label="Production governance principles"
-            >
-              {governancePrinciples.map(({ bucket, principle }) => (
-                <article
-                  key={principle}
-                  className="home-hero-governance__cell"
-                  role="listitem"
-                >
-                  <div className="home-hero-governance__cell-head">
-                    <span
-                      className="home-hero-governance__status"
-                      aria-hidden="true"
-                    />
-                    <span className="home-hero-governance__bucket">{bucket}</span>
-                  </div>
-                  <p className="home-hero-governance__principle">{principle}</p>
-                </article>
-              ))}
-            </div>
-          </section>
+          <HomeAssetRailsSection />
+        </Container>
+      </Section>
+
+      <Section tone="muted" id="merchant-outcomes" className="home-tier-support">
+        <Container>
+          <p className="type-eyebrow">Why teams integrate</p>
+          <h2 className="type-section-heading type-stack-after-eyebrow text-h2 font-semibold text-primary">
+            Built for operational confidence
+          </h2>
+          <p className="type-section-lead type-stack-after-heading max-w-2xl">
+            Infrastructure clarity for engineering, finance, and operations — without marketing settlement
+            promises or fake trust badges.
+          </p>
+          <MerchantOutcomesGrid />
         </Container>
       </Section>
 
       <InfrastructureOperationsSection />
+
+      <Section id="visual-model" tone="default" className="home-tier-support">
+        <Container>
+          <p className="type-eyebrow">Operational model</p>
+          <h2
+            id="home-visual-model-heading"
+            className="type-section-heading type-stack-after-eyebrow text-h2 font-semibold text-primary"
+          >
+            Understand the infrastructure visually
+          </h2>
+          <HomeVisualStorySection headingId="home-visual-model-heading" />
+          <div className="mt-12">
+            <p className="type-eyebrow">Onboarding path</p>
+            <h3 className="mt-2 text-h3 font-semibold text-primary">Reviewed merchant enablement</h3>
+            <p className="mt-2 max-w-2xl text-sm text-muted">
+              Access follows structured qualification — not anonymous production keys.
+            </p>
+            <div className="mt-6">
+              <MerchantOnboardingFlowDiagram labelledBy="home-onboarding-flow" />
+              <p id="home-onboarding-flow" className="sr-only">
+                Merchant onboarding progression
+              </p>
+            </div>
+            <p className="mt-6 text-sm">
+              <Link href="/request-access" conv="request_access_click">
+                Request access →
+              </Link>
+              {" · "}
+              <Link href="/onboarding">Onboarding expectations</Link>
+            </p>
+          </div>
+        </Container>
+      </Section>
 
       <Section
         id="home-fit-check"
@@ -257,7 +253,7 @@ export default function HomePage() {
             </div>
             <CTAGroup className="ops-fit-check__actions home-flow-cta__actions type-stack-after-lead">
               <Link
-                href="/contact#merchant-intake"
+                href="/request-access"
                 variant="button-primary"
                 className="home-flow-cta__primary ops-fit-check__primary no-underline"
                 conv="request_access_click"
@@ -469,6 +465,25 @@ export default function HomePage() {
         </Container>
       </Section>
 
+      <Section tone="default" className="conversion-trust-band py-10 sm:py-12">
+        <Container>
+          <div className="conversion-trust-band__grid">
+            <div className="conversion-trust-band__item">
+              <h3>Reviewed onboarding</h3>
+              <p>Human qualification before production enablement — scoped rails and environment configuration.</p>
+            </div>
+            <div className="conversion-trust-band__item">
+              <h3>Reconciliation discipline</h3>
+              <p>Three-plane operational model with guides, playbooks, and references — not vanity dashboards.</p>
+            </div>
+            <div className="conversion-trust-band__item">
+              <h3>Implementation support</h3>
+              <p>Integration docs, operational guides, and observability concepts for approved merchants.</p>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
       <Section
         id="contact"
         tone="muted"
@@ -495,7 +510,7 @@ export default function HomePage() {
               </span>
               <CTAGroup className="home-flow-cta__buttons">
                 <Link
-                  href="/contact#merchant-intake"
+                  href="/request-access"
                   variant="button-primary"
                   className="home-flow-cta__primary no-underline"
                   conv="request_access_click"

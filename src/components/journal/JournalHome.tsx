@@ -120,7 +120,7 @@ export function JournalHome() {
               Docs
             </Link>
             <Link
-              href="/contact#merchant-intake"
+              href="/request-access"
               className="journal-index__footer-link journal-index__footer-link--primary no-underline"
               conv="request_access_click"
             >

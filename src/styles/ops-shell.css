@@ -1,0 +1,117 @@
+/* P38.2 Phase A — unified ops hub rows + detail shell rhythm */
+
+/* —— Hub list rows (guides, playbooks, references) —— */
+.ops-hub-list {
+  margin-top: 3.5rem;
+  list-style: none;
+  padding: 0;
+}
+
+.ops-hub-row,
+.ops-guides-hub-row {
+  display: grid;
+  gap: 1.5rem;
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--token-border-subtle);
+}
+
+.ops-hub-list > .ops-hub-row:first-child,
+.ops-hub-list > .ops-guides-hub-row:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.ops-hub-row__content {
+  min-width: 0;
+}
+
+.ops-hub-row__cta {
+  margin-top: 1rem;
+}
+
+.ops-hub-row:has(.ops-hub-row__aside) {
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .ops-hub-row:has(.ops-hub-row__aside),
+  .ops-guides-hub-row:has(.ops-hub-row__aside),
+  .ops-guides-hub-row:has(.guides-hub-instrument) {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+    gap: 2rem 2.75rem;
+    padding: 2.75rem 0;
+  }
+
+  .ops-hub-row__aside,
+  .ops-guides-hub-row .guides-hub-instrument {
+    margin-top: 0.35rem;
+  }
+}
+
+@media (hover: hover) {
+  .ops-hub-row:hover .ops-hub-row__content h2 a {
+    color: rgb(var(--token-accent-rgb) / 0.92);
+  }
+}
+
+/* Minimal aside marker (playbooks / references) */
+.ops-hub-aside__panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 7.5rem;
+  padding: 1.25rem 1rem;
+  border-radius: var(--token-radius-lg);
+  border: 1px solid rgb(var(--token-muted-rgb) / 0.12);
+  background: rgb(8 12 20 / 0.42);
+}
+
+.ops-hub-aside__index {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: rgb(var(--token-accent-rgb) / 0.72);
+  line-height: 1;
+}
+
+.ops-hub-aside__kind {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: var(--token-type-eyebrow-tracking);
+  text-transform: uppercase;
+  color: rgb(var(--token-muted-rgb) / 0.58);
+}
+
+@media (max-width: 767px) {
+  .ops-hub-row__aside,
+  .ops-guides-hub-row .guides-hub-instrument {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* —— Detail page shell (guide / playbook / reference) —— */
+.ops-detail-shell {
+  scroll-margin-top: 4rem;
+}
+
+.ops-detail-shell .ops-page-header--hero {
+  margin-bottom: 0;
+}
+
+.ops-detail-shell .ops-guide-grid {
+  margin-top: 0;
+}
+
+.ops-detail-shell:not(:has(.ops-guide-grid)) .ops-detail-body {
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .ops-detail-shell:not(:has(.ops-guide-grid)) .ops-detail-body {
+    margin-top: 2.75rem;
+  }
+}

@@ -1,5 +1,7 @@
 import type { JournalHubSlug } from "@/lib/journal/types";
 import type { GuideSlug } from "@/lib/guides-meta";
+import type { PlaybookSlug } from "@/lib/playbooks/meta";
+import type { ReferenceSlug } from "@/lib/references/meta";
 import { journalHubPath } from "@/lib/journal/hubs";
 
 export type TopicalClusterId =
@@ -17,6 +19,8 @@ export type TopicalCluster = {
   concepts: Array<{ term: string; href: string }>;
   articleSlugs: string[];
   guideSlugs: GuideSlug[];
+  playbookSlugs: PlaybookSlug[];
+  referenceSlugs: ReferenceSlug[];
   relatedClusterIds: TopicalClusterId[];
 };
 
@@ -38,8 +42,22 @@ export const TOPICAL_CLUSTERS: TopicalCluster[] = [
     articleSlugs: [
       "payment-detection-vs-settlement-finality",
       "operational-settlement-drift-recovery",
+      "settlement-checkpoint-escalation-patterns",
     ],
     guideSlugs: ["payment-lifecycle", "payment-lifecycle-decision-tree", "settlement-vs-payout"],
+    playbookSlugs: [
+      "settlement-operations-checklist",
+      "delayed-settlement-recovery",
+      "confirmation-policy-escalation",
+      "payment-incident-triage",
+    ],
+    referenceSlugs: [
+      "confirmation-policy-matrix",
+      "settlement-checkpoint-model",
+      "asynchronous-settlement-lifecycle",
+      "operational-signal-catalog",
+      "payment-health-dashboard-model",
+    ],
     relatedClusterIds: ["reconciliation", "webhooks", "infrastructure"],
   },
   {
@@ -57,6 +75,8 @@ export const TOPICAL_CLUSTERS: TopicalCluster[] = [
     ],
     articleSlugs: ["verify-crypto-webhooks-safely", "webhook-replay-ordering-controls"],
     guideSlugs: ["webhook-verification", "webhook-replay-handling", "server-side-api-keys"],
+    playbookSlugs: ["webhook-secret-rotation", "provider-outage-response", "payment-incident-triage"],
+    referenceSlugs: ["provider-retry-semantics", "webhook-delivery-expectations", "operational-signal-catalog"],
     relatedClusterIds: ["settlement", "reconciliation", "infrastructure"],
   },
   {
@@ -76,8 +96,18 @@ export const TOPICAL_CLUSTERS: TopicalCluster[] = [
       "reliable-reconciliation-flows",
       "exception-taxonomy-crypto-payment-operations",
       "three-plane-reconciliation-architecture",
+      "operational-evidence-collection-crypto-reconciliation",
+      "reconciling-asynchronous-settlement-systems",
     ],
     guideSlugs: ["reconciliation-and-confirmations", "reconciliation-checklist"],
+    playbookSlugs: [
+      "reconciliation-close-procedure",
+      "exception-queue-triage",
+      "duplicate-payment-investigation",
+      "underpayment-overpayment-handling",
+      "payment-incident-triage",
+    ],
+    referenceSlugs: ["reconciliation-state-model", "merchant-ledger-transitions", "operational-signal-catalog"],
     relatedClusterIds: ["settlement", "webhooks", "stablecoin-operations"],
   },
   {
@@ -94,6 +124,8 @@ export const TOPICAL_CLUSTERS: TopicalCluster[] = [
     ],
     articleSlugs: ["production-grade-crypto-payment-infrastructure"],
     guideSlugs: ["merchant-integration-architecture", "merchant-onboarding", "server-side-api-keys"],
+    playbookSlugs: ["merchant-onboarding-rollout", "provider-outage-response", "payment-incident-triage"],
+    referenceSlugs: ["rail-selection-matrix", "operational-signal-catalog", "payment-health-dashboard-model"],
     relatedClusterIds: ["settlement", "webhooks", "reconciliation", "stablecoin-operations"],
   },
   {
@@ -110,6 +142,12 @@ export const TOPICAL_CLUSTERS: TopicalCluster[] = [
     ],
     articleSlugs: ["usdt-business-payments"],
     guideSlugs: ["treasury-recognition-flow", "settlement-vs-payout", "payment-lifecycle"],
+    playbookSlugs: ["treasury-recognition-procedure", "merchant-payout-review", "payment-incident-triage"],
+    referenceSlugs: [
+      "merchant-ledger-transitions",
+      "asynchronous-settlement-lifecycle",
+      "payment-health-dashboard-model",
+    ],
     relatedClusterIds: ["settlement", "reconciliation", "infrastructure"],
   },
 ];

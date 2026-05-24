@@ -15,6 +15,18 @@
     font-weight: 500;
   }
 
+  .home-hero-eyebrow,
+  .home-hero-governance__eyebrow {
+    font-size: var(--token-type-eyebrow-size);
+    font-weight: var(--token-type-eyebrow-weight);
+    letter-spacing: var(--token-type-eyebrow-tracking);
+    line-height: 1.35;
+  }
+
+  .home-hero-governance__title {
+    margin-top: var(--token-stack-md);
+  }
+
   .type-section-heading {
     max-width: var(--token-type-heading-max);
     text-wrap: balance;

@@ -1,0 +1,318 @@
+/* P38.6b — weak signature screens only (/developers, /knowledge-map, homepage below-fold) */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   1. Developers — hero visual anchor (existing ArchitectureDiagram)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.ops-dev-hero {
+  display: grid;
+  gap: 2.25rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .ops-dev-hero {
+    grid-template-columns: minmax(0, 1.05fr) minmax(280px, 400px);
+    gap: clamp(2rem, 4vw, 3.25rem);
+  }
+
+  .ops-dev-hero__copy {
+    max-width: 38rem;
+  }
+}
+
+.ops-dev-hero__visual {
+  position: relative;
+  min-width: 0;
+}
+
+.ops-dev-hero__visual::before {
+  content: "";
+  position: absolute;
+  inset: -8% -6%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 80% 70% at 50% 40%,
+    rgb(var(--token-accent-rgb) / 0.1) 0%,
+    transparent 68%
+  );
+  opacity: 0.75;
+}
+
+.ops-dev-hero__diagram {
+  position: relative;
+  z-index: 1;
+}
+
+/* Editorial illustration — hide admin chrome */
+.ops-dev-hero__diagram > div > p.text-sm {
+  display: none;
+}
+
+.ops-dev-hero__diagram figure {
+  margin: 0;
+  border: 1px solid var(--signature-shell-border, rgb(var(--token-muted-rgb) / 0.14));
+  border-radius: calc(var(--token-radius-lg) + 2px);
+  background: var(
+    --signature-shell-bg,
+    linear-gradient(168deg, rgb(12 18 30 / 0.92) 0%, rgb(8 12 22 / 0.88) 100%)
+  );
+  box-shadow: var(
+    --signature-shell-shadow,
+    0 28px 72px -44px rgb(0 0 0 / 0.72),
+    0 0 96px -56px rgb(var(--token-accent-rgb) / 0.12)
+  );
+  padding: 1.25rem 1.1rem 1.1rem;
+}
+
+.ops-dev-hero__diagram figcaption {
+  display: none;
+}
+
+.ops-dev-hero__diagram figure > div[aria-hidden="true"] {
+  padding: 0;
+}
+
+.ops-dev-hero__diagram figure .mt-1 {
+  display: none;
+}
+
+.ops-dev-hero__diagram figure p.font-semibold {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.ops-dev-hero__diagram figure .border-border-strong {
+  border-color: rgb(var(--token-muted-rgb) / 0.12) !important;
+  background: rgb(6 10 18 / 0.45) !important;
+  box-shadow: none !important;
+}
+
+.ops-dev-split--webhook-only {
+  max-width: 42rem;
+}
+
+@media (max-width: 1023px) {
+  .ops-dev-hero__visual {
+    order: -1;
+    max-width: 28rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   2. Knowledge map — cartographic atlas (CSS-only topology)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.journal-knowledge-map--atlas {
+  position: relative;
+}
+
+.journal-knowledge-map--atlas::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgb(var(--token-muted-rgb) / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--token-muted-rgb) / 0.035) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: linear-gradient(180deg, rgb(0 0 0 / 0.55) 0%, transparent 92%);
+  opacity: 0.65;
+}
+
+.journal-knowledge-map--atlas > * {
+  position: relative;
+  z-index: 1;
+}
+
+.journal-knowledge-map--atlas .journal-authority__intro {
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgb(var(--token-muted-rgb) / 0.06);
+}
+
+.journal-knowledge-map--atlas .journal-knowledge-map__nav {
+  margin-bottom: 2rem;
+  padding: 0.85rem 1.1rem;
+  border: 1px solid rgb(var(--token-muted-rgb) / 0.08);
+  border-radius: var(--token-radius-md);
+  background: rgb(8 12 20 / 0.32);
+  gap: 0.45rem 1.25rem;
+}
+
+.journal-knowledge-map--atlas .journal-knowledge-map__series {
+  position: relative;
+  margin-left: 0.65rem;
+  padding-left: 1.35rem;
+  border-left: 1px solid rgb(var(--token-accent-rgb) / 0.14);
+  gap: 1.25rem;
+}
+
+.journal-knowledge-map--atlas .journal-knowledge-map__series li {
+  padding-left: 0;
+}
+
+.journal-knowledge-map--atlas .journal-knowledge-map__series-pos {
+  left: -1.35rem;
+  transform: translateX(-50%);
+  font-size: 0.6875rem;
+  color: rgb(var(--token-accent-rgb) / 0.42);
+}
+
+.journal-knowledge-map--atlas .journal-knowledge-map__cluster {
+  position: relative;
+  margin-top: clamp(2.75rem, 4.5vw, 3.75rem);
+  padding: 0 0 0 1.35rem;
+  border-top: none;
+  border-left: 1px solid rgb(var(--token-muted-rgb) / 0.1);
+}
+
+.journal-knowledge-map--atlas .journal-knowledge-map__cluster:first-of-type {
+  margin-top: 2.25rem;
+}
+
+.journal-knowledge-map--atlas .journal-knowledge-map__cluster::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: 0.35rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgb(var(--token-accent-rgb) / 0.32);
+  box-shadow: 0 0 14px -6px rgb(var(--token-accent-rgb) / 0.35);
+}
+
+.journal-knowledge-map--atlas .journal-knowledge-map__cluster + .journal-knowledge-map__cluster::after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: calc(-1 * clamp(2.75rem, 4.5vw, 3.75rem) + 0.35rem);
+  width: 1px;
+  height: calc(clamp(2.75rem, 4.5vw, 3.75rem) - 0.35rem);
+  background: linear-gradient(
+    180deg,
+    rgb(var(--token-muted-rgb) / 0.08),
+    rgb(var(--token-muted-rgb) / 0.14)
+  );
+  pointer-events: none;
+}
+
+.journal-knowledge-map--atlas .journal-authority__section-title {
+  font-size: clamp(1.125rem, 1rem + 0.4vw, 1.375rem);
+  letter-spacing: -0.02em;
+}
+
+.journal-knowledge-map--atlas .journal-knowledge-map__col-title {
+  text-transform: none;
+  letter-spacing: -0.01em;
+  font-size: 0.75rem;
+  color: rgb(var(--token-muted-rgb) / 0.52);
+}
+
+.journal-knowledge-map--atlas .journal-knowledge-map__columns {
+  margin-top: 1.5rem;
+  gap: 1.75rem 1.5rem;
+}
+
+.journal-knowledge-map--atlas .journal-knowledge-map__item-summary,
+.journal-knowledge-map--atlas .journal-knowledge-map__series-summary {
+  font-size: 0.8125rem;
+  color: rgb(var(--token-muted-rgb) / 0.46);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   3. Homepage below-fold — spacing rhythm + reduced competition
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.home-platform #merchant-outcomes.home-tier-support,
+.home-platform #visual-model.home-tier-support {
+  padding-top: clamp(3.25rem, 5.5vw, 4.75rem);
+  padding-bottom: clamp(3rem, 5vw, 4.25rem);
+}
+
+.home-platform #how-infrastructure-operates.home-platform-ops {
+  padding-top: clamp(3.5rem, 6vw, 5rem);
+  padding-bottom: clamp(3.25rem, 5.5vw, 4.75rem);
+}
+
+.home-platform #home-fit-check.home-tier-conversion {
+  padding-top: clamp(3rem, 5vw, 4.5rem);
+  padding-bottom: clamp(3rem, 5vw, 4.5rem);
+}
+
+.home-platform .home-tier-support + .home-tier-support,
+.home-platform .home-platform-ops + .home-tier-support {
+  border-top: 1px solid rgb(var(--token-muted-rgb) / 0.05);
+}
+
+/* Ops platform thesis — quieter chrome */
+.home-platform-ops .ops-editorial__meta-rail,
+.home-platform-ops .ops-editorial__layer-tag,
+.home-platform-ops .ops-platform__control-label {
+  display: none;
+}
+
+.home-platform-ops .ops-platform__thesis {
+  margin-bottom: clamp(2rem, 3.5vw, 3rem);
+  padding-bottom: clamp(1.5rem, 2.5vw, 2.25rem);
+  border-bottom: 1px solid rgb(var(--token-muted-rgb) / 0.06);
+}
+
+.home-platform-ops .ops-editorial__title {
+  font-size: clamp(1.625rem, 1.25rem + 1vw, 2.125rem);
+  letter-spacing: -0.028em;
+}
+
+.home-platform-ops .ops-platform__cluster {
+  margin-top: clamp(2.5rem, 4vw, 3.5rem);
+}
+
+.home-platform-ops .ops-platform__cluster-head {
+  margin-bottom: 1.25rem;
+}
+
+.home-platform-ops .ops-platform__cluster-grid {
+  gap: 1.5rem;
+}
+
+.home-platform-ops .ops-state-engine-legend {
+  margin-top: 0.65rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgb(var(--token-muted-rgb) / 0.06);
+  font-size: 0.6875rem;
+  color: rgb(var(--token-muted-rgb) / 0.48);
+}
+
+.home-platform-ops .ops-state-engine-legend__grid {
+  gap: 0.5rem 1rem;
+}
+
+.home-platform-ops .ops-state-engine-legend dt {
+  font-weight: 600;
+  color: rgb(var(--token-primary-rgb) / 0.72);
+}
+
+.home-platform-ops .ops-state-engine-legend dd {
+  color: rgb(var(--token-muted-rgb) / 0.46);
+}
+
+.home-platform #visual-model .mt-12 {
+  margin-top: clamp(2.5rem, 4vw, 3.5rem);
+  padding-top: clamp(2rem, 3vw, 2.75rem);
+  border-top: 1px solid rgb(var(--token-muted-rgb) / 0.06);
+}
+
+.home-platform .conversion-outcomes,
+.home-platform .home-buyer-contexts__grid {
+  margin-top: var(--token-stack-xl);
+}
+
+@media (max-width: 639px) {
+  .ops-dev-hero__visual {
+    max-width: 100%;
+  }
+}

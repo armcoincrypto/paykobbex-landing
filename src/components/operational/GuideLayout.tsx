@@ -22,14 +22,17 @@ export function GuideLayout({
   const headingId = `guide-heading-${slug}`;
 
   return (
-    <Section tone="default" className="ops-page pt-10 sm:pt-16 pb-[var(--token-section-loose)]">
+    <Section
+      tone="default"
+      className="ops-page ops-page-hero-band ops-detail-shell pt-10 sm:pt-16 pb-[var(--token-section-loose)]"
+    >
       <Container className="max-w-content">
         <div className="ops-guide-grid">
           <OperationalPageHeader
             eyebrow="Guide"
             title={title}
             lead={lead}
-            className="ops-guide-header"
+            className="ops-page-header--hero ops-guide-header"
           >
             {definitions}
           </OperationalPageHeader>

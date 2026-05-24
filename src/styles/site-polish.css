@@ -168,13 +168,14 @@
     width: 100%;
   }
 
-  .ops-guides-hub-row .guides-hub-instrument {
+  .ops-hub-row .guides-hub-instrument {
     max-width: 28rem;
   }
 }
 
 @media (max-width: 767px) {
   .ops-feature-pillar > .vf-frame,
+  .ops-hub-row .guides-hub-instrument,
   .ops-guides-hub-row .guides-hub-instrument,
   .ops-page-instrument-grid > .vf-frame {
     width: 100%;

@@ -1,0 +1,641 @@
+/* P38.4 — Luxury reduction + diagram art direction (CSS-only overrides) */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   1. Diagram simplification — institutional illustration, not admin panel
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Verification frame: single outer shell, no corner brackets or accent wash */
+.vf-frame::before,
+.vf-frame::after {
+  display: none;
+}
+
+.vf-frame {
+  border-color: rgb(var(--token-muted-rgb) / 0.1);
+  box-shadow: var(--token-shadow-1);
+}
+
+.vf-frame-corner {
+  display: none;
+}
+
+.vf-frame-rail {
+  border-bottom-color: rgb(var(--token-muted-rgb) / 0.08);
+  padding: 0.75rem 1.1rem;
+  background: transparent;
+}
+
+.vf-frame-rail span:first-child {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: rgb(var(--token-primary-rgb) / 0.88);
+}
+
+.vf-frame-rail span:last-child {
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: rgb(var(--token-muted-rgb) / 0.48);
+}
+
+.vf-frame-body {
+  padding: 1.35rem 1.25rem 1.45rem;
+}
+
+@media (min-width: 640px) {
+  .vf-frame-body {
+    padding: 1.5rem 1.35rem 1.6rem;
+  }
+}
+
+/* Telemetry chrome — hide admin bar; soften chips sitewide on diagrams */
+.ops-telemetry-bar {
+  display: none;
+}
+
+.ops-telemetry-chip {
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-family: inherit;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: rgb(var(--token-muted-rgb) / 0.52);
+}
+
+.ops-telemetry-chip--signal {
+  color: rgb(var(--token-muted-rgb) / 0.58);
+}
+
+.ops-telemetry-footer {
+  display: none;
+}
+
+.proof-bento .ops-inspect-meta,
+.proof-bento .ops-inspect-hint,
+.proof-bento .ops-context-reveal,
+.home-hero-preview .ops-inspect-meta,
+.home-hero-preview .ops-inspect-hint,
+.home-hero-preview .ops-context-reveal,
+.home-platform-ops .ops-inspect-meta,
+.home-platform-ops .ops-inspect-hint,
+.home-platform-ops .ops-context-reveal {
+  display: none;
+}
+
+.ops-telemetry-surface .vf-frame-body::before {
+  display: none;
+}
+
+/* Rail glow reduction */
+.lifecycle-lane-rail-depth,
+.lifecycle-lane-rail-base,
+.lifecycle-lane-rail-pulse,
+.webhook-ribbon-rail-depth,
+.webhook-ribbon-rail-base,
+.webhook-ribbon-rail-pulse {
+  filter: none;
+}
+
+.lifecycle-lane-marker {
+  border-color: rgb(var(--token-muted-rgb) / 0.35);
+  background: rgb(14 18 26);
+  box-shadow: none;
+}
+
+.lifecycle-lane-node--hot .lifecycle-lane-marker,
+.lifecycle-lane-marker--hot {
+  border-color: rgb(var(--token-accent-rgb) / 0.55);
+  background: rgb(var(--token-accent-rgb) / 0.18);
+  transform: none;
+  box-shadow: none;
+}
+
+.lifecycle-lane-node--hot > span:last-child {
+  box-shadow: none;
+}
+
+/* Lifecycle / webhook primary state labels */
+.lifecycle-lane-node > span:nth-child(2) span,
+.webhook-ribbon-step strong {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.lifecycle-lane-branch {
+  font-size: 0.6875rem;
+  color: rgb(var(--token-muted-rgb) / 0.46);
+}
+
+.webhook-ribbon-step {
+  font-size: 0.6875rem;
+}
+
+/* Proof bento console — flatten nested admin cards */
+.proof-bento .ops-instrument-surface.vf-frame {
+  box-shadow: var(--token-shadow-1);
+}
+
+.proof-bento .ops-console-module {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.proof-bento .ops-console-module::before {
+  display: none;
+}
+
+.proof-bento .ops-console-module__title {
+  font-size: 0.8125rem;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: rgb(var(--token-primary-rgb) / 0.9);
+}
+
+.proof-bento .ops-console-routing,
+.proof-bento .ops-console-meta-tag,
+.proof-bento .ops-review-stage .ops-console-meta-tag {
+  display: none;
+}
+
+.proof-bento .ops-console-module__execution--primary,
+.proof-bento .ops-console-well {
+  border: none;
+  background: rgb(6 10 18 / 0.32);
+  box-shadow: none;
+  padding: 0.85rem 0.75rem;
+}
+
+.proof-bento .ops-console-deep .vf-frame-rail {
+  border-bottom-color: rgb(var(--token-muted-rgb) / 0.06);
+}
+
+.proof-bento .proof-bento-confirm-meta {
+  border-top: none;
+  padding-top: 0.35rem;
+  margin-top: 0.65rem;
+}
+
+.proof-bento .confirmation-depth-layer {
+  border: none;
+  background: rgb(6 10 18 / 0.28);
+  padding: 0.75rem 0.85rem;
+}
+
+/* Hero operational preview — editorial diagram */
+.home-hero-instrument-compact-card::before,
+.home-hero-instrument-compact-card::after {
+  display: none;
+}
+
+.home-hero-instrument-compact-card {
+  border-color: rgb(var(--token-muted-rgb) / 0.1);
+  box-shadow: var(--token-shadow-1);
+  gap: 1.25rem;
+  padding: 1.35rem 1.25rem;
+}
+
+@media (min-width: 1024px) {
+  .home-hero-instrument-compact-card {
+    padding: 1.5rem 1.35rem;
+  }
+}
+
+.home-hero-preview__header {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.home-hero-preview__title {
+  font-size: 1.1875rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.home-hero-preview__subtitle {
+  font-size: 0.75rem;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: rgb(var(--token-muted-rgb) / 0.52);
+}
+
+.home-hero-preview__badges {
+  display: none;
+}
+
+.home-hero-preview__meta {
+  display: none;
+}
+
+.home-hero-preview__console {
+  gap: 0.875rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.home-hero-preview__module-head {
+  gap: 0.625rem;
+}
+
+.home-hero-preview__module-index {
+  font-family: inherit;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: rgb(var(--token-muted-rgb) / 0.42);
+}
+
+.home-hero-preview__module-icon {
+  color: rgb(var(--token-muted-rgb) / 0.38);
+}
+
+.home-hero-preview__module-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: rgb(var(--token-primary-rgb) / 0.92);
+}
+
+.home-hero-preview__module-body {
+  border: none;
+  background: rgb(6 10 18 / 0.28);
+  box-shadow: none;
+}
+
+.home-hero-preview__module-body--lane {
+  padding: 1.1rem 0.85rem 1rem;
+  min-height: 7.5rem;
+}
+
+.home-hero-preview__module-body--webhook,
+.home-hero-preview__module-body--gate {
+  padding: 0.85rem 0.75rem;
+  min-height: 5rem;
+}
+
+.home-hero-instrument--product .home-hero-preview__module--lifecycle .lifecycle-lane-node {
+  padding: 0.65rem 0.45rem 0.55rem;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.home-hero-instrument--product .home-hero-preview__module--lifecycle .lifecycle-lane-node:nth-child(2) {
+  background: rgb(var(--token-accent-rgb) / 0.06);
+  border-radius: var(--token-radius-sm);
+}
+
+.home-hero-instrument--product .home-hero-preview__module--lifecycle .lifecycle-lane-node > span:nth-child(2) span {
+  font-size: 0.875rem;
+}
+
+.home-hero-instrument--product .home-hero-preview__module--lifecycle .lifecycle-lane-branch {
+  margin-top: 0.875rem;
+  padding: 0.625rem 0.75rem;
+  border: none;
+  border-top: 1px solid rgb(var(--token-muted-rgb) / 0.06);
+  border-radius: 0;
+  background: transparent;
+}
+
+.home-hero-instrument--product .home-hero-preview__module--webhook .webhook-ribbon-step {
+  padding: 0.55rem 0.35rem 0.6rem;
+  border: none;
+  background: transparent;
+}
+
+.home-hero-instrument--product .home-hero-preview__module--webhook .webhook-ribbon-step strong {
+  font-size: 0.875rem;
+}
+
+.home-hero-instrument--product .home-hero-preview__module--webhook .webhook-ribbon-step strong::after {
+  font-size: 0.6875rem;
+  color: rgb(var(--token-muted-rgb) / 0.42);
+}
+
+.home-hero-preview__segmented {
+  border: none;
+  background: rgb(6 10 18 / 0.35);
+  padding: 0.35rem;
+}
+
+.home-hero-preview__segment-pill {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.home-hero-preview__footer {
+  padding-top: 0.25rem;
+  border-top: none;
+  font-size: 0.6875rem;
+  color: rgb(var(--token-muted-rgb) / 0.42);
+}
+
+.home-hero-preview__footer-led {
+  display: none;
+}
+
+/* Journal research figures */
+.jr-figure {
+  border-color: rgb(var(--token-muted-rgb) / 0.08);
+  box-shadow: none;
+}
+
+.jr-figure__header {
+  padding: 1rem 1.15rem 0.75rem;
+  border-bottom-color: rgb(var(--token-muted-rgb) / 0.05);
+}
+
+.jr-figure__title {
+  font-size: 0.9375rem;
+}
+
+.jr-figure__caption {
+  font-size: 0.8125rem;
+  color: rgb(var(--token-muted-rgb) / 0.48);
+}
+
+.jr-figure__canvas {
+  padding: 1rem 0.85rem;
+  background: transparent;
+}
+
+.jr-figure__interpretation {
+  padding: 0.875rem 1.15rem 1rem;
+  border-top-color: rgb(var(--token-muted-rgb) / 0.05);
+  background: transparent;
+}
+
+.jr-figure__interpretation-label {
+  display: none;
+}
+
+.jr-figure__interpretation-text {
+  font-size: 0.8125rem;
+  color: rgb(var(--token-muted-rgb) / 0.52);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   2. Typography hierarchy refinement
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.home-hero-title {
+  font-size: clamp(2.5rem, 1.65rem + 2.75vw, 3.5rem);
+  letter-spacing: -0.03em;
+}
+
+.home-hero-lead {
+  font-size: 1.0625rem;
+  color: rgb(var(--token-muted-rgb) / 0.68);
+}
+
+@media (min-width: 640px) {
+  .home-hero-lead {
+    font-size: 1.125rem;
+  }
+}
+
+.text-display {
+  font-size: clamp(2.125rem, 1.35rem + 2.2vw, 3rem);
+  letter-spacing: -0.028em;
+}
+
+.ops-page-header h1 {
+  font-size: clamp(1.875rem, 1.35rem + 1.5vw, 2.625rem);
+}
+
+.type-eyebrow,
+.ops-eyebrow,
+.home-hero-eyebrow {
+  letter-spacing: 0.12em;
+  color: rgb(var(--token-muted-rgb) / 0.58);
+}
+
+.home-platform .type-section-heading {
+  font-size: clamp(1.625rem, 1.25rem + 1vw, 2.125rem);
+  letter-spacing: -0.022em;
+}
+
+.home-platform .type-section-lead {
+  font-size: 1rem;
+  color: rgb(var(--token-muted-rgb) / 0.62);
+}
+
+.conversion-outcomes__card-title,
+.home-buyer-contexts__card-title {
+  font-size: 1.0625rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   3. Surface simplification — depth at outer shell only
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.ui-surface-card {
+  box-shadow: none;
+}
+
+.conversion-outcomes__card.ui-surface-card,
+.home-buyer-contexts__card {
+  border-color: rgb(var(--token-muted-rgb) / 0.08);
+  background: rgb(8 12 20 / 0.28);
+}
+
+.conversion-outcomes__card.ui-surface-card:hover,
+.conversion-outcomes__card.ui-surface-card:focus-within,
+.home-buyer-contexts__card:hover {
+  border-color: rgb(var(--token-muted-rgb) / 0.14);
+  background: rgb(10 15 26 / 0.36);
+  box-shadow: none;
+}
+
+.ops-pricing-proposal.ui-surface-card {
+  border-color: rgb(var(--token-muted-rgb) / 0.12);
+  background: rgb(8 12 20 / 0.42);
+  box-shadow: none;
+}
+
+.home-platform .home-hero--conversion .home-hero-governance__cell {
+  border: none;
+  background: rgb(8 12 20 / 0.18);
+}
+
+.incidents-taxonomy__list .vf-frame {
+  border: none;
+  background: rgb(8 12 20 / 0.22);
+}
+
+.incidents-routing__list {
+  border: none;
+  background: rgb(8 12 20 / 0.2);
+}
+
+.incidents-routing__list li {
+  border-bottom-color: rgb(var(--token-muted-rgb) / 0.05);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   4. Homepage composition — whitespace + focal flow
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.home-platform .home-hero--conversion {
+  padding-bottom: var(--token-stack-3xl);
+}
+
+.home-platform .type-stack-section-block {
+  margin-top: clamp(3.5rem, 6vw, 5rem);
+}
+
+.conversion-outcomes,
+.home-buyer-contexts__grid {
+  margin-top: var(--token-stack-xl);
+}
+
+@media (min-width: 1024px) {
+  .conversion-outcomes,
+  .home-buyer-contexts__grid {
+    gap: 1.5rem;
+  }
+}
+
+.conversion-visual-story {
+  gap: 2.75rem;
+}
+
+@media (min-width: 1024px) {
+  .conversion-visual-story {
+    gap: 3.25rem;
+  }
+}
+
+.home-platform-ops .proof-section-header {
+  margin-bottom: 2rem;
+}
+
+.home-platform .home-hero--conversion .home-hero-governance {
+  margin-top: var(--token-stack-2xl);
+  padding-top: var(--token-stack-lg);
+}
+
+.home-platform .home-hero--conversion .home-hero-governance__matrix {
+  gap: 0.75rem;
+}
+
+@media (min-width: 1024px) {
+  .home-hero-instrument--product {
+    max-width: min(100%, 36rem);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   5. Accent discipline — cyan only at true focal points
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.home-platform .home-hero--conversion .home-hero-value-strip__item::before {
+  background: rgb(var(--token-muted-rgb) / 0.35);
+}
+
+.home-hero-op-label {
+  color: rgb(var(--token-primary-rgb) / 0.88);
+  font-weight: 600;
+}
+
+.proof-bento .proof-workflow-index {
+  color: rgb(var(--token-muted-rgb) / 0.42);
+}
+
+.ops-feature-pillar .vf-frame-rail span:first-child,
+.guides-hub-instrument .vf-frame-rail span:first-child {
+  color: rgb(var(--token-primary-rgb) / 0.88);
+}
+
+/* Keep accent on primary CTA + active lifecycle node only (see above) */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   6. Footer simplification — editorial grouping
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.site-footer::before {
+  display: none;
+}
+
+.site-footer::after {
+  opacity: 0.14;
+}
+
+.site-footer {
+  padding: clamp(3.5rem, 6vw, 4.5rem) 0 var(--token-stack-2xl);
+  border-top-color: rgb(var(--token-muted-rgb) / 0.08);
+}
+
+.site-footer__main {
+  gap: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+@media (min-width: 1024px) {
+  .site-footer__main {
+    column-gap: clamp(2rem, 4vw, 3rem);
+  }
+}
+
+.site-footer__brand {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
+@media (min-width: 1024px) {
+  .site-footer__brand {
+    margin-right: 0;
+    padding-right: clamp(1.5rem, 3vw, 2.5rem);
+    border-right-color: rgb(var(--token-muted-rgb) / 0.05);
+  }
+}
+
+.site-footer__infra-chip {
+  border-color: rgb(var(--token-muted-rgb) / 0.14);
+  background: rgb(8 12 20 / 0.35);
+  font-family: inherit;
+  font-size: 0.625rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: rgb(var(--token-muted-rgb) / 0.58);
+}
+
+.site-footer__signature {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .site-footer__column {
+    border-left-color: rgb(var(--token-muted-rgb) / 0.05);
+    padding: var(--token-stack-sm) clamp(1rem, 2vw, 1.5rem);
+  }
+}
+
+@media (min-width: 480px) {
+  .site-footer__nav-group + .site-footer__nav-group {
+    border-left-color: rgb(var(--token-muted-rgb) / 0.05);
+  }
+}
+
+.site-footer__nav-subgroup-label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: rgb(var(--token-muted-rgb) / 0.42);
+}
+
+.site-footer__bottom {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding-top: var(--token-stack-lg);
+  border-top-color: rgb(var(--token-muted-rgb) / 0.06);
+}

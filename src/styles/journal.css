@@ -1938,7 +1938,24 @@ a.journal-refs__chip {
 }
 
 .journal-knowledge-map {
-  max-width: 48rem;
+  max-width: var(--token-width-content);
+}
+
+.journal-knowledge-map .journal-authority__intro {
+  margin-bottom: 0.25rem;
+}
+
+.journal-knowledge-map .journal-masthead__eyebrow {
+  font-family: inherit;
+  font-size: var(--token-type-eyebrow-size);
+  font-weight: var(--token-type-eyebrow-weight);
+  letter-spacing: var(--token-type-eyebrow-tracking);
+  text-transform: uppercase;
+  color: rgb(var(--token-muted-rgb) / 0.72);
+}
+
+.journal-knowledge-map .journal-authority__title {
+  margin-top: var(--token-stack-md);
 }
 
 .journal-knowledge-map__nav {
@@ -1989,18 +2006,31 @@ a.journal-refs__chip {
 }
 
 .journal-knowledge-map__cluster {
-  margin-top: 0.5rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgb(var(--token-muted-rgb) / 0.08);
+}
+
+.journal-knowledge-map__cluster:first-of-type {
+  margin-top: 1.5rem;
 }
 
 .journal-knowledge-map__columns {
   display: grid;
-  gap: 1.25rem;
-  margin-top: 1rem;
+  gap: 1.5rem 1.25rem;
+  margin-top: 1.25rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   .journal-knowledge-map__columns {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .journal-knowledge-map__columns {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.75rem 1.5rem;
   }
 }
 

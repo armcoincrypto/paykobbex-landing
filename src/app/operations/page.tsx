@@ -74,6 +74,8 @@ export default function OperationsPage() {
             </p>
             <p className="text-sm text-muted">
               <Link href="/docs">Docs</Link> · <Link href="/guides">Guides</Link> ·{" "}
+              <Link href="/playbooks">Playbooks</Link> · <Link href="/references">References</Link> ·{" "}
+              <Link href="/observability">Observability</Link> · <Link href="/incidents">Incidents</Link> ·{" "}
               <Link href="/onboarding">Onboarding</Link>
             </p>
           </OperationalPageHeader>

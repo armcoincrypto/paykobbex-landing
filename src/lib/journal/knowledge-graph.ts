@@ -1,5 +1,7 @@
 import { GLOSSARY_TERMS } from "@/lib/glossary-terms";
 import { GUIDE_ENTRIES, guidePath } from "@/lib/guides-meta";
+import { PLAYBOOK_ENTRIES, playbookPath } from "@/lib/playbooks/meta";
+import { REFERENCE_ENTRIES, referencePath } from "@/lib/references/meta";
 import { JOURNAL_ARTICLES, journalArticlePath, journalHubPath } from "@/lib/journal";
 import { TOPICAL_CLUSTERS } from "@/lib/journal/topical-clusters";
 import { JOURNAL_SERIES, JOURNAL_ARTICLE_AI_SUMMARIES } from "@/lib/journal/publication";
@@ -8,7 +10,7 @@ import { SITE_URL } from "@/lib/site";
 export type KnowledgeGraphNode = {
   label: string;
   href: string;
-  kind: "hub" | "article" | "guide" | "glossary" | "authority";
+  kind: "hub" | "article" | "guide" | "playbook" | "reference" | "glossary" | "authority";
   summary?: string;
 };
 
@@ -20,6 +22,8 @@ export type KnowledgeGraphCluster = {
   concepts: KnowledgeGraphNode[];
   articles: KnowledgeGraphNode[];
   guides: KnowledgeGraphNode[];
+  playbooks: KnowledgeGraphNode[];
+  references: KnowledgeGraphNode[];
   relatedHubs: KnowledgeGraphNode[];
 };
 
@@ -58,6 +62,22 @@ export function buildKnowledgeGraph(): {
           kind: "guide" as const,
         };
       }),
+      playbooks: cluster.playbookSlugs.map((slug) => {
+        const playbook = PLAYBOOK_ENTRIES.find((p) => p.slug === slug)!;
+        return {
+          label: playbook.shortTitle,
+          href: playbookPath(slug),
+          kind: "playbook" as const,
+        };
+      }),
+      references: cluster.referenceSlugs.map((slug) => {
+        const reference = REFERENCE_ENTRIES.find((r) => r.slug === slug)!;
+        return {
+          label: reference.shortTitle,
+          href: referencePath(slug),
+          kind: "reference" as const,
+        };
+      }),
       relatedHubs: cluster.relatedClusterIds.map((id) => {
         const related = TOPICAL_CLUSTERS.find((c) => c.id === id)!;
         return {
@@ -75,13 +95,16 @@ export function buildKnowledgeGraph(): {
       label: article.metaTitle,
       href: journalArticlePath(slug),
       kind: "article" as const,
-      summary: JOURNAL_ARTICLE_AI_SUMMARIES[slug],
     };
   });
 
   const authority: KnowledgeGraphNode[] = [
     { label: "Journal index", href: "/blog", kind: "authority", summary: "Operational publication index." },
     { label: "Research index", href: "/research", kind: "authority", summary: "Curated operational research and series." },
+    { label: "Playbooks", href: "/playbooks", kind: "authority", summary: "Operational workflow procedures." },
+    { label: "Integration references", href: "/references", kind: "authority", summary: "Decision matrices and state models." },
+    { label: "Observability", href: "/observability", kind: "authority", summary: "Signal catalog and dashboard concepts." },
+    { label: "Incident taxonomy", href: "/incidents", kind: "authority", summary: "Signal-to-playbook routing." },
     { label: "Editorial principles", href: "/editorial-principles", kind: "authority" },
     { label: "About Kobbopay", href: "/about", kind: "authority" },
     { label: "Glossary", href: "/glossary", kind: "authority", summary: `${GLOSSARY_TERMS.length} bounded operational terms.` },
@@ -108,7 +131,7 @@ export function knowledgeMapJsonLd() {
         "@id": url,
         name: "Kobbopay operational knowledge map",
         description:
-          "Machine-readable map of topical clusters connecting journal hubs, articles, guides, and glossary terms for crypto payment operations.",
+          "Machine-readable map of topical clusters connecting journal hubs, articles, guides, playbooks, references, and glossary terms for crypto payment operations.",
         url,
         inLanguage: "en",
         isPartOf: { "@type": "WebSite", "@id": `${SITE_URL}/#website`, name: "Kobbopay" },

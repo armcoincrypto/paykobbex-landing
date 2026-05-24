@@ -14,25 +14,25 @@ function WebhookConnectorSvg({ segmentIndex }: { segmentIndex: number }) {
   return (
     <svg
       className="webhook-ribbon-connector"
-      viewBox="0 0 48 8"
+      viewBox="0 0 32 6"
       preserveAspectRatio="none"
       aria-hidden="true"
       focusable="false"
     >
       <line
         className="webhook-ribbon-rail-depth"
-        x1="0"
-        y1="4"
-        x2="48"
-        y2="4"
+        x1="1"
+        y1="3"
+        x2="31"
+        y2="3"
         vectorEffect="non-scaling-stroke"
       />
       <line
         className="webhook-ribbon-rail-base"
-        x1="0"
-        y1="4"
-        x2="48"
-        y2="4"
+        x1="1"
+        y1="3"
+        x2="31"
+        y2="3"
         vectorEffect="non-scaling-stroke"
       />
       <line
@@ -40,10 +40,10 @@ function WebhookConnectorSvg({ segmentIndex }: { segmentIndex: number }) {
           "webhook-ribbon-rail-pulse",
           `webhook-ribbon-rail-pulse--seg-${segmentIndex}`,
         )}
-        x1="0"
-        y1="4"
-        x2="48"
-        y2="4"
+        x1="1"
+        y1="3"
+        x2="31"
+        y2="3"
         vectorEffect="non-scaling-stroke"
       />
     </svg>
@@ -62,29 +62,29 @@ export function HeroPreviewLifecycleLane({ className }: { className?: string }) 
     >
       <svg
         className="lifecycle-lane-rail-svg"
-        viewBox="0 0 100 20"
+        viewBox="0 0 100 24"
         preserveAspectRatio="none"
         aria-hidden="true"
         focusable="false"
       >
         <path
           className="lifecycle-lane-rail-depth"
-          d="M 6 7 H 94"
+          d="M 12 10 H 88"
           vectorEffect="non-scaling-stroke"
         />
         <path
           className="lifecycle-lane-rail-base"
-          d="M 6 7 H 94"
+          d="M 12 10 H 88"
           vectorEffect="non-scaling-stroke"
         />
         <path
           className="lifecycle-lane-rail-pulse"
-          d="M 6 7 H 94"
+          d="M 12 10 H 88"
           vectorEffect="non-scaling-stroke"
         />
         <path
           className="lifecycle-lane-rail-branch"
-          d="M 50 7 V 16"
+          d="M 50 10 V 21"
           vectorEffect="non-scaling-stroke"
         />
       </svg>
@@ -93,14 +93,14 @@ export function HeroPreviewLifecycleLane({ className }: { className?: string }) 
         {lifecyclePrimary.map((label) => (
           <li key={label} className="lifecycle-lane-node">
             <span className="lifecycle-lane-marker" />
-            <StatePill label={label} className="scale-[0.92]" />
+            <StatePill label={label} />
           </li>
         ))}
       </ol>
 
       <div className="lifecycle-lane-branch flex flex-wrap items-center gap-1.5">
         <span>Branch:</span>
-        <StatePill label="Expired" className="inline-flex scale-[0.88]" />
+        <StatePill label="Expired" className="inline-flex" />
         <span className="ops-telemetry-chip ops-telemetry-chip--policy">
           <span className="ops-telemetry-led ops-telemetry-led--policy" />
           POLICY

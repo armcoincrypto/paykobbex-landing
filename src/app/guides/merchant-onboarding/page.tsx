@@ -70,7 +70,7 @@ export default function GuideMerchantOnboardingPage() {
             Never send private keys, seed phrases, or webhook secrets in email. Legitimate onboarding never requires you to expose custody secrets to a vendor.
           </p>
           <p className="text-sm text-muted">
-            Read: <Link href="/contact#merchant-intake">Contact — request access</Link> (what to include, what
+            Read: <Link href="/request-access">Contact — request access</Link> (what to include, what
             never to send),{" "}
             <Link href="/guides/server-side-api-keys">Server-side API keys</Link>.
           </p>

@@ -49,17 +49,16 @@ export default function GuidesHubPage() {
             <p className="text-sm text-muted">
               Canonical definitions: <Link href="/glossary">Glossary</Link>. Technical overview:{" "}
               <Link href="/docs">/docs</Link>. Illustrative walkthroughs:{" "}
-              <Link href="/operations">/operations</Link>.
+              <Link href="/operations">/operations</Link>. Step-by-step procedures:{" "}
+              <Link href="/playbooks">Playbooks</Link>. Integration matrices:{" "}
+              <Link href="/references">References</Link>.
             </p>
           </OperationalPageHeader>
 
-          <ul className="mt-14 space-y-0">
+          <ul className="ops-hub-list">
             {GUIDE_ENTRIES.map((g, i) => (
-              <li
-                key={g.slug}
-                className="ops-guides-hub-row"
-              >
-                <article>
+              <li key={g.slug} className="ops-hub-row">
+                <article className="ops-hub-row__content">
                   <p className="proof-workflow-index">{String(i + 1).padStart(2, "0")}</p>
                   <h2 className="mt-2 text-h2 font-semibold text-primary">
                     <Link href={guidePath(g.slug)} className="text-primary no-underline hover:text-accent">
@@ -67,11 +66,11 @@ export default function GuidesHubPage() {
                     </Link>
                   </h2>
                   <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">{g.description}</p>
-                  <p className="mt-4 text-sm font-medium">
+                  <p className="ops-hub-row__cta text-sm font-medium">
                     <Link href={guidePath(g.slug)}>Read guide →</Link>
                   </p>
                 </article>
-                <GuideInstrument slug={g.slug as GuideSlug} className="guides-hub-instrument lg:mt-6" />
+                <GuideInstrument slug={g.slug as GuideSlug} className="ops-hub-row__aside guides-hub-instrument lg:mt-6" />
               </li>
             ))}
           </ul>

@@ -14,6 +14,26 @@ const DISTRIBUTION_SURFACES = [
     label: "Knowledge map",
     reason: "Topical cluster graph for concepts, hubs, and guides.",
   },
+  {
+    href: "/playbooks",
+    label: "Playbooks",
+    reason: "Operational workflow procedures for payment teams.",
+  },
+  {
+    href: "/references",
+    label: "Integration references",
+    reason: "Decision matrices and state models for integration design.",
+  },
+  {
+    href: "/observability",
+    label: "Observability",
+    reason: "Signal catalog and dashboard concepts for payment operations.",
+  },
+  {
+    href: "/incidents",
+    label: "Incident taxonomy",
+    reason: "Signal-to-playbook routing for operational incidents.",
+  },
 ] as const;
 
 export const JOURNAL_RELATIONSHIPS: Record<string, JournalArticleRelations> = {
@@ -234,7 +254,7 @@ export const JOURNAL_RELATIONSHIPS: Record<string, JournalArticleRelations> = {
       ],
       infrastructure: [
         { href: "/use-cases", label: "Use cases", reason: "Merchant flow context." },
-        { href: "/contact#merchant-intake", label: "Request access", reason: "Bounded integration review." },
+        { href: "/request-access", label: "Request access", reason: "Bounded integration review." },
       ],
     },
   },
@@ -476,6 +496,87 @@ export const JOURNAL_RELATIONSHIPS: Record<string, JournalArticleRelations> = {
       ],
       concepts: [{ label: "Webhook security hub", href: "/blog/webhook-security" }],
       infrastructure: [{ href: "/developers", label: "Developers", reason: "Integration entry." }],
+    },
+  },
+  "operational-evidence-collection-crypto-reconciliation": {
+    prerequisite: {
+      slug: "three-plane-reconciliation-architecture",
+      label: "Three-plane reconciliation architecture",
+      reason: "Plane vocabulary before evidence packages.",
+    },
+    operationalConcepts: [
+      "Evidence collection",
+      "Audit trail",
+      "Provider plane",
+      "Finance reconciliation",
+      "Exception resolution",
+    ],
+    continueReading: [
+      { slug: "reconciling-asynchronous-settlement-systems", reason: "Timing evidence during async settlement." },
+    ],
+    operationalReferences: {
+      guides: [{ href: guidePath("reconciliation-checklist"), label: "Reconciliation checklist" }],
+      glossary: [
+        { href: "/glossary#finance-reconciliation", label: "Finance reconciliation" },
+        { href: "/glossary#merchant-ledger-state", label: "Merchant ledger state" },
+      ],
+      concepts: [
+        { label: "Reconciliation close playbook", href: "/playbooks/reconciliation-close-procedure" },
+        { label: "Evidence reference", href: "/references/reconciliation-state-model" },
+      ],
+      infrastructure: [{ href: "/playbooks", label: "Playbooks", reason: "Operational procedures." }],
+    },
+  },
+  "reconciling-asynchronous-settlement-systems": {
+    prerequisite: {
+      slug: "reliable-reconciliation-flows",
+      label: "Reliable reconciliation flows",
+      reason: "Baseline reconciliation framing.",
+    },
+    operationalConcepts: [
+      "Asynchronous settlement",
+      "Timing skew",
+      "Intermediate states",
+      "Finance holds",
+      "Period close",
+    ],
+    continueReading: [
+      { slug: "operational-evidence-collection-crypto-reconciliation", reason: "Evidence during long delays." },
+    ],
+    operationalReferences: {
+      guides: [{ href: guidePath("payment-lifecycle-decision-tree"), label: "Lifecycle decision tree" }],
+      glossary: [{ href: "/glossary#asynchronous-settlement", label: "Asynchronous settlement" }],
+      concepts: [
+        { label: "Async lifecycle model", href: "/references/asynchronous-settlement-lifecycle" },
+        { label: "Delayed settlement playbook", href: "/playbooks/delayed-settlement-recovery" },
+      ],
+      infrastructure: [{ href: "/references", label: "Integration references", reason: "Design models." }],
+    },
+  },
+  "settlement-checkpoint-escalation-patterns": {
+    prerequisite: {
+      slug: "payment-detection-vs-settlement-finality",
+      label: "Payment detection vs settlement finality",
+      reason: "Finality vocabulary before escalation.",
+    },
+    operationalConcepts: [
+      "Settlement checkpoint",
+      "Escalation patterns",
+      "Dual control",
+      "Policy exception",
+      "Operational finality",
+    ],
+    continueReading: [
+      { slug: "operational-settlement-drift-recovery", reason: "When checkpoints fail silently." },
+    ],
+    operationalReferences: {
+      guides: [{ href: guidePath("payment-lifecycle"), label: "Payment lifecycle" }],
+      glossary: [{ href: "/glossary#settlement-checkpoint", label: "Settlement checkpoint" }],
+      concepts: [
+        { label: "Checkpoint model", href: "/references/settlement-checkpoint-model" },
+        { label: "Confirmation escalation playbook", href: "/playbooks/confirmation-policy-escalation" },
+      ],
+      infrastructure: [{ href: "/blog/settlement-operations", label: "Settlement hub", reason: "Editorial cluster." }],
     },
   },
 };

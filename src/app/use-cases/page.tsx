@@ -64,7 +64,7 @@ export default function UseCasesPage() {
             ))}
           </ul>
           <p className="ops-page-footer-links">
-            <Link href="/contact#merchant-intake" conv="request_access_click">
+            <Link href="/request-access" conv="request_access_click">
               Request access
             </Link>
             {" · "}

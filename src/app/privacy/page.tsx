@@ -156,7 +156,7 @@ export default function PrivacyPage() {
             </p>
             <p className="mt-4 text-sm text-muted">
               Related: <Link href="/terms">Terms</Link> · <Link href="/security">Security</Link> ·{" "}
-              <Link href="/contact#merchant-intake" conv="request_access_click">
+              <Link href="/request-access" conv="request_access_click">
                 Request access
               </Link>
             </p>

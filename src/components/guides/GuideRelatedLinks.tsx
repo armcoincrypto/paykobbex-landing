@@ -20,7 +20,7 @@ export function GuideRelatedLinks() {
           <Link href="/security">Security practices</Link> for verification boundaries and secret handling
         </li>
         <li>
-          <Link href="/contact#merchant-intake" conv="request_access_click">
+          <Link href="/request-access" conv="request_access_click">
             Request access
           </Link>{" "}
           for environment-specific materials

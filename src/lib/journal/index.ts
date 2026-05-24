@@ -7,6 +7,9 @@ import { exceptionTaxonomyCryptoPaymentOperations } from "@/lib/journal/articles
 import { threePlaneReconciliationArchitecture } from "@/lib/journal/articles/three-plane-reconciliation-architecture";
 import { operationalSettlementDriftRecovery } from "@/lib/journal/articles/operational-settlement-drift-recovery";
 import { webhookReplayOrderingControls } from "@/lib/journal/articles/webhook-replay-ordering-controls";
+import { operationalEvidenceCollection } from "@/lib/journal/articles/operational-evidence-collection-crypto-reconciliation";
+import { reconcilingAsynchronousSettlementSystems } from "@/lib/journal/articles/reconciling-asynchronous-settlement-systems";
+import { settlementCheckpointEscalationPatterns } from "@/lib/journal/articles/settlement-checkpoint-escalation-patterns";
 import {
   enrichArticle,
   journalArticleMetadata,
@@ -35,6 +38,9 @@ const RAW_ARTICLES: JournalArticle[] = [
   threePlaneReconciliationArchitecture,
   operationalSettlementDriftRecovery,
   webhookReplayOrderingControls,
+  operationalEvidenceCollection,
+  reconcilingAsynchronousSettlementSystems,
+  settlementCheckpointEscalationPatterns,
 ];
 
 export const JOURNAL_FEATURED_SLUG = "payment-detection-vs-settlement-finality";

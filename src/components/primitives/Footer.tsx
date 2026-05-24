@@ -38,17 +38,9 @@ const merchantLinks: Array<{
   href: string;
   label: string;
   conv?: ConversionEventName;
-  external?: boolean;
 }> = [
   { href: "/onboarding", label: "Onboarding" },
   { href: "/request-access", label: "Request access", conv: "request_access_click" },
-  { href: "/login", label: "Merchant login", conv: "merchant_login_click" },
-  {
-    href: "https://merchant.kobbex.com/",
-    label: "Merchant portal",
-    conv: "merchant_login_click",
-    external: true,
-  },
 ];
 
 const utilityLinks = [
@@ -198,7 +190,6 @@ export function Footer() {
                       className="site-footer__link"
                       muted
                       {...(item.conv ? { conv: item.conv } : {})}
-                      {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     >
                       {item.label}
                     </Link>

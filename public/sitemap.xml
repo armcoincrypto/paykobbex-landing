@@ -76,6 +76,131 @@
     <priority>0.78</priority>
   </url>
   <url>
+    <loc>https://pay.kobbex.com/blog/operational-evidence-collection-crypto-reconciliation</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/blog/reconciling-asynchronous-settlement-systems</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/blog/settlement-checkpoint-escalation-patterns</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/playbooks</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/playbooks/merchant-onboarding-rollout</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/playbooks/webhook-secret-rotation</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/playbooks/settlement-operations-checklist</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/playbooks/reconciliation-close-procedure</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/playbooks/treasury-recognition-procedure</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/playbooks/delayed-settlement-recovery</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/playbooks/duplicate-payment-investigation</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/playbooks/underpayment-overpayment-handling</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/playbooks/exception-queue-triage</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/playbooks/provider-outage-response</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/playbooks/confirmation-policy-escalation</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/playbooks/merchant-payout-review</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/references</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/references/rail-selection-matrix</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/references/confirmation-policy-matrix</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/references/reconciliation-state-model</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/references/settlement-checkpoint-model</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/references/provider-retry-semantics</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/references/webhook-delivery-expectations</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/references/asynchronous-settlement-lifecycle</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/references/merchant-ledger-transitions</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://pay.kobbex.com/blog/settlement-operations</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -196,6 +321,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://pay.kobbex.com/request-access</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
     <loc>https://pay.kobbex.com/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -209,6 +339,31 @@
     <loc>https://pay.kobbex.com/operations</loc>
     <changefreq>monthly</changefreq>
     <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/observability</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.89</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/incidents</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.89</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/playbooks/payment-incident-triage</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/references/operational-signal-catalog</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://pay.kobbex.com/references/payment-health-dashboard-model</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
   </url>
   <url>
     <loc>https://pay.kobbex.com/privacy</loc>

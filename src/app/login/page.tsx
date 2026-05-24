@@ -5,11 +5,10 @@ import { Container } from "@/components/primitives/Container";
 import { Link } from "@/components/primitives/link";
 import { Section } from "@/components/primitives/Section";
 import { OperationalPageHeader } from "@/components/operational/OperationalPageHeader";
-import { MERCHANT_PORTAL_URL } from "@/lib/site";
 
 export default function LoginRedirectPage() {
   useEffect(() => {
-    window.location.replace(`${MERCHANT_PORTAL_URL}/`);
+    window.location.replace("/request-access");
   }, []);
 
   return (
@@ -18,12 +17,12 @@ export default function LoginRedirectPage() {
         <OperationalPageHeader
           className="ops-page-header--hero"
           eyebrow="Merchants"
-          title="Merchant portal"
-          lead="Redirecting approved merchant accounts to the merchant portal. If nothing happens, use the link below. New merchants should request access from this marketing site—not sign in here."
+          title="Request access"
+          lead="Merchant portal sign-in is not available from this marketing site until your account is provisioned. Redirecting to request access — use that flow to start qualification."
         >
           <p className="mt-2">
-            <Link href={MERCHANT_PORTAL_URL} className="text-sm font-medium">
-              Continue to {MERCHANT_PORTAL_URL.replace(/^https:\/\//, "")}
+            <Link href="/request-access" className="text-sm font-medium" conv="request_access_click">
+              Continue to request access
             </Link>
           </p>
         </OperationalPageHeader>

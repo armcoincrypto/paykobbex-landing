@@ -119,7 +119,7 @@ export default function DocsPage() {
     <>
       <JsonLd id="ld-json-docs-breadcrumb" data={breadcrumbJson} />
 
-      <Section tone="default" className="ops-page ops-page-hero-band pt-10 sm:pt-16 pb-[var(--token-section-loose)]">
+      <Section tone="default" className="ops-page ops-page-hero-band pt-10 sm:pt-16">
         <Container className="max-w-content">
           <OperationalPageHeader
             className="ops-page-header--hero"
@@ -133,7 +133,7 @@ export default function DocsPage() {
                 terms, and not a commitment of availability for any specific asset, network, or
                 settlement timeline. Canonical product behavior is defined by your merchant agreement
                 and environment configuration after{" "}
-                <Link href="/contact#merchant-intake" conv="request_access_click">
+                <Link href="/request-access" conv="request_access_click">
                   merchant approval
                 </Link>
                 . Before production access, review{" "}
@@ -141,8 +141,12 @@ export default function DocsPage() {
               </>
             }
           />
+        </Container>
+      </Section>
 
-          <div className="ops-doc-layout mt-12">
+      <Section tone="muted" className="ops-docs-body pb-[var(--token-section-loose)]">
+        <Container className="max-w-content">
+          <div className="ops-doc-layout">
             <aside className="ops-doc-sidebar">
               <OperationalDocNav items={toc} />
             </aside>
@@ -347,7 +351,7 @@ export default function DocsPage() {
           </ul>
           <p className="text-sm leading-relaxed text-muted sm:text-body">
             Request integration materials for your environment via{" "}
-            <Link href="/contact#merchant-intake" conv="request_access_click">
+            <Link href="/request-access" conv="request_access_click">
               Request access
             </Link>
             .
@@ -372,7 +376,7 @@ export default function DocsPage() {
                 </VerificationFramePanel>
 
                 <CTAGroup className="mt-8">
-                  <Link href="/contact#merchant-intake" variant="button-primary" className="no-underline" conv="request_access_click">
+                  <Link href="/request-access" variant="button-primary" className="no-underline" conv="request_access_click">
                     Request access
                   </Link>
                   <Link href="/developers" variant="button-secondary" className="no-underline">

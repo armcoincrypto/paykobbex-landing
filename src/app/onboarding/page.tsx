@@ -35,7 +35,7 @@ const stages: Array<{ index: string; title: string; body: string }> = [
   {
     index: "01",
     title: "Review process",
-    body: "We triage inbound requests for basic fit: business model, geography, rails needs, and whether your use case matches B2B server-to-server integrations. The structured intake on the contact page reduces back-and-forth.",
+    body: "We triage inbound requests for basic fit: business model, geography, rails needs, and whether your use case matches B2B server-to-server integrations. The structured intake on the request access page reduces back-and-forth.",
   },
   {
     index: "02",
@@ -128,7 +128,7 @@ export default function OnboardingPage() {
             >
               <CTAGroup className="mt-6">
                 <Link
-                  href="/contact#merchant-intake"
+                  href="/request-access"
                   variant="button-primary"
                   className="no-underline"
                   conv="request_access_click"
@@ -140,7 +140,7 @@ export default function OnboardingPage() {
                 </Link>
               </CTAGroup>
               <p className="text-sm text-muted">
-                Structured inquiry: <Link href="/contact#merchant-intake">contact page</Link>.
+                Structured inquiry: <Link href="/request-access">request access</Link>.
               </p>
             </OperationalPageHeader>
             <VerificationFramePanel
@@ -195,7 +195,7 @@ export default function OnboardingPage() {
             ))}
           </dl>
           <p className="ops-page-footer-links">
-            <Link href="/contact#merchant-intake" conv="request_access_click">
+            <Link href="/request-access" conv="request_access_click">
               Request access
             </Link>
             {" · "}

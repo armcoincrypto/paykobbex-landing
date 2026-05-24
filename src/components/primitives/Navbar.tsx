@@ -42,13 +42,6 @@ const drawerSections: Array<{ id: string; label: string; items: NavItem[] }> = [
   { id: "resources", label: "Resources", items: secondaryNav },
 ];
 
-const merchantLogin: NavItem = {
-  href: "https://merchant.kobbex.com/",
-  label: "Merchant login",
-  conv: "merchant_login_click",
-  tier: "utility",
-};
-
 function navHrefBase(href: string) {
   return href.split("#")[0] || href;
 }
@@ -222,7 +215,6 @@ export function Navbar() {
               </nav>
 
               <div className="site-navbar__access-deck">
-                <NavLink item={merchantLogin} className="site-navbar__login" />
                 <Link
                   href="/request-access"
                   className="site-navbar__cta no-underline"
@@ -330,14 +322,6 @@ export function Navbar() {
           ))}
 
           <div className="site-navbar__drawer-access">
-            <p className="site-navbar__drawer-label">Access</p>
-            <div className="site-navbar__drawer-links">
-              <NavLink
-                item={merchantLogin}
-                className="site-navbar__drawer-link"
-                onNavigate={closeDrawer}
-              />
-            </div>
             <Link
               href="/request-access"
               className="site-navbar__drawer-cta no-underline"

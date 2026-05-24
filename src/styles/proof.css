@@ -296,7 +296,7 @@
   letter-spacing: var(--token-type-eyebrow-tracking);
   line-height: 1.35;
   text-transform: uppercase;
-  color: var(--token-text-muted);
+  color: rgb(var(--token-muted-rgb) / 0.72);
 }
 
 .ops-page {
@@ -471,27 +471,6 @@
 .ops-feature-pillar:first-child {
   border-top: 0;
   padding-top: 0;
-}
-
-.ops-guides-hub-row {
-  display: grid;
-  gap: 1.5rem;
-  padding: 2.5rem 0;
-  border-top: 1px solid var(--token-border-subtle);
-}
-
-.ops-guides-hub-row:first-child {
-  border-top: 0;
-  padding-top: 0;
-}
-
-@media (min-width: 1024px) {
-  .ops-guides-hub-row {
-    grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
-    gap: 2rem 2.75rem;
-    align-items: start;
-    padding: 2.75rem 0;
-  }
 }
 
 .ops-page-instrument-grid {

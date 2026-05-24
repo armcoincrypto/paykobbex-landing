@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import { Container } from "@/components/primitives/Container";
 import { Link } from "@/components/primitives/link";
 import { Section } from "@/components/primitives/Section";
-import { GlossaryIndex, GlossaryTermEntry, OperationalPageHeader } from "@/components/operational";
+import {
+  GlossaryIndex,
+  GlossaryMobileBar,
+  GlossaryTermEntry,
+  OperationalPageHeader,
+} from "@/components/operational";
 import { VerificationFramePanel } from "@/components/proof/VerificationFramePanel";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { GLOSSARY_GROUPS, glossaryTermsForGroup } from "@/lib/glossary-terms";
@@ -64,12 +69,23 @@ export default function GlossaryPage() {
               <Link href="/guides">/guides</Link>. Security: <Link href="/security">/security</Link>.
             </p>
           </OperationalPageHeader>
+        </Container>
+      </Section>
 
-          <div className="ops-glossary-layout mt-12">
+      <Section tone="muted" className="ops-glossary-body pb-[var(--token-section-loose)]">
+        <Container className="max-w-content">
+          <details className="ops-glossary-mobile-details lg:hidden">
+            <summary>Browse all terms</summary>
+            <GlossaryIndex />
+          </details>
+
+          <div className="ops-glossary-layout">
             <aside className="ops-glossary-index-slot">
               <GlossaryIndex />
             </aside>
             <div className="min-w-0">
+              <GlossaryMobileBar />
+
               {GLOSSARY_GROUPS.map((group) => (
                 <section
                   key={group.id}
@@ -90,11 +106,7 @@ export default function GlossaryPage() {
                 </section>
               ))}
 
-              <VerificationFramePanel
-                label="Usage"
-                sublabel="Citation discipline"
-                className="mt-12"
-              >
+              <VerificationFramePanel label="Usage" sublabel="Citation discipline" className="mt-12">
                 <h3 className="text-h3 font-semibold text-primary">How to use this glossary</h3>
                 <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted">
                   <li>
@@ -104,7 +116,7 @@ export default function GlossaryPage() {
                   <li>Treat enums and edge transitions as deployment-specific unless your contract says otherwise.</li>
                   <li>
                     For onboarding and access questions, use{" "}
-                    <Link href="/contact#merchant-intake" conv="request_access_click">
+                    <Link href="/request-access" conv="request_access_click">
                       Request access
                     </Link>
                     —never send secrets in email.

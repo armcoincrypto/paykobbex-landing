@@ -169,7 +169,7 @@ export function JournalArticleView({ article }: { article: JournalArticleEntry }
                 </p>
                 <CTAGroup className="journal-article-cta__actions">
                   <Link
-                    href="/contact#merchant-intake"
+                    href="/request-access"
                     variant="button-primary"
                     className="no-underline"
                     conv="request_access_click"

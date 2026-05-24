@@ -19,7 +19,7 @@ export function SupportOperationsCue({ className }: { className?: string }) {
       </ul>
       <p className="mt-4 text-xs text-muted">
         Full walkthroughs: <Link href="/operations">/operations</Link> ·{" "}
-        <Link href="/contact#merchant-intake" conv="request_access_click">
+        <Link href="/request-access" conv="request_access_click">
           Request access
         </Link>
       </p>

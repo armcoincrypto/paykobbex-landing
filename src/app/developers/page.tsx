@@ -57,37 +57,47 @@ function verifyWebhook(rawBody, signatureHeader, secret) {
 export default function DevelopersPage() {
   return (
     <>
-      <Section tone="default" className="ops-page ops-page-hero-band pt-10 sm:pt-16">
+      <Section tone="default" className="ops-page ops-page-hero-band ops-dev-hero-band pt-10 sm:pt-16">
         <Container className="max-w-content">
-          <OperationalPageHeader
-            className="ops-page-header--hero"
-            eyebrow="Developers"
-            title="Server-to-server integration hub"
-            lead={
-              <>
-                Kobbopay is designed for server-to-server integrations: your backend creates payments,
-                consumes signed webhooks, and reconciles using explicit lifecycle semantics. Start with{" "}
-                <Link href="/docs">integration docs</Link> for a CTO-friendly overview, then request
-                access for environment-specific materials after merchant approval.
-              </>
-            }
-          >
-            <CTAGroup className="mt-6">
-              <Link href="/docs" variant="button-primary" className="no-underline">
-                Read integration docs
-              </Link>
-              <Link href="/onboarding" variant="button-secondary" className="no-underline">
-                Onboarding expectations
-              </Link>
-            </CTAGroup>
-            <p className="mt-4 text-sm text-muted">
-              Environment-specific materials after review:{" "}
-              <Link href="/request-access" conv="request_access_click">
-                Request access
-              </Link>
-              .
-            </p>
-          </OperationalPageHeader>
+          <div className="ops-dev-hero">
+            <OperationalPageHeader
+              className="ops-page-header--hero ops-dev-hero__copy"
+              eyebrow="Developers"
+              title="Server-to-server integration hub"
+              lead={
+                <>
+                  Kobbopay is designed for server-to-server integrations: your backend creates payments,
+                  consumes signed webhooks, and reconciles using explicit lifecycle semantics. Start with{" "}
+                  <Link href="/docs">integration docs</Link> for a CTO-friendly overview, then request
+                  access for environment-specific materials after merchant approval.
+                </>
+              }
+            >
+              <CTAGroup className="mt-6">
+                <Link href="/docs" variant="button-primary" className="no-underline">
+                  Read integration docs
+                </Link>
+                <Link href="/onboarding" variant="button-secondary" className="no-underline">
+                  Onboarding expectations
+                </Link>
+              </CTAGroup>
+              <p className="mt-4 text-sm text-muted">
+                Environment-specific materials after review:{" "}
+                <Link href="/request-access" conv="request_access_click">
+                  Request access
+                </Link>
+                .
+              </p>
+            </OperationalPageHeader>
+
+            <aside className="ops-dev-hero__visual" aria-hidden="true">
+              <ArchitectureDiagram
+                variant="compact"
+                settle={false}
+                className="ops-dev-hero__diagram"
+              />
+            </aside>
+          </div>
         </Container>
       </Section>
 
@@ -124,11 +134,10 @@ export default function DevelopersPage() {
           </Card>
 
           <div
-            className="ops-dev-split"
+            className="ops-dev-split ops-dev-split--webhook-only"
             role="region"
-            aria-label="Illustrative architecture and signed webhook delivery flows"
+            aria-label="Illustrative signed webhook delivery flow"
           >
-            <ArchitectureDiagram variant="compact" />
             <WebhookFlowDiagram variant="compact" />
           </div>
 

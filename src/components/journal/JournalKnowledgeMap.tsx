@@ -12,7 +12,7 @@ export function JournalKnowledgeMap() {
 
       <div className="journal-publication journal-authority">
         <div className="journal-publication__frame" aria-hidden="true" />
-        <Container className="journal-publication__container journal-authority__container journal-knowledge-map">
+        <Container className="journal-publication__container journal-authority__container journal-knowledge-map journal-knowledge-map--atlas">
           <header className="journal-authority__intro">
             <p className="journal-masthead__eyebrow">Kobbopay · Knowledge architecture</p>
             <h1 className="journal-authority__title">Operational knowledge map</h1>
@@ -100,6 +100,30 @@ export function JournalKnowledgeMap() {
                       <li key={g.href}>
                         <Link href={g.href} className="no-underline" muted>
                           {g.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="journal-knowledge-map__col-title">Playbooks</h3>
+                  <ul className="list-none p-0 m-0">
+                    {cluster.playbooks.map((p) => (
+                      <li key={p.href}>
+                        <Link href={p.href} className="no-underline" muted>
+                          {p.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="journal-knowledge-map__col-title">References</h3>
+                  <ul className="list-none p-0 m-0">
+                    {cluster.references.map((r) => (
+                      <li key={r.href}>
+                        <Link href={r.href} className="no-underline" muted>
+                          {r.label}
                         </Link>
                       </li>
                     ))}

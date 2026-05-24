@@ -24,7 +24,7 @@ export function SecurityReviewFriendlySection({ variant = "full" }: { variant?: 
             /docs#webhook-verification
           </Link>
           , and{" "}
-          <Link href="/contact#merchant-intake" conv="request_access_click">
+          <Link href="/request-access" conv="request_access_click">
             Request access
           </Link>{" "}
           for review-specific questions.
@@ -71,7 +71,7 @@ export function SecurityReviewFriendlySection({ variant = "full" }: { variant?: 
               (lifecycle + webhook verification + idempotency)
             </li>
             <li>
-              <Link href="/contact#merchant-intake" conv="request_access_click">
+              <Link href="/request-access" conv="request_access_click">
                 Request access
               </Link>{" "}
               for procurement questions that need environment-specific answers

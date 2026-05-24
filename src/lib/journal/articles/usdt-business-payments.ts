@@ -22,7 +22,7 @@ export const usdtBusinessPayments: JournalArticle = {
     { href: "/use-cases", label: "Use cases", reason: "Bounded positioning for B2B programs." },
     { href: "/guides/reconciliation-and-confirmations", label: "Reconciliation guide", reason: "Confirmation semantics for finance alignment." },
     { href: "/onboarding", label: "Onboarding", reason: "How merchant environments are scoped." },
-    { href: "/contact#merchant-intake", label: "Request access", reason: "Discuss rails and configuration with the team." },
+    { href: "/request-access", label: "Request access", reason: "Discuss rails and configuration with the team." },
   ],
   faq: [
     {
