@@ -82,7 +82,7 @@ export default function DevelopersPage() {
             </CTAGroup>
             <p className="mt-4 text-sm text-muted">
               Environment-specific materials after review:{" "}
-              <Link href="/contact#merchant-intake" conv="request_access_click">
+              <Link href="/request-access" conv="request_access_click">
                 Request access
               </Link>
               .
@@ -92,8 +92,8 @@ export default function DevelopersPage() {
       </Section>
 
       <Section tone="muted" className="pb-[var(--token-section-loose)]">
-        <Container className="max-w-content space-y-10">
-          <Card>
+        <Container className="max-w-content ops-dev-body">
+          <Card className="ops-dev-card">
             <h2 className="text-h2 font-semibold text-primary">Integration principles</h2>
             <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-muted">
               <li>
@@ -124,7 +124,7 @@ export default function DevelopersPage() {
           </Card>
 
           <div
-            className="space-y-10"
+            className="ops-dev-split"
             role="region"
             aria-label="Illustrative architecture and signed webhook delivery flows"
           >
@@ -132,8 +132,8 @@ export default function DevelopersPage() {
             <WebhookFlowDiagram variant="compact" />
           </div>
 
-          <div>
-            <h2 className="text-h2 font-semibold text-primary">Example: create a payment</h2>
+          <div className="ops-dev-block">
+            <h2 className="font-semibold text-primary">Example: create a payment</h2>
             <p className="mt-2 max-w-3xl text-sm text-muted">
               Placeholders only. Replace host, headers, and payload fields with values appropriate
               to your approved environment and enabled rails.
@@ -141,8 +141,8 @@ export default function DevelopersPage() {
             <CodePanel title="HTTP request (illustrative)" code={createPaymentExample} className="mt-4" />
           </div>
 
-          <div>
-            <h2 className="text-h2 font-semibold text-primary">Example: webhook verification (sketch)</h2>
+          <div className="ops-dev-block">
+            <h2 className="font-semibold text-primary">Example: webhook verification (sketch)</h2>
             <p className="mt-2 max-w-3xl text-sm text-muted">
               Your production verifier must match the exact signing contract used by your Kobbopay
               deployment. Treat this as a pattern, not a substitute for official docs.
@@ -150,8 +150,8 @@ export default function DevelopersPage() {
             <CodePanel title="Node.js sketch (illustrative)" code={webhookVerifyExample} className="mt-4" />
           </div>
 
-          <Card>
-            <h2 className="text-h2 font-semibold text-primary">Docs roadmap</h2>
+          <Card className="ops-dev-card">
+            <h2 className="font-semibold text-primary">Docs roadmap</h2>
             <p className="mt-2 text-sm text-muted">
               Public OpenAPI / reference docs and stable anchors will ship after the integration kit
               stabilizes for external citation. This marketing site now hosts a conservative{" "}
@@ -160,8 +160,8 @@ export default function DevelopersPage() {
               </Link>{" "}
               so teams can align on concepts before contacting us.
             </p>
-            <div className="mt-4">
-              <Link href="/contact#merchant-intake" variant="button-primary" className="no-underline" conv="request_access_click">
+            <div className="ops-dev-card__cta">
+              <Link href="/request-access" variant="button-primary" className="no-underline" conv="request_access_click">
                 Request access
               </Link>
             </div>

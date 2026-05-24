@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Card } from "@/components/primitives/Card";
 import { Container } from "@/components/primitives/Container";
 import { CTAGroup } from "@/components/primitives/CTAGroup";
 import { Link } from "@/components/primitives/link";
@@ -40,8 +41,9 @@ export default function PricingPage() {
         </Container>
       </Section>
 
-      <Section tone="muted" className="pb-[var(--token-section-loose)]">
-        <Container className="max-w-3xl">
+      <Section tone="muted" className="ops-pricing-body pb-[var(--token-section-loose)]">
+        <Container className="max-w-content">
+          <div className="max-w-3xl">
           <section className="ops-section">
             <h2 className="text-h2 font-semibold text-primary">What drives a proposal</h2>
             <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted sm:text-body">
@@ -55,15 +57,15 @@ export default function PricingPage() {
             </ul>
           </section>
 
-          <section className="ops-section">
-            <h2 className="text-h2 font-semibold text-primary">Request a proposal</h2>
+          <Card className="ops-pricing-proposal ops-section">
+            <h2 className="font-semibold text-primary">Request a proposal</h2>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted sm:text-body">
               Tell us what you are building and what rails matter. We will respond with next steps
               appropriate to your use case.
             </p>
-            <CTAGroup className="mt-6">
+            <CTAGroup className="ops-cta-group mt-6">
               <Link
-                href="/contact#merchant-intake"
+                href="/request-access"
                 variant="button-primary"
                 className="no-underline"
                 conv="request_access_click"
@@ -74,10 +76,10 @@ export default function PricingPage() {
                 Review features
               </Link>
             </CTAGroup>
-          </section>
+          </Card>
 
           <p className="ops-page-footer-links">
-            <Link href="/contact#merchant-intake" conv="request_access_click">
+            <Link href="/request-access" conv="request_access_click">
               Request access
             </Link>
             {" · "}
@@ -87,6 +89,7 @@ export default function PricingPage() {
             {" · "}
             <Link href="/onboarding">Onboarding</Link>
           </p>
+          </div>
         </Container>
       </Section>
     </>

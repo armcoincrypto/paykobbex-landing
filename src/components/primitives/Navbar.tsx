@@ -20,16 +20,20 @@ const primaryNav: NavItem[] = [
   { href: "/developers", label: "Developers", tier: "primary" },
   { href: "/security", label: "Security", tier: "primary" },
   { href: "/docs", label: "Docs", tier: "primary" },
-  { href: "/blog", label: "Blog", tier: "primary" },
+  { href: "/blog", label: "Journal", tier: "primary" },
 ];
 
 const secondaryNav: NavItem[] = [
   { href: "/use-cases", label: "Use cases", tier: "secondary" },
   { href: "/guides", label: "Guides", tier: "secondary" },
+  { href: "/playbooks", label: "Playbooks", tier: "secondary" },
+  { href: "/references", label: "References", tier: "secondary" },
+  { href: "/observability", label: "Observability", tier: "secondary" },
+  { href: "/incidents", label: "Incidents", tier: "secondary" },
   { href: "/operations", label: "Operations", tier: "secondary" },
   { href: "/onboarding", label: "Onboarding", tier: "secondary" },
   { href: "/pricing", label: "Pricing", tier: "secondary" },
-  { href: "/contact#merchant-intake", label: "Contact", tier: "secondary" },
+  { href: "/contact", label: "Contact", tier: "secondary" },
   { href: "/glossary", label: "Glossary", tier: "secondary" },
 ];
 
@@ -212,6 +216,7 @@ export function Navbar() {
                     key={item.href}
                     item={item}
                     active={isNavActive(item.href, pathname)}
+                    className={item.href === "/blog" ? "site-navbar__link--journal" : undefined}
                   />
                 ))}
               </nav>
@@ -219,7 +224,7 @@ export function Navbar() {
               <div className="site-navbar__access-deck">
                 <NavLink item={merchantLogin} className="site-navbar__login" />
                 <Link
-                  href="/contact#merchant-intake"
+                  href="/request-access"
                   className="site-navbar__cta no-underline"
                   conv="request_access_click"
                 >
@@ -303,6 +308,13 @@ export function Navbar() {
           {drawerSections.map((section) => (
             <div key={section.id} className="site-navbar__drawer-group">
               <p className="site-navbar__drawer-label">{section.label}</p>
+              {section.id === "platform" ? (
+                <p className="site-navbar__drawer-journal-note">
+                  Journal hub: <Link href="/blog">Journal</Link>,{" "}
+                  <Link href="/research">Research</Link>,{" "}
+                  <Link href="/knowledge-map">Knowledge map</Link>
+                </p>
+              ) : null}
               <div className="site-navbar__drawer-links">
                 {section.items.map((item) => (
                   <NavLink
@@ -327,7 +339,7 @@ export function Navbar() {
               />
             </div>
             <Link
-              href="/contact#merchant-intake"
+              href="/request-access"
               className="site-navbar__drawer-cta no-underline"
               conv="request_access_click"
               onClick={closeDrawer}

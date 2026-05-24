@@ -11,6 +11,9 @@
 @import "../styles/layout.css";
 @import "../styles/diagrams.css";
 @import "../styles/proof.css";
+@import "../styles/ops-shell.css";
+@import "../styles/ops-polish.css";
+@import "../styles/ops-finish.css";
 @import "../styles/site-polish.css";
 @import "../styles/footer.css";
 @import "../styles/journal.css";
@@ -18,4 +21,5 @@
 @import "../styles/home-platform.css";
 @import "../styles/home-motion.css";
 @import "../styles/forms.css";
+@import "../styles/conversion.css";
 @import "../styles/print.css";

@@ -12,6 +12,7 @@ import { OperationalPageHeader } from "@/components/operational/OperationalPageH
 import { VerificationFramePanel } from "@/components/proof/VerificationFramePanel";
 import { SITE_URL, OG_IMAGES, OG_IMAGE } from "@/lib/site";
 import type { ReactNode } from "react";
+import { cn } from "@/lib/cn";
 
 export const metadata: Metadata = {
   title: "Features",
@@ -100,7 +101,7 @@ export default function FeaturesPage() {
                 Read integration docs
               </Link>
               <Link
-                href="/contact#merchant-intake"
+                href="/request-access"
                 variant="button-secondary"
                 className="no-underline"
                 conv="request_access_click"
@@ -116,7 +117,10 @@ export default function FeaturesPage() {
         <Container className="max-w-content">
           <div className="ops-feature-pillars">
             {pillars.map((p) => (
-              <article key={p.index} className="ops-feature-pillar">
+              <article
+                key={p.index}
+                className={cn("ops-feature-pillar", !p.instrument && "ops-feature-pillar--solo")}
+              >
                 <div>
                   <p className="proof-workflow-index">{p.index}</p>
                   <h2 className="mt-2 text-h2 font-semibold text-primary">{p.title}</h2>
@@ -145,7 +149,7 @@ export default function FeaturesPage() {
             {" · "}
             <Link href="/operations">Operations</Link>
             {" · "}
-            <Link href="/contact#merchant-intake" conv="request_access_click">
+            <Link href="/request-access" conv="request_access_click">
               Request access
             </Link>
             .

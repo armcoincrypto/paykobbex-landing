@@ -15,15 +15,21 @@ const legalTrustLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
-const buildLinks = [
-  { href: "/docs", label: "Docs" },
-  { href: "/blog", label: "Journal" },
+const buildJournalLinks = [
+  { href: "/blog", label: "Journal", hub: true as const },
   { href: "/research", label: "Research" },
   { href: "/knowledge-map", label: "Knowledge map" },
+] as const;
+
+const buildIntegrationLinks = [
+  { href: "/docs", label: "Docs" },
   { href: "/guides", label: "Guides" },
   { href: "/glossary", label: "Glossary" },
   { href: "/developers", label: "Developers" },
   { href: "/operations", label: "Operations" },
+] as const;
+
+const buildCompanyLinks = [
   { href: "/about", label: "About" },
   { href: "/editorial-principles", label: "Editorial" },
 ] as const;
@@ -35,7 +41,7 @@ const merchantLinks: Array<{
   external?: boolean;
 }> = [
   { href: "/onboarding", label: "Onboarding" },
-  { href: "/contact#merchant-intake", label: "Request access", conv: "request_access_click" },
+  { href: "/request-access", label: "Request access", conv: "request_access_click" },
   { href: "/login", label: "Merchant login", conv: "merchant_login_click" },
   {
     href: "https://merchant.kobbex.com/",
@@ -141,15 +147,46 @@ export function Footer() {
           <div className="site-footer__nav-cluster">
             <div className="site-footer__nav-group">
               <p className="type-eyebrow site-footer__eyebrow">Build</p>
-              <ul className="site-footer__list">
-                {buildLinks.map((item) => (
-                  <li key={item.href}>
-                    <Link href={item.href} className="site-footer__link" muted>
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <div className="site-footer__nav-subgroup site-footer__nav-subgroup--journal">
+                <p className="site-footer__nav-subgroup-label">Journal</p>
+                <ul className="site-footer__list">
+                  {buildJournalLinks.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        className={"hub" in item && item.hub ? "site-footer__link site-footer__link--journal-hub" : "site-footer__link"}
+                        muted
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="site-footer__nav-subgroup">
+                <p className="site-footer__nav-subgroup-label">Integration</p>
+                <ul className="site-footer__list">
+                  {buildIntegrationLinks.map((item) => (
+                    <li key={item.href}>
+                      <Link href={item.href} className="site-footer__link" muted>
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="site-footer__nav-subgroup">
+                <p className="site-footer__nav-subgroup-label">Company</p>
+                <ul className="site-footer__list">
+                  {buildCompanyLinks.map((item) => (
+                    <li key={item.href}>
+                      <Link href={item.href} className="site-footer__link" muted>
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
             <div className="site-footer__nav-group">
               <p className="type-eyebrow site-footer__eyebrow">Merchants</p>
